@@ -11,7 +11,7 @@ The toolkit is hosted on github. You can download it from:
 * Master repo: https://github.com/onelogin/onelogin-python-sdk/tree/master
 
 #### pypi
-The toolkit is hosted in pypi, you can find the python-saml package at https://pypi.python.org/pypi/onelogin-python-sdk
+The toolkit is hosted in pypi, you can find the onelogin-python-sdk package at https://pypi.python.org/pypi/onelogin-python-sdk
 
 You can install it executing:
 ```
