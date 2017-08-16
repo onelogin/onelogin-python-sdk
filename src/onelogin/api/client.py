@@ -197,8 +197,7 @@ class OneLoginClient(object):
     def regenerate_token(self):
         """
 
-        Generates an access token and refresh token that you may use to
-        call Onelogin's API methods.
+        Refreshing tokens provides a new set of access and refresh tokens.
 
         Returns the refreshed OAuth Token info
         :return: OAuth Token info
