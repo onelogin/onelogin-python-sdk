@@ -48,7 +48,7 @@ class OneLoginClient(object):
         """
         self.settings = Settings(settings_path)
 
-    def clearn_error(self):
+    def clean_error(self):
         """
 
         Clean any previous error registered at the client.
@@ -164,7 +164,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/oauth20-tokens/generate-tokens Generate Tokens documentation.
 
         """
-        self.clearn_error()
+        self.clean_error()
 
         try:
             url = self.settings.get_url(Constants.TOKEN_REQUEST_URL)
@@ -207,7 +207,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/oauth20-tokens/refresh-tokens Refresh Tokens documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
 
         try:
             url = self.settings.get_url(Constants.TOKEN_REQUEST_URL)
@@ -242,7 +242,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/oauth20-tokens/revoke-tokens Revoke Tokens documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
 
         try:
             url = self.settings.get_url(Constants.TOKEN_REVOKE_URL)
@@ -284,7 +284,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/oauth20-tokens/get-rate-limit Get Rate Limit documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -325,7 +325,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/get-users Get Users documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
         limit = 50
 
@@ -387,7 +387,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/get-user-by-id Get User by ID documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -426,7 +426,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/get-apps-for-user Get Apps for a User documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -468,7 +468,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/get-roles-for-user Get Roles for a User documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -506,7 +506,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/get-custom-attributes Get Custom Attributes documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -552,7 +552,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/create-user Create User documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -599,7 +599,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/update-user Update User by ID documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -641,7 +641,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/assign-role-to-user Assign Role to User documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -686,7 +686,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/remove-role-from-user Remove Role from User documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -734,7 +734,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/set-password-in-cleartext Set Password by ID Using Cleartext documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -789,7 +789,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/set-password-using-sha-256 Set Password by ID Using Salt and SHA-256 documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -838,7 +838,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/set-custom-attribute Set Custom Attribute Value documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -880,7 +880,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/log-user-out Log User Out documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -923,7 +923,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/lock-user-account Lock User Account documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -965,7 +965,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/delete-user Delete User by ID documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1011,7 +1011,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/create-session-login-token Create Session Login Token documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1056,7 +1056,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/verify-factor Verify Factor documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1101,7 +1101,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/roles/get-roles Get Roles documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
         limit = 50
 
@@ -1163,7 +1163,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/roles/get-role-by-id Get Role by ID documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1200,7 +1200,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/events/event-types Get Event Types documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1244,7 +1244,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/events/get-events Get Events documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
         limit = 50
 
@@ -1307,7 +1307,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/events/get-event-by-id Get Event by ID documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1352,7 +1352,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/events/create-event Create Event documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1389,7 +1389,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/groups/get-groups Get Groups documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1444,7 +1444,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/groups/get-group-by-id Get Group by ID documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1496,7 +1496,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/users/set-password-in-cleartext Set Password by ID Using Cleartext documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1556,7 +1556,7 @@ class OneLoginClient(object):
         See @see https://developers.onelogin.com/api-docs/1/saml-assertions/verify-factor Verify Factor documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1607,7 +1607,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/invite-links/generate-invite-link Generate Invite Link documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1654,7 +1654,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/invite-links/send-invite-link Send Invite Link documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
@@ -1701,7 +1701,7 @@ class OneLoginClient(object):
         See https://developers.onelogin.com/api-docs/1/embed-apps/get-apps-to-embed-for-a-user Get Apps to Embed for a User documentation
 
         """
-        self.clearn_error()
+        self.clean_error()
         self.prepare_token()
 
         try:
