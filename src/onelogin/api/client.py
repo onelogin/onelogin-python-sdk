@@ -909,7 +909,7 @@ class OneLoginClient(object):
         the user, for a specific time you define in the request, or until you
         unlock it.
 
-        :param user_id: Id of the user to be logged out
+        :param user_id: Id of the user to be locked.
         :type user_id: int
 
         :param minutes: Set to the number of minutes for which you want to lock the user account. (0 to delegate on policy)
