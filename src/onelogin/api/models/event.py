@@ -19,7 +19,7 @@ class Event(object):
         self.actor_user_id = data.get('actor_user_id', None)
         self.actor_user_name = data.get('actor_user_name', '')
         self.assuming_acting_user_id = data.get('assuming_acting_user_id', None)
-        self.roleId = data.get('roleId', None)
+        self.role_id = data.get('role_id', None)
         self.role_name = data.get('role_name', '')
         self.app_id = data.get('app_id', None)
         self.group_id = data.get('group_id', None)
