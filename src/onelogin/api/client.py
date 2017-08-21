@@ -1492,7 +1492,7 @@ class OneLoginClient(object):
         :return: true if success
         :rtype: SAMLEndpointResponse
 
-        See https://developers.onelogin.com/api-docs/1/users/set-password-in-cleartext Set Password by ID Using Cleartext documentation
+        See https://developers.onelogin.com/api-docs/1/saml-assertions/generate-saml-assertion Generate SAML Assertion documentation
 
         """
         self.clean_error()
