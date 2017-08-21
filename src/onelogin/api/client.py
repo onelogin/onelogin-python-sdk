@@ -1536,7 +1536,7 @@ class OneLoginClient(object):
         :param app_id: App ID of the app for which you want to generate a SAML token
         :type app_id: integer
 
-        :param devideId: Provide the MFA device_id you are submitting for verification.
+        :param devide_id: Provide the MFA device_id you are submitting for verification.
         :type subdomain: integer
 
         :param state_token: Provide the state_token associated with the MFA device_id you are submitting for verification.
