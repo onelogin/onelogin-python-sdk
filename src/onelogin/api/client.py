@@ -1405,7 +1405,7 @@ class OneLoginClient(object):
             response = None
             after_cursor = None
             while (not response) or (len(groups) > limit or after_cursor):
-                response = requests.get(url, headers=headers)
+                response = requests.get(url, headers=headers, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
