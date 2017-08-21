@@ -1299,7 +1299,7 @@ class OneLoginClient(object):
         :param role_id: Id of the Event
         :type role_id: int
 
-        Returns the event identified by the id
+        Returns the result of the operation
         :return: event
         :rtype: Event object
 
@@ -1344,9 +1344,9 @@ class OneLoginClient(object):
                                          user_id, user_name)
         :type event_params: dict
 
-        Returns the created event
-        :return: event
-        :rtype: Event
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
 
         See https://developers.onelogin.com/api-docs/1/events/create-event Create Event documentation
 
