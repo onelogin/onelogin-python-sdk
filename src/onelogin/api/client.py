@@ -1531,7 +1531,7 @@ class OneLoginClient(object):
     def get_saml_assertion_verifying(self, app_id, device_id, state_token, otp_token=None, url_endpoint=None):
         """
 
-        Generates a SAML Assertion.
+        Verify a one-time password (OTP) value provided for a second factor when multi-factor authentication (MFA) is required for SAML authentication.
 
         :param app_id: App ID of the app for which you want to generate a SAML token
         :type app_id: integer
