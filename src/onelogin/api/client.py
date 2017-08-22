@@ -1701,7 +1701,6 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = Constants.EMBED_APP_URL
