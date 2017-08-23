@@ -28,6 +28,7 @@ from onelogin.api.models.saml_endpoint_response import SAMLEndpointResponse
 from onelogin.api.models.session_token_info import SessionTokenInfo
 from onelogin.api.models.session_token_mfa_info import SessionTokenMFAInfo
 from onelogin.api.models.user import User
+from onelogin.api.version import __version__
 
 
 class OneLoginClient(object):
@@ -37,6 +38,9 @@ class OneLoginClient(object):
     at https://developers.onelogin.com/api-docs/1/getting-started/dev-overview.
 
     '''
+
+    CUSTOM_USER_AGENT = "onelogin-python-sdk %s" % __version__
+
     def __init__(self, settings_path=None):
         """
 
@@ -47,6 +51,7 @@ class OneLoginClient(object):
 
         """
         self.settings = Settings(settings_path)
+        self.user_agent = self.CUSTOM_USER_AGENT
 
     def clean_error(self):
         """
@@ -175,7 +180,9 @@ class OneLoginClient(object):
             }
 
             headers = {
-                'Authorization': authorization
+                'Authorization': authorization,
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=data)
@@ -217,7 +224,12 @@ class OneLoginClient(object):
                 'refresh_token': self.refresh_token
             }
 
-            response = requests.post(url, json=data)
+            headers = {
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
+            }
+
+            response = requests.post(url, headers=headers, json=data)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -252,7 +264,8 @@ class OneLoginClient(object):
             }
 
             headers = {
-                'Authorization': authorization
+                'Authorization': authorization,
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=data)
@@ -292,7 +305,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.get(url, headers=headers)
@@ -340,7 +354,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             users = []
@@ -395,7 +410,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.get(url, headers=headers)
@@ -434,7 +450,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             apps = []
@@ -476,7 +493,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             role_ids = []
@@ -514,7 +532,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             custom_attributes = []
@@ -560,7 +579,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=user_params)
@@ -607,7 +627,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.put(url, headers=headers, json=user_params)
@@ -653,7 +674,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.put(url, headers=headers, json=data)
@@ -698,7 +720,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.put(url, headers=headers, json=data)
@@ -747,7 +770,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.put(url, headers=headers, json=data)
@@ -805,7 +829,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.put(url, headers=headers, json=data)
@@ -850,7 +875,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.put(url, headers=headers, json=data)
@@ -888,7 +914,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.put(url, headers=headers)
@@ -935,7 +962,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.put(url, headers=headers, json=data)
@@ -973,7 +1001,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.delete(url, headers=headers)
@@ -1018,7 +1047,9 @@ class OneLoginClient(object):
             authorization = self.get_authorization()
 
             headers = {
-                'Authorization': authorization
+                'Authorization': authorization,
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
             if allowed_origin:
                 headers['Custom-Allowed-Origin-Header-1'] = allowed_origin
@@ -1070,7 +1101,9 @@ class OneLoginClient(object):
                 data['otp_token'] = otp_token
 
             headers = {
-                'Authorization': authorization
+                'Authorization': authorization,
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=data)
@@ -1116,7 +1149,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             roles = []
@@ -1171,7 +1205,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.get(url, headers=headers)
@@ -1208,7 +1243,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             event_types = []
@@ -1259,7 +1295,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             events = []
@@ -1315,7 +1352,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.get(url, headers=headers)
@@ -1359,7 +1397,9 @@ class OneLoginClient(object):
             authorization = self.get_authorization()
 
             headers = {
-                'Authorization': authorization
+                'Authorization': authorization,
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=event_params)
@@ -1397,7 +1437,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             query_parameters = {}
@@ -1452,7 +1493,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.get(url, headers=headers)
@@ -1514,7 +1556,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=data)
@@ -1576,7 +1619,8 @@ class OneLoginClient(object):
 
             headers = {
                 'Authorization': authorization,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=data)
@@ -1618,7 +1662,9 @@ class OneLoginClient(object):
             }
 
             headers = {
-                'Authorization': authorization
+                'Authorization': authorization,
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=data)
@@ -1668,7 +1714,9 @@ class OneLoginClient(object):
                 data['personal_email'] = personal_email
 
             headers = {
-                'Authorization': authorization
+                'Authorization': authorization,
+                'Content-Type': 'application/json',
+                'User-Agent': self.user_agent
             }
 
             response = requests.post(url, headers=headers, json=data)
@@ -1710,7 +1758,11 @@ class OneLoginClient(object):
                 'email': email
             }
 
-            response = requests.get(url, params=data)
+            headers = {
+                'User-Agent': self.user_agent
+            }
+
+            response = requests.get(url, headers=headers, params=data)
             if response.status_code == 200 and response.content:
                 return self.retrieve_apps_from_xml(response.content)
             else:
