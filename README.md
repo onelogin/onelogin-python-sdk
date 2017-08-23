@@ -85,7 +85,7 @@ token3 = client.get_access_token()
 # if there is not valid access_token
 
 # Get rate limits
-#rate_limits = client.get_rate_limits()
+rate_limits = client.get_rate_limits()
 
 # Get Custom Attributes
 custom_global_attributes = client.get_custom_attributes()
