@@ -7,9 +7,13 @@
 from setuptools import setup
 
 
+version = {}
+with open("src/onelogin/api/version.py") as fp:
+    exec(fp.read(), version)
+
 setup(
     name='onelogin-python-sdk',
-    version='1.0.0',
+    version=version['__version__'],
     description="OneLogin's Python SDK. Use this API client to interact with OneLogin's platform",
     classifiers=[
         'Development Status :: 4 - Beta',
