@@ -140,7 +140,7 @@ class OneLoginClient(object):
         return apps
 
     def is_expired(self):
-        return datetime.datetime.now(tz.tzutc()) < self.expiration
+        return datetime.datetime.now(tz.tzutc()) > self.expiration
 
     def prepare_token(self):
         if self.access_token is None:
