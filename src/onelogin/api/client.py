@@ -52,6 +52,7 @@ class OneLoginClient(object):
         """
         self.settings = Settings(settings_path)
         self.user_agent = self.CUSTOM_USER_AGENT
+        self.access_token = self.refresh_token = self.expiration = None
 
     def clean_error(self):
         """
@@ -140,7 +141,7 @@ class OneLoginClient(object):
         return apps
 
     def is_expired(self):
-        return datetime.datetime.now(tz.tzutc()) > self.expiration
+        return self.expiration is not None and datetime.datetime.now(tz.tzutc()) > self.expiration
 
     def prepare_token(self):
         if self.access_token is None:
