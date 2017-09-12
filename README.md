@@ -79,7 +79,7 @@ token = client.get_access_token()
 token2 = client.regenerate_token()
 
 # Revoke an AccessToken
-token3 = client.get_access_token()
+token3 = client.revoke_token()
 
 # By default methods call internally to getAccessToken()
 # if there is not valid access_token
