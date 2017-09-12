@@ -12,7 +12,7 @@ with open("src/onelogin/api/version.py") as fp:
     exec(fp.read(), version)
 
 setup(
-    name='onelogin-python-sdk',
+    name='onelogin',
     version=version['__version__'],
     description="OneLogin's Python SDK. Use this API client to interact with OneLogin's platform",
     classifiers=[

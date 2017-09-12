@@ -11,11 +11,11 @@ The toolkit is hosted on github. You can download it from:
 * Master repo: https://github.com/onelogin/onelogin-python-sdk/tree/master
 
 #### pypi
-The toolkit is hosted in pypi, you can find the onelogin-python-sdk package at https://pypi.python.org/pypi/onelogin-python-sdk
+The toolkit is hosted in pypi, you can find the package at https://pypi.python.org/pypi/onelogin
 
 You can install it executing:
 ```
-$ pip install onelogin-python-sdk
+$ pip install onelogin
 ```
 
 If you want to know how a project can handle python packages review this [guide](https://packaging.python.org/en/latest/tutorial.html) and review this [sampleproject](https://github.com/pypa/sampleproject)
