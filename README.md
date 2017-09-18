@@ -44,7 +44,7 @@ SDK settings are stored in a file named *onelogin.sdk.ini*. A template can be fo
 The SDK has 3 settings parameters:
 * onelogin.sdk.client_id  Onelogin OAuth2 client ID
 * onelogin.sdk.client_secret  Onelogin OAuth2 client secret
-* onelogin.sdk.instance  Indicates where the instance is hosted. Possible values: 'us' or 'eu'.
+* onelogin.sdk.region  Indicates where the instance is hosted. Possible values: 'us' or 'eu'.
 
 Read more about Onelogin API credentials at:
 https://developers.onelogin.com/api-docs/1/getting-started/working-with-api-credentials

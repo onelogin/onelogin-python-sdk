@@ -24,7 +24,7 @@ class Settings(object):
     ONELOGIN_PROPERTIES_FILE = "onelogin.sdk.ini"
     CLIENT_ID_KEY = "onelogin.sdk.client_id"
     CLIENT_SECRET_KEY = "onelogin.sdk.client_secret"
-    INSTANCE = "onelogin.sdk.instance"
+    REGION = "onelogin.sdk.region"
 
     def __init__(self, path=None):
         """
@@ -51,12 +51,12 @@ class Settings(object):
         if 'Credentials' in config:
             self.client_id = config['Credentials'].get(self.CLIENT_ID_KEY, None)
             self.client_secret = config['Credentials'].get(self.CLIENT_SECRET_KEY, None)
-            self.instance = config['Credentials'].get(self.INSTANCE, None)
+            self.region = config['Credentials'].get(self.REGION, 'us')
         else:
             raise Exception("Credentials section not found at Onelogin settings file: %s" % filename)
 
     def get_url(self, base, obj_id=None):
         if obj_id is None:
-            return base % (self.instance)
+            return base % (self.region)
         else:
-            return base % (self.instance, obj_id)
+            return base % (self.region, obj_id)
