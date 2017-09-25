@@ -14,7 +14,7 @@ from dateutil import tz
 import requests
 from defusedxml.lxml import fromstring
 
-from onelogin.api.util.settings import Settings
+from onelogin.api.util.urlbuilder import UrlBuilder
 from onelogin.api.util.constants import Constants
 from onelogin.api.models.app import App
 from onelogin.api.models.event import Event
@@ -39,9 +39,12 @@ class OneLoginClient(object):
 
     '''
 
+    client_id = None
+    client_secret = None
+
     CUSTOM_USER_AGENT = "onelogin-python-sdk %s" % __version__
 
-    def __init__(self, settings_path=None):
+    def __init__(self, client_id, client_secret, region='us'):
         """
 
         Create a new instance of OneLoginClient.
@@ -50,7 +53,9 @@ class OneLoginClient(object):
         :type path: string
 
         """
-        self.settings = Settings(settings_path)
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.url_builder = UrlBuilder(region)
         self.user_agent = self.CUSTOM_USER_AGENT
         self.access_token = self.refresh_token = self.expiration = None
 
@@ -62,6 +67,9 @@ class OneLoginClient(object):
         """
         self.error = None
         self.error_description = None
+
+    def get_url(self, base, obj_id=None):
+        return self.url_builder.get_url(base, obj_id)
 
     def extract_error_message_from_response(self, response):
         message = ''
@@ -153,7 +161,7 @@ class OneLoginClient(object):
         if bearer:
             authorization = "bearer:%s" % self.access_token
         else:
-            authorization = "client_id:%s,client_secret:%s" % (self.settings.client_id, self.settings.client_secret)
+            authorization = "client_id:%s,client_secret:%s" % (self.client_id, self.client_secret)
         return authorization
 
     # OAuth 2.0 Tokens Methods
@@ -173,7 +181,7 @@ class OneLoginClient(object):
         self.clean_error()
 
         try:
-            url = self.settings.get_url(Constants.TOKEN_REQUEST_URL)
+            url = self.get_url(Constants.TOKEN_REQUEST_URL)
             authorization = self.get_authorization(bearer=False)
 
             data = {
@@ -217,7 +225,7 @@ class OneLoginClient(object):
         self.clean_error()
 
         try:
-            url = self.settings.get_url(Constants.TOKEN_REQUEST_URL)
+            url = self.get_url(Constants.TOKEN_REQUEST_URL)
 
             data = {
                 'grant_type': 'refresh_token',
@@ -257,7 +265,7 @@ class OneLoginClient(object):
         self.clean_error()
 
         try:
-            url = self.settings.get_url(Constants.TOKEN_REVOKE_URL)
+            url = self.get_url(Constants.TOKEN_REVOKE_URL)
             authorization = self.get_authorization(bearer=False)
 
             data = {
@@ -301,7 +309,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_RATE_URL)
+            url = self.get_url(Constants.GET_RATE_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -350,7 +358,7 @@ class OneLoginClient(object):
                     del query_parameters['limit']
 
         try:
-            url = self.settings.get_url(Constants.GET_USERS_URL)
+            url = self.get_url(Constants.GET_USERS_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -406,7 +414,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_USER_URL, user_id)
+            url = self.get_url(Constants.GET_USER_URL, user_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -446,7 +454,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_APPS_FOR_USER_URL, user_id)
+            url = self.get_url(Constants.GET_APPS_FOR_USER_URL, user_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -489,7 +497,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_ROLES_FOR_USER_URL, user_id)
+            url = self.get_url(Constants.GET_ROLES_FOR_USER_URL, user_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -528,7 +536,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_CUSTOM_ATTRIBUTES_URL)
+            url = self.get_url(Constants.GET_CUSTOM_ATTRIBUTES_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -575,7 +583,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.CREATE_USER_URL)
+            url = self.get_url(Constants.CREATE_USER_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -623,7 +631,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.UPDATE_USER_URL, user_id)
+            url = self.get_url(Constants.UPDATE_USER_URL, user_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -666,7 +674,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.ADD_ROLE_TO_USER_URL, user_id)
+            url = self.get_url(Constants.ADD_ROLE_TO_USER_URL, user_id)
             authorization = self.get_authorization()
 
             data = {
@@ -712,7 +720,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.DELETE_ROLE_TO_USER_URL, user_id)
+            url = self.get_url(Constants.DELETE_ROLE_TO_USER_URL, user_id)
             authorization = self.get_authorization()
 
             data = {
@@ -764,7 +772,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.SET_PW_CLEARTEXT, user_id)
+            url = self.get_url(Constants.SET_PW_CLEARTEXT, user_id)
             authorization = self.get_authorization()
 
             data = {
@@ -821,7 +829,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.SET_PW_SALT, user_id)
+            url = self.get_url(Constants.SET_PW_SALT, user_id)
             authorization = self.get_authorization()
 
             data = {
@@ -871,7 +879,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.SET_CUSTOM_ATTRIBUTE_TO_USER_URL, user_id)
+            url = self.get_url(Constants.SET_CUSTOM_ATTRIBUTE_TO_USER_URL, user_id)
             authorization = self.get_authorization()
 
             data = {
@@ -914,7 +922,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.LOG_USER_OUT_URL, user_id)
+            url = self.get_url(Constants.LOG_USER_OUT_URL, user_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -958,7 +966,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.LOCK_USER_URL, user_id)
+            url = self.get_url(Constants.LOCK_USER_URL, user_id)
             authorization = self.get_authorization()
 
             data = {
@@ -1001,7 +1009,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.DELETE_USER_URL, user_id)
+            url = self.get_url(Constants.DELETE_USER_URL, user_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -1048,7 +1056,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.SESSION_LOGIN_TOKEN_URL)
+            url = self.get_url(Constants.SESSION_LOGIN_TOKEN_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -1095,7 +1103,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_TOKEN_VERIFY_FACTOR)
+            url = self.get_url(Constants.GET_TOKEN_VERIFY_FACTOR)
             authorization = self.get_authorization()
 
             data = {
@@ -1149,7 +1157,7 @@ class OneLoginClient(object):
                     del query_parameters['limit']
 
         try:
-            url = self.settings.get_url(Constants.GET_ROLES_URL)
+            url = self.get_url(Constants.GET_ROLES_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -1205,7 +1213,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_ROLE_URL, role_id)
+            url = self.get_url(Constants.GET_ROLE_URL, role_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -1243,7 +1251,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_EVENT_TYPES_URL)
+            url = self.get_url(Constants.GET_EVENT_TYPES_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -1295,7 +1303,7 @@ class OneLoginClient(object):
                     del query_parameters['limit']
 
         try:
-            url = self.settings.get_url(Constants.GET_EVENTS_URL)
+            url = self.get_url(Constants.GET_EVENTS_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -1352,7 +1360,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_EVENT_URL, event_id)
+            url = self.get_url(Constants.GET_EVENT_URL, event_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -1398,7 +1406,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.CREATE_EVENT_URL)
+            url = self.get_url(Constants.CREATE_EVENT_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -1437,7 +1445,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_GROUPS_URL)
+            url = self.get_url(Constants.GET_GROUPS_URL)
             authorization = self.get_authorization()
 
             headers = {
@@ -1493,7 +1501,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_GROUP_URL, group_id)
+            url = self.get_url(Constants.GET_GROUP_URL, group_id)
             authorization = self.get_authorization()
 
             headers = {
@@ -1546,7 +1554,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GET_SAML_ASSERTION_URL)
+            url = self.get_url(Constants.GET_SAML_ASSERTION_URL)
             authorization = self.get_authorization()
 
             data = {
@@ -1610,7 +1618,7 @@ class OneLoginClient(object):
             if url_endpoint:
                 url = url_endpoint
             else:
-                url = self.settings.get_url(Constants.GET_SAML_VERIFY_FACTOR)
+                url = self.get_url(Constants.GET_SAML_VERIFY_FACTOR)
             authorization = self.get_authorization()
 
             data = {
@@ -1659,7 +1667,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.GENERATE_INVITE_LINK_URL)
+            url = self.get_url(Constants.GENERATE_INVITE_LINK_URL)
             authorization = self.get_authorization()
 
             data = {
@@ -1708,7 +1716,7 @@ class OneLoginClient(object):
         self.prepare_token()
 
         try:
-            url = self.settings.get_url(Constants.SEND_INVITE_LINK_URL)
+            url = self.get_url(Constants.SEND_INVITE_LINK_URL)
             authorization = self.get_authorization()
 
             data = {

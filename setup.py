@@ -14,7 +14,7 @@ with open("src/onelogin/api/version.py") as fp:
 setup(
     name='onelogin',
     version=version['__version__'],
-    description="OneLogin's Python SDK. Use this API client to interact with OneLogin's platform",
+    description="OneLogin Python SDK. Use this API client to interact with OneLogin's platform",
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
