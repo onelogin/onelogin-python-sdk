@@ -736,7 +736,7 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
-    def set_password_using_clear_text(self, user_id, password, password_confirmation):
+    def set_password_using_clear_text(self, user_id, password, password_confirmation, validate_policy=False):
         """
 
         Sets Password by ID Using Cleartext
@@ -749,6 +749,9 @@ class OneLoginClient(object):
 
         :param password_confirmation: Ensure that this value matches the password value exactly.
         :type password_confirmation: string
+
+        :param validate_policy: Defaults to false. This will validate the password against the users OneLogin password policy..
+        :type validate_policy: boolean
 
         Returns if the action succeed
         :return: true if success
@@ -766,7 +769,8 @@ class OneLoginClient(object):
 
             data = {
                 'password': password,
-                'password_confirmation': password_confirmation
+                'password_confirmation': password_confirmation,
+                'validate_policy': validate_policy
             }
 
             headers = {
