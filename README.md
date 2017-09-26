@@ -62,7 +62,7 @@ https://onelogin.github.io/onelogin-python-sdk/index.html
 
 ### Errors and exceptions
 
-Onelogin's API can return 400, 401, 403 or 404 when there was any issue executing the action. When that happens, the methods of the SDK will include error and errorMessage in the OneLoginClient. Use the getError() and the getErrorDescription() to retrieve them.
+OneLogin's API can return 400, 401, 403 or 404 when there was any issue executing the action. When that happens, the methods of the SDK will include error and errorMessage in the OneLoginClient. Use the getError() and the getErrorDescription() to retrieve them.
 
 
 ### Authentication
@@ -257,9 +257,11 @@ apps = client.get_embed_apps("30e256c101cd0d2e731de1ec222e93c4be8a1572", "user@e
 
 ## Development
 
-After checking out the repo, run `pip setup install` to install dependencies. Then, run `pip setup test` to run the tests.
+After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then, run `pip setup test` to run the tests.
 
-To release a new version, update the version number in `src/onelogin/api/version.py` and then you will be able to update it to pypy.
+To release a new version, update the version number in `src/onelogin/api/version.py` and commit it, open a then you will be able to update it to pypy.
+with `python setup.py sdist upload` and `python setup.py bdist_wheel upload`.
+Create also a relase tag on github.
 
 ## Contributing
 
@@ -271,4 +273,4 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 ## Code of Conduct
 
-Everyone interacting in the Onelogin Python SDK project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/onelogin-ruby-sdk/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the OneLogin Python SDK project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/onelogin/onelogin-ruby-sdk/blob/master/CODE_OF_CONDUCT.md).
