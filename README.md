@@ -259,7 +259,7 @@ apps = client.get_embed_apps("30e256c101cd0d2e731de1ec222e93c4be8a1572", "user@e
 
 After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then, run `pip setup test` to run the tests.
 
-To release a new version, update the version number in `src/onelogin/api/version.py` and commit it, open a then you will be able to update it to pypy.
+To release a new version, update the version number in `src/onelogin/api/version.py` and commit it, then you will be able to update it to pypy.
 with `python setup.py sdist upload` and `python setup.py bdist_wheel upload`.
 Create also a relase tag on github.
 
