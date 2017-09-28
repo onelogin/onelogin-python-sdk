@@ -7,11 +7,8 @@ class App(object):
         self.id = int(app_id) if app_id is not None else None
         self.name = data.get('name', '')
         self.icon = data.get('icon', '')
-        provisioned = data.get('provisioned', '')
-        self.provisioned = int(provisioned) if provisioned is not None else None
-        extension_required = data.get('extension', None)
-        self.extension_required = extension_required.lower() in ("yes", "true", "1") if extension_required is not None else None
+        self.provisioned = data.get('provisioned', None)
+        self.extension = data.get('extension', None)
         login_id = data.get('login_id', None)
         self.login_id = int(login_id) if login_id is not None else None
-        personal = data.get('personal', None)
-        self.personal = personal.lower() in ("yes", "true", "1") if personal is not None else None
+        self.personal = data.get('personal', None)

@@ -18,6 +18,7 @@ from onelogin.api.util.urlbuilder import UrlBuilder
 from onelogin.api.util.constants import Constants
 from onelogin.api.models.app import App
 from onelogin.api.models.event import Event
+from onelogin.api.models.embed_app import EmbedApp
 from onelogin.api.models.event_type import EventType
 from onelogin.api.models.group import Group
 from onelogin.api.models.mfa import MFA
@@ -145,7 +146,7 @@ class OneLoginClient(object):
             for children in node.getchildren():
                 if children.tag in attributes:
                     app_data[children.tag] = children.text
-            apps.append(App(app_data))
+            apps.append(EmbedApp(app_data))
         return apps
 
     def is_expired(self):
