@@ -45,7 +45,7 @@ class OneLoginClient(object):
 
     CUSTOM_USER_AGENT = "onelogin-python-sdk %s" % __version__
 
-    def __init__(self, client_id, client_secret, region='us'):
+    def __init__(self, client_id, client_secret, region='us', max_results=1000):
         """
 
         Create a new instance of OneLoginClient.
@@ -56,6 +56,7 @@ class OneLoginClient(object):
         """
         self.client_id = client_id
         self.client_secret = client_secret
+        self.max_results = max_results
         self.url_builder = UrlBuilder(region)
         self.user_agent = self.CUSTOM_USER_AGENT
         self.access_token = self.refresh_token = self.expiration = None
@@ -322,13 +323,16 @@ class OneLoginClient(object):
             self.error_description = e.args[0]
 
     # User Methods
-    def get_users(self, query_parameters=None):
+    def get_users(self, query_parameters=None, max_results=None):
         """
 
-        Gets a list of User resources. (if no limit provided, by default gt 50 elements)
+        Gets a list of User resources.
 
         :param query_parameters: Parameters to filter the result of the list
         :type query_parameters: dict
+
+        :param max_results: Limit the number of users returned (optional)
+        :type max_results: int
 
         Returns the list of users
         :return: users list
@@ -339,13 +343,6 @@ class OneLoginClient(object):
         """
         self.clean_error()
         self.prepare_token()
-        limit = 50
-
-        if query_parameters:
-            if query_parameters.get('limit', None):
-                limit = int(query_parameters.get('limit'))
-                if limit > 50:
-                    del query_parameters['limit']
 
         try:
             url = self.get_url(Constants.GET_USERS_URL)
@@ -354,13 +351,13 @@ class OneLoginClient(object):
             users = []
             response = None
             after_cursor = None
-            while (not response) or (len(users) > limit or after_cursor):
+            while (not response) or (len(users) > max_results or after_cursor):
                 response = requests.get(url, headers=headers, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
                         for user_data in json_data['data']:
-                            if len(users) < limit:
+                            if len(users) < max_results:
                                 users.append(User(user_data))
                             else:
                                 return users
@@ -1020,13 +1017,16 @@ class OneLoginClient(object):
             self.error_description = e.args[0]
 
     # Role Methods
-    def get_roles(self, query_parameters=None):
+    def get_roles(self, query_parameters=None, max_results=None):
         """
 
-        Gets a list of Role resources. (if no limit provided, by default get 50 elements)
+        Gets a list of Role resources.
 
         :param query_parameters: Parameters to filter the result of the list
         :type query_parameters: dict
+
+        :param max_results: Limit the number of roles returned (optional)
+        :type max_results: int
 
         Returns the list of roles
         :return: role list
@@ -1037,13 +1037,9 @@ class OneLoginClient(object):
         """
         self.clean_error()
         self.prepare_token()
-        limit = 50
 
-        if query_parameters:
-            if query_parameters.get('limit', None):
-                limit = int(query_parameters.get('limit'))
-                if limit > 50:
-                    del query_parameters['limit']
+        if max_results is None:
+            max_results = self.max_results
 
         try:
             url = self.get_url(Constants.GET_ROLES_URL)
@@ -1052,13 +1048,13 @@ class OneLoginClient(object):
             roles = []
             response = None
             after_cursor = None
-            while (not response) or (len(roles) > limit or after_cursor):
+            while (not response) or (len(roles) > max_results or after_cursor):
                 response = requests.get(url, headers=headers, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
                         for role_data in json_data['data']:
-                            if len(roles) < limit:
+                            if len(roles) < max_results:
                                 roles.append(Role(role_data))
                             return roles
 
@@ -1148,13 +1144,16 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
-    def get_events(self, query_parameters=None):
+    def get_events(self, query_parameters=None, max_results=None):
         """
 
-        Gets a list of Event resources. (if no limit provided, by default get 50 elements)
+        Gets a list of Event resources.
 
         :param query_parameters: Parameters to filter the result of the list
         :type query_parameters: dict
+
+        :param max_results: Limit the number of events returned (optional)
+        :type max_results: int
 
         Returns the list of events
         :return: event list
@@ -1165,13 +1164,9 @@ class OneLoginClient(object):
         """
         self.clean_error()
         self.prepare_token()
-        limit = 50
 
-        if query_parameters:
-            if query_parameters.get('limit', None):
-                limit = int(query_parameters.get('limit'))
-                if limit > 50:
-                    del query_parameters['limit']
+        if max_results is None:
+            max_results = self.max_results
 
         try:
             url = self.get_url(Constants.GET_EVENTS_URL)
@@ -1180,13 +1175,13 @@ class OneLoginClient(object):
             events = []
             response = None
             after_cursor = None
-            while (not response) or (len(events) > limit or after_cursor):
+            while (not response) or (len(events) > max_results or after_cursor):
                 response = requests.get(url, headers=headers, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
                         for event_data in json_data['data']:
-                            if len(events) < limit:
+                            if len(events) < max_results:
                                 events.append(Event(event_data))
                             else:
                                 return events
@@ -1279,13 +1274,13 @@ class OneLoginClient(object):
             self.error_description = e.args[0]
 
     # Group Methods
-    def get_groups(self, limit=50):
+    def get_groups(self, max_results=None):
         """
 
-        Gets a list of Group resources (element of groups limited with the limit parameter).
+        Gets a list of Group resources (element of groups limited with the max_results parameter, or client attribute).
 
-        :param limit: Limit the number of groups returned (optional)
-        :type limit: int
+        :param max_results: Limit the number of groups returned (optional)
+        :type max_results: int
 
         Returns the list of groups
         :return: group list
@@ -1297,6 +1292,9 @@ class OneLoginClient(object):
         self.clean_error()
         self.prepare_token()
 
+        if max_results is None:
+            max_results = self.max_results
+
         try:
             url = self.get_url(Constants.GET_GROUPS_URL)
             headers = self.get_authorized_headers()
@@ -1305,13 +1303,13 @@ class OneLoginClient(object):
             groups = []
             response = None
             after_cursor = None
-            while (not response) or (len(groups) > limit or after_cursor):
+            while (not response) or (len(groups) > max_results or after_cursor):
                 response = requests.get(url, headers=headers, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
                         for group_data in json_data['data']:
-                            if len(groups) < limit:
+                            if len(groups) < max_results:
                                 groups.append(Group(group_data))
                             else:
                                 return groups
