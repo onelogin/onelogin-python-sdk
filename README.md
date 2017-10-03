@@ -51,7 +51,7 @@ client = OneLoginClient(
 )
 
 #Now you can make requests 
-client.get_users
+client.get_rate_limits()
 ```
 
 For all methods see Pydoc of this SDK published at:
@@ -80,6 +80,33 @@ token2 = client.regenerate_token()
 token3 = client.get_access_token()
 ```
 
+### Paging
+
+All OneLogin API endpoints that support paging are returned as a Cursor object to save you keeping track of the paging cursor, you can retrieve the related objects by calling objects()
+
+eg
+
+```python
+# List the first name of all users
+for user in client.get_users().objects():
+    print user.firstname
+
+# List the first name of all users starting with the 2nd user
+for user in client.get_users().objects()[1:]:
+    print user.firstname
+
+# List the first 5 users with the name of Joe
+query_parameters = {'firstname': 'Joe'}
+for user in client.get_users(query_parameters, max_results=5).objects():
+    print user.firstname
+
+# Get 10 event ids
+ids = [user.id for user in client.get_events(max_results=10).objects()]
+
+# Get all roles
+client.get_roles().objects()
+```
+
 ### Available Methods
 
 ```python
@@ -90,24 +117,24 @@ rate_limits = client.get_rate_limits()
 custom_global_attributes = client.get_custom_attributes()
 
 # Get Users with no query parameters
-users = client.get_users()
+users = client.get_users().objects()
 
 # Get Users with query parameters
 query_parameters = {
     "email": "user@example.com"
 }
-users_filtered = client.get_users(query_parameters)
+users_filtered = client.get_users(query_parameters).objects()
 
 query_parameters = {
     "email": "usermfa@example.com"
 }
-users_filtered2 = client.get_users(query_parameters)
+users_filtered2 = client.get_users(query_parameters).objects()
 
 # Get Users with limit
 query_parameters = {
     "limit": 3
 }
-users_filtered_limited = client.get_users(query_parameters)
+users_filtered_limited = client.get_users(query_parameters).objects()
 
 # Get User by id
 user = client.get_user(users_filtered[0].id)
@@ -121,7 +148,7 @@ user = client.update_user(user.id, update_user_params)
 user = client.get_user(user.id)
 
 # Get Global Roles
-roles = client.get_roles();
+roles = client.get_roles().objects();
 
 # Get Role
 role = client.get_role(roles[0].id)
@@ -229,7 +256,7 @@ query_events_params = array(
 events = client.get_events(query_events_params);
 
 # Get Groups
-groups = client.get_groups()
+groups = client.get_groups().objects()
 
 # Get Group
 group = client.get_group(groups[0].id)
