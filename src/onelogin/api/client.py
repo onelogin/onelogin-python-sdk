@@ -232,7 +232,7 @@ class OneLoginClient(object):
 
         try:
             url = self.get_url(Constants.TOKEN_REQUEST_URL)
-            headers = get_headers()
+            headers = self.get_headers()
 
             data = {
                 'grant_type': 'refresh_token',

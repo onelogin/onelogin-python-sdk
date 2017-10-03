@@ -9,6 +9,7 @@ UrlBuilder class of the OneLogin's Python SDK.
 
 """
 
+
 class UrlBuilder(object):
     """
 
