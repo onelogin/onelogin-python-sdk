@@ -107,6 +107,51 @@ ids = [user.id for user in client.get_events(max_results=10).objects()]
 client.get_roles().objects()
 ```
 
+Here is an example of how use the Cursor object.
+
+```python
+# Limit the number of objects in page to 10
+query_parameters = {'limit': 10}
+
+# Retrieve the 40 events
+cursor = client.get_events(max_results=40, query_parameters=query_parameters)
+events = cursor.objects()
+# Check that there are more events by verify that the after_cursor is not empty
+after_cursor = cursor.get_after_cursor()
+if after_cursor is not None:
+    # Adding the after_cursor parameter to the query so next call to get_events
+    # will start on the latest page previously processed
+    query_parameters['after_cursor'] = after_cursor
+    cursor = client.get_events(max_results=40, query_parameters=query_parameters)
+    other_40_events = cursor.objects()
+    events += other_40_events
+```
+
+An alternative is to use the fetch_again method, that method will execute
+the same query that the cursor did when was initializated but starting in the next page processed by the cursor.
+
+```python
+query_parameters = {'limit': 10}
+cursor = client.get_events(max_results=40, query_parameters=query_parameters)
+# Retrieve 40 events
+events = cursor.objects()
+# Retrieve another 40 events
+events += cursor.fetch_again().objects()
+```
+
+Make sure max_results is a multiple value of limit (if limit is not provided, a default value of 50 is used) or you can lost elements to be collected)
+eg.
+
+```python
+query_parameters = {'limit': 4}
+cursor = client.get_events(max_results=6, query_parameters=query_parameters)
+# Retrieve the first six events (4 of the 1st page, 2 of the 2nd page),
+# the last 2 events of 2nd page are not retrieved.
+events = cursor.objects()
+# Retrieve six new events, (4 of the 3rd page, 2 of the 4rd page)
+events += cursor.fetch_again().objects()
+```
+
 ### Available Methods
 
 ```python

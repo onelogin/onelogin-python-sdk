@@ -2,6 +2,7 @@
 
 import requests
 
+
 class Cursor(object):
     def __init__(self, url, model, headers, query_parameters, max_results):
         self.url = url
@@ -37,6 +38,13 @@ class Cursor(object):
                 self.after_cursor = self.get_after_cursor()
             else:
                 self.after_cursor = None
+
+    def fetch_again(self):
+        self.collection = []
+        self.fetch_next_page()
+        while (not self.is_last()):
+            self.fetch_next_page()
+        return self
 
     def get_after_cursor(self):
         after_cursor = None
