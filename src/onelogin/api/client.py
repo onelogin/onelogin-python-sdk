@@ -16,6 +16,7 @@ from defusedxml.lxml import fromstring
 
 from onelogin.api.util.urlbuilder import UrlBuilder
 from onelogin.api.util.constants import Constants
+from onelogin.api.util.cursor import Cursor
 from onelogin.api.models.app import App
 from onelogin.api.models.event import Event
 from onelogin.api.models.embed_app import EmbedApp
@@ -83,20 +84,6 @@ class OneLoginClient(object):
             elif 'type' in status:
                 message = status['type']
         return message
-
-    def get_after_cursor(self, response):
-        after_cursor = None
-        content = response.json()
-        if content and 'pagination' in content and 'after_cursor' in content['pagination']:
-            after_cursor = content['pagination']['after_cursor']
-        return after_cursor
-
-    def get_before_cursor(self, response):
-        before_cursor = None
-        content = response.json()
-        if content and 'pagination' in content and 'before_cursor' in content['pagination']:
-            before_cursor = content['pagination']['before_cursor']
-        return before_cursor
 
     def handle_session_token_response(self, response):
         session_token = None
@@ -346,32 +333,15 @@ class OneLoginClient(object):
 
         try:
             url = self.get_url(Constants.GET_USERS_URL)
+            model = User
             headers = self.get_authorized_headers()
 
-            users = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(users) > max_results or after_cursor):
-                response = requests.get(url, headers=headers, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for user_data in json_data['data']:
-                            if len(users) < max_results:
-                                users.append(User(user_data))
-                            else:
-                                return users
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return users
+            cursor = Cursor(url, model, headers, query_parameters, max_results)
+            if cursor.error:
+                self.error = str(cursor.response.status_code)
+                self.error_description = self.extract_error_message_from_response(cursor.response)
+            else:
+                return cursor
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -1043,32 +1013,15 @@ class OneLoginClient(object):
 
         try:
             url = self.get_url(Constants.GET_ROLES_URL)
+            model = Role
             headers = self.get_authorized_headers()
 
-            roles = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(roles) > max_results or after_cursor):
-                response = requests.get(url, headers=headers, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for role_data in json_data['data']:
-                            if len(roles) < max_results:
-                                roles.append(Role(role_data))
-                            return roles
-
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return roles
+            cursor = Cursor(url, model, headers, query_parameters, max_results)
+            if cursor.error:
+                self.error = str(cursor.response.status_code)
+                self.error_description = self.extract_error_message_from_response(cursor.response)
+            else:
+                return cursor
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -1170,33 +1123,15 @@ class OneLoginClient(object):
 
         try:
             url = self.get_url(Constants.GET_EVENTS_URL)
+            model = Event
             headers = self.get_authorized_headers()
 
-            events = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(events) > max_results or after_cursor):
-                response = requests.get(url, headers=headers, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for event_data in json_data['data']:
-                            if len(events) < max_results:
-                                events.append(Event(event_data))
-                            else:
-                                return events
-
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return events
+            cursor = Cursor(url, model, headers, query_parameters, max_results)
+            if cursor.error:
+                self.error = str(cursor.response.status_code)
+                self.error_description = self.extract_error_message_from_response(cursor.response)
+            else:
+                return cursor
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -1274,20 +1209,20 @@ class OneLoginClient(object):
             self.error_description = e.args[0]
 
     # Group Methods
-    def get_groups(self, max_results=None):
+    def get_groups(self, query_parameters=None, max_results=None):
         """
-
-        Gets a list of Group resources (element of groups limited with the max_results parameter, or client attribute).
-
+        Gets a list of Group resources.
         :param max_results: Limit the number of groups returned (optional)
         :type max_results: int
+
+        :param query_parameters: Parameters to filter the result of the list
+        :type query_parameters: dict
 
         Returns the list of groups
         :return: group list
         :rtype: array
 
         See https://developers.onelogin.com/api-docs/1/groups/get-groups Get Groups documentation
-
         """
         self.clean_error()
         self.prepare_token()
@@ -1297,32 +1232,15 @@ class OneLoginClient(object):
 
         try:
             url = self.get_url(Constants.GET_GROUPS_URL)
+            model = Group
             headers = self.get_authorized_headers()
 
-            query_parameters = {}
-            groups = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(groups) > max_results or after_cursor):
-                response = requests.get(url, headers=headers, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for group_data in json_data['data']:
-                            if len(groups) < max_results:
-                                groups.append(Group(group_data))
-                            else:
-                                return groups
-
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return groups
+            cursor = Cursor(url, model, headers, query_parameters, max_results)
+            if cursor.error:
+                self.error = str(cursor.response.status_code)
+                self.error_description = self.extract_error_message_from_response(cursor.response)
+            else:
+                return cursor
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]

@@ -51,7 +51,7 @@ client = OneLoginClient(
 )
 
 #Now you can make requests 
-client.get_users
+client.get_rate_limits()
 ```
 
 For all methods see Pydoc of this SDK published at:
@@ -80,6 +80,89 @@ token2 = client.regenerate_token()
 token3 = client.get_access_token()
 ```
 
+### Paging
+
+All OneLogin API endpoints that support paging are returned as a Cursor object to save you keeping track of the paging cursor, you can retrieve the related objects by calling objects()
+
+eg
+
+```python
+# List the first name of all users
+for user in client.get_users().objects():
+    print user.firstname
+
+# List the first name of all users starting with the 2nd user
+for user in client.get_users().objects()[1:]:
+    print user.firstname
+
+# List the first 5 users with the name of Joe
+query_parameters = {'firstname': 'Joe'}
+for user in client.get_users(query_parameters, max_results=5).objects():
+    print user.firstname
+
+# Get 10 event ids
+ids = [user.id for user in client.get_events(max_results=10).objects()]
+
+# Get all roles
+client.get_roles().objects()
+```
+
+Here is an example of how use the Cursor object.
+
+```python
+# Limit the number of objects in page to 10
+query_parameters = {'limit': 10}
+
+# Retrieve the 40 events
+cursor = client.get_events(max_results=40, query_parameters=query_parameters)
+events = cursor.objects()
+# Check that there are more events by verify that the after_cursor is not empty
+after_cursor = cursor.get_after_cursor()
+if after_cursor is not None:
+    # Adding the after_cursor parameter to the query so next call to get_events
+    # will start on the latest page previously processed
+    query_parameters['after_cursor'] = after_cursor
+    cursor = client.get_events(max_results=40, query_parameters=query_parameters)
+    other_40_events = cursor.objects()
+    events += other_40_events
+```
+
+An alternative is to use the fetch_again method, that method will execute
+the same query that the cursor did when was initializated but starting in the next page processed by the cursor.
+
+```python
+query_parameters = {'limit': 10}
+cursor = client.get_events(max_results=40, query_parameters=query_parameters)
+# Retrieve 40 events
+events = cursor.objects()
+# Retrieve another 40 events
+events += cursor.fetch_again().objects()
+```
+
+Make sure max_results is a multiple value of limit (if limit is not provided, a default value of 50 is used) or you can lost elements to be collected)
+eg.
+
+```python
+query_parameters = {'limit': 4}
+cursor = client.get_events(max_results=6, query_parameters=query_parameters)
+# Retrieve the first six events (4 of the 1st page, 2 of the 2nd page),
+# the last 2 events of 2nd page are not retrieved.
+events = cursor.objects()
+# Retrieve six new events, (4 of the 3rd page, 2 of the 4rd page)
+events += cursor.fetch_again().objects()
+```
+
+If you want to keep the unprocessed items, there is an option
+instead of
+```python
+events += cursor.fetch_again().objects()
+```
+use
+```python
+events += cursor.fetch_again(include_unprocessed=True).objects()
+```
+That will return a total of max_results elements including the previous unprocessed items.
+
 ### Available Methods
 
 ```python
@@ -90,24 +173,24 @@ rate_limits = client.get_rate_limits()
 custom_global_attributes = client.get_custom_attributes()
 
 # Get Users with no query parameters
-users = client.get_users()
+users = client.get_users().objects()
 
 # Get Users with query parameters
 query_parameters = {
     "email": "user@example.com"
 }
-users_filtered = client.get_users(query_parameters)
+users_filtered = client.get_users(query_parameters).objects()
 
 query_parameters = {
     "email": "usermfa@example.com"
 }
-users_filtered2 = client.get_users(query_parameters)
+users_filtered2 = client.get_users(query_parameters).objects()
 
 # Get Users with limit
 query_parameters = {
     "limit": 3
 }
-users_filtered_limited = client.get_users(query_parameters)
+users_filtered_limited = client.get_users(query_parameters).objects()
 
 # Get User by id
 user = client.get_user(users_filtered[0].id)
@@ -121,7 +204,7 @@ user = client.update_user(user.id, update_user_params)
 user = client.get_user(user.id)
 
 # Get Global Roles
-roles = client.get_roles();
+roles = client.get_roles().objects();
 
 # Get Role
 role = client.get_role(roles[0].id)
@@ -229,7 +312,7 @@ query_events_params = array(
 events = client.get_events(query_events_params);
 
 # Get Groups
-groups = client.get_groups()
+groups = client.get_groups().objects()
 
 # Get Group
 group = client.get_group(groups[0].id)
