@@ -1,4 +1,4 @@
-# OneLogin's Python SDK
+# OneLogin Python SDK
 
 This SDK will let you execute all the API methods, version/1, described
 at https://developers.onelogin.com/api-docs/1/getting-started/dev-overview.
@@ -31,47 +31,45 @@ onelogin-python-sdk works on Python2 or Python 3. It has the following dependenc
 
 ## Getting started
 
-### Pydoc
+You'll need a OneLogin account and a set of API credentials before you get started. 
 
-Pydoc of this SDK is published at:
+If you don't have an account you can [sign up for a free developer account here](https://www.onelogin.com/developer-signup).
+
+|||
+|---|---|
+|client_id|Required: A valid OneLogin API client_id|   
+|client_secret|Required: A valid OneLogin API client_secret|   
+|region| Optional: `us` or `eu`. Defaults to `us`   |   
+
+```python
+from onelogin.api.client import OneLoginClient
+
+client = OneLoginClient(
+    client_id, 
+    client_secret,
+    region
+)
+
+#Now you can make requests 
+client.get_users
+```
+
+For all methods see Pydoc of this SDK published at:
 https://onelogin.github.io/onelogin-python-sdk/index.html
 
 
-### Settings
-
-SDK settings are stored in a file named *onelogin.sdk.ini*. A template can be found at *src/* folder.
-
-The SDK has 3 settings parameters:
-* onelogin.sdk.client_id  Onelogin OAuth2 client ID
-* onelogin.sdk.client_secret  Onelogin OAuth2 client secret
-* onelogin.sdk.region  Indicates where the instance is hosted. Possible values: 'us' or 'eu'.
-
-Read more about Onelogin API credentials at:
-https://developers.onelogin.com/api-docs/1/getting-started/working-with-api-credentials
-
+## Usage
 
 ### Errors and exceptions
 
-Onelogin's API can return 400, 401, 403 or 404 when there was any issue executing the action. When that happens, the methods of the SDK will include error and errorMessage in the OneLoginClient. Use the getError() and the getErrorDescription() to retrieve them.
+OneLogin's API can return 400, 401, 403 or 404 when there was any issue executing the action. When that happens, the methods of the SDK will include error and errorMessage in the OneLoginClient. Use the getError() and the getErrorDescription() to retrieve them.
 
 
-### How it works
+### Authentication
 
-Following there is Python code that executes calls on all the available methods on the SDK.
+By default methods call internally to `get_access_token` if there is no valid access_token. You can also get tokens etc directly if needed. 
 
-It assumes that there are 2 users on the OL instance: 'user@example.com' and other with MFA enabled 'usermfa@example.com' and some roles, custom attributes and groups defined.
-
-```python
-#!/usr/bin/python
-
-import os
-
-from onelogin.api.client import OneLoginClient
-
-
-current_dir_path = os.path.dirname(os.path.abspath(__file__))
-client = OneLoginClient(current_dir_path)
-
+```ruby
 # Get an AccessToken
 token = client.get_access_token()
 
@@ -79,11 +77,12 @@ token = client.get_access_token()
 token2 = client.regenerate_token()
 
 # Revoke an AccessToken
-token3 = client.revoke_token()
+token3 = client.get_access_token()
+```
 
-# By default methods call internally to getAccessToken()
-# if there is not valid access_token
+### Available Methods
 
+```python
 # Get rate limits
 rate_limits = client.get_rate_limits()
 
@@ -255,3 +254,23 @@ sent = client.send_invite_link("user@example.com")
 embed_token = "30e256c101cd0d2e731de1ec222e93c4be8a1572"
 apps = client.get_embed_apps("30e256c101cd0d2e731de1ec222e93c4be8a1572", "user@example.com")
 ```
+
+## Development
+
+After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then, run `pip setup test` to run the tests.
+
+To release a new version, update the version number in `src/onelogin/api/version.py` and commit it, then you will be able to update it to pypy.
+with `python setup.py sdist upload` and `python setup.py bdist_wheel upload`.
+Create also a relase tag on github.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/onelogin/onelogin-ruby-sdk. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the OneLogin Python SDK project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/onelogin/onelogin-ruby-sdk/blob/master/CODE_OF_CONDUCT.md).

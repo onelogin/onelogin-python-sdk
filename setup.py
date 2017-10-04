@@ -14,7 +14,7 @@ with open("src/onelogin/api/version.py") as fp:
 setup(
     name='onelogin',
     version=version['__version__'],
-    description="OneLogin's Python SDK. Use this API client to interact with OneLogin's platform",
+    description="OneLogin Python SDK. Use this API client to interact with OneLogin's platform",
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -40,7 +40,16 @@ setup(
         'requests==2.18.2',
         'defusedxml==0.5.0',
         'lxml==3.8.0',
-        'python-dateutil==2.6.1',
-        'configparser==3.5.0'
+        'python-dateutil==2.6.1'
     ],
+    test_suite='tests',
+    extras_require={
+        'test': (
+            'coverage==3.7.1',
+            'pylint==1.3.1',
+            'pep8==1.5.7',
+            'pyflakes==0.8.1',
+            'coveralls==0.4.4',
+        ),
+    },
     keywords='onelogin api sdk',)
