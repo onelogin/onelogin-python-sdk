@@ -152,6 +152,17 @@ events = cursor.objects()
 events += cursor.fetch_again().objects()
 ```
 
+If you want to keep the unprocessed items, there is an option
+instead of
+```python
+events += cursor.fetch_again().objects()
+```
+use
+```python
+events += cursor.fetch_again(include_unprocessed=True).objects()
+```
+That will return a total of max_results elements including the previous unprocessed items.
+
 ### Available Methods
 
 ```python
