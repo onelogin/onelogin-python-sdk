@@ -344,6 +344,9 @@ class OneLoginClient(object):
         self.clean_error()
         self.prepare_token()
 
+        if max_results is None:
+            max_results = self.max_results
+
         try:
             url = self.get_url(Constants.GET_USERS_URL)
             headers = self.get_authorized_headers()
