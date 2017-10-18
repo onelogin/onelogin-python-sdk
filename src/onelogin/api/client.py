@@ -336,7 +336,7 @@ class OneLoginClient(object):
 
         Returns the list of users
         :return: users list
-        :rtype: array
+        :rtype: list
 
         See https://developers.onelogin.com/api-docs/1/users/get-users Get Users documentation
 
@@ -649,7 +649,7 @@ class OneLoginClient(object):
         :type user_id: int
 
         :param role_ids: List of role ids to be removed
-        :type user_params: integer array
+        :type role_ids: integer array
 
         Returns if the action succeed
         :return: true if success
@@ -1062,7 +1062,7 @@ class OneLoginClient(object):
 
         Returns the list of roles
         :return: role list
-        :rtype: array
+        :rtype: list
 
         See https://developers.onelogin.com/api-docs/1/roles/get-roles Get Roles documentation
 
@@ -1147,7 +1147,7 @@ class OneLoginClient(object):
 
         Returns the list of event type
         :return: event type list
-        :rtype: array
+        :rtype: list
 
         See https://developers.onelogin.com/api-docs/1/events/event-types Get Event Types documentation
 
@@ -1189,7 +1189,7 @@ class OneLoginClient(object):
 
         Returns the list of events
         :return: event list
-        :rtype: array
+        :rtype: list
 
         See https://developers.onelogin.com/api-docs/1/events/get-events Get Events documentation
 
@@ -1316,7 +1316,7 @@ class OneLoginClient(object):
 
         Returns the list of groups
         :return: group list
-        :rtype: array
+        :rtype: list
 
         See https://developers.onelogin.com/api-docs/1/groups/get-groups Get Groups documentation
 
@@ -1604,7 +1604,7 @@ class OneLoginClient(object):
 
         Returns the embed apps
         :return: A list of Apps
-        :rtype: array
+        :rtype: list
 
         See https://developers.onelogin.com/api-docs/1/embed-apps/get-apps-to-embed-for-a-user Get Apps to Embed for a User documentation
 
