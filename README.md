@@ -80,6 +80,13 @@ token2 = client.regenerate_token()
 token3 = client.get_access_token()
 ```
 
+### Searchs
+
+By default a search (get_users, get_events, get_roles, get_groups) will return
+a max of results determined by the client parameter max_results (1000), but
+the search accept this parameter to get a different number of results.
+The max_results attribute of the client can be also overriden.
+
 ### Available Methods
 
 ```python
@@ -103,11 +110,11 @@ query_parameters = {
 }
 users_filtered2 = client.get_users(query_parameters)
 
-# Get Users with limit
+/* Get 10 Users with role_id 2 */
 query_parameters = {
-    "limit": 3
+    "role_id": 2
 }
-users_filtered_limited = client.get_users(query_parameters)
+users_filtered_by_role_id = client.get_users(query_parameters, 10)
 
 # Get User by id
 user = client.get_user(users_filtered[0].id)
@@ -202,11 +209,6 @@ event_types = client.get_event_types()
 
 # Get Events
 events = client.get_events()
-
-query_events_params = {
-    'limit': 2
-}
-events_limited = client.get_events(query_events_params)
 
 # Get Event
 event = client.get_event(events[0].id)
