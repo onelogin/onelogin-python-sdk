@@ -69,7 +69,7 @@ OneLogin's API can return 400, 401, 403 or 404 when there was any issue executin
 
 By default methods call internally to `get_access_token` if there is no valid access_token. You can also get tokens etc directly if needed. 
 
-```ruby
+```python
 # Get an AccessToken
 token = client.get_access_token()
 
@@ -267,7 +267,7 @@ Create also a relase tag on github.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/onelogin/onelogin-ruby-sdk. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/onelogin/onelogin-python-sdk. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -275,4 +275,4 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 ## Code of Conduct
 
-Everyone interacting in the OneLogin Python SDK project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/onelogin/onelogin-ruby-sdk/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the OneLogin Python SDK project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/onelogin/onelogin-python-sdk/blob/master/CODE_OF_CONDUCT.md).
