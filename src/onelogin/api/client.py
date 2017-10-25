@@ -60,6 +60,8 @@ class OneLoginClient(object):
         self.url_builder = UrlBuilder(region)
         self.user_agent = self.CUSTOM_USER_AGENT
         self.access_token = self.refresh_token = self.expiration = None
+        self.error = None
+        self.error_description = None
 
     def clean_error(self):
         """
