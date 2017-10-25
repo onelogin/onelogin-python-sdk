@@ -36,7 +36,7 @@ class User(object):
         if self.group_id:
             self.group_id = int(self.group_id)
         self.role_ids = data.get('role_id', [])
-        self.custom_attributes = data.get('custom_attributes', [])
+        self.custom_attributes = data.get('custom_attributes', {})
         self.openid_name = data.get('openid_name', '')
         self.locale_code = data.get('locale_code', '')
         # self.notes = data.get('notes', None)
