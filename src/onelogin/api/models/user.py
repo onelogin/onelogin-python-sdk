@@ -125,6 +125,7 @@ class User(object):
             "company": self.company,
             "department": self.department,
             "status": self.status,
+            "state": self.state,
             "member_of": self.member_of,
             "samaccountname": self.samaccountname,
             "invalid_login_attempts": self.invalid_login_attempts,
