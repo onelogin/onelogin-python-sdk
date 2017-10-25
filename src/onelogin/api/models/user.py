@@ -4,6 +4,12 @@ from dateutil import parser
 
 
 class User(object):
+
+    STATE_UNAPPROVED = 0
+    STATE_APPROVED = 1
+    STATE_REJECTED = 2
+    STATE_UNLICENSED = 3
+
     def __init__(self, data):
         self.id = data.get('id', None)
         self.external_id = data.get('external_id', None)
@@ -54,6 +60,7 @@ class User(object):
 
         locked_until_info = data.get('locked_until', None)
         self.locked_until = parser.parse(data['locked_until']) if locked_until_info is not None else None
+        self.state = data.get('state', None)
 
     def get_role_ids(self):
         return self.role_ids
