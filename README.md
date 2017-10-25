@@ -51,7 +51,7 @@ client = OneLoginClient(
 )
 
 #Now you can make requests 
-client.get_users
+client.get_users()
 ```
 
 For all methods see Pydoc of this SDK published at:
