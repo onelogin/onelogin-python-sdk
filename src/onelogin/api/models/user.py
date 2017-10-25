@@ -10,6 +10,13 @@ class User(object):
     STATE_REJECTED = 2
     STATE_UNLICENSED = 3
 
+    STATUS_UNACTIVATED = 0
+    STATUS_ACTIVE = 1
+    STATUS_SUSPENDED = 2
+    STATUS_LOCKED = 3
+    STATUS_PASSWORD_EXPIRED = 4
+    STATUS_AWAITING_PASSWORD_RESET = 5
+
     def __init__(self, data):
         self.id = data.get('id', None)
         self.external_id = data.get('external_id', None)
