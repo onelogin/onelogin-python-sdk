@@ -186,24 +186,6 @@ created_user = client.create_user(new_user_params)
 # Delete User
 result = client.delete_user(created_user.id)
 
-# Create Session Login Token
-session_login_token_params = {
-    "username_or_email": "user@example.com",
-    "password": "Aa765431-XxX",
-    "subdomain": "example-onelogin-subdomain"
-}
-session_token_data = client.create_session_login_token(session_login_token_params);
-
-# Create Session Login Token MFA , after verify
-session_login_token_mfa_params = {
-    "username_or_email": "usermfa@example.com",
-    "password": "Aa765432-YyY",
-    "subdomain": "example-onelogin-subdomain"
-}
-session_token_mfa_data = client.create_session_login_token(session_login_token_mfa_params)
-otp_token = "000000"; // We may take that value from OTP device
-session_token_data2 = client.get_session_token_verified(session_token_mfa_data.devices[0].id, session_token_mfa_data.state_token, otp_token);
-
 # Get EventTypes
 event_types = client.get_event_types()
 
@@ -245,6 +227,44 @@ saml_endpoint_response2 = client.get_saml_assertion("usermfa@example.com", "Aa76
 mfa = saml_endpoint_response2.mfa
 otp_token = "000000";
 saml_endpoint_response_after_verify = client.get_saml_assertion_verifying(app_id, mfa.devices[0].id, mfa.state_token, "78395727", None);
+
+# Create Session Login Token
+session_login_token_params = {
+    "username_or_email": "user@example.com",
+    "password": "Aa765431-XxX",
+    "subdomain": "example-onelogin-subdomain"
+}
+session_token_data = client.create_session_login_token(session_login_token_params);
+
+# Create Session Via API Token
+cookie = client.create_session_via_token(session_token_data.session_token)
+
+# Create Session Login Token MFA , after verify
+session_login_token_mfa_params = {
+    "username_or_email": "usermfa@example.com",
+    "password": "Aa765432-YyY",
+    "subdomain": "example-onelogin-subdomain"
+}
+session_token_mfa_data = client.create_session_login_token(session_login_token_mfa_params)
+otp_token = "000000"; // We may take that value from OTP device
+session_token_data2 = client.get_session_token_verified(session_token_mfa_data.devices[0].id, session_token_mfa_data.state_token, otp_token);
+
+user_id = 00000000
+# Get Available Authentication Factors
+auth_factors = client.get_factors(user_id)
+
+# Enroll an Authentication Factor
+enroll_factor = client.enroll_factor(user_id, auth_factors[0].id, 'My Device', '+14156456830')
+
+# Get Enrolled Authentication Factors
+otp_devices = client.get_enrolled_factors(user_id)
+ 
+# Activate an Authentication Factor
+device_id = 0000000
+enrollment_response = client.activate_factor(user_id, device_id)
+
+# Verify an Authentication Factor
+result = client.verify_factor(user_id, device_id, otp_token="4242342423")
 
 # Generate Invite Link
 url_link = client.generate_invite_link("user@example.com")

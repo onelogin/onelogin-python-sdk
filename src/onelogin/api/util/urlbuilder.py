@@ -22,8 +22,10 @@ class UrlBuilder(object):
     def __init__(self, region='us'):
         self.region = region
 
-    def get_url(self, base, obj_id=None):
+    def get_url(self, base, obj_id=None, extra_id=None):
         if obj_id is None:
             return base % (self.region)
-        else:
+        elif extra_id is None:
             return base % (self.region, obj_id)
+        else:
+            return base % (self.region, obj_id, extra_id)
