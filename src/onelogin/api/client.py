@@ -17,12 +17,15 @@ from defusedxml.lxml import fromstring
 from onelogin.api.util.urlbuilder import UrlBuilder
 from onelogin.api.util.constants import Constants
 from onelogin.api.models.app import App
+from onelogin.api.models.auth_factor import AuthFactor
 from onelogin.api.models.event import Event
 from onelogin.api.models.embed_app import EmbedApp
 from onelogin.api.models.event_type import EventType
+from onelogin.api.models.factor_enrollment_response import FactorEnrollmentResponse
 from onelogin.api.models.group import Group
 from onelogin.api.models.mfa import MFA
 from onelogin.api.models.onelogin_token import OneLoginToken
+from onelogin.api.models.otp_device import OTP_Device
 from onelogin.api.models.rate_limit import RateLimit
 from onelogin.api.models.role import Role
 from onelogin.api.models.saml_endpoint_response import SAMLEndpointResponse
@@ -70,8 +73,8 @@ class OneLoginClient(object):
         self.error = None
         self.error_description = None
 
-    def get_url(self, base, obj_id=None):
-        return self.url_builder.get_url(base, obj_id)
+    def get_url(self, base, obj_id=None, extra_id=None):
+        return self.url_builder.get_url(base, obj_id, extra_id)
 
     def extract_error_message_from_response(self, response):
         message = ''
@@ -1031,6 +1034,8 @@ class OneLoginClient(object):
         :return: return the 'Set-Cookie' value of the HTTP Header if any
         :rtype: string
 
+        See @see https://developers.onelogin.com/api-docs/1/login-page/create-session-via-token Create Session Via API Token documentation
+
         """
         url = self.get_url(Constants.SESSION_API_TOKEN_URL)
         headers = {
@@ -1500,6 +1505,228 @@ class OneLoginClient(object):
 
             if response.status_code == 200:
                 return self.handle_saml_endpoint_response(response)
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    # Multi-factor Auth Methods
+    def get_factors(self, user_id):
+        """
+
+        Returns a list of authentication factors that are available for user enrollment via API.
+
+        :param user_id: Set to the id of the user.
+        :type user_id: integer
+
+        :return: AuthFactor list
+        :rtype: array
+
+        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/available-factors Get Available Authentication Factors documentation
+
+        """
+        self.clean_error()
+        self.prepare_token()
+
+        try:
+            url = self.get_url(Constants.GET_FACTORS_URL, user_id)
+            headers = self.get_authorized_headers()
+
+            response = requests.get(url, headers=headers)
+
+            auth_factors = []
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data and json_data.get('data', None):
+                    for auth_factor_data in json_data['data']['auth_factors']:
+                        auth_factors.append(AuthFactor(auth_factor_data))
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+
+            return auth_factors
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def enroll_factor(self, user_id, factor_id, display_name, number):
+        """
+
+        Enroll a user with a given authentication factor.
+
+        :param user_id: Set to the id of the user.
+        :type user_id: integer
+
+        :param factor_id: The identifier of the factor to enroll the user with.
+        :type factor_id: integer
+
+        :param display_name: A name for the users device.
+        :type display_name: string
+
+        :param number: The phone number of the user in E.164 format..
+        :type number: string
+
+        :return: MFA device
+        :rtype: OTP_Device
+
+        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/enroll-factor Enroll an Authentication Factor documentation
+
+        """
+        self.clean_error()
+        self.prepare_token()
+
+        try:
+            url = self.get_url(Constants.ENROLL_FACTOR_URL, user_id)
+            headers = self.get_authorized_headers()
+
+            data = {
+                'factor_id': int(factor_id),
+                'display_name': display_name,
+                'number': number
+            }
+
+            response = requests.post(url, headers=headers, json=data)
+
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data and json_data.get('data', None):
+                    return OTP_Device(json_data['data'][0])
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def get_enrolled_factors(self, user_id):
+        """
+
+        Enroll a user with a given authentication factor.
+
+        :param user_id: Set to the id of the user.
+        :type user_id: integer
+
+        :return: OTP_Device list
+        :rtype: array
+
+        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/enrolled-factors Get Enrolled Authentication Factors documentation
+
+        """
+        self.clean_error()
+        self.prepare_token()
+
+        try:
+            url = self.get_url(Constants.GET_ENROLLED_FACTORS_URL, user_id)
+            headers = self.get_authorized_headers()
+
+            response = requests.get(url, headers=headers)
+
+            otp_devices = []
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data and json_data.get('data', None):
+                    otp_devices_data = json_data['data'].get('otp_devices', None)
+                    if otp_devices_data:
+                        for otp_device_data in otp_devices_data:
+                            otp_devices.append(OTP_Device(otp_device_data))
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+
+            return otp_devices
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def activate_factor(self, user_id, device_id):
+        """
+
+        Triggers an SMS or Push notification containing a One-Time Password (OTP)
+        that can be used to authenticate a user with the Verify Factor call.
+
+        :param user_id: Set to the id of the user.
+        :type user_id: integer
+
+        :param device_id: Set to the device_id of the MFA device.
+        :type device_id: integer
+
+        :return: Info with User Id, Device Id, and otp_device
+        :rtype: FactorEnrollmentResponse
+
+        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/activate-factor Activate an Authentication Factor documentation
+
+        """
+        self.clean_error()
+        self.prepare_token()
+
+        try:
+            url = self.get_url(Constants.ACTIVATE_FACTOR_URL, user_id, device_id)
+            headers = self.get_authorized_headers()
+
+            response = requests.post(url, headers=headers)
+
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data and json_data.get('data', None):
+                    return FactorEnrollmentResponse(json_data['data'][0])
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def verify_factor(self, user_id, device_id, otp_token=None, state_token=None):
+        """
+
+        Triggers an SMS or Push notification containing a One-Time Password (OTP)
+        that can be used to authenticate a user with the Verify Factor call.
+
+        :param user_id: Set to the id of the user.
+        :type user_id: integer
+
+        :param device_id: Set to the device_id of the MFA device.
+        :type device_id: integer
+
+        :param otp_token: OTP code provided by the device or SMS message sent to user.
+                          When a device like OneLogin Protect that supports Push has
+                          been used you do not need to provide the otp_token.
+        :type otp_token: string
+
+        :param state_token: The state_token is returned after a successful request
+                            to Enroll a Factor or Activate a Factor.
+                            MUST be provided if the needs_trigger attribute from
+                            the proceeding calls is set to true.
+        :type state_token: string
+
+        :return: Info with User Id, Device Id, and otp_device
+        :rtype: FactorEnrollmentResponse
+
+        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/activate-factor Activate an Authentication Factor documentation
+
+        """
+        self.clean_error()
+        self.prepare_token()
+
+        try:
+            url = self.get_url(Constants.VERIFY_FACTOR_URL, user_id, device_id)
+            headers = self.get_authorized_headers()
+
+            data = {}
+            if otp_token:
+                data['otp_token'] = otp_token
+            if state_token:
+                data['state_token'] = state_token
+
+            if data:
+                response = requests.post(url, headers=headers, json=data)
+            else:
+                response = requests.post(url, headers=headers)
+
+            if response.status_code == 200:
+                return self.handle_operation_response(response)
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)

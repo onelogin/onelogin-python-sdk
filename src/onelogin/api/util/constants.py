@@ -66,6 +66,13 @@ class Constants(object):
     GET_SAML_ASSERTION_URL = "https://api.%s.onelogin.com/api/1/saml_assertion"
     GET_SAML_VERIFY_FACTOR = "https://api.%s.onelogin.com/api/1/saml_assertion/verify_factor"
 
+    # Multi-Factor Authentication URLs
+    GET_FACTORS_URL = "https://api.%s.onelogin.com/api/1/users/%s/auth_factors"
+    ENROLL_FACTOR_URL = "https://api.%s.onelogin.com/api/1/users/%s/otp_devices"
+    GET_ENROLLED_FACTORS_URL = "https://api.%s.onelogin.com/api/1/users/%s/otp_devices"
+    ACTIVATE_FACTOR_URL = "https://api.%s.onelogin.com/api/1/users/%s/otp_devices/%s/trigger"
+    VERIFY_FACTOR_URL = "https://api.%s.onelogin.com/api/1/users/%s/otp_devices/%s/verify"
+
     # Invite Link URLS
     GENERATE_INVITE_LINK_URL = "https://api.%s.onelogin.com/api/1/invites/get_invite_link"
     SEND_INVITE_LINK_URL = "https://api.%s.onelogin.com/api/1/invites/send_invite_link"
