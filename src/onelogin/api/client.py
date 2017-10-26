@@ -1634,7 +1634,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
-            
+
             return otp_devices
         except Exception as e:
             self.error = 500
@@ -1678,7 +1678,6 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
-
     def verify_factor(self, user_id, device_id, otp_token=None, state_token=None):
         """
 
@@ -1719,7 +1718,7 @@ class OneLoginClient(object):
             if otp_token:
                 data['otp_token'] = otp_token
             if state_token:
-                data['state_token'] = state_token 
+                data['state_token'] = state_token
 
             if data:
                 response = requests.post(url, headers=headers, json=data)
