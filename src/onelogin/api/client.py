@@ -1591,7 +1591,6 @@ class OneLoginClient(object):
 
             if response.status_code == 200:
                 json_data = response.json()
-                import pdb; pdb.set_trace()
                 if json_data and json_data.get('data', None):
                     return OTP_Device(json_data['data'][0])
             else:
