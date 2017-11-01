@@ -67,6 +67,7 @@ class User(object):
 
         locked_until_info = data.get('locked_until', None)
         self.locked_until = parser.parse(data['locked_until']) if locked_until_info is not None else None
+
         self.state = data.get('state', None)
 
     def get_role_ids(self):
@@ -88,6 +89,7 @@ class User(object):
         user_data.company = self.company
         user_data.department = self.department
         user_data.status = self.status
+        user_data.state = self.state
         user_data.member_of = self.member_of
         user_data.samaccountname = self.samaccountname
         user_data.userprincipalname = self.userprincipalname
