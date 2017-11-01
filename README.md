@@ -90,6 +90,10 @@ The max_results attribute of the client can be also overriden.
 ### Available Methods
 
 ```python
+# Build Client
+from onelogin.api.client import OneLoginClient
+client = OneLoginClient("client_id", "client_secret")
+
 # Get rate limits
 rate_limits = client.get_rate_limits()
 
@@ -155,7 +159,7 @@ import hashlib
 hashed_salted_password = hashlib.sha256(salt + password).hexdigest()
 result = client.set_password_using_hash_salt(user_mfa.id, hashed_salted_password, hashed_salted_password, "salt+sha256", salt);
 
- Set Custom Attribute Value to User
+# Set Custom Attribute Value to User
 customAttributes = {
     custom_global_attributes[0]: "xxxx",
     custom_global_attributes[1]: "yyyy"
@@ -280,6 +284,8 @@ apps = client.get_embed_apps("30e256c101cd0d2e731de1ec222e93c4be8a1572", "user@e
 ## Development
 
 After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then, run `pip setup test` to run the tests.
+
+Alternatively run `pip install -r requirements-test.txt` and then run `nosetests` from the project's root directory.
 
 To release a new version, update the version number in `src/onelogin/api/version.py` and commit it, then you will be able to update it to pypy.
 with `python setup.py sdist upload` and `python setup.py bdist_wheel upload`.
