@@ -63,6 +63,8 @@ class OneLoginClient(object):
         self.url_builder = UrlBuilder(region)
         self.user_agent = self.CUSTOM_USER_AGENT
         self.access_token = self.refresh_token = self.expiration = None
+        self.error = None
+        self.error_description = None
 
     def clean_error(self):
         """
@@ -187,7 +189,7 @@ class OneLoginClient(object):
 
         Returns the generated OAuth Token info
         :return: OAuth Token info
-        :rtype: OneLoginToken object
+        :rtype: OneLoginToken
 
         See https://developers.onelogin.com/api-docs/1/oauth20-tokens/generate-tokens Generate Tokens documentation.
 
@@ -226,7 +228,7 @@ class OneLoginClient(object):
 
         Returns the refreshed OAuth Token info
         :return: OAuth Token info
-        :rtype: OneLoginToken object
+        :rtype: OneLoginToken
 
         See https://developers.onelogin.com/api-docs/1/oauth20-tokens/refresh-tokens Refresh Tokens documentation
 
@@ -300,7 +302,7 @@ class OneLoginClient(object):
 
         Returns the rate limit info
         :return: rate limit info
-        :rtype: RateLimit object
+        :rtype: RateLimit
 
         See https://developers.onelogin.com/api-docs/1/oauth20-tokens/get-rate-limit Get Rate Limit documentation
 
@@ -339,7 +341,7 @@ class OneLoginClient(object):
 
         Returns the list of users
         :return: users list
-        :rtype: array
+        :rtype: list[User]
 
         See https://developers.onelogin.com/api-docs/1/users/get-users Get Users documentation
 
@@ -392,7 +394,7 @@ class OneLoginClient(object):
 
         Returns the user identified by the id
         :return: user
-        :rtype: User object
+        :rtype: User
 
         See https://developers.onelogin.com/api-docs/1/users/get-user-by-id Get User by ID documentation
 
@@ -425,8 +427,8 @@ class OneLoginClient(object):
         :type user_id: int
 
         Returns the apps user identified by the id
-        :return: apps
-        :rtype: App array
+        :return: App list of the user
+        :rtype: list[App]
 
         See https://developers.onelogin.com/api-docs/1/users/get-apps-for-user Get Apps for a User documentation
 
@@ -463,7 +465,7 @@ class OneLoginClient(object):
 
         Returns the role ids of the user identified by the id
         :return: role ids
-        :rtype: integer array
+        :rtype: list[int]
 
         See https://developers.onelogin.com/api-docs/1/users/get-roles-for-user Get Roles for a User documentation
 
@@ -496,7 +498,7 @@ class OneLoginClient(object):
 
         Returns the custom attributes of the account
         :return: custom attribute list
-        :rtype: string array
+        :rtype: list[str]
 
         See https://developers.onelogin.com/api-docs/1/users/get-custom-attributes Get Custom Attributes documentation
 
@@ -652,7 +654,7 @@ class OneLoginClient(object):
         :type user_id: int
 
         :param role_ids: List of role ids to be removed
-        :type user_params: integer array
+        :type role_ids: integer array
 
         Returns if the action succeed
         :return: true if success
@@ -1032,7 +1034,7 @@ class OneLoginClient(object):
 
         Returns Header 'Set-Cookie' value
         :return: return the 'Set-Cookie' value of the HTTP Header if any
-        :rtype: string
+        :rtype: str
 
         See @see https://developers.onelogin.com/api-docs/1/login-page/create-session-via-token Create Session Via API Token documentation
 
@@ -1067,7 +1069,7 @@ class OneLoginClient(object):
 
         Returns the list of roles
         :return: role list
-        :rtype: array
+        :rtype: list[Role]
 
         See https://developers.onelogin.com/api-docs/1/roles/get-roles Get Roles documentation
 
@@ -1120,7 +1122,7 @@ class OneLoginClient(object):
 
         Returns the role identified by the id
         :return: role
-        :rtype: Role object
+        :rtype: Role
 
         See https://developers.onelogin.com/api-docs/1/roles/get-role-by-id Get Role by ID documentation
 
@@ -1152,7 +1154,7 @@ class OneLoginClient(object):
 
         Returns the list of event type
         :return: event type list
-        :rtype: array
+        :rtype: list[EventType]
 
         See https://developers.onelogin.com/api-docs/1/events/event-types Get Event Types documentation
 
@@ -1194,7 +1196,7 @@ class OneLoginClient(object):
 
         Returns the list of events
         :return: event list
-        :rtype: array
+        :rtype: list[Event]
 
         See https://developers.onelogin.com/api-docs/1/events/get-events Get Events documentation
 
@@ -1248,7 +1250,7 @@ class OneLoginClient(object):
 
         Returns the result of the operation
         :return: event
-        :rtype: Event object
+        :rtype: Event
 
         See https://developers.onelogin.com/api-docs/1/events/get-event-by-id Get Event by ID documentation
 
@@ -1321,7 +1323,7 @@ class OneLoginClient(object):
 
         Returns the list of groups
         :return: group list
-        :rtype: array
+        :rtype: list[Group]
 
         See https://developers.onelogin.com/api-docs/1/groups/get-groups Get Groups documentation
 
@@ -1374,7 +1376,7 @@ class OneLoginClient(object):
 
         Returns the group identified by the id
         :return: group
-        :rtype: Group object
+        :rtype: Group
 
         See https://developers.onelogin.com/api-docs/1/groups/get-group-by-id Get Group by ID documentation
 
@@ -1522,7 +1524,7 @@ class OneLoginClient(object):
         :type user_id: integer
 
         :return: AuthFactor list
-        :rtype: array
+        :rtype: list[AuthFactor]
 
         See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/available-factors Get Available Authentication Factors documentation
 
@@ -1609,7 +1611,7 @@ class OneLoginClient(object):
         :type user_id: integer
 
         :return: OTP_Device list
-        :rtype: array
+        :rtype: list[OTP_Device]
 
         See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/enrolled-factors Get Enrolled Authentication Factors documentation
 
@@ -1745,7 +1747,7 @@ class OneLoginClient(object):
 
         Returns the invitation link
         :return: link
-        :rtype: string
+        :rtype: str
 
         See https://developers.onelogin.com/api-docs/1/invite-links/generate-invite-link Generate Invite Link documentation
 
@@ -1788,7 +1790,7 @@ class OneLoginClient(object):
 
         Returns the result of the operation
         :return: True if the mail with the link was sent
-        :rtype: boolean
+        :rtype: bool
 
         See https://developers.onelogin.com/api-docs/1/invite-links/send-invite-link Send Invite Link documentation
 
@@ -1831,7 +1833,7 @@ class OneLoginClient(object):
 
         Returns the embed apps
         :return: A list of Apps
-        :rtype: array
+        :rtype: list[App]
 
         See https://developers.onelogin.com/api-docs/1/embed-apps/get-apps-to-embed-for-a-user Get Apps to Embed for a User documentation
 

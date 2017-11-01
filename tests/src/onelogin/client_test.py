@@ -46,3 +46,16 @@ class OneLogin_API_Client_Test(unittest.TestCase):
         """
         with self.assertRaises(Exception):
             client = OneLoginClient()
+
+    def testClientDefaultErrorValues(self):
+        """
+        Tests the constructor method of the OneLoginClient class
+        Build a OneLoginClient object and check if the error attributes exist and are None
+        """
+        client = OneLoginClient(
+            client_id='test_client_id',
+            client_secret='test_client_secret',
+            region='eu'
+        )
+        self.assertIsNone(client.error)
+        self.assertIsNone(client.error_description)

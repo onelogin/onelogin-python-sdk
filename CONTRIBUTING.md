@@ -1,4 +1,4 @@
-# Contributing to onelogin-java-sdk
+# Contributing to onelogin-python-sdk
 
 ## Adding Features, Pull Requests
 * Fork the repository

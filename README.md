@@ -50,8 +50,8 @@ client = OneLoginClient(
     region
 )
 
-#Now you can make requests 
-client.get_users
+# Now you can make requests
+client.get_users()
 ```
 
 For all methods see Pydoc of this SDK published at:
@@ -77,10 +77,10 @@ token = client.get_access_token()
 token2 = client.regenerate_token()
 
 # Revoke an AccessToken
-token3 = client.get_access_token()
+is_revoked = client.revoke_token()
 ```
 
-### Searchs
+### Searches
 
 By default a search (get_users, get_events, get_roles, get_groups) will return
 a max of results determined by the client parameter max_results (1000), but
@@ -90,6 +90,10 @@ The max_results attribute of the client can be also overriden.
 ### Available Methods
 
 ```python
+# Build Client
+from onelogin.api.client import OneLoginClient
+client = OneLoginClient("client_id", "client_secret")
+
 # Get rate limits
 rate_limits = client.get_rate_limits()
 
@@ -110,7 +114,7 @@ query_parameters = {
 }
 users_filtered2 = client.get_users(query_parameters)
 
-/* Get 10 Users with role_id 2 */
+# Get 10 Users with role_id 2
 query_parameters = {
     "role_id": 2
 }
@@ -128,7 +132,7 @@ user = client.update_user(user.id, update_user_params)
 user = client.get_user(user.id)
 
 # Get Global Roles
-roles = client.get_roles();
+roles = client.get_roles()
 
 # Get Role
 role = client.get_role(roles[0].id)
@@ -146,27 +150,27 @@ user = client.get_user(user.id)
 
 # Sets Password by ID Using Cleartext
 password = "Aa765431-XxX"
-result = client.set_password_using_clear_text(user.id, password, password);
+result = client.set_password_using_clear_text(user.id, password, password)
 
 # Sets Password by ID Using Salt and SHA-256
-password = "Aa765432-YyY";
-salt = "11xxxx1";
+password = "Aa765432-YyY"
+salt = "11xxxx1"
 import hashlib
 hashed_salted_password = hashlib.sha256(salt + password).hexdigest()
-result = client.set_password_using_hash_salt(user_mfa.id, hashed_salted_password, hashed_salted_password, "salt+sha256", salt);
+result = client.set_password_using_hash_salt(user_mfa.id, hashed_salted_password, hashed_salted_password, "salt+sha256", salt)
 
- Set Custom Attribute Value to User
+# Set Custom Attribute Value to User
 customAttributes = {
     custom_global_attributes[0]: "xxxx",
     custom_global_attributes[1]: "yyyy"
 }
-result = client.set_custom_attribute_to_user(34687020, customAttributes);
+result = client.set_custom_attribute_to_user(34687020, customAttributes)
 
 # Log Out User
-result = client.log_user_out(user.id);
+result = client.log_user_out(user.id)
 
 # Lock User
-result = client.lock_user(user.id, 5);
+result = client.lock_user(user.id, 5)
 
 # Get User apps
 apps = client.get_user_apps(user.id)
@@ -207,10 +211,10 @@ new_event_params = {
 result = client.create_event(new_event_params)
 
 # Get Filtered Events
-query_events_params = array(
+query_events_params = {
   "user_id": "00000000"
-);
-events = client.get_events(query_events_params);
+}
+events = client.get_events(query_events_params)
 
 # Get Groups
 groups = client.get_groups()
@@ -219,14 +223,14 @@ groups = client.get_groups()
 group = client.get_group(groups[0].id)
 
 # Get SAMLResponse directly
-app_id = "000000"
-saml_endpoint_response = client.get_saml_assertion("user@example.com", "Aa765431-XxX", app_id, "example-onelogin-subdomain");
+app_id = 000000
+saml_endpoint_response = client.get_saml_assertion("user@example.com", "Aa765431-XxX", app_id, "example-onelogin-subdomain")
 
 # Get SAMLResponse after MFA
-saml_endpoint_response2 = client.get_saml_assertion("usermfa@example.com", "Aa765432-YyY", app_id, "example-onelogin-subdomain");
+saml_endpoint_response2 = client.get_saml_assertion("usermfa@example.com", "Aa765432-YyY", app_id, "example-onelogin-subdomain")
 mfa = saml_endpoint_response2.mfa
-otp_token = "000000";
-saml_endpoint_response_after_verify = client.get_saml_assertion_verifying(app_id, mfa.devices[0].id, mfa.state_token, "78395727", None);
+otp_token = "000000"
+saml_endpoint_response_after_verify = client.get_saml_assertion_verifying(app_id, mfa.devices[0].id, mfa.state_token, "78395727", None)
 
 # Create Session Login Token
 session_login_token_params = {
@@ -234,7 +238,7 @@ session_login_token_params = {
     "password": "Aa765431-XxX",
     "subdomain": "example-onelogin-subdomain"
 }
-session_token_data = client.create_session_login_token(session_login_token_params);
+session_token_data = client.create_session_login_token(session_login_token_params)
 
 # Create Session Via API Token
 cookie = client.create_session_via_token(session_token_data.session_token)
@@ -246,8 +250,8 @@ session_login_token_mfa_params = {
     "subdomain": "example-onelogin-subdomain"
 }
 session_token_mfa_data = client.create_session_login_token(session_login_token_mfa_params)
-otp_token = "000000"; // We may take that value from OTP device
-session_token_data2 = client.get_session_token_verified(session_token_mfa_data.devices[0].id, session_token_mfa_data.state_token, otp_token);
+otp_token = "000000" # We may take that value from OTP device
+session_token_data2 = client.get_session_token_verified(session_token_mfa_data.devices[0].id, session_token_mfa_data.state_token, otp_token)
 
 user_id = 00000000
 # Get Available Authentication Factors
@@ -272,7 +276,7 @@ url_link = client.generate_invite_link("user@example.com")
 # Send Invite Link
 sent = client.send_invite_link("user@example.com")
 
-#Get Apps to Embed for a User
+# Get Apps to Embed for a User
 embed_token = "30e256c101cd0d2e731de1ec222e93c4be8a1572"
 apps = client.get_embed_apps("30e256c101cd0d2e731de1ec222e93c4be8a1572", "user@example.com")
 ```
@@ -280,6 +284,8 @@ apps = client.get_embed_apps("30e256c101cd0d2e731de1ec222e93c4be8a1572", "user@e
 ## Development
 
 After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then, run `pip setup test` to run the tests.
+
+Alternatively run `pip install -r requirements-test.txt` and then run `nosetests` from the project's root directory.
 
 To release a new version, update the version number in `src/onelogin/api/version.py` and commit it, then you will be able to update it to pypy.
 with `python setup.py sdist upload` and `python setup.py bdist_wheel upload`.

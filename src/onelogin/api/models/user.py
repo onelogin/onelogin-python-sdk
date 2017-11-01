@@ -4,6 +4,19 @@ from dateutil import parser
 
 
 class User(object):
+
+    STATE_UNAPPROVED = 0
+    STATE_APPROVED = 1
+    STATE_REJECTED = 2
+    STATE_UNLICENSED = 3
+
+    STATUS_UNACTIVATED = 0
+    STATUS_ACTIVE = 1
+    STATUS_SUSPENDED = 2
+    STATUS_LOCKED = 3
+    STATUS_PASSWORD_EXPIRED = 4
+    STATUS_AWAITING_PASSWORD_RESET = 5
+
     def __init__(self, data):
         self.id = data.get('id', None)
         self.external_id = data.get('external_id', None)
@@ -23,7 +36,7 @@ class User(object):
         if self.group_id:
             self.group_id = int(self.group_id)
         self.role_ids = data.get('role_id', [])
-        self.custom_attributes = data.get('custom_attributes', [])
+        self.custom_attributes = data.get('custom_attributes', {})
         self.openid_name = data.get('openid_name', '')
         self.locale_code = data.get('locale_code', '')
         # self.notes = data.get('notes', None)
@@ -55,6 +68,8 @@ class User(object):
         locked_until_info = data.get('locked_until', None)
         self.locked_until = parser.parse(data['locked_until']) if locked_until_info is not None else None
 
+        self.state = data.get('state', None)
+
     def get_role_ids(self):
         return self.role_ids
 
@@ -74,6 +89,7 @@ class User(object):
         user_data.company = self.company
         user_data.department = self.department
         user_data.status = self.status
+        user_data.state = self.state
         user_data.member_of = self.member_of
         user_data.samaccountname = self.samaccountname
         user_data.userprincipalname = self.userprincipalname
@@ -111,6 +127,7 @@ class User(object):
             "company": self.company,
             "department": self.department,
             "status": self.status,
+            "state": self.state,
             "member_of": self.member_of,
             "samaccountname": self.samaccountname,
             "invalid_login_attempts": self.invalid_login_attempts,
