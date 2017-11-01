@@ -50,7 +50,7 @@ client = OneLoginClient(
     region
 )
 
-#Now you can make requests 
+# Now you can make requests
 client.get_users()
 ```
 
@@ -77,10 +77,10 @@ token = client.get_access_token()
 token2 = client.regenerate_token()
 
 # Revoke an AccessToken
-token3 = client.get_access_token()
+is_revoked = client.revoke_token()
 ```
 
-### Searchs
+### Searches
 
 By default a search (get_users, get_events, get_roles, get_groups) will return
 a max of results determined by the client parameter max_results (1000), but
