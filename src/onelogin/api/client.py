@@ -1034,7 +1034,7 @@ class OneLoginClient(object):
 
         Returns Header 'Set-Cookie' value
         :return: return the 'Set-Cookie' value of the HTTP Header if any
-        :rtype: string
+        :rtype: str
 
         See @see https://developers.onelogin.com/api-docs/1/login-page/create-session-via-token Create Session Via API Token documentation
 
@@ -1524,7 +1524,7 @@ class OneLoginClient(object):
         :type user_id: integer
 
         :return: AuthFactor list
-        :rtype: array
+        :rtype: list[AuthFactor]
 
         See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/available-factors Get Available Authentication Factors documentation
 
@@ -1611,7 +1611,7 @@ class OneLoginClient(object):
         :type user_id: integer
 
         :return: OTP_Device list
-        :rtype: array
+        :rtype: list[OTP_Device]
 
         See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/enrolled-factors Get Enrolled Authentication Factors documentation
 
@@ -1747,7 +1747,7 @@ class OneLoginClient(object):
 
         Returns the invitation link
         :return: link
-        :rtype: string
+        :rtype: str
 
         See https://developers.onelogin.com/api-docs/1/invite-links/generate-invite-link Generate Invite Link documentation
 
@@ -1790,7 +1790,7 @@ class OneLoginClient(object):
 
         Returns the result of the operation
         :return: True if the mail with the link was sent
-        :rtype: boolean
+        :rtype: bool
 
         See https://developers.onelogin.com/api-docs/1/invite-links/send-invite-link Send Invite Link documentation
 
