@@ -21,5 +21,6 @@ __pycache_
 /dist
 /venv
 /venv3
+virtualenv
 onelogin.sdk.ini
 app_test.py
