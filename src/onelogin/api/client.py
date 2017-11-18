@@ -1039,6 +1039,8 @@ class OneLoginClient(object):
         See @see https://developers.onelogin.com/api-docs/1/login-page/create-session-via-token Create Session Via API Token documentation
 
         """
+        self.clean_error()
+
         url = self.get_url(Constants.SESSION_API_TOKEN_URL)
         headers = {
             'Content-Type': 'application/json;charset=UTF-8',
