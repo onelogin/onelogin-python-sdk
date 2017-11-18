@@ -1703,8 +1703,8 @@ class OneLoginClient(object):
                             the proceeding calls is set to true.
         :type state_token: string
 
-        :return: Info with User Id, Device Id, and otp_device
-        :rtype: FactorEnrollmentResponse
+        :return: true if action succeed
+        :rtype: bool
 
         See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/activate-factor Activate an Authentication Factor documentation
 
