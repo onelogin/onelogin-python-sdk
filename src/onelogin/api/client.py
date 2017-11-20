@@ -1607,7 +1607,7 @@ class OneLoginClient(object):
     def get_enrolled_factors(self, user_id):
         """
 
-        Enroll a user with a given authentication factor.
+        Return a list of authentication factors registered to a particular user for multifactor authentication (MFA)
 
         :param user_id: Set to the id of the user.
         :type user_id: integer
