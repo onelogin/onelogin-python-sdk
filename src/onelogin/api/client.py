@@ -1708,7 +1708,7 @@ class OneLoginClient(object):
         :return: true if action succeed
         :rtype: bool
 
-        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/activate-factor Activate an Authentication Factor documentation
+        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/verify-factor Verify an Authentication Factor documentation
 
         """
         self.clean_error()
