@@ -1036,7 +1036,7 @@ class OneLoginClient(object):
         :return: return the 'Set-Cookie' value of the HTTP Header if any
         :rtype: str
 
-        See @see https://developers.onelogin.com/api-docs/1/login-page/create-session-via-token Create Session Via API Token documentation
+        See https://developers.onelogin.com/api-docs/1/login-page/create-session-via-token Create Session Via API Token documentation
 
         """
         self.clean_error()
@@ -1482,7 +1482,7 @@ class OneLoginClient(object):
         :return: true if success
         :rtype: SAMLEndpointResponse
 
-        See @see https://developers.onelogin.com/api-docs/1/saml-assertions/verify-factor Verify Factor documentation
+        See https://developers.onelogin.com/api-docs/1/saml-assertions/verify-factor Verify Factor documentation
 
         """
         self.clean_error()
@@ -1528,7 +1528,7 @@ class OneLoginClient(object):
         :return: AuthFactor list
         :rtype: list[AuthFactor]
 
-        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/available-factors Get Available Authentication Factors documentation
+        See https://developers.onelogin.com/api-docs/1/multi-factor-authentication/available-factors Get Available Authentication Factors documentation
 
         """
         self.clean_error()
@@ -1575,7 +1575,7 @@ class OneLoginClient(object):
         :return: MFA device
         :rtype: OTP_Device
 
-        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/enroll-factor Enroll an Authentication Factor documentation
+        See https://developers.onelogin.com/api-docs/1/multi-factor-authentication/enroll-factor Enroll an Authentication Factor documentation
 
         """
         self.clean_error()
@@ -1615,7 +1615,7 @@ class OneLoginClient(object):
         :return: OTP_Device list
         :rtype: list[OTP_Device]
 
-        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/enrolled-factors Get Enrolled Authentication Factors documentation
+        See https://developers.onelogin.com/api-docs/1/multi-factor-authentication/enrolled-factors Get Enrolled Authentication Factors documentation
 
         """
         self.clean_error()
@@ -1659,7 +1659,7 @@ class OneLoginClient(object):
         :return: Info with User Id, Device Id, and otp_device
         :rtype: FactorEnrollmentResponse
 
-        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/activate-factor Activate an Authentication Factor documentation
+        See https://developers.onelogin.com/api-docs/1/multi-factor-authentication/activate-factor Activate an Authentication Factor documentation
 
         """
         self.clean_error()
@@ -1708,7 +1708,7 @@ class OneLoginClient(object):
         :return: true if action succeed
         :rtype: bool
 
-        See @see https://developers.onelogin.com/api-docs/1/multi-factor-authentication/verify-factor Verify an Authentication Factor documentation
+        See https://developers.onelogin.com/api-docs/1/multi-factor-authentication/verify-factor Verify an Authentication Factor documentation
 
         """
         self.clean_error()
