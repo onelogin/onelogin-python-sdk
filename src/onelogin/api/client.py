@@ -1685,8 +1685,7 @@ class OneLoginClient(object):
     def verify_factor(self, user_id, device_id, otp_token=None, state_token=None):
         """
 
-        Triggers an SMS or Push notification containing a One-Time Password (OTP)
-        that can be used to authenticate a user with the Verify Factor call.
+        Authenticates a one-time password (OTP) code provided by a multifactor authentication (MFA) device.
 
         :param user_id: Set to the id of the user.
         :type user_id: integer
