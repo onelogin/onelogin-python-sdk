@@ -1097,7 +1097,8 @@ class OneLoginClient(object):
                         for role_data in json_data['data']:
                             if len(roles) < max_results:
                                 roles.append(Role(role_data))
-                            return roles
+                            else:
+                                return roles
 
                     after_cursor = self.get_after_cursor(response)
                     if after_cursor:
