@@ -9,6 +9,5 @@ class App(object):
         self.icon = data.get('icon', '')
         self.provisioned = data.get('provisioned', None)
         self.extension = data.get('extension', None)
-        login_id = data.get('login_id', None)
-        self.login_id = int(login_id) if login_id is not None else None
+        self.login_id = data.get('login_id', None)
         self.personal = data.get('personal', None)
