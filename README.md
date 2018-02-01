@@ -57,6 +57,8 @@ client.get_users()
 For all methods see Pydoc of this SDK published at:
 https://onelogin.github.io/onelogin-python-sdk/index.html
 
+Is good practice to verify that the provided credentials are ok by executing
+a call to client.get_access_token() after call the client constructor and verify that client.error is None after that call, which means that the client was able to fetch an access_token to execute API calls.
 
 ## Usage
 
@@ -79,6 +81,14 @@ token2 = client.regenerate_token()
 # Revoke an AccessToken
 is_revoked = client.revoke_token()
 ```
+
+### Detect forbidden
+
+The client constructor accepts a 'detect_forbidden' option that will raise an exception if an API call returned a 401 Forbidden and after that a new API call is tried to be executed, but when trying to get a new access_token, it
+got a 401 which means that client_id/client_secret are wrong.
+
+By default that option is disabled.
+
 
 ### Searches
 

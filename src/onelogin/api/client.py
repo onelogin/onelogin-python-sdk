@@ -48,7 +48,7 @@ class OneLoginClient(object):
 
     CUSTOM_USER_AGENT = "onelogin-python-sdk %s" % __version__
 
-    def __init__(self, client_id, client_secret, region='us', max_results=1000):
+    def __init__(self, client_id, client_secret, region='us', max_results=1000, detect_forbidden=False):
         """
 
         Create a new instance of OneLoginClient.
@@ -60,6 +60,7 @@ class OneLoginClient(object):
         self.client_id = client_id
         self.client_secret = client_secret
         self.max_results = max_results
+        self.detect_forbidden = detect_forbidden
         self.url_builder = UrlBuilder(region)
         self.user_agent = self.CUSTOM_USER_AGENT
         self.access_token = self.refresh_token = self.expiration = None
@@ -158,11 +159,18 @@ class OneLoginClient(object):
     def is_expired(self):
         return self.expiration is not None and datetime.datetime.now(tz.tzutc()) > self.expiration
 
+    def last_request_forbidden(self):
+        return self.error == '401'
+
     def prepare_token(self):
         if self.access_token is None:
             self.get_access_token()
         elif self.is_expired():
             self.regenerate_token()
+        elif self.last_request_forbidden():
+            self.get_access_token()
+            if self.last_request_forbidden():
+                raise Exception("Not able to get a valid access_token, can't continue")
 
     def get_headers(self, bearer=True):
         return {
