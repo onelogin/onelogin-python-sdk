@@ -37,6 +37,7 @@ class Constants(object):
     DELETE_ROLE_TO_USER_URL = "https://api.%s.onelogin.com/api/1/users/%s/remove_roles"
     SET_PW_CLEARTEXT = "https://api.%s.onelogin.com/api/1/users/set_password_clear_text/%s"
     SET_PW_SALT = "https://api.%s.onelogin.com/api/1/users/set_password_using_salt/%s"
+    SET_STATE_TO_USER_URL = "https://api.%s.onelogin.com/api/1/users/%s/set_state"
     SET_CUSTOM_ATTRIBUTE_TO_USER_URL = "https://api.%s.onelogin.com/api/1/users/%s/set_custom_attributes"
     LOG_USER_OUT_URL = "https://api.%s.onelogin.com/api/1/users/%s/logout"
     LOCK_USER_URL = "https://api.%s.onelogin.com/api/1/users/%s/lock_user"

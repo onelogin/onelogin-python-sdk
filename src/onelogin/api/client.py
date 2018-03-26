@@ -786,6 +786,46 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
+    def set_state_to_user(self, user_id, state):
+        """
+
+        Set the State for a user.
+
+        :param user_id: Id of the user
+        :type user_id: int
+
+        :param state: Set to the state value. Valid values: 0-3
+        :type state: int
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/1/users/set-state Set User State documentation
+
+        """
+        self.clean_error()
+        self.prepare_token()
+
+        try:
+            url = self.get_url(Constants.SET_STATE_TO_USER_URL, user_id)
+            headers = self.get_authorized_headers()
+
+            data = {
+                'state': state
+            }
+
+            response = requests.put(url, headers=headers, json=data)
+
+            if response.status_code == 200:
+                return self.handle_operation_response(response)
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
     def set_custom_attribute_to_user(self, user_id, custom_attributes):
         """
 
