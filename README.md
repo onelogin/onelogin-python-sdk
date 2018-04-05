@@ -62,7 +62,7 @@ https://onelogin.github.io/onelogin-python-sdk/index.html
 
 ### Errors and exceptions
 
-OneLogin's API can return 400, 401, 403 or 404 when there was any issue executing the action. When that happens, the methods of the SDK will include error and errorMessage in the OneLoginClient. Use the getError() and the getErrorDescription() to retrieve them.
+OneLogin's API can return 400, 401, 403 or 404 when there was any issue executing the action. When that happens, the methods of the SDK will include error and errorMessage in the OneLoginClient. Review error and error_description attributes to retrieve them.
 
 
 ### Authentication
