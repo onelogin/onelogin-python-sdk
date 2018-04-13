@@ -1778,6 +1778,42 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
+    def remove_factor(self, user_id, device_id):
+        """
+
+        Remove an enrolled factor from a user.
+
+        :param user_id: Set to the id of the user.
+        :type user_id: integer
+
+        :param device_id: The device_id of the MFA device.
+        :type device_id: integer
+
+        :return: true if action succeed
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/1/multi-factor-authentication/remove-factor Remove a Factor documentation
+
+        """
+        self.clean_error()
+        self.prepare_token()
+
+        try:
+            url = self.get_url(Constants.DELETE_FACTOR_URL, user_id, device_id)
+            headers = self.get_authorized_headers()
+
+            response = requests.delete(url, headers=headers)
+
+            if response.status_code == 200:
+                return True
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+                return False
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
     # Invite Links Methods
     def generate_invite_link(self, email):
         """

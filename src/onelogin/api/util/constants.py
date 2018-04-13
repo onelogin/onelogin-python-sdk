@@ -73,6 +73,7 @@ class Constants(object):
     GET_ENROLLED_FACTORS_URL = "https://api.%s.onelogin.com/api/1/users/%s/otp_devices"
     ACTIVATE_FACTOR_URL = "https://api.%s.onelogin.com/api/1/users/%s/otp_devices/%s/trigger"
     VERIFY_FACTOR_URL = "https://api.%s.onelogin.com/api/1/users/%s/otp_devices/%s/verify"
+    DELETE_FACTOR_URL = "https://api.%s.onelogin.com/api/1/users/%s/otp_devices/%s"
 
     # Invite Link URLS
     GENERATE_INVITE_LINK_URL = "https://api.%s.onelogin.com/api/1/invites/get_invite_link"
