@@ -19,9 +19,9 @@ class Constants(object):
     """
 
     # OAuth2 Tokens URLs
-    TOKEN_REQUEST_URL = "https://api.%s.onelogin.com/auth/oauth2/token"
-    TOKEN_REFRESH_URL = "https://api.%s.onelogin.com/auth/oauth2/token"
-    TOKEN_REVOKE_URL = "https://api.%s.onelogin.com/auth/oauth2/revoke"
+    TOKEN_REQUEST_URL = "https://api.%s.onelogin.com/auth/oauth2/v2/token"
+    TOKEN_REFRESH_URL = "https://api.%s.onelogin.com/auth/oauth2/v2/token"
+    TOKEN_REVOKE_URL = "https://api.%s.onelogin.com/auth/oauth2/v2/revoke"
     GET_RATE_URL = "https://api.%s.onelogin.com/auth/rate_limit"
 
     # User URLs

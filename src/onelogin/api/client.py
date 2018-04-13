@@ -207,13 +207,11 @@ class OneLoginClient(object):
 
             response = requests.post(url, headers=headers, json=data)
             if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    token = OneLoginToken(json_data['data'][0])
-                    self.access_token = token.access_token
-                    self.refresh_token = token.refresh_token
-                    self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
-                    return token
+                token = OneLoginToken(response.json())
+                self.access_token = token.access_token
+                self.refresh_token = token.refresh_token
+                self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
+                return token
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
@@ -247,13 +245,11 @@ class OneLoginClient(object):
 
             response = requests.post(url, headers=headers, json=data)
             if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    token = OneLoginToken(json_data['data'][0])
-                    self.access_token = token.access_token
-                    self.refresh_token = token.refresh_token
-                    self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
-                    return token
+                token = OneLoginToken(json_data)
+                self.access_token = token.access_token
+                self.refresh_token = token.refresh_token
+                self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
+                return token
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
