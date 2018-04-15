@@ -28,6 +28,7 @@ class User(object):
         self.phone = data.get('phone', '')
         self.company = data.get('company', '')
         self.department = data.get('department', '')
+        self.title = data.get('title', '')
         self.status = data.get('status', '')
         self.member_of = data.get('member_of', '')
         self.samaccountname = data.get('samaccountname', '')
