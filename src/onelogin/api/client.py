@@ -1001,7 +1001,7 @@ class OneLoginClient(object):
             headers = self.get_authorized_headers()
 
             if allowed_origin:
-                headers['Custom-Allowed-Origin-Header-1'] = allowed_origin
+                headers.update({'Custom-Allowed-Origin-Header-1': allowed_origin})
 
             response = requests.post(url, headers=headers, json=query_params)
 
@@ -1014,7 +1014,7 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
-    def get_session_token_verified(self, device_id, state_token, otp_token=None):
+    def get_session_token_verified(self, device_id, state_token, otp_token=None, allowed_origin=''):
         """
 
         Verify a one-time password (OTP) value provided for multi-factor authentication (MFA).
@@ -1027,6 +1027,9 @@ class OneLoginClient(object):
 
         :param otp_token: Provide the OTP value for the MFA factor you are submitting for verification.
         :type otp_token: string
+
+        :param allowed_origin: Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS.
+        :type allowed_origin: string
 
         Returns a session token
         :return: return the object if success
@@ -1041,6 +1044,9 @@ class OneLoginClient(object):
         try:
             url = self.get_url(Constants.GET_TOKEN_VERIFY_FACTOR)
             headers = self.get_authorized_headers()
+
+            if allowed_origin:
+                headers['Custom-Allowed-Origin-Header-1'] = allowed_origin
 
             data = {
                 'device_id': str(device_id),
