@@ -245,7 +245,7 @@ class OneLoginClient(object):
 
             response = requests.post(url, headers=headers, json=data)
             if response.status_code == 200:
-                token = OneLoginToken(json_data)
+                token = OneLoginToken(response.json())
                 self.access_token = token.access_token
                 self.refresh_token = token.refresh_token
                 self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
@@ -1942,3 +1942,24 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+
+    def execute_call(method, url, headers, params=None):
+        response = None
+        tries = 0
+        while (tries < 2):
+            if method == 'get':
+                response = requests.get(url, headers=headers, params=data)
+            elif method == 'post':
+                response = requests.get(url, headers=headers, params=data)
+            elif method == 'put':
+                response = requests.put(url, headers=headers, params=data)
+            elif method == 'delete':
+                response = requests.delete(url, headers=headers, params=data)
+
+            if response.status_code == 401:
+                self.clean_error()
+                self.prepare_token()
+                tries += 1
+            else:
+                break;
+        return response
