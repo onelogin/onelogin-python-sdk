@@ -174,7 +174,7 @@ class OneLoginClient(object):
         if bearer:
             authorization = "bearer:%s" % self.access_token
         else:
-            authorization = "client_id:%s,client_secret:%s" % (self.client_id, self.client_secret)
+            authorization = "client_id:%s, client_secret:%s" % (self.client_id, self.client_secret)
 
         headers = self.get_headers()
         headers.update({'Authorization': authorization})
@@ -361,7 +361,7 @@ class OneLoginClient(object):
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
                         for user_data in json_data['data']:
-                            if len(users) < max_results:
+                            if user_data and len(users) < max_results:
                                 users.append(User(user_data))
                             else:
                                 return users
@@ -442,7 +442,8 @@ class OneLoginClient(object):
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
                     for app_data in json_data['data']:
-                        apps.append(App(app_data))
+                        if app_data:
+                            apps.append(App(app_data))
                 return apps
             else:
                 self.error = str(response.status_code)
@@ -1137,7 +1138,7 @@ class OneLoginClient(object):
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
                         for role_data in json_data['data']:
-                            if len(roles) < max_results:
+                            if role_data and len(roles) < max_results:
                                 roles.append(Role(role_data))
                             else:
                                 return roles
@@ -1218,7 +1219,8 @@ class OneLoginClient(object):
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
                     for event_type_data in json_data['data']:
-                        event_types.append(EventType(event_type_data))
+                        if event_type_data:
+                            event_types.append(EventType(event_type_data))
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
@@ -1265,7 +1267,7 @@ class OneLoginClient(object):
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
                         for event_data in json_data['data']:
-                            if len(events) < max_results:
+                            if event_data and len(events) < max_results:
                                 events.append(Event(event_data))
                             else:
                                 return events
@@ -1393,7 +1395,7 @@ class OneLoginClient(object):
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
                         for group_data in json_data['data']:
-                            if len(groups) < max_results:
+                            if group_data and len(groups) < max_results:
                                 groups.append(Group(group_data))
                             else:
                                 return groups
@@ -1588,7 +1590,8 @@ class OneLoginClient(object):
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
                     for auth_factor_data in json_data['data']['auth_factors']:
-                        auth_factors.append(AuthFactor(auth_factor_data))
+                        if auth_factor_data:
+                            auth_factors.append(AuthFactor(auth_factor_data))
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
