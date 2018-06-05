@@ -119,15 +119,16 @@ class OneLoginClient(object):
         saml_endpoint_response = None
         try:
             content = response.json()
-            if content and 'status' in content and 'data' in content and 'message' in content['status'] and 'type' in content['status']:
+            if content and 'status' in content and 'message' in content['status'] and 'type' in content['status']:
                 status_type = content['status']['type']
                 status_message = content['status']['message']
                 saml_endpoint_response = SAMLEndpointResponse(status_type, status_message)
-                if status_message == 'Success':
-                    saml_endpoint_response.saml_response = content['data']
-                else:
-                    mfa = MFA(content['data'][0])
-                    saml_endpoint_response.mfa = mfa
+                if 'data' in content:
+                    if status_message == 'Success':
+                        saml_endpoint_response.saml_response = content['data']
+                    else:
+                        mfa = MFA(content['data'][0])
+                        saml_endpoint_response.mfa = mfa
         except:
             pass
         return saml_endpoint_response
