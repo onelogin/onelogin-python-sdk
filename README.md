@@ -57,6 +57,9 @@ client.get_users()
 For all methods see Pydoc of this SDK published at:
 https://onelogin.github.io/onelogin-python-sdk/index.html
 
+Is good practice to verify that the provided credentials are ok by executing
+a call to client.get_access_token() after call the client constructor and verify that client.error is None after that call, which means that the client was able to fetch an access_token to execute API calls.
+
 
 ## Usage
 

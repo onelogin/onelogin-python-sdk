@@ -171,13 +171,15 @@ class OneLoginClient(object):
             'User-Agent': self.user_agent
         }
 
-    def get_authorized_headers(self, bearer=True):
+    def get_authorized_headers(self, bearer=True, headers=None):
         if bearer:
             authorization = "bearer:%s" % self.access_token
         else:
             authorization = "client_id:%s, client_secret:%s" % (self.client_id, self.client_secret)
 
-        headers = self.get_headers()
+        if headers is None:
+            headers = self.get_headers()
+
         headers.update({'Authorization': authorization})
         return headers
 
@@ -305,13 +307,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_RATE_URL)
-            headers = self.get_authorized_headers()
 
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -344,20 +344,18 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         if max_results is None:
             max_results = self.max_results
 
         try:
             url = self.get_url(Constants.GET_USERS_URL)
-            headers = self.get_authorized_headers()
 
             users = []
             response = None
             after_cursor = None
             while (not response) or (len(users) > max_results or after_cursor):
-                response = requests.get(url, headers=headers, params=query_parameters)
+                response = self.execute_call('get', url, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
@@ -397,13 +395,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -431,14 +427,12 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_APPS_FOR_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
             apps = []
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -469,14 +463,12 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_ROLES_FOR_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
             role_ids = []
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -502,14 +494,12 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_CUSTOM_ATTRIBUTES_URL)
-            headers = self.get_authorized_headers()
 
             custom_attributes = []
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -543,13 +533,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.CREATE_USER_URL)
-            headers = self.get_authorized_headers()
 
-            response = requests.post(url, headers=headers, json=user_params)
+            response = self.execute_call('post', url, json=user_params)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -585,13 +573,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.UPDATE_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.put(url, headers=headers, json=user_params)
+            response = self.execute_call('put', url, json=user_params)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -622,17 +608,15 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.ADD_ROLE_TO_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
             data = {
                 'role_id_array': role_ids
             }
 
-            response = requests.put(url, headers=headers, json=data)
+            response = self.execute_call('put', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -662,17 +646,15 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.DELETE_ROLE_TO_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
             data = {
                 'role_id_array': role_ids
             }
 
-            response = requests.put(url, headers=headers, json=data)
+            response = self.execute_call('put', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -708,11 +690,9 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.SET_PW_CLEARTEXT, user_id)
-            headers = self.get_authorized_headers()
 
             data = {
                 'password': password,
@@ -720,7 +700,7 @@ class OneLoginClient(object):
                 'validate_policy': validate_policy
             }
 
-            response = requests.put(url, headers=headers, json=data)
+            response = self.execute_call('put', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -759,11 +739,9 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.SET_PW_SALT, user_id)
-            headers = self.get_authorized_headers()
 
             data = {
                 'password': password,
@@ -773,7 +751,7 @@ class OneLoginClient(object):
             if password_salt:
                 data["password_salt"] = password_salt
 
-            response = requests.put(url, headers=headers, json=data)
+            response = self.execute_call('put', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -803,17 +781,15 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.SET_STATE_TO_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
             data = {
                 'state': state
             }
 
-            response = requests.put(url, headers=headers, json=data)
+            response = self.execute_call('put', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -843,17 +819,15 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.SET_CUSTOM_ATTRIBUTE_TO_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
             data = {
                 'custom_attributes': custom_attributes
             }
 
-            response = requests.put(url, headers=headers, json=data)
+            response = self.execute_call('put', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -880,13 +854,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.LOG_USER_OUT_URL, user_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.put(url, headers=headers)
+            response = self.execute_call('put', url)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -918,17 +890,15 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.LOCK_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
             data = {
                 'locked_until': minutes
             }
 
-            response = requests.put(url, headers=headers, json=data)
+            response = self.execute_call('put', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -955,13 +925,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.DELETE_USER_URL, user_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.delete(url, headers=headers)
+            response = self.execute_call('delete', url)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -996,7 +964,6 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.SESSION_LOGIN_TOKEN_URL)
@@ -1005,7 +972,7 @@ class OneLoginClient(object):
             if allowed_origin:
                 headers.update({'Custom-Allowed-Origin-Header-1': allowed_origin})
 
-            response = requests.post(url, headers=headers, json=query_params)
+            response = self.execute_call('post', url, headers=headers, json=query_params)
 
             if response.status_code == 200:
                 return self.handle_session_token_response(response)
@@ -1041,7 +1008,6 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_TOKEN_VERIFY_FACTOR)
@@ -1057,7 +1023,7 @@ class OneLoginClient(object):
             if otp_token:
                 data['otp_token'] = otp_token
 
-            response = requests.post(url, headers=headers, json=data)
+            response = self.execute_call('post', url, headers=headers, json=data)
 
             if response.status_code == 200:
                 return self.handle_session_token_response(response)
@@ -1094,7 +1060,7 @@ class OneLoginClient(object):
         data = {}
         data['session_token'] = session_token
 
-        response = requests.post(url, headers=headers, json=data)
+        response = self.execute_call('post', url, headers=headers, json=data)
         if response.status_code == 200:
                 if 'Set-Cookie' in response.headers.keys():
                     return response.headers['Set-Cookie']
@@ -1121,20 +1087,18 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         if max_results is None:
             max_results = self.max_results
 
         try:
             url = self.get_url(Constants.GET_ROLES_URL)
-            headers = self.get_authorized_headers()
 
             roles = []
             response = None
             after_cursor = None
             while (not response) or (len(roles) > max_results or after_cursor):
-                response = requests.get(url, headers=headers, params=query_parameters)
+                response = self.execute_call('get', url, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
@@ -1175,13 +1139,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_ROLE_URL, role_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -1207,15 +1169,12 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_EVENT_TYPES_URL)
-            headers = self.get_authorized_headers()
 
             event_types = []
-            response = None
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -1250,20 +1209,18 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         if max_results is None:
             max_results = self.max_results
 
         try:
             url = self.get_url(Constants.GET_EVENTS_URL)
-            headers = self.get_authorized_headers()
 
             events = []
             response = None
             after_cursor = None
             while (not response) or (len(events) > max_results or after_cursor):
-                response = requests.get(url, headers=headers, params=query_parameters)
+                response = self.execute_call('get', url, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
@@ -1304,13 +1261,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_EVENT_URL, event_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -1350,7 +1305,7 @@ class OneLoginClient(object):
             url = self.get_url(Constants.CREATE_EVENT_URL)
             headers = self.get_authorized_headers()
 
-            response = requests.post(url, headers=headers, json=event_params)
+            response = self.execute_call('post', url, json=event_params)
             if response.status_code == 200:
                 return self.handle_operation_response(response)
             else:
@@ -1377,21 +1332,19 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         if max_results is None:
             max_results = self.max_results
 
         try:
             url = self.get_url(Constants.GET_GROUPS_URL)
-            headers = self.get_authorized_headers()
 
             query_parameters = {}
             groups = []
             response = None
             after_cursor = None
             while (not response) or (len(groups) > max_results or after_cursor):
-                response = requests.get(url, headers=headers, params=query_parameters)
+                response = self.execute_call('get', url, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
                     if json_data and json_data.get('data', None):
@@ -1430,13 +1383,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_GROUP_URL, group_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -1477,11 +1428,9 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_SAML_ASSERTION_URL)
-            headers = self.get_authorized_headers()
 
             data = {
                 'username_or_email': username_or_email,
@@ -1493,7 +1442,7 @@ class OneLoginClient(object):
             if ip_address:
                 data['ip_address'] = ip_address
 
-            response = requests.post(url, headers=headers, json=data)
+            response = self.execute_call('post', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_saml_endpoint_response(response)
@@ -1532,15 +1481,12 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             if url_endpoint:
                 url = url_endpoint
             else:
                 url = self.get_url(Constants.GET_SAML_VERIFY_FACTOR)
-
-            headers = self.get_authorized_headers()
 
             data = {
                 'app_id': app_id,
@@ -1551,7 +1497,7 @@ class OneLoginClient(object):
             if otp_token:
                 data['otp_token'] = otp_token
 
-            response = requests.post(url, headers=headers, json=data)
+            response = self.execute_call('post', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_saml_endpoint_response(response)
@@ -1578,13 +1524,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_FACTORS_URL, user_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
 
             auth_factors = []
             if response.status_code == 200:
@@ -1626,11 +1570,9 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.ENROLL_FACTOR_URL, user_id)
-            headers = self.get_authorized_headers()
 
             data = {
                 'factor_id': int(factor_id),
@@ -1638,7 +1580,7 @@ class OneLoginClient(object):
                 'number': number
             }
 
-            response = requests.post(url, headers=headers, json=data)
+            response = self.execute_call('post', url, json=data)
 
             if response.status_code == 200:
                 json_data = response.json()
@@ -1666,13 +1608,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GET_ENROLLED_FACTORS_URL, user_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.get(url, headers=headers)
+            response = self.execute_call('get', url)
 
             otp_devices = []
             if response.status_code == 200:
@@ -1710,13 +1650,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.ACTIVATE_FACTOR_URL, user_id, device_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.post(url, headers=headers)
+            response = self.execute_call('post', url)
 
             if response.status_code == 200:
                 json_data = response.json()
@@ -1758,11 +1696,9 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.VERIFY_FACTOR_URL, user_id, device_id)
-            headers = self.get_authorized_headers()
 
             data = {}
             if otp_token:
@@ -1770,10 +1706,7 @@ class OneLoginClient(object):
             if state_token:
                 data['state_token'] = state_token
 
-            if data:
-                response = requests.post(url, headers=headers, json=data)
-            else:
-                response = requests.post(url, headers=headers)
+            response = self.execute_call('post', url, json=data)
 
             if response.status_code == 200:
                 return self.handle_operation_response(response)
@@ -1802,13 +1735,11 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.DELETE_FACTOR_URL, user_id, device_id)
-            headers = self.get_authorized_headers()
 
-            response = requests.delete(url, headers=headers)
+            response = self.execute_call('delete', url)
 
             if response.status_code == 200:
                 return True
@@ -1837,17 +1768,15 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.GENERATE_INVITE_LINK_URL)
-            headers = self.get_authorized_headers()
 
             data = {
                 'email': email
             }
 
-            response = requests.post(url, headers=headers, json=data)
+            response = self.execute_call('post', url, json=data)
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data and json_data.get('data', None):
@@ -1880,11 +1809,9 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-        self.prepare_token()
 
         try:
             url = self.get_url(Constants.SEND_INVITE_LINK_URL)
-            headers = self.get_authorized_headers()
 
             data = {
                 'email': email
@@ -1893,7 +1820,7 @@ class OneLoginClient(object):
             if personal_email:
                 data['personal_email'] = personal_email
 
-            response = requests.post(url, headers=headers, json=data)
+            response = self.execute_call('post', url, json=data)
             if response.status_code == 200:
                 return self.handle_operation_response(response)
             else:
@@ -1946,3 +1873,31 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+
+    def execute_call(self, method, url, headers=None, params=None, json=None):
+        self.prepare_token()
+
+        if headers is None:
+            headers = self.get_authorized_headers()
+
+        response = None
+        tries = 0
+        while (tries < 2):
+            if method == 'get':
+                response = requests.get(url, headers=headers, params=data)
+            elif method == 'post':
+                response = requests.post(url, headers=headers, json=json)
+            elif method == 'put':
+                response = requests.put(url, headers=headers, json=json)
+            elif method == 'delete':
+                response = requests.delete(url, headers=headers)
+
+            if response.status_code == 401:
+                self.clean_error()
+                self.prepare_token()
+                headers = self.get_authorized_headers(headers=headers)
+
+                tries += 1
+            else:
+                break;
+        return response
