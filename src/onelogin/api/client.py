@@ -1303,7 +1303,6 @@ class OneLoginClient(object):
 
         try:
             url = self.get_url(Constants.CREATE_EVENT_URL)
-            headers = self.get_authorized_headers()
 
             response = self.execute_call('post', url, json=event_params)
             if response.status_code == 200:
@@ -1884,7 +1883,7 @@ class OneLoginClient(object):
         tries = 0
         while (tries < 2):
             if method == 'get':
-                response = requests.get(url, headers=headers, params=data)
+                response = requests.get(url, headers=headers, data=params)
             elif method == 'post':
                 response = requests.post(url, headers=headers, json=json)
             elif method == 'put':
@@ -1899,5 +1898,5 @@ class OneLoginClient(object):
 
                 tries += 1
             else:
-                break;
+                break
         return response
