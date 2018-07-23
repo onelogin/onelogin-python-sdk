@@ -1883,7 +1883,7 @@ class OneLoginClient(object):
         tries = 0
         while (tries < 2):
             if method == 'get':
-                response = requests.get(url, headers=headers, data=params)
+                response = requests.get(url, headers=headers, params=params)
             elif method == 'post':
                 response = requests.post(url, headers=headers, json=json)
             elif method == 'put':
