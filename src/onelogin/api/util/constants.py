@@ -61,8 +61,7 @@ class Constants(object):
     # Custom Login URLs
     SESSION_LOGIN_TOKEN_URL = "https://api.%s.onelogin.com/api/1/login/auth"
     GET_TOKEN_VERIFY_FACTOR = "https://api.%s.onelogin.com/api/1/login/verify_factor"
-    SESSION_API_TOKEN_URL = "https://admin.%s.onelogin.com/session_via_api_token"
-
+    
     # SAML Assertion URLs
     GET_SAML_ASSERTION_URL = "https://api.%s.onelogin.com/api/1/saml_assertion"
     GET_SAML_VERIFY_FACTOR = "https://api.%s.onelogin.com/api/1/saml_assertion/verify_factor"

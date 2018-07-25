@@ -1034,39 +1034,6 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
-    def create_session_via_token(self, session_token):
-        """
-
-        Post a session token to this API endpoint to start a session and set a cookie to log a user into an app.
-
-        :param session_token: The session token
-        :type session_token: string
-
-        Returns Header 'Set-Cookie' value
-        :return: return the 'Set-Cookie' value of the HTTP Header if any
-        :rtype: str
-
-        See https://developers.onelogin.com/api-docs/1/login-page/create-session-via-token Create Session Via API Token documentation
-
-        """
-        self.clean_error()
-
-        url = self.get_url(Constants.SESSION_API_TOKEN_URL)
-        headers = {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'User-Agent': self.user_agent
-        }
-
-        data = {}
-        data['session_token'] = session_token
-
-        response = self.execute_call('post', url, headers=headers, json=data)
-        if response.status_code == 200:
-                if 'Set-Cookie' in response.headers.keys():
-                    return response.headers['Set-Cookie']
-        else:
-            self.error = str(response.status_code)
-
     # Role Methods
     def get_roles(self, query_parameters=None, max_results=None):
         """

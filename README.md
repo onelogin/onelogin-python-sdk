@@ -243,9 +243,6 @@ session_login_token_params = {
 }
 session_token_data = client.create_session_login_token(session_login_token_params)
 
-# Create Session Via API Token
-cookie = client.create_session_via_token(session_token_data.session_token)
-
 # Create Session Login Token MFA , after verify
 session_login_token_mfa_params = {
     "username_or_email": "usermfa@example.com",
