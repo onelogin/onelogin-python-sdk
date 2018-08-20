@@ -22,6 +22,7 @@ class Event(object):
         self.role_id = data.get('role_id', None)
         self.role_name = data.get('role_name', '')
         self.app_id = data.get('app_id', None)
+        self.app_name = data.get('app_name', None)
         self.group_id = data.get('group_id', None)
         self.group_name = data.get('group_name', '')
         self.otp_device_id = data.get('otp_device_id', None)
