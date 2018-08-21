@@ -65,6 +65,7 @@ class OneLoginClient(object):
         self.access_token = self.refresh_token = self.expiration = None
         self.error = None
         self.error_description = None
+        self.error_attribute = None
 
     def clean_error(self):
         """
@@ -74,6 +75,7 @@ class OneLoginClient(object):
         """
         self.error = None
         self.error_description = None
+        self.error_attribute = None
 
     def get_url(self, base, obj_id=None, extra_id=None):
         return self.url_builder.get_url(base, obj_id, extra_id)
@@ -84,10 +86,25 @@ class OneLoginClient(object):
         if content and 'status' in content:
             status = content['status']
             if 'message' in status:
-                message = status['message']
+                if isinstance(status['message'], dict):
+                    if 'description' in status['message']:
+                        message = status['message']['description']
+                else:
+                    message = status['message']
             elif 'type' in status:
                 message = status['type']
         return message
+
+    def extract_error_attribute_from_response(self, response):
+        attribute = None
+        content = response.json()
+        if content and 'status' in content:
+            status = content['status']
+            if 'message' in status:
+                if isinstance(status['message'], dict):
+                    if 'attribute' in status['message']:
+                        attribute = status['message']['attribute']
+        return attribute
 
     def get_after_cursor(self, response):
         after_cursor = None
@@ -545,6 +562,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -585,6 +603,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -623,6 +642,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -661,6 +681,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -707,6 +728,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -758,6 +780,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -796,6 +819,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -834,6 +858,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -865,6 +890,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -905,6 +931,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -936,6 +963,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
@@ -1277,6 +1305,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+                self.error_attribute = self.extract_error_attribute_from_response(response)
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
