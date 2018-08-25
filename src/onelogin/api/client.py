@@ -1045,7 +1045,7 @@ class OneLoginClient(object):
             headers = self.get_authorized_headers()
 
             if allowed_origin:
-                headers['Custom-Allowed-Origin-Header-1'] = allowed_origin
+                headers.update({'Custom-Allowed-Origin-Header-1': allowed_origin})
 
             data = {
                 'device_id': str(device_id),
