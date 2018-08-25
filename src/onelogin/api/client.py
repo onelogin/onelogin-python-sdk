@@ -1011,7 +1011,7 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
-    def get_session_token_verified(self, device_id, state_token, otp_token=None, allowed_origin=''):
+    def get_session_token_verified(self, device_id, state_token, otp_token=None, allowed_origin='', do_not_notify=False):
         """
 
         Verify a one-time password (OTP) value provided for multi-factor authentication (MFA).
@@ -1027,6 +1027,9 @@ class OneLoginClient(object):
 
         :param allowed_origin: Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS.
         :type allowed_origin: string
+
+        :param do_not_notify: When verifying MFA via Protect Push, set this to true to stop additional push notifications being sent to the OneLogin Protect device.
+        :type do_not_notify: bool
 
         Returns a session token
         :return: return the object if success
@@ -1046,7 +1049,8 @@ class OneLoginClient(object):
 
             data = {
                 'device_id': str(device_id),
-                'state_token': state_token
+                'state_token': state_token,
+                'do_not_notify': do_not_notify
             }
             if otp_token:
                 data['otp_token'] = otp_token
@@ -1448,7 +1452,7 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
-    def get_saml_assertion_verifying(self, app_id, device_id, state_token, otp_token=None, url_endpoint=None):
+    def get_saml_assertion_verifying(self, app_id, device_id, state_token, otp_token=None, url_endpoint=None, do_not_notify=False):
         """
 
         Verify a one-time password (OTP) value provided for a second factor when multi-factor authentication (MFA) is required for SAML authentication.
@@ -1468,6 +1472,9 @@ class OneLoginClient(object):
         :param url_endpoint: Specify an url where return the response.
         :type url_endpoint: string
 
+        :param do_not_notify: When verifying MFA via Protect Push, set this to true to stop additional push notifications being sent to the OneLogin Protect device
+        :type do_not_notify: bool
+
         Returns a SAMLEndpointResponse object with an encoded SAMLResponse
         :return: true if success
         :rtype: SAMLEndpointResponse
@@ -1486,7 +1493,8 @@ class OneLoginClient(object):
             data = {
                 'app_id': app_id,
                 'device_id': str(device_id),
-                'state_token': state_token
+                'state_token': state_token,
+                'do_not_notify': do_not_notify
             }
 
             if otp_token:
