@@ -227,11 +227,16 @@ class OneLoginClient(object):
 
             response = requests.post(url, headers=headers, json=data)
             if response.status_code == 200:
-                token = OneLoginToken(response.json())
-                self.access_token = token.access_token
-                self.refresh_token = token.refresh_token
-                self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
-                return token
+                data = response.json()
+                if 'status' in data:
+                    self.error = str(data['status']['code'])
+                    self.error_description = self.extract_error_message_from_response(response)
+                else:
+                    token = OneLoginToken(response.json())
+                    self.access_token = token.access_token
+                    self.refresh_token = token.refresh_token
+                    self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
+                    return token
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
@@ -265,11 +270,16 @@ class OneLoginClient(object):
 
             response = requests.post(url, headers=headers, json=data)
             if response.status_code == 200:
-                token = OneLoginToken(response.json())
-                self.access_token = token.access_token
-                self.refresh_token = token.refresh_token
-                self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
-                return token
+                data = response.json()
+                if 'status' in data:
+                    self.error = str(data['status']['code'])
+                    self.error_description = self.extract_error_message_from_response(response)
+                else:
+                    token = OneLoginToken(response.json())
+                    self.access_token = token.access_token
+                    self.refresh_token = token.refresh_token
+                    self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
+                    return token
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
