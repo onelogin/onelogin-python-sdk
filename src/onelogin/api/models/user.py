@@ -45,6 +45,7 @@ class User(object):
         self.directory_id = data.get('directory_id', None)
         self.manager_ad_id = data.get('manager_ad_id', None)
         self.trusted_idp_id = data.get('trusted_idp_id', None)
+        self.manager_user_id = data.get('manager_user_id', None)
 
         activated_info = data.get('activated_at', None)
         self.activated_at = parser.parse(data['activated_at']) if activated_info is not None else None
@@ -99,6 +100,7 @@ class User(object):
         user_data.directory_id = self.directory_id
         user_data.manager_ad_id = self.manager_ad_id
         user_data.trusted_idp_id = self.trusted_idp_id
+        user_data.manager_user_id = self.manager_user_id
 
     def get_user_metadata(self):
         user_metadata = UserMetadata()
@@ -140,6 +142,7 @@ class User(object):
             "directory_id": self.directory_id,
             "manager_ad_id": self.manager_ad_id,
             "trusted_idp_id": self.trusted_idp_id
+            "manager_user_id": self.manager_user_id
         }
 
 
