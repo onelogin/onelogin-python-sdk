@@ -141,8 +141,8 @@ class User(object):
             "openid_name": self.openid_name,
             "directory_id": self.directory_id,
             "manager_ad_id": self.manager_ad_id,
-            "trusted_idp_id": self.trusted_idp_id
-            "manager_user_id": self.manager_user_id
+            "trusted_idp_id": self.trusted_idp_id,
+            "manager_user_id": self.manager_user_id,
         }
 
 
