@@ -38,7 +38,7 @@ setup(
         '': 'src',
     },
     install_requires=[
-        'requests==2.19.1',
+        'requests==2.20.1',
         'defusedxml==0.5.0',
         'lxml==4.2.3',
         'python-dateutil==2.7.3'
