@@ -80,3 +80,89 @@ class Constants(object):
 
     # Embed Apps URL
     EMBED_APP_URL = "https://api.onelogin.com/client/apps/embed2"
+
+    # Privileges URLS
+    LIST_PRIVILEGES_URL = "https://api.%s.onelogin.com/api/1/privileges"
+    CREATE_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges"
+    UPDATE_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s"
+    GET_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s"
+    DELETE_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s"
+    GET_ROLES_ASSIGNED_TO_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s/roles"
+    ASSIGN_ROLES_TO_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s/roles"
+    REMOVE_ROLE_FROM_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s/roles/%s"
+    GET_USERS_ASSIGNED_TO_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s/users"
+    ASSIGN_USERS_TO_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s/users"
+    REMOVE_USER_FROM_PRIVILEGE_URL = "https://api.%s.onelogin.com/api/1/privileges/%s/users/%s"
+    VALID_ACTIONS = [
+        "apps:List",
+        "apps:Get",
+        "apps:Create",
+        "apps:Update",
+        "apps:Delete",
+        "apps:ManageRoles",
+        "apps:ManageUsers",
+        "directories:List",
+        "directories:Get",
+        "directories:Create",
+        "directories:Update",
+        "directories:Delete",
+        "directories:SyncUsers",
+        "directories:RefreshSchema",
+        "events:List",
+        "events:Get",
+        "mappings:List",
+        "mappings:Get",
+        "mappings:Create",
+        "mappings:Update",
+        "mappings:Delete",
+        "mappings:ReapplyAll",
+        "policies:List",
+        "policies:user:Get",
+        "policies:user:Create",
+        "policies:user:Update",
+        "policies:user:Delete",
+        "policies:app:Get",
+        "policies:app:Create",
+        "policies:app:Update",
+        "policies:app:Delete",
+        "privileges:List",
+        "privileges:Get",
+        "privileges:Create",
+        "privileges:Update",
+        "privileges:Delete",
+        "privileges:ListUsers",
+        "privileges:ListRoles",
+        "privileges:ManageUsers",
+        "privileges:ManageRoles",
+        "reports:List",
+        "reports:Get",
+        "reports:Create",
+        "reports:Update",
+        "reports:Delete",
+        "reports:Run",
+        "roles:List",
+        "roles:Get",
+        "roles:Create",
+        "roles:Update",
+        "roles:Delete",
+        "roles:ManageUsers",
+        "roles:ManageApps",
+        "trustedidp:List",
+        "trustedidp:Get",
+        "trustedidp:Create",
+        "trustedidp:Update",
+        "trustedidp:Delete",
+        "users:List",
+        "users:Get",
+        "users:Create",
+        "users:Update",
+        "users:Delete",
+        "users:Unlock",
+        "users:ResetPassword",
+        "users:ForceLogout",
+        "users:Invite",
+        "users:ReapplyMappings",
+        "users:ManageRoles",
+        "users:ManageApps",
+        "users:GenerateTempMfaToken"
+    ]
