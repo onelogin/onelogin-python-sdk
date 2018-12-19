@@ -46,6 +46,7 @@ class OneLogin_API_Client_Test(unittest.TestCase):
         """
         with self.assertRaises(Exception):
             client = OneLoginClient()
+            self.assertIsNot(client, None)
 
     def testClientDefaultErrorValues(self):
         """

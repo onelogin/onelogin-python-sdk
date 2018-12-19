@@ -11,6 +11,6 @@ script:
   - 'coverage run --source=src/onelogin/api --rcfile=tests/coverage.rc setup.py test'
   - 'coverage report -m --rcfile=tests/coverage.rc'
   - 'pep8 tests/src/onelogin/*.py --config=tests/pep8.rc'
-  - 'pyflakes src/onelogin/api tests/src/oneLogin'
+  - 'pyflakes src/onelogin/api tests/src/onelogin'
 
 after_success: 'coveralls'
