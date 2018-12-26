@@ -2026,7 +2026,7 @@ class OneLoginClient(object):
 
         Get a Privilege
 
-        :param privilege_id: The id of the privilege you want to update.
+        :param privilege_id: The id of the privilege.
         :type privilege_id: string
 
         Returns the privilege identified by the id
