@@ -53,8 +53,14 @@ class OneLoginClient(object):
 
         Create a new instance of OneLoginClient.
 
-        :param path: Path where the sdk config file is located.
-        :type path: string
+        :param client_id: API Credentials client_id
+        :type client_id: string
+        :param client_secret: API Credentials client_secret
+        :type client_secret: string
+        :param region: OneLogin region, either us or eu
+        :type region: string
+        :param max_results: Maximum number of results returned by list operations
+        :type max_results: integer
 
         """
         self.client_id = client_id
