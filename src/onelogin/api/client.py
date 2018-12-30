@@ -60,7 +60,7 @@ class OneLoginClient(object):
         :param region: OneLogin region, either us or eu
         :type region: string
         :param max_results: Maximum number of results returned by list operations
-        :type max_results: integer
+        :type max_results: int
 
         """
         self.client_id = client_id
