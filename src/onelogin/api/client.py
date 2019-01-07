@@ -48,13 +48,22 @@ class OneLoginClient(object):
 
     CUSTOM_USER_AGENT = "onelogin-python-sdk %s" % __version__
 
-    def __init__(self, client_id, client_secret, region='us', max_results=1000):
+    def __init__(self, client_id, client_secret, region='us', max_results=1000, default_timeout=(10, 60)):
         """
 
         Create a new instance of OneLoginClient.
 
-        :param path: Path where the sdk config file is located.
-        :type path: string
+        :param client_id: API Credentials client_id
+        :type client_id: string
+        :param client_secret: API Credentials client_secret
+        :type client_secret: string
+        :param region: OneLogin region, either us or eu
+        :type region: string
+        :param max_results: Maximum number of results returned by list operations
+        :type max_results: int
+        :param default_timeout: a request timeout
+        See http://docs.python-requests.org/en/master/user/advanced/#timeouts
+        :type default_timeout: (float, float)
 
         """
         self.client_id = client_id
@@ -66,6 +75,17 @@ class OneLoginClient(object):
         self.error = None
         self.error_description = None
         self.error_attribute = None
+        self.requests_timeout = default_timeout
+
+    def set_timeout(self, timeout=None):
+        """
+
+        Changes the timeout used when placing requests with the execute_call method
+        :param timeout: a request timeout
+        See http://docs.python-requests.org/en/master/user/advanced/#timeouts
+
+        """
+        self.requests_timeout = timeout
 
     def clean_error(self):
         """
@@ -1897,13 +1917,13 @@ class OneLoginClient(object):
         tries = 0
         while (tries < 2):
             if method == 'get':
-                response = requests.get(url, headers=headers, params=params)
+                response = requests.get(url, headers=headers, params=params, timeout=self.requests_timeout)
             elif method == 'post':
-                response = requests.post(url, headers=headers, json=json)
+                response = requests.post(url, headers=headers, json=json, timeout=self.requests_timeout)
             elif method == 'put':
-                response = requests.put(url, headers=headers, json=json)
+                response = requests.put(url, headers=headers, json=json, timeout=self.requests_timeout)
             elif method == 'delete':
-                response = requests.delete(url, headers=headers)
+                response = requests.delete(url, headers=headers, timeout=self.requests_timeout)
 
             if response.status_code == 401:
                 self.clean_error()
