@@ -48,7 +48,7 @@ class OneLoginClient(object):
 
     CUSTOM_USER_AGENT = "onelogin-python-sdk %s" % __version__
 
-    def __init__(self, client_id, client_secret, region='us', max_results=1000, default_timeout=(3.05, 27)):
+    def __init__(self, client_id, client_secret, region='us', max_results=1000, default_timeout=(10, 60)):
         """
 
         Create a new instance of OneLoginClient.
