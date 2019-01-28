@@ -26,11 +26,13 @@ from onelogin.api.models.group import Group
 from onelogin.api.models.mfa import MFA
 from onelogin.api.models.onelogin_token import OneLoginToken
 from onelogin.api.models.otp_device import OTP_Device
+from onelogin.api.models.privilege import Privilege
 from onelogin.api.models.rate_limit import RateLimit
 from onelogin.api.models.role import Role
 from onelogin.api.models.saml_endpoint_response import SAMLEndpointResponse
 from onelogin.api.models.session_token_info import SessionTokenInfo
 from onelogin.api.models.session_token_mfa_info import SessionTokenMFAInfo
+from onelogin.api.models.statement import Statement
 from onelogin.api.models.user import User
 from onelogin.api.version import __version__
 
@@ -103,16 +105,21 @@ class OneLoginClient(object):
     def extract_error_message_from_response(self, response):
         message = ''
         content = response.json()
-        if content and 'status' in content:
-            status = content['status']
-            if 'message' in status:
-                if isinstance(status['message'], dict):
-                    if 'description' in status['message']:
-                        message = status['message']['description']
-                else:
-                    message = status['message']
-            elif 'type' in status:
-                message = status['type']
+        if content:
+            if 'status' in content:
+                status = content['status']
+                if 'message' in status:
+                    if isinstance(status['message'], dict):
+                        if 'description' in status['message']:
+                            message = status['message']['description']
+                    else:
+                        message = status['message']
+                elif 'type' in status:
+                    message = status['type']
+            elif 'message' in content:
+                message = content['message']
+            elif 'name' in content:
+                message = content['name']
         return message
 
     def extract_error_attribute_from_response(self, response):
@@ -129,15 +136,21 @@ class OneLoginClient(object):
     def get_after_cursor(self, response):
         after_cursor = None
         content = response.json()
-        if content and 'pagination' in content and 'after_cursor' in content['pagination']:
-            after_cursor = content['pagination']['after_cursor']
+        if content:
+            if 'pagination' in content and 'after_cursor' in content['pagination']:
+                after_cursor = content['pagination']['after_cursor']
+            elif 'afterCursor' in content:
+                after_cursor = content['afterCursor']
         return after_cursor
 
     def get_before_cursor(self, response):
         before_cursor = None
         content = response.json()
-        if content and 'pagination' in content and 'before_cursor' in content['pagination']:
-            before_cursor = content['pagination']['before_cursor']
+        if content:
+            if 'pagination' in content and 'before_cursor' in content['pagination']:
+                before_cursor = content['pagination']['before_cursor']
+            elif 'beforeCursor' in content:
+                before_cursor = content['beforeCursor']
         return before_cursor
 
     def handle_session_token_response(self, response):
@@ -174,11 +187,22 @@ class OneLoginClient(object):
         result = False
         try:
             content = response.json()
-            if content and 'status' in content and 'type' in content['status'] and content['status']['type'] == "success":
-                result = True
+            if content and isinstance(content, dict):
+                if 'status' in content and 'type' in content['status'] and content['status']['type'] == "success":
+                    result = True
+                elif 'success' in content and content['success']:
+                    result = True
         except:
             pass
         return result
+
+    def extract_status_code_from_response(self, response):
+        status_code = ''
+        content = response.json()
+        if content and 'statusCode' in content:
+            status_code = content['statusCode']
+
+        return status_code
 
     def retrieve_apps_from_xml(self, xml_content):
         root = fromstring(xml_content)
@@ -210,7 +234,8 @@ class OneLoginClient(object):
 
     def get_authorized_headers(self, bearer=True, headers=None):
         if bearer:
-            authorization = "bearer:%s" % self.access_token
+            # Removed the ":"
+            authorization = "bearer %s" % self.access_token
         else:
             authorization = "client_id:%s, client_secret:%s" % (self.client_id, self.client_secret)
 
@@ -401,7 +426,7 @@ class OneLoginClient(object):
             users = []
             response = None
             after_cursor = None
-            while (not response) or (len(users) > max_results or after_cursor):
+            while (not response) or (len(users) < max_results and after_cursor):
                 response = self.execute_call('get', url, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
@@ -676,6 +701,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def remove_role_from_user(self, user_id, role_ids):
         """
@@ -715,6 +741,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def set_password_using_clear_text(self, user_id, password, password_confirmation, validate_policy=False):
         """
@@ -762,6 +789,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def set_password_using_hash_salt(self, user_id, password, password_confirmation, password_algorithm, password_salt=None):
         """
@@ -814,6 +842,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def set_state_to_user(self, user_id, state):
         """
@@ -853,6 +882,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def set_custom_attribute_to_user(self, user_id, custom_attributes):
         """
@@ -892,6 +922,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def log_user_out(self, user_id):
         """
@@ -924,6 +955,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def lock_user(self, user_id, minutes):
         """
@@ -965,6 +997,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def delete_user(self, user_id):
         """
@@ -997,6 +1030,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     # Custom Login Pages
     def create_session_login_token(self, query_params, allowed_origin=''):
@@ -1126,7 +1160,7 @@ class OneLoginClient(object):
             roles = []
             response = None
             after_cursor = None
-            while (not response) or (len(roles) > max_results or after_cursor):
+            while (not response) or (len(roles) < max_results and after_cursor):
                 response = self.execute_call('get', url, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
@@ -1248,7 +1282,7 @@ class OneLoginClient(object):
             events = []
             response = None
             after_cursor = None
-            while (not response) or (len(events) > max_results or after_cursor):
+            while (not response) or (len(events) < max_results and after_cursor):
                 response = self.execute_call('get', url, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
@@ -1343,6 +1377,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     # Group Methods
     def get_groups(self, max_results=None):
@@ -1372,7 +1407,7 @@ class OneLoginClient(object):
             groups = []
             response = None
             after_cursor = None
-            while (not response) or (len(groups) > max_results or after_cursor):
+            while (not response) or (len(groups) < max_results and after_cursor):
                 response = self.execute_call('get', url, params=query_parameters)
                 if response.status_code == 200:
                     json_data = response.json()
@@ -1749,6 +1784,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     def remove_factor(self, user_id, device_id):
         """
@@ -1783,6 +1819,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     # Invite Links Methods
     def generate_invite_link(self, email):
@@ -1862,6 +1899,7 @@ class OneLoginClient(object):
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
+        return False
 
     # Embed Apps Method
     def get_embed_apps(self, token, email):
@@ -1907,6 +1945,500 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
+    # Privilege Methods
+    def get_privileges(self):
+        """
+
+        Gets a list of the Privileges created in an account.
+
+        Returns the list of privileges
+        :return: privileges list
+        :rtype: list[Privilege]
+
+        See https://developers.onelogin.com/api-docs/1/privileges/list-privileges List Privileges documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.LIST_PRIVILEGES_URL)
+
+            privileges = []
+            response = self.execute_call('get', url)
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data:
+                    for privilege_data in json_data:
+                        privileges.append(Privilege(privilege_data))
+                else:
+                    self.error = self.extract_status_code_from_response(response)
+                    self.error_description = self.extract_error_message_from_response(response)
+
+            return privileges
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def create_privilege(self, name, version, statements):
+        """
+
+        Creates a Privilege
+
+        :param name: The name of the privilege.
+        :type name: string
+
+        :param version: The version for the privilege schema. Set to 2018-05-18.
+        :type version: string
+
+        :param statements: A list of statements. Statement object or a dict with the keys Effect, Action and Scope
+        :type statements: list[Statement] or list[dict]
+
+        Returns the created privilege
+        :return: privilege
+        :rtype: Privilege
+
+        See https://developers.onelogin.com/api-docs/1/privileges/create-privilege Create Privilege documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.CREATE_PRIVILEGE_URL)
+
+            statement_data = []
+            for statement in statements:
+                if isinstance(statement, Statement):
+                    statement_data.append({
+                        'Effect': statement.effect,
+                        'Action': statement.actions,
+                        'Scope': statement.scopes
+
+                    })
+                elif isinstance(statement, dict) and 'Effect' in statement and 'Action' in statement and 'Scope' in statement:
+                    statement_data.append(statement)
+                else:
+                    self.error = str(400)
+                    self.error_description = "statements is invalid. Provide a list of statements. The statement should be an Statement object or dict with the keys Effect, Action and Scope"
+                    return
+
+            privilege_data = {
+                'name': name,
+                'privilege': {
+                    'Version': version,
+                    'Statement': statement_data
+                }
+            }
+
+            response = self.execute_call('post', url, json=privilege_data)
+            if response.status_code == 201:
+                json_data = response.json()
+                if json_data and 'id' in json_data:
+                    return Privilege(json_data['id'], name, version, statements)
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def get_privilege(self, privilege_id):
+        """
+
+        Get a Privilege
+
+        :param privilege_id: The id of the privilege.
+        :type privilege_id: string
+
+        Returns the privilege identified by the id
+        :return: privilege
+        :rtype: Privilege
+
+        See https://developers.onelogin.com/api-docs/1/privileges/get-privilege Get Privilege documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.GET_PRIVILEGE_URL, privilege_id)
+
+            response = self.execute_call('get', url)
+
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data and 'id' in json_data:
+                    return Privilege(json_data)
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def update_privilege(self, privilege_id, name, version, statements):
+        """
+
+        Updates a Privilege
+
+        :param privilege_id: The id of the privilege you want to update.
+        :type privilege_id: string
+
+        :param name: The name of the privilege.
+        :type name: string
+
+        :param version: The version for the privilege schema. Set to 2018-05-18.
+        :type version: string
+
+        :param statements: A list of statements. Statement object or a dict with the keys Effect, Action and Scope
+        :type statements: list[Statement] or list[dict]
+
+        Returns the modified privilege
+        :return: privilege
+        :rtype: Privilege
+
+        See https://developers.onelogin.com/api-docs/1/privileges/update-privilege Update Privilege documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.UPDATE_PRIVILEGE_URL, privilege_id)
+
+            statement_data = []
+            for statement in statements:
+                if isinstance(statement, Statement):
+                    statement_data.append({
+                        'Effect': statement.effect,
+                        'Action': statement.actions,
+                        'Scope': statement.scopes
+                    })
+                elif isinstance(statement, dict) and 'Effect' in statement and 'Action' in statement and 'Scope' in statement:
+                    statement_data.append(statement)
+                else:
+                    self.error = str(400)
+                    self.error_description = "statements is invalid. Provide a list of statements. The statement should be an Statement object or dict with the keys Effect, Action and Scope"
+                    return
+
+            privilege_data = {
+                'name': name,
+                'privilege': {
+                    'Version': version,
+                    'Statement': statement_data,
+                }
+            }
+
+            response = self.execute_call('put', url, json=privilege_data)
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data and 'id' in json_data:
+                    return Privilege(json_data['id'], name, version, statements)
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def delete_privilege(self, privilege_id):
+        """
+
+        Deletes a Privilege
+
+        :param privilege_id: The id of the privilege you want to delete.
+        :type privilege_id: string
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/1/privileges/delete-privilege Delete Privilege documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.DELETE_PRIVILEGE_URL, privilege_id)
+
+            response = self.execute_call('delete', url)
+
+            if response.status_code == 204:
+                return True
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def get_roles_assigned_to_privilege(self, privilege_id, max_results=None):
+        """
+
+        Gets a list of the roles assigned to a privilege.
+
+        :param privilege_id: The id of the privilege.
+        :type privilege_id: string
+
+        :param max_results: Limit the number of roles returned (optional)
+        :type max_results: int
+
+        Returns the list of roles
+        :return: role_ids list
+        :rtype: list[int]
+
+        See https://developers.onelogin.com/api-docs/1/privileges/get-roles Get Assigned Roles documentation
+
+        """
+        self.clean_error()
+
+        if max_results is None:
+            max_results = self.max_results if self.max_results > 1000 else 1000
+
+        try:
+            url = self.get_url(Constants.GET_ROLES_ASSIGNED_TO_PRIVILEGE_URL, privilege_id)
+
+            role_ids = []
+            response = None
+            after_cursor = None
+            query_parameters = None
+            while (not response) or (len(role_ids) < max_results and after_cursor):
+                response = self.execute_call('get', url, params=query_parameters)
+                if response.status_code == 200:
+                    json_data = response.json()
+                    if json_data and 'roles' in json_data:
+                        if len(role_ids) + len(json_data['roles']) < max_results:
+                            role_ids += json_data['roles']
+                        elif len(role_ids) + len(json_data['roles']) == max_results:
+                            role_ids += json_data['roles']
+                            return role_ids
+                        else:
+                            for role_id in json_data['roles']:
+                                if len(role_ids) < max_results:
+                                    role_ids.append(role_id)
+                                else:
+                                    return role_ids
+
+                    after_cursor = self.get_after_cursor(response)
+                    if after_cursor:
+                        if not query_parameters:
+                            query_parameters = {}
+                        query_parameters['after_cursor'] = after_cursor
+                else:
+                    self.error = str(response.status_code)
+                    self.error_description = self.extract_error_message_from_response(response)
+                    break
+
+            return role_ids
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def assign_roles_to_privilege(self, privilege_id, role_ids):
+        """
+
+        Assign one or more roles to a privilege.
+
+        :param privilege_id: The id of the privilege.
+        :type privilege_id: string
+
+        :param role_ids: The ids of the roles to be assigned.
+        :type role_ids: list
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/1/privileges/assign-role Assign Roles documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.ASSIGN_ROLES_TO_PRIVILEGE_URL, privilege_id)
+
+            data = {
+                'roles': role_ids,
+            }
+
+            response = self.execute_call('post', url, json=data)
+            if response.status_code == 201:
+                return self.handle_operation_response(response)
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+        return False
+
+    def remove_role_from_privilege(self, privilege_id, role_id):
+        """
+
+        Removes one role from the privilege.
+
+        :param privilege_id: The id of the privilege.
+        :type privilege_id: string
+
+        :param role_id: The id of the role to be removed.
+        :type role_id: int
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/1/privileges/remove-role Remove Role documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.REMOVE_ROLE_FROM_PRIVILEGE_URL, privilege_id, role_id)
+
+            response = self.execute_call('delete', url)
+
+            if response.status_code == 204:
+                return True
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+        return False
+
+    def get_users_assigned_to_privilege(self, privilege_id, max_results=None):
+        """
+
+        Gets a list of the users assigned to a privilege.
+
+        :param privilege_id: The id of the privilege.
+        :type privilege_id: string
+
+        :param max_results: Limit the number of users returned (optional)
+        :type max_results: int
+
+        Returns the list of users
+        :return: user_ids list
+        :rtype: list[int]
+
+        See https://developers.onelogin.com/api-docs/1/privileges/get-users Get Assigned Users documentation
+
+        """
+        self.clean_error()
+
+        if max_results is None:
+            max_results = self.max_results if self.max_results > 1000 else 1000
+
+        try:
+            url = self.get_url(Constants.GET_USERS_ASSIGNED_TO_PRIVILEGE_URL, privilege_id)
+
+            user_ids = []
+            response = None
+            after_cursor = None
+            query_parameters = None
+            while (not response) or (len(user_ids) < max_results and after_cursor):
+                response = self.execute_call('get', url, params=query_parameters)
+                if response.status_code == 200:
+                    json_data = response.json()
+                    if json_data and 'users' in json_data:
+                        if len(user_ids) + len(json_data['users']) < max_results:
+                            user_ids += json_data['users']
+                        elif len(user_ids) + len(json_data['users']) == max_results:
+                            user_ids += json_data['users']
+                            return user_ids
+                        else:
+                            for user_id in json_data['users']:
+                                if len(user_ids) < max_results:
+                                    user_ids.append(user_id)
+                                else:
+                                    return user_ids
+
+                    after_cursor = self.get_after_cursor(response)
+                    if after_cursor:
+                        if not query_parameters:
+                            query_parameters = {}
+                        query_parameters['after_cursor'] = after_cursor
+                else:
+                    self.error = str(response.status_code)
+                    self.error_description = self.extract_error_message_from_response(response)
+                    break
+
+            return user_ids
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    def assign_users_to_privilege(self, privilege_id, user_ids):
+        """
+
+        Assign one or more users to a privilege.
+
+        :param privilege_id: The id of the privilege.
+        :type privilege_id: string
+
+        :param user_ids: The ids of the users to be assigned.
+        :type user_ids: list
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/1/privileges/assign-users Assign Users documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.ASSIGN_USERS_TO_PRIVILEGE_URL, privilege_id)
+
+            data = {
+                'users': user_ids,
+            }
+
+            response = self.execute_call('post', url, json=data)
+            if response.status_code == 201:
+                return self.handle_operation_response(response)
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+        return False
+
+    def remove_user_from_privilege(self, privilege_id, user_id):
+        """
+
+        Removes one user from the privilege.
+
+        :param privilege_id: The id of the privilege.
+        :type privilege_id: string
+
+        :param user_id: The id of the user to be removed.
+        :type user_id: int
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/1/privileges/remove-user Remove User documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.REMOVE_USER_FROM_PRIVILEGE_URL, privilege_id, user_id)
+
+            response = self.execute_call('delete', url)
+
+            if response.status_code == 204:
+                return True
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+        return False
+
     def execute_call(self, method, url, headers=None, params=None, json=None):
         self.prepare_token()
 
@@ -1934,3 +2466,4 @@ class OneLoginClient(object):
             else:
                 break
         return response
+
