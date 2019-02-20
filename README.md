@@ -283,6 +283,74 @@ sent = client.send_invite_link("user@example.com")
 # Get Apps to Embed for a User
 embed_token = "30e256c101cd0d2e731de1ec222e93c4be8a1572"
 apps = client.get_embed_apps("30e256c101cd0d2e731de1ec222e93c4be8a1572", "user@example.com")
+
+# Get Privileges
+privileges = client.get_privileges()
+
+# Create Privilege
+name = "privilege_example"
+version = "2018-05-18"
+
+statement1 = Statement(
+    "Allow",
+    [
+        "users:List",
+        "users:Get",
+    ],
+    ["*"]
+)
+statement2 = Statement(
+    "Allow",
+    [
+        "apps:List",
+        "apps:Get",
+    ],
+    ["*"]
+)
+statements = [
+    statement1,
+    statement2
+]
+privilege = client.create_privilege(name, version, statements)
+
+# Update Privilege
+name = "privilege_example_updated"
+statement2 = Statement(
+    "Allow",
+    [
+        "apps:List",
+    ],
+    ["*"]
+)
+statements = [
+    statement1,
+    statement2
+]
+privilege = client.update_privilege(privilege.id, name, version, statements)
+
+# Get Privilege
+privileges = client.get_privilege(privilege.id)
+
+# Delete Privilege
+result = client.delete_privilege(privilege.id)
+
+# Gets a list of the roles assigned to a privilege
+assigned_roles = client.get_roles_assigned_to_privilege(privilege.id)
+
+# Assign roles to a privilege
+result = client.assign_roles_to_privilege(privilege.id, [role_id1, role_id2])
+
+# Remove role from a privilege
+result = client.remove_role_from_privilege(privilege.id, role_id_1)
+
+# Gets a list of the users assigned to a privilege
+assigned_users = client.get_users_assigned_to_privilege(privilege.id)
+
+# Assign users to a privilege
+result = client.assign_users_to_privilege(privilege.id, [user_id1, user_id2])
+
+# Remove user from a privilege
+result = client.remove_user_from_privilege(privilege.id, user_id2)
 ```
 
 ## Development
