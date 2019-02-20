@@ -182,6 +182,9 @@ apps = client.get_user_apps(user.id)
 # Get User Roles
 role_ids = client.get_user_roles(user.id)
 
+# Generate MFA Token
+mfa_token = client.generate_mfa_token(user.id)
+
 # Create user
 new_user_params = {
     "email": "testcreate_1@example.com",

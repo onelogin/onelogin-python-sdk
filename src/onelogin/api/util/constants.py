@@ -41,6 +41,7 @@ class Constants(object):
     SET_CUSTOM_ATTRIBUTE_TO_USER_URL = "https://api.%s.onelogin.com/api/1/users/%s/set_custom_attributes"
     LOG_USER_OUT_URL = "https://api.%s.onelogin.com/api/1/users/%s/logout"
     LOCK_USER_URL = "https://api.%s.onelogin.com/api/1/users/%s/lock_user"
+    GENERATE_MFA_TOKEN_URL = "https://api.%s.onelogin.com/api/1/users/%s/mfa_token"
 
     # Role URLs
     GET_ROLES_URL = "https://api.%s.onelogin.com/api/1/roles"

@@ -24,6 +24,7 @@ from onelogin.api.models.event_type import EventType
 from onelogin.api.models.factor_enrollment_response import FactorEnrollmentResponse
 from onelogin.api.models.group import Group
 from onelogin.api.models.mfa import MFA
+from onelogin.api.models.mfa_token import MFAToken
 from onelogin.api.models.onelogin_token import OneLoginToken
 from onelogin.api.models.otp_device import OTP_Device
 from onelogin.api.models.privilege import Privilege
@@ -1004,7 +1005,7 @@ class OneLoginClient(object):
 
         Deletes an user
 
-        :param user_id: Id of the user to be logged out
+        :param user_id: Id of the user to be deleted
         :type user_id: int
 
         Returns if the action succeed
@@ -1031,6 +1032,52 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
         return False
+
+    # Generate an access token for a user
+    def generate_mfa_token(self, user_id, expires_in=259200, reusable=False):
+        """
+        Use to generate a temporary MFA token that can be used in place of other MFA tokens for a set time period.
+        For example, use this token for account recovery.
+
+        :param user_id: Id of the user
+        :type user_id: int
+
+        :param expires_in: Set the duration of the token in seconds. 
+                          (default: 259200 seconds = 72h) 72 hours is the max value.
+        :type expires_in: int
+
+        :param reusable: Defines if the token reusable. (default: false) If set to true, token can be used for multiple apps, until it expires.
+        :type reusable: bool
+
+        Returns a mfa token
+        :return: return the object if success
+        :rtype: MFAToken
+
+        See https://developers.onelogin.com/api-docs/1/multi-factor-authentication/generate-mfa-token Generate MFA Token documentation
+
+        """
+        self.clean_error()
+
+        try:
+            url = self.get_url(Constants.GENERATE_MFA_TOKEN_URL, user_id)
+
+            data = {
+                'expires_in': expires_in,
+                'reusable': reusable
+            }
+
+            response = self.execute_call('post', url, json=data)
+            if response.status_code == 201:
+                json_data = response.json()
+                if json_data:
+                    return MFAToken(json_data)
+                else:
+                    self.error = self.extract_status_code_from_response(response)
+                    self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
 
     # Custom Login Pages
     def create_session_login_token(self, query_params, allowed_origin=''):
