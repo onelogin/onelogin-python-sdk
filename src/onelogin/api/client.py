@@ -208,13 +208,14 @@ class OneLoginClient(object):
     def retrieve_apps_from_xml(self, xml_content):
         root = fromstring(xml_content)
         node_list = root.findall("./apps/app")
-        attributes = ["id", "icon", "name", "provisioned", "extension_required", "personal", "login_id"]
+        attributes = {"id", "icon", "name", "provisioned", "extension_required", "personal", "login_id"}
         apps = []
         for node in node_list:
-            app_data = {}
-            for children in node:
-                if children.tag in attributes:
-                    app_data.attrib[children.tag] = children.text
+            app_data = {
+                child.tag: child.text
+                for child in node
+                if child.tag in attributes
+            }
             apps.append(EmbedApp(app_data))
         return apps
 
