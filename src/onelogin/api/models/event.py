@@ -38,6 +38,11 @@ class Event(object):
         self.client_id = data.get('client_id', None)
         self.resource_type_id = data.get('resource_type_id', None)
         self.error_description = data.get('error_description', '')
+        self.proxy_ip = data.get('proxy_ip', None)
+        self.risk_score = data.get('risk_score', None)
+        self.risk_reasons = data.get('risk_reasons', None)
+        self.risk_cookie_id = data.get('risk_cookie_id', None)
+        self.browser_fingerprint = data.get('browser_fingerprint', None)
 
     def get_role(self):
         role = None
