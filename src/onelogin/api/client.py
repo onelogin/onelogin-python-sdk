@@ -12,7 +12,7 @@ OneLoginClient class of the OneLogin's Python SDK.
 import datetime
 from dateutil import tz
 import requests
-from defusedxml.lxml import fromstring
+from defusedxml.ElementTree import fromstring
 
 from onelogin.api.util.urlbuilder import UrlBuilder
 from onelogin.api.util.constants import Constants
@@ -207,14 +207,15 @@ class OneLoginClient(object):
 
     def retrieve_apps_from_xml(self, xml_content):
         root = fromstring(xml_content)
-        node_list = root.xpath("/apps/app")
-        attributes = ["id", "icon", "name", "provisioned", "extension_required", "personal", "login_id"]
+        node_list = root.findall("./app")
+        attributes = {"id", "icon", "name", "provisioned", "extension_required", "personal", "login_id"}
         apps = []
         for node in node_list:
-            app_data = {}
-            for children in node.getchildren():
-                if children.tag in attributes:
-                    app_data[children.tag] = children.text
+            app_data = {
+                child.tag: child.text
+                for child in node
+                if child.tag in attributes
+            }
             apps.append(EmbedApp(app_data))
         return apps
 
