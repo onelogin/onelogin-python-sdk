@@ -207,7 +207,7 @@ class OneLoginClient(object):
 
     def retrieve_apps_from_xml(self, xml_content):
         root = fromstring(xml_content)
-        node_list = root.findall("./apps/app")
+        node_list = root.findall("./app")
         attributes = {"id", "icon", "name", "provisioned", "extension_required", "personal", "login_id"}
         apps = []
         for node in node_list:
