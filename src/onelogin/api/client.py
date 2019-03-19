@@ -25,6 +25,7 @@ from onelogin.api.models.factor_enrollment_response import FactorEnrollmentRespo
 from onelogin.api.models.group import Group
 from onelogin.api.models.mfa import MFA
 from onelogin.api.models.mfa_token import MFAToken
+from onelogin.api.models.onelogin_app import OneLoginApp
 from onelogin.api.models.onelogin_token import OneLoginToken
 from onelogin.api.models.otp_device import OTP_Device
 from onelogin.api.models.privilege import Privilege
@@ -1174,6 +1175,62 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
+        except Exception as e:
+            self.error = 500
+            self.error_description = e.args[0]
+
+    # Onelogin Apps Methods
+    def get_apps(self, query_parameters=None, max_results=None):
+        """
+
+        Gets a list of all Apps in a OneLogin account.
+
+        :param query_parameters: Parameters to filter the result of the list
+        :type query_parameters: dict
+
+        :param max_results: Limit the number of apps returned (optional)
+        :type max_results: int
+
+        Returns the list of apps
+        :return: app list
+        :rtype: list[OneLoginApp]
+
+        See https://developers.onelogin.com/api-docs/1/apps/get-apps Get Apps documentation
+
+        """
+        self.clean_error()
+
+        if max_results is None:
+            max_results = self.max_results
+
+        try:
+            url = self.get_url(Constants.GET_APPS_URL)
+
+            apps = []
+            response = None
+            after_cursor = None
+            while (not response) or (len(apps) < max_results and after_cursor):
+                response = self.execute_call('get', url, params=query_parameters)
+                if response.status_code == 200:
+                    json_data = response.json()
+                    if json_data and json_data.get('data', None):
+                        for app_data in json_data['data']:
+                            if app_data and len(apps) < max_results:
+                                apps.append(OneLoginApp(app_data))
+                            else:
+                                return apps
+
+                    after_cursor = self.get_after_cursor(response)
+                    if after_cursor:
+                        if not query_parameters:
+                            query_parameters = {}
+                        query_parameters['after_cursor'] = after_cursor
+                else:
+                    self.error = str(response.status_code)
+                    self.error_description = self.extract_error_message_from_response(response)
+                    break
+
+            return apps
         except Exception as e:
             self.error = 500
             self.error_description = e.args[0]
