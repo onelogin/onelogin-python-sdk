@@ -229,6 +229,11 @@ class OneLoginClient(object):
         elif self.is_expired():
             self.regenerate_token()
 
+    def remove_stored_token(self):
+        self.access_token = None
+        self.refresh_token = None
+        self.expiration = None
+
     def get_headers(self, bearer=True):
         return {
             'Content-Type': 'application/json',
@@ -329,6 +334,8 @@ class OneLoginClient(object):
                     self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
                     return token
             else:
+                if response.status_code == 401:
+                    self.remove_stored_token()
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
         except Exception as e:
