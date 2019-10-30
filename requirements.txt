@@ -1,3 +1,0 @@
-requests==2.20.1
-defusedxml==0.5.0
-python-dateutil==2.7.3
