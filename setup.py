@@ -38,17 +38,17 @@ setup(
         '': 'src',
     },
     install_requires=[
-        'requests',
-        'defusedxml',
-        'python-dateutil'
+        'requests>=2,<3',
+        'defusedxml>=0.5',
+        'python-dateutil>=2,<3'
     ],
     test_suite='tests',
     extras_require={
         'test': (
-            'coverage',
-            'pylint',
-            'pep8',
-            'pyflakes',
+            'coverage>=3,<6',
+            'pylint>=1,<3',
+            'pep8>=1,<2',
+            'pyflakes>=1,<3',
             'coveralls',
         ),
     },
