@@ -49,7 +49,6 @@ setup(
             'pylint>=1,<3',
             'pep8>=1,<2',
             'pyflakes>=1,<3',
-            'coveralls',
         ),
     },
     keywords='onelogin api sdk',)
