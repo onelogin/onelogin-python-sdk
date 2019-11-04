@@ -38,18 +38,17 @@ setup(
         '': 'src',
     },
     install_requires=[
-        'requests==2.20.1',
-        'defusedxml==0.5.0',
-        'python-dateutil==2.7.3'
+        'requests>=2,<3',
+        'defusedxml>=0.5',
+        'python-dateutil>=2,<3'
     ],
     test_suite='tests',
     extras_require={
         'test': (
-            'coverage==3.7.1',
-            'pylint==1.3.1',
-            'pep8==1.5.7',
-            'pyflakes==0.8.1',
-            'coveralls==0.4.4',
+            'coverage>=3,<6',
+            'pylint>=1,<3',
+            'pep8>=1,<2',
+            'pyflakes>=1,<3',
         ),
     },
     keywords='onelogin api sdk',)
