@@ -123,7 +123,7 @@ class ImportUsers(object):
                     if key in fieldnames:
                         char = data['char']
                         maxsplit = len(data['destination'])                        
-                        for j, user_data in enumerate(user_data_list):
+                        for j, user_data in enumerate(user_data_list.copy()):
                             if 'custom_attribute_' in key:
                                 value = user_data['custom_data'][key.replace('custom_attribute_', '')]
                             else:
