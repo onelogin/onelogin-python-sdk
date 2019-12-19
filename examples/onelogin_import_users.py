@@ -23,8 +23,15 @@ except NameError:
     unicode = str
 
 ATTRIBUTE_MAPPINGS = {  # Id your CSV does not match OL API convention, defines here a dict to do the conversion
-    #"csv_name": "ol_name",     # Custom attributes should be defined as custom_attributes_xxx
+    #"csv_name": "ol_name"     # Custom attributes should be defined as custom_attributes_xxx
+}   
+
+SPLIT_ATTRIBUTES_BY_FIRST_CHAR = {   # Use this to convert one field in multiple
+#    "fullname": { "char": " ",
+#                  "destination": ["firstname", "lastname"] 
+#                }
 }
+
 
 class ImportUsers(object):
 
@@ -110,6 +117,30 @@ class ImportUsers(object):
                             else:
                                 user_data['data'][fieldname] = value
                         user_data_list.append(user_data)
+            # Now apply manipulations
+            if SPLIT_ATTRIBUTES_BY_FIRST_CHAR.items():
+                for key, data in SPLIT_ATTRIBUTES_BY_FIRST_CHAR.items():
+                    if key in fieldnames:
+                        char = data['char']
+                        maxsplit = len(data['destination'])                        
+                        for j, user_data in enumerate(user_data_list):
+                            if 'custom_attribute_' in key:
+                                value = user_data['custom_data'][key.replace('custom_attribute_', '')]
+                            else:
+                                value = user_data['data'][key]
+                            list_values = value.split(char, maxsplit)
+                            for z, dest_key in enumerate(data['destination']):
+                                value = ""
+                                if z < len(list_values):
+                                    value = list_values[z]
+                                if 'custom_attribute_' in dest_key:
+                                    dest_key = dest_key.replace('custom_attribute_', '')
+                                    if value or not dest_key in user_data['custom_data'] or not user_data['custom_data'][dest_key]:
+                                        user_data['custom_data'][dest_key] = value
+                                else:
+                                    if value or not dest_key in user_data['data'] or not user_data['data'][dest_key]:
+                                        user_data['data'][dest_key] = value
+                        user_data_list[j] = user_data
 
         if wrong_rows:
             original_filename = os.path.basename(filepath)
