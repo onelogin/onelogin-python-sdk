@@ -22,6 +22,9 @@ try:
 except NameError:
     unicode = str
 
+ATTRIBUTE_MAPPINGS = {  # Id your CSV does not match OL API convention, defines here a dict to do the conversion
+    #"csv_name": "ol_name",     # Custom attributes should be defined as custom_attributes_xxx
+}
 
 class ImportUsers(object):
 
@@ -83,6 +86,13 @@ class ImportUsers(object):
 
                 if i == 0:
                     fieldnames = row
+
+                    # Attribute mapping if applies
+                    if ATTRIBUTE_MAPPINGS:
+                        names_to_change = ATTRIBUTE_MAPPINGS.keys()
+                        for j, value in enumerate(fieldnames):
+                            if fieldnames[j] in names_to_change:
+                                fieldnames[j] = ATTRIBUTE_MAPPINGS[fieldnames[j]]
                 else:                
                     if len(fieldnames) != len(row):
                         self.log("Line %s of the CSV has incomplete data %s fields instead of %s" % (i, len(row), len(fieldnames)))
@@ -305,7 +315,7 @@ def get_options():
     parser.add_option("-f", "--file", dest="file", type="string",
                       help="CSV file with the user data")
     parser.add_option("-x", "--fieldid", dest="fieldid", type="string", default="email",
-                      help="CSV file with the user data")
+                      help="Name of the field used to identify the user (default email)")
     parser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                       help="Enable verbose mode")
     parser.add_option("-e", "--encoding", dest="encoding", type="string", default="utf-8",
