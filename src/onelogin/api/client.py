@@ -1051,7 +1051,7 @@ class OneLoginClient(object):
         :param user_id: Id of the user
         :type user_id: int
 
-        :param expires_in: Set the duration of the token in seconds. 
+        :param expires_in: Set the duration of the token in seconds.
                           (default: 259200 seconds = 72h) 72 hours is the max value.
         :type expires_in: int
 
@@ -2569,7 +2569,7 @@ class OneLoginClient(object):
             elif method == 'delete':
                 response = requests.delete(url, headers=headers, timeout=self.requests_timeout)
 
-            if response.status_code == 401:
+            if response.status_code == 401 and self.extract_error_message_from_response(response) == "Unauthorized":
                 self.clean_error()
                 self.prepare_token()
                 headers = self.get_authorized_headers(headers=headers)
@@ -2578,4 +2578,3 @@ class OneLoginClient(object):
             else:
                 break
         return response
-
