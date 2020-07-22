@@ -2569,7 +2569,7 @@ class OneLoginClient(object):
             elif method == 'delete':
                 response = requests.delete(url, headers=headers, timeout=self.requests_timeout)
 
-            if response.status_code == 401 and self.extract_error_message_from_response(response) == "Unauthorized":
+            if response.status_code == 504 or (response.status_code == 401 and self.extract_error_message_from_response(response) == "Unauthorized"):
                 self.clean_error()
                 self.prepare_token()
                 headers = self.get_authorized_headers(headers=headers)
