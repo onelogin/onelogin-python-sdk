@@ -2568,13 +2568,18 @@ class OneLoginClient(object):
                 response = requests.put(url, headers=headers, json=json, timeout=self.requests_timeout)
             elif method == 'delete':
                 response = requests.delete(url, headers=headers, timeout=self.requests_timeout)
-
+            else:
+                break
             if response.status_code == 504 or (response.status_code == 401 and self.extract_error_message_from_response(response) == "Unauthorized"):
-                self.clean_error()
-                self.prepare_token()
-                headers = self.get_authorized_headers(headers=headers)
+                if response.status_code == 401 and self.extract_error_message_from_response(response) == "Unauthorized":
+                    if tries == 1:
+                        self.access_token = None
+                    self.clean_error()
+                    self.prepare_token()
+                    headers = self.get_authorized_headers(headers=headers)
 
                 tries += 1
             else:
                 break
+
         return response
