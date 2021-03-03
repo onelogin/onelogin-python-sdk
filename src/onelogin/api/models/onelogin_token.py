@@ -2,8 +2,10 @@
 
 from dateutil import parser
 
+from .base import Base
 
-class OneLoginToken(object):
+
+class OneLoginToken(Base):
     def __init__(self, data):
         self.access_token = data['access_token']
         self.refresh_token = data['refresh_token']

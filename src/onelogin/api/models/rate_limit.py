@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
+from .base import Base
 
-class RateLimit(object):
+
+class RateLimit(Base):
     def __init__(self, data):
         self.limit = data.get('X-RateLimit-Limit', None)
         self.remaining = data.get('X-RateLimit-Remaining', None)

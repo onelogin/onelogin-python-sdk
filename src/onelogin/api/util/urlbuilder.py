@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-""" Settings class
+""" UrlBuilder class
 
-Copyright (c) 2017, OneLogin, Inc.
+Copyright (c) 2021, OneLogin, Inc.
 All rights reserved.
 
 UrlBuilder class of the OneLogin's Python SDK.
 
 """
+from onelogin.api.util.endpoints import Endpoints
 
 
 class UrlBuilder(object):
@@ -22,10 +23,41 @@ class UrlBuilder(object):
     def __init__(self, region='us'):
         self.region = region
 
-    def get_url(self, base, obj_id=None, extra_id=None):
-        if obj_id is None:
-            return base % (self.region)
-        elif extra_id is None:
-            return base % (self.region, obj_id)
+    def get_url(self, base, obj_id=None, extra_id=None, version_id=None):
+
+        if obj_id is not None:
+            self.validate_id(obj_id)
+
+        if version_id is None:
+            if obj_id is None:
+                return base % (self.region)
+            elif extra_id is None:
+                return base % (self.region, obj_id)
+            else:
+                return base % (self.region, obj_id, extra_id)
         else:
-            return base % (self.region, obj_id, extra_id)
+            if obj_id is None:
+                return base % (self.region, version_id)
+            elif extra_id is None:
+                return base % (self.region, version_id, obj_id)
+            else:
+                return base % (self.region, version_id, obj_id, extra_id)
+
+    def get_version_id(self, api_configuration, base):
+        resource_data = Endpoints.matrix.get(base, None)
+
+        version = None
+        if resource_data is not None:
+            resource = resource_data.keys()[0]
+            resource_values = resource_data.values()[0]
+            if resource not in api_configuration.keys():
+                version = resource_values[-1]
+            elif api_configuration[resource] in resource_values:
+                version =  api_configuration[resource]
+            else:
+                version = resource_values[-1]
+        return version
+
+    def validate_id(self, resource_id):
+        if not (type(resource_id) is str or type(resource_id) is int or type(resource_id) is long):
+            raise Exception("Resource id needs to be provided as string or int/long")

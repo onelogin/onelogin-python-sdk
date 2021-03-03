@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
+from .base import Base
 
-class FactorEnrollmentResponse(object):
+
+class FactorEnrollmentResponse(Base):
     def __init__(self, data):
         otp_device_id = data.get('device_id', None)
         self.device_id = int(otp_device_id) if otp_device_id is not None else None

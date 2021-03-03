@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
+from .base import Base
 
-class Statement(object):
+
+class Statement(Base):
     def __init__(self, *args, **kwargs):
         if len(args) == 1:
             self.from_data(args[0])

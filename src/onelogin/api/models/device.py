@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
+from .base import Base
 
-class Device(object):
+
+class Device(Base):
     def __init__(self, data):
         self.id = data.get('device_id', None)
         self.type = data.get('device_type', '')

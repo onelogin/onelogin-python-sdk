@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
+from .base import Base
 
-class App(object):
+class App(Base):
     def __init__(self, data):
         app_id = data.get('id', None)
         self.id = int(app_id) if app_id is not None else None

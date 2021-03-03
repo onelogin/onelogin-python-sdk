@@ -2,7 +2,7 @@
 
 """ OneLoginClient class
 
-Copyright (c) 2017, OneLogin, Inc.
+Copyright (c) 2021, OneLogin, Inc.
 All rights reserved.
 
 OneLoginClient class of the OneLogin's Python SDK.
@@ -14,8 +14,6 @@ from dateutil import tz
 import requests
 from defusedxml.ElementTree import fromstring
 
-from onelogin.api.util.urlbuilder import UrlBuilder
-from onelogin.api.util.constants import Constants
 from onelogin.api.models.app import App
 from onelogin.api.models.auth_factor import AuthFactor
 from onelogin.api.models.event import Event
@@ -36,6 +34,9 @@ from onelogin.api.models.session_token_info import SessionTokenInfo
 from onelogin.api.models.session_token_mfa_info import SessionTokenMFAInfo
 from onelogin.api.models.statement import Statement
 from onelogin.api.models.user import User
+from onelogin.api.util.constants import Constants
+from onelogin.api.util.urlbuilder import UrlBuilder
+from onelogin.api.util.utils import exception_handler, exception_handler_return_false
 from onelogin.api.version import __version__
 
 
@@ -52,7 +53,21 @@ class OneLoginClient(object):
 
     CUSTOM_USER_AGENT = "onelogin-python-sdk %s" % __version__
 
-    def __init__(self, client_id, client_secret, region='us', max_results=1000, default_timeout=(10, 60)):
+    api_configuration = {
+        "user": 2,
+        "app": 1,
+        "role": 1,
+        "event": 1,
+        "group": 1,
+        "custom_login": 1,
+        "assertion": 2,
+        "mfa": 1,
+        "invite": 1,
+        "privilege": 1,
+    }
+
+
+    def __init__(self, client_id, client_secret, region='us', max_results=1000, default_timeout=(10, 60), api_configuration={}):
         """
 
         Create a new instance of OneLoginClient.
@@ -68,6 +83,8 @@ class OneLoginClient(object):
         :param default_timeout: a request timeout
         See http://docs.python-requests.org/en/master/user/advanced/#timeouts
         :type default_timeout: (float, float)
+        :param api_configuration: allows to define the api endpoint version to be used
+        :type api_configuration: dict
 
         """
         self.client_id = client_id
@@ -80,6 +97,8 @@ class OneLoginClient(object):
         self.error_description = None
         self.error_attribute = None
         self.requests_timeout = default_timeout
+        if api_configuration:
+            self.api_configuration.update(api_configuration)
 
     def set_timeout(self, timeout=None):
         """
@@ -101,8 +120,11 @@ class OneLoginClient(object):
         self.error_description = None
         self.error_attribute = None
 
-    def get_url(self, base, obj_id=None, extra_id=None):
-        return self.url_builder.get_url(base, obj_id, extra_id)
+    def get_version_id(self, base):
+        return self.url_builder.get_version_id(self.api_configuration, base)
+
+    def get_url(self, base, obj_id=None, extra_id=None, version_id=None):
+        return self.url_builder.get_url(base, obj_id, extra_id, version_id)
 
     def extract_error_message_from_response(self, response):
         message = ''
@@ -133,26 +155,38 @@ class OneLoginClient(object):
                 if isinstance(status['message'], dict):
                     if 'attribute' in status['message']:
                         attribute = status['message']['attribute']
+        elif "message" in content and "unknown attribute" in content["message"]:
+            attribute = content["message"].replace("unknown attribute: ", "")
         return attribute
 
-    def get_after_cursor(self, response):
+    def get_after_cursor(self, response, version_id):
         after_cursor = None
-        content = response.json()
-        if content:
-            if 'pagination' in content and 'after_cursor' in content['pagination']:
-                after_cursor = content['pagination']['after_cursor']
-            elif 'afterCursor' in content:
-                after_cursor = content['afterCursor']
+        if version_id == 1:
+            content = response.json()
+            if content:
+                if 'pagination' in content and 'after_cursor' in content['pagination']:
+                    after_cursor = content['pagination']['after_cursor']
+                elif 'afterCursor' in content:
+                    after_cursor = content['afterCursor']
+        else:
+            headers = response.headers;
+            if headers and 'after-cursor' in headers:
+                before_cursor = headers['after-cursor']
         return after_cursor
 
-    def get_before_cursor(self, response):
+    def get_before_cursor(self, response, version_id):
         before_cursor = None
-        content = response.json()
-        if content:
-            if 'pagination' in content and 'before_cursor' in content['pagination']:
-                before_cursor = content['pagination']['before_cursor']
-            elif 'beforeCursor' in content:
-                before_cursor = content['beforeCursor']
+        if version_id == 1:
+            content = response.json()
+            if content:
+                if 'pagination' in content and 'before_cursor' in content['pagination']:
+                    before_cursor = content['pagination']['before_cursor']
+                elif 'beforeCursor' in content:
+                    before_cursor = content['beforeCursor']
+        else:
+            headers = response.headers;
+            if headers and 'before-cursor' in headers:
+                before_cursor = headers['before-cursor']
         return before_cursor
 
     def handle_session_token_response(self, response):
@@ -167,20 +201,32 @@ class OneLoginClient(object):
                 raise Exception("Status Message type not reognized: %s" % content['status']['message'])
         return session_token
 
-    def handle_saml_endpoint_response(self, response):
+    def handle_saml_endpoint_response(self, response, version_id):
         saml_endpoint_response = None
         try:
             content = response.json()
-            if content and 'status' in content and 'message' in content['status'] and 'type' in content['status']:
-                status_type = content['status']['type']
-                status_message = content['status']['message']
-                saml_endpoint_response = SAMLEndpointResponse(status_type, status_message)
-                if 'data' in content:
-                    if status_message == 'Success':
-                        saml_endpoint_response.saml_response = content['data']
+            if version_id == 1:
+                if content and 'status' in content and 'message' in content['status'] and 'type' in content['status']:
+                    status_type = content['status']['type']
+                    status_message = content['status']['message']
+                    saml_endpoint_response = SAMLEndpointResponse(status_type, status_message)
+                    if 'data' in content:
+                        if status_message == 'Success':
+                            saml_endpoint_response.saml_response = str(content['data'])
+                        else:
+                            mfa = MFA(content['data'][0])
+                            saml_endpoint_response.mfa = mfa
+            elif version_id == 2:
+                if 'message' in content:
+                    status_type = "success"
+                    status_message = content['message']
+                    saml_endpoint_response = SAMLEndpointResponse(status_type, status_message)
+                    if 'data' in content:
+                        saml_endpoint_response.saml_response = str(content['data'])
                     else:
-                        mfa = MFA(content['data'][0])
+                        mfa = MFA(content)
                         saml_endpoint_response.mfa = mfa
+
         except:
             pass
         return saml_endpoint_response
@@ -194,6 +240,8 @@ class OneLoginClient(object):
                     result = True
                 elif 'success' in content and content['success']:
                     result = True
+                elif 'name' in content and content['name'] == 'Success':
+                    result = True
         except:
             pass
         return result
@@ -205,6 +253,194 @@ class OneLoginClient(object):
             status_code = content['statusCode']
 
         return status_code
+
+    def op_create_success(self, status_code):
+        if status_code in [200, 201]:
+            return True
+        return False
+
+    def op_delete_success(self, status_code):
+        if status_code in [200, 204]:
+            return True
+        return False
+
+    def retrieve_resources(self, resource_cls, url, query_parameters, max_results=None, version_id=1):
+        if max_results is None:
+            max_results = self.max_results
+
+        if query_parameters is not None and type(query_parameters) != 'dict':
+            raise Exception("query_parameters needs to be a dict")
+
+        resources = []
+        response = None
+        after_cursor = None
+        while (not response) or (len(resources) < max_results and after_cursor):
+            response = self.execute_call('get', url, params=query_parameters)
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data:
+                    if version_id == 1 and json_data.get('data', None):
+                        data = json_data['data']
+                    elif version_id == 2 and json_data:
+                        data = json_data
+                    for resource_data in data:
+                        if resource_data and len(resources) < max_results:
+                            resources.append(resource_cls(resource_data))
+                        else:
+                            return resources
+                after_cursor = self.get_after_cursor(response, version_id)
+                if after_cursor:
+                    if not query_parameters:
+                        query_parameters = {}
+                    query_parameters['after_cursor'] = after_cursor
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+                break
+        return resources
+
+    def retrieve_resource(self, resource_cls, url, version_id):
+        response = self.execute_call('get', url)
+        if response.status_code == 200:
+            return self.get_resource(resource_cls, response.json(), version_id)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+
+    def get_resource(self, resource_cls, json_data, version_id):
+        resource = None
+        if version_id ==  1 and json_data and json_data.get('data', None):
+            if isinstance (json_data['data'], list):
+                data = json_data['data'][0]
+            else:
+                data = json_data['data']
+        elif version_id ==  2 and json_data is not None:
+            data = json_data
+
+        if data:
+            resource = resource_cls(data)
+        return resource
+
+    def retrieve_resource_list(self, resource_cls, url, index, version_id):
+        response = self.execute_call('get', url)
+        if response.status_code == 200:
+            return self.get_resource_list(resource_cls, response.json(), index, version_id)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+
+    def get_resource_list(self, resource_cls, json_data, index, version_id):
+        resources = []
+        if version_id ==  1 and json_data and json_data.get('data', None):
+            if index is not None:
+                data = json_data['data'][index]
+            else:
+                data = json_data['data']
+        elif version_id ==  2 and json_data is not None:
+            data = json_data
+
+        if data:
+            for data_item in data:
+                if data_item:
+                    resources.append(resource_cls(data_item))
+
+        return resources
+
+    def retrieve_list(self, url):
+        response = self.execute_call('get', url)
+        if response.status_code == 200:
+            data_list = []
+            json_data = response.json()
+            if json_data and json_data.get('data', None):
+                data_list = json_data['data'][0]
+            return data_list
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+
+    def create_resource(self, resource_cls, url, params, version_id):
+        response = self.execute_call('post', url, json=params)
+        if self.op_create_success(response.status_code):
+            return self.get_resource(resource_cls, response.json(), version_id)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+            self.error_attribute = self.extract_error_attribute_from_response(response)
+
+    def create_operation(self, url, params):
+        response = self.execute_call('post', url, json=params)
+
+        if self.op_create_success(response.status_code):
+            return self.handle_operation_response(response)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+            self.error_attribute = self.extract_error_attribute_from_response(response)
+        return False
+
+    def update_resource(self, resource_cls, url, params, version_id):
+        response = self.execute_call('put', url, json=params)
+        if response.status_code == 200:
+            return self.get_resource(resource_cls, response.json(), version_id)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+            self.error_attribute = self.extract_error_attribute_from_response(response)
+
+    def update_operation(self, url, params):
+        response = self.execute_call('put', url, json=params)
+
+        if response.status_code == 200:
+            return self.handle_operation_response(response)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+            self.error_attribute = self.extract_error_attribute_from_response(response)
+        return False
+
+    def delete_resource(self, url, version_id):
+        response = self.execute_call('delete', url)
+
+        if self.op_delete_success(response.status_code):
+            if version_id == 1:
+                return self.handle_operation_response(response)
+            return True
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+            self.error_attribute = self.extract_error_attribute_from_response(response)
+        return False
+
+    def process_login(self, url, headers, data):
+        response = self.execute_call('post', url, headers=headers, json=data)
+
+        if response.status_code == 200:
+            return self.handle_session_token_response(response)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+
+    def process_token_response(self, response):
+        json_data = response.json()
+        if 'status' in json_data:
+            self.error = str(json_data['status']['code'])
+            self.error_description = self.extract_error_message_from_response(response)
+        else:
+            token = OneLoginToken(json_data)
+            self.access_token = token.access_token
+            self.refresh_token = token.refresh_token
+            self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
+            return token
+
+
+    def retrieve_saml_assertion(self, url, data, version_id):
+        response = self.execute_call('post', url, json=data)
+
+        if response.status_code == 200:
+            return self.handle_saml_endpoint_response(response, version_id)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
 
     def retrieve_apps_from_xml(self, xml_content):
         root = fromstring(xml_content)
@@ -254,6 +490,7 @@ class OneLoginClient(object):
         return headers
 
     # OAuth 2.0 Tokens Methods
+    @exception_handler
     def get_access_token(self):
         """
 
@@ -269,34 +506,22 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.TOKEN_REQUEST_URL)
+        url = self.get_url(Constants.TOKEN_REQUEST_URL)
 
-            data = {
-                'grant_type': 'client_credentials'
-            }
+        data = {
+            'grant_type': 'client_credentials'
+        }
 
-            headers = self.get_authorized_headers(bearer=False)
+        headers = self.get_authorized_headers(bearer=False)
 
-            response = requests.post(url, headers=headers, json=data)
-            if response.status_code == 200:
-                data = response.json()
-                if 'status' in data:
-                    self.error = str(data['status']['code'])
-                    self.error_description = self.extract_error_message_from_response(response)
-                else:
-                    token = OneLoginToken(response.json())
-                    self.access_token = token.access_token
-                    self.refresh_token = token.refresh_token
-                    self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
-                    return token
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        response = requests.post(url, headers=headers, json=data)
+        if response.status_code == 200:            
+            return self.process_token_response(response)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
 
+    @exception_handler
     def regenerate_token(self):
         """
 
@@ -311,37 +536,25 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.TOKEN_REQUEST_URL)
-            headers = self.get_headers()
+        url = self.get_url(Constants.TOKEN_REQUEST_URL)
+        headers = self.get_headers()
 
-            data = {
-                'grant_type': 'refresh_token',
-                'access_token': self.access_token,
-                'refresh_token': self.refresh_token
-            }
+        data = {
+            'grant_type': 'refresh_token',
+            'access_token': self.access_token,
+            'refresh_token': self.refresh_token
+        }
 
-            response = requests.post(url, headers=headers, json=data)
-            if response.status_code == 200:
-                data = response.json()
-                if 'status' in data:
-                    self.error = str(data['status']['code'])
-                    self.error_description = self.extract_error_message_from_response(response)
-                else:
-                    token = OneLoginToken(response.json())
-                    self.access_token = token.access_token
-                    self.refresh_token = token.refresh_token
-                    self.expiration = token.created_at + datetime.timedelta(seconds=token.expires_in)
-                    return token
-            else:
-                if response.status_code == 401:
-                    self.remove_stored_token()
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        response = requests.post(url, headers=headers, json=data)
+        if response.status_code == 200:
+            return self.process_token_response(response)            
+        else:
+            if response.status_code == 401:
+                self.remove_stored_token()
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
 
+    @exception_handler_return_false
     def revoke_token(self):
         """
 
@@ -352,30 +565,24 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.TOKEN_REVOKE_URL)
-            headers = self.get_authorized_headers(bearer=False)
+        url = self.get_url(Constants.TOKEN_REVOKE_URL)
+        headers = self.get_authorized_headers(bearer=False)
 
-            data = {
-                'access_token': self.access_token,
-            }
+        data = {
+            'access_token': self.access_token,
+        }
 
-            response = requests.post(url, headers=headers, json=data)
+        response = requests.post(url, headers=headers, json=data)
 
-            if response.status_code == 200:
-                self.access_token = None
-                self.refresh_token = None
-                self.expiration = None
-                return True
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                return False
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-            return False
+        if response.status_code == 200:
+            self.remove_stored_token()
+            return True
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+        return False
 
+    @exception_handler
     def get_rate_limits(self):
         """
 
@@ -390,23 +597,13 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_RATE_URL)
+        url = self.get_url(Constants.GET_RATE_URL)
 
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    rate_limit = RateLimit(json_data['data'])
-                    return rate_limit
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        version_id = 1
+        return self.retrieve_resource(RateLimit, url, version_id)
 
     # User Methods
+    @exception_handler
     def get_users(self, query_parameters=None, max_results=None):
         """
 
@@ -427,40 +624,11 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        if max_results is None:
-            max_results = self.max_results
+        version_id = self.get_version_id(Constants.GET_USERS_URL)
+        url = self.get_url(Constants.GET_USERS_URL, version_id=version_id)
+        return self.retrieve_resources(User, url, query_parameters, max_results, version_id)
 
-        try:
-            url = self.get_url(Constants.GET_USERS_URL)
-
-            users = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(users) < max_results and after_cursor):
-                response = self.execute_call('get', url, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for user_data in json_data['data']:
-                            if user_data and len(users) < max_results:
-                                users.append(User(user_data))
-                            else:
-                                return users
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return users
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def get_user(self, user_id):
         """
 
@@ -478,21 +646,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.GET_USER_URL)
+        url = self.get_url(Constants.GET_USER_URL, user_id, version_id=version_id)
 
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return User(json_data['data'][0])
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_resource(User, url , version_id)
 
+    @exception_handler
     def get_user_apps(self, user_id):
         """
 
@@ -510,25 +669,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_APPS_FOR_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.GET_APPS_FOR_USER_URL)
+        url = self.get_url(Constants.GET_APPS_FOR_USER_URL, user_id, version_id=version_id)
 
-            apps = []
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    for app_data in json_data['data']:
-                        if app_data:
-                            apps.append(App(app_data))
-                return apps
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_resource_list(App, url, None, version_id)
 
+    @exception_handler
     def get_user_roles(self, user_id):
         """
 
@@ -546,23 +692,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_ROLES_FOR_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.GET_ROLES_FOR_USER_URL)
+        url = self.get_url(Constants.GET_ROLES_FOR_USER_URL, user_id, version_id=version_id)
 
-            role_ids = []
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    role_ids = json_data['data'][0]
-                return role_ids
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_list(url)
 
+    @exception_handler
     def get_custom_attributes(self):
         """
 
@@ -577,23 +712,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_CUSTOM_ATTRIBUTES_URL)
+        version_id = self.get_version_id(Constants.GET_CUSTOM_ATTRIBUTES_URL)
+        url = self.get_url(Constants.GET_CUSTOM_ATTRIBUTES_URL, version_id=version_id)
 
-            custom_attributes = []
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    custom_attributes = json_data['data'][0]
-                return custom_attributes
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_list(url)
 
+    @exception_handler
     def create_user(self, user_params):
         """
 
@@ -616,22 +740,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.CREATE_USER_URL)
+        version_id = self.get_version_id(Constants.CREATE_USER_URL)
+        url = self.get_url(Constants.CREATE_USER_URL, version_id=version_id)
 
-            response = self.execute_call('post', url, json=user_params)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return User(json_data['data'][0])
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.create_resource(User, url, user_params, version_id)
 
+    @exception_handler
     def update_user(self, user_id, user_params):
         """
 
@@ -657,22 +771,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.UPDATE_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.UPDATE_USER_URL)
+        url = self.get_url(Constants.UPDATE_USER_URL, user_id, version_id=version_id)
 
-            response = self.execute_call('put', url, json=user_params)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return User(json_data['data'][0])
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.update_resource(User, url, user_params, version_id)
 
+    @exception_handler_return_false
     def assign_role_to_user(self, user_id, role_ids):
         """
 
@@ -693,26 +797,16 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.ADD_ROLE_TO_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.ADD_ROLE_TO_USER_URL)
+        url = self.get_url(Constants.ADD_ROLE_TO_USER_URL, user_id, version_id=version_id)
 
-            data = {
-                'role_id_array': role_ids
-            }
+        data = {
+            'role_id_array': role_ids
+        }
 
-            response = self.execute_call('put', url, json=data)
+        return self.update_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def remove_role_from_user(self, user_id, role_ids):
         """
 
@@ -733,26 +827,16 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.DELETE_ROLE_TO_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.DELETE_ROLE_TO_USER_URL)
+        url = self.get_url(Constants.DELETE_ROLE_TO_USER_URL, user_id, version_id=version_id)
 
-            data = {
-                'role_id_array': role_ids
-            }
+        data = {
+            'role_id_array': role_ids
+        }
 
-            response = self.execute_call('put', url, json=data)
+        return self.update_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def set_password_using_clear_text(self, user_id, password, password_confirmation, validate_policy=False):
         """
 
@@ -779,28 +863,18 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.SET_PW_CLEARTEXT, user_id)
+        version_id = self.get_version_id(Constants.SET_PW_CLEARTEXT)
+        url = self.get_url(Constants.SET_PW_CLEARTEXT, user_id, version_id=version_id)
 
-            data = {
-                'password': password,
-                'password_confirmation': password_confirmation,
-                'validate_policy': validate_policy
-            }
+        data = {
+            'password': password,
+            'password_confirmation': password_confirmation,
+            'validate_policy': validate_policy
+        }
 
-            response = self.execute_call('put', url, json=data)
+        return self.update_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def set_password_using_hash_salt(self, user_id, password, password_confirmation, password_algorithm, password_salt=None):
         """
 
@@ -830,30 +904,20 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.SET_PW_SALT, user_id)
+        version_id = self.get_version_id(Constants.SET_PW_SALT)
+        url = self.get_url(Constants.SET_PW_SALT, user_id, version_id=version_id)
 
-            data = {
-                'password': password,
-                'password_confirmation': password_confirmation,
-                'password_algorithm': password_algorithm
-            }
-            if password_salt:
-                data["password_salt"] = password_salt
+        data = {
+            'password': password,
+            'password_confirmation': password_confirmation,
+            'password_algorithm': password_algorithm
+        }
+        if password_salt:
+            data["password_salt"] = password_salt
 
-            response = self.execute_call('put', url, json=data)
+        return self.update_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def set_state_to_user(self, user_id, state):
         """
 
@@ -874,26 +938,16 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.SET_STATE_TO_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.SET_STATE_TO_USER_URL)
+        url = self.get_url(Constants.SET_STATE_TO_USER_URL, user_id, version_id=version_id)
 
-            data = {
-                'state': state
-            }
+        data = {
+            'state': state
+        }
 
-            response = self.execute_call('put', url, json=data)
+        return self.update_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def set_custom_attribute_to_user(self, user_id, custom_attributes):
         """
 
@@ -914,26 +968,16 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.SET_CUSTOM_ATTRIBUTE_TO_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.SET_CUSTOM_ATTRIBUTE_TO_USER_URL)
+        url = self.get_url(Constants.SET_CUSTOM_ATTRIBUTE_TO_USER_URL, user_id, version_id=version_id)
 
-            data = {
-                'custom_attributes': custom_attributes
-            }
+        data = {
+            'custom_attributes': custom_attributes
+        }
 
-            response = self.execute_call('put', url, json=data)
+        return self.update_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def log_user_out(self, user_id):
         """
 
@@ -951,22 +995,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.LOG_USER_OUT_URL, user_id)
+        version_id = self.get_version_id(Constants.LOG_USER_OUT_URL)
+        url = self.get_url(Constants.LOG_USER_OUT_URL, user_id)
 
-            response = self.execute_call('put', url)
+        return self.update_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def lock_user(self, user_id, minutes):
         """
 
@@ -989,26 +1023,16 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.LOCK_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.LOCK_USER_URL)
+        url = self.get_url(Constants.LOCK_USER_URL, user_id, version_id=version_id)
 
-            data = {
-                'locked_until': minutes
-            }
+        data = {
+            'locked_until': minutes
+        }
 
-            response = self.execute_call('put', url, json=data)
+        return self.update_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def delete_user(self, user_id):
         """
 
@@ -1026,23 +1050,13 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.DELETE_USER_URL, user_id)
+        version_id = self.get_version_id(Constants.DELETE_USER_URL)
+        url = self.get_url(Constants.DELETE_USER_URL, user_id, version_id=version_id)
 
-            response = self.execute_call('delete', url)
-
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
+        return self.delete_resource(url, version_id)
 
     # Generate an access token for a user
+    @exception_handler
     def generate_mfa_token(self, user_id, expires_in=259200, reusable=False):
         """
         Use to generate a temporary MFA token that can be used in place of other MFA tokens for a set time period.
@@ -1067,28 +1081,19 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GENERATE_MFA_TOKEN_URL, user_id)
+        version_id = self.get_version_id(Constants.GENERATE_MFA_TOKEN_URL)
+        url = self.get_url(Constants.GENERATE_MFA_TOKEN_URL, user_id, version_id=version_id)
 
-            data = {
-                'expires_in': expires_in,
-                'reusable': reusable
-            }
+        data = {
+            'expires_in': expires_in,
+            'reusable': reusable
+        }
 
-            response = self.execute_call('post', url, json=data)
-            if response.status_code == 201:
-                json_data = response.json()
-                if json_data:
-                    return MFAToken(json_data)
-                else:
-                    self.error = self.extract_status_code_from_response(response)
-                    self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+        # It has version 2 result
+        return self.create_resource(MFAToken, url, data, 2)
 
     # Custom Login Pages
+    @exception_handler
     def create_session_login_token(self, query_params, allowed_origin=''):
         """
 
@@ -1113,24 +1118,16 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.SESSION_LOGIN_TOKEN_URL)
-            headers = self.get_authorized_headers()
+        version_id = self.get_version_id(Constants.SESSION_LOGIN_TOKEN_URL)
+        url = self.get_url(Constants.SESSION_LOGIN_TOKEN_URL, version_id=version_id)
+        headers = self.get_authorized_headers()
 
-            if allowed_origin:
-                headers.update({'Custom-Allowed-Origin-Header-1': allowed_origin})
+        if allowed_origin:
+            headers.update({'Custom-Allowed-Origin-Header-1': allowed_origin})
 
-            response = self.execute_call('post', url, headers=headers, json=query_params)
+        return self.process_login(url, headers, query_params)
 
-            if response.status_code == 200:
-                return self.handle_session_token_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def get_session_token_verified(self, device_id, state_token, otp_token=None, allowed_origin='', do_not_notify=False):
         """
 
@@ -1160,33 +1157,25 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_TOKEN_VERIFY_FACTOR)
-            headers = self.get_authorized_headers()
+        version_id = self.get_version_id(Constants.GET_TOKEN_VERIFY_FACTOR)
+        url = self.get_url(Constants.GET_TOKEN_VERIFY_FACTOR, version_id=version_id)
+        headers = self.get_authorized_headers()
 
-            if allowed_origin:
-                headers.update({'Custom-Allowed-Origin-Header-1': allowed_origin})
+        if allowed_origin:
+            headers.update({'Custom-Allowed-Origin-Header-1': allowed_origin})
 
-            data = {
-                'device_id': str(device_id),
-                'state_token': state_token,
-                'do_not_notify': do_not_notify
-            }
-            if otp_token:
-                data['otp_token'] = otp_token
+        data = {
+            'device_id': str(device_id),
+            'state_token': state_token,
+            'do_not_notify': do_not_notify
+        }
+        if otp_token:
+            data['otp_token'] = otp_token
 
-            response = self.execute_call('post', url, headers=headers, json=data)
-
-            if response.status_code == 200:
-                return self.handle_session_token_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.process_login(url, headers, data)
 
     # Onelogin Apps Methods
+    @exception_handler
     def get_apps(self, query_parameters=None, max_results=None):
         """
 
@@ -1207,42 +1196,13 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        if max_results is None:
-            max_results = self.max_results
+        version_id = self.get_version_id(Constants.GET_APPS_URL)
+        url = self.get_url(Constants.GET_APPS_URL, version_id=version_id)
 
-        try:
-            url = self.get_url(Constants.GET_APPS_URL)
-
-            apps = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(apps) < max_results and after_cursor):
-                response = self.execute_call('get', url, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for app_data in json_data['data']:
-                            if app_data and len(apps) < max_results:
-                                apps.append(OneLoginApp(app_data))
-                            else:
-                                return apps
-
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return apps
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_resources(OneLoginApp, url, query_parameters, max_results, version_id)
 
     # Role Methods
+    @exception_handler
     def get_roles(self, query_parameters=None, max_results=None):
         """
 
@@ -1266,38 +1226,12 @@ class OneLoginClient(object):
         if max_results is None:
             max_results = self.max_results
 
-        try:
-            url = self.get_url(Constants.GET_ROLES_URL)
+        version_id = self.get_version_id(Constants.GET_ROLES_URL)
+        url = self.get_url(Constants.GET_ROLES_URL, version_id=version_id)
 
-            roles = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(roles) < max_results and after_cursor):
-                response = self.execute_call('get', url, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for role_data in json_data['data']:
-                            if role_data and len(roles) < max_results:
-                                roles.append(Role(role_data))
-                            else:
-                                return roles
+        return self.retrieve_resources(Role, url, query_parameters, max_results, version_id)        
 
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return roles
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def get_role(self, role_id):
         """
 
@@ -1315,22 +1249,13 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_ROLE_URL, role_id)
+        version_id = self.get_version_id(Constants.GET_ROLE_URL)
+        url = self.get_url(Constants.GET_ROLE_URL, role_id, version_id=version_id)
 
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return Role(json_data['data'][0])
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_resource(Role, url, version_id)
 
     # Event Methods
+    @exception_handler
     def get_event_types(self):
         """
 
@@ -1345,26 +1270,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_EVENT_TYPES_URL)
+        version_id = self.get_version_id(Constants.GET_EVENT_TYPES_URL)
+        url = self.get_url(Constants.GET_EVENT_TYPES_URL, version_id=version_id)
 
-            event_types = []
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    for event_type_data in json_data['data']:
-                        if event_type_data:
-                            event_types.append(EventType(event_type_data))
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
+        return self.retrieve_resource_list(EventType, url, None, version_id)
 
-            return event_types
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def get_events(self, query_parameters=None, max_results=None):
         """
 
@@ -1388,38 +1299,12 @@ class OneLoginClient(object):
         if max_results is None:
             max_results = self.max_results
 
-        try:
-            url = self.get_url(Constants.GET_EVENTS_URL)
+        version_id = self.get_version_id(Constants.GET_EVENTS_URL)
+        url = self.get_url(Constants.GET_EVENTS_URL, version_id=version_id)
 
-            events = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(events) < max_results and after_cursor):
-                response = self.execute_call('get', url, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for event_data in json_data['data']:
-                            if event_data and len(events) < max_results:
-                                events.append(Event(event_data))
-                            else:
-                                return events
+        return self.retrieve_resources(Event, url, query_parameters, max_results, version_id)
 
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return events
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def get_event(self, event_id):
         """
 
@@ -1437,21 +1322,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_EVENT_URL, event_id)
+        version_id = self.get_version_id(Constants.GET_EVENT_URL)
+        url = self.get_url(Constants.GET_EVENT_URL, event_id, version_id=version_id)
 
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return Event(json_data['data'][0])
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_resource(Event, url, version_id)
 
+    @exception_handler_return_false
     def create_event(self, event_params):
         """
 
@@ -1476,22 +1352,13 @@ class OneLoginClient(object):
         self.clean_error()
         self.prepare_token()
 
-        try:
-            url = self.get_url(Constants.CREATE_EVENT_URL)
+        version_id = self.get_version_id(Constants.CREATE_EVENT_URL)
+        url = self.get_url(Constants.CREATE_EVENT_URL, version_id=version_id)
 
-            response = self.execute_call('post', url, json=event_params)
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                self.error_attribute = self.extract_error_attribute_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
+        return self.create_operation(url, event_params)
 
     # Group Methods
+    @exception_handler
     def get_groups(self, max_results=None):
         """
 
@@ -1512,37 +1379,12 @@ class OneLoginClient(object):
         if max_results is None:
             max_results = self.max_results
 
-        try:
-            url = self.get_url(Constants.GET_GROUPS_URL)
+        version_id = self.get_version_id(Constants.GET_GROUPS_URL)
+        url = self.get_url(Constants.GET_GROUPS_URL, version_id=version_id)
 
-            query_parameters = {}
-            groups = []
-            response = None
-            after_cursor = None
-            while (not response) or (len(groups) < max_results and after_cursor):
-                response = self.execute_call('get', url, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and json_data.get('data', None):
-                        for group_data in json_data['data']:
-                            if group_data and len(groups) < max_results:
-                                groups.append(Group(group_data))
-                            else:
-                                return groups
+        return self.retrieve_resources(Group, url, None, max_results, version_id)
 
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
-
-            return groups
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def get_group(self, group_id):
         """
 
@@ -1560,22 +1402,13 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_GROUP_URL, group_id)
+        version_id = self.get_version_id(Constants.GET_GROUP_URL)
+        url = self.get_url(Constants.GET_GROUP_URL, group_id, version_id=version_id)
 
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return Group(json_data['data'][0])
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_resource(Group, url, version_id)
 
     # SAML Assertion Methods
+    @exception_handler
     def get_saml_assertion(self, username_or_email, password, app_id, subdomain, ip_address=None):
         """
 
@@ -1605,30 +1438,22 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_SAML_ASSERTION_URL)
+        version_id = self.get_version_id(Constants.GET_SAML_ASSERTION_URL)
+        url = self.get_url(Constants.GET_SAML_ASSERTION_URL, version_id=version_id)
 
-            data = {
-                'username_or_email': username_or_email,
-                'password': password,
-                'app_id': app_id,
-                'subdomain': subdomain,
-            }
+        data = {
+            'username_or_email': username_or_email,
+            'password': password,
+            'app_id': app_id,
+            'subdomain': subdomain,
+        }
 
-            if ip_address:
-                data['ip_address'] = ip_address
+        if ip_address:
+            data['ip_address'] = ip_address
 
-            response = self.execute_call('post', url, json=data)
+        return self.retrieve_saml_assertion(url, data, version_id)
 
-            if response.status_code == 200:
-                return self.handle_saml_endpoint_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def get_saml_assertion_verifying(self, app_id, device_id, state_token, otp_token=None, url_endpoint=None, do_not_notify=False):
         """
 
@@ -1661,34 +1486,26 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            if url_endpoint:
-                url = url_endpoint
-            else:
-                url = self.get_url(Constants.GET_SAML_VERIFY_FACTOR)
+        if url_endpoint:
+            url = url_endpoint
+        else:
+            version_id = self.get_version_id(Constants.GET_SAML_VERIFY_FACTOR)
+            url = self.get_url(Constants.GET_SAML_VERIFY_FACTOR, version_id=version_id)
 
-            data = {
-                'app_id': app_id,
-                'device_id': str(device_id),
-                'state_token': state_token,
-                'do_not_notify': do_not_notify
-            }
+        data = {
+            'app_id': app_id,
+            'device_id': str(device_id),
+            'state_token': str(state_token),
+            'do_not_notify': do_not_notify
+        }
 
-            if otp_token:
-                data['otp_token'] = otp_token
+        if otp_token:
+            data['otp_token'] = otp_token
 
-            response = self.execute_call('post', url, json=data)
-
-            if response.status_code == 200:
-                return self.handle_saml_endpoint_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return self.retrieve_saml_assertion(url, data, version_id)
 
     # Multi-factor Auth Methods
+    @exception_handler
     def get_factors(self, user_id):
         """
 
@@ -1705,27 +1522,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_FACTORS_URL, user_id)
+        version_id = self.get_version_id(Constants.GET_FACTORS_URL)
+        url = self.get_url(Constants.GET_FACTORS_URL, user_id, version_id=version_id)
 
-            response = self.execute_call('get', url)
+        return self.retrieve_resource_list(AuthFactor, url, 'auth_factors', version_id)
 
-            auth_factors = []
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    for auth_factor_data in json_data['data']['auth_factors']:
-                        if auth_factor_data:
-                            auth_factors.append(AuthFactor(auth_factor_data))
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-
-            return auth_factors
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def enroll_factor(self, user_id, factor_id, display_name, number):
         """
 
@@ -1751,28 +1553,18 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.ENROLL_FACTOR_URL, user_id)
+        version_id = self.get_version_id(Constants.ENROLL_FACTOR_URL)
+        url = self.get_url(Constants.ENROLL_FACTOR_URL, user_id, version_id=version_id)
 
-            data = {
-                'factor_id': int(factor_id),
-                'display_name': display_name,
-                'number': number
-            }
+        data = {
+            'factor_id': int(factor_id),
+            'display_name': display_name,
+            'number': number
+        }
 
-            response = self.execute_call('post', url, json=data)
+        return self.create_resource(OTP_Device, url, data, version_id)
 
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return OTP_Device(json_data['data'][0])
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def get_enrolled_factors(self, user_id):
         """
 
@@ -1789,28 +1581,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_ENROLLED_FACTORS_URL, user_id)
+        version_id = self.get_version_id(Constants.GET_ENROLLED_FACTORS_URL)
+        url = self.get_url(Constants.GET_ENROLLED_FACTORS_URL, user_id, version_id=version_id)
 
-            response = self.execute_call('get', url)
+        return self.retrieve_resource_list(OTP_Device, url, 'otp_devices', version_id)
 
-            otp_devices = []
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    otp_devices_data = json_data['data'].get('otp_devices', None)
-                    if otp_devices_data:
-                        for otp_device_data in otp_devices_data:
-                            otp_devices.append(OTP_Device(otp_device_data))
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-
-            return otp_devices
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def activate_factor(self, user_id, device_id):
         """
 
@@ -1831,22 +1607,12 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.ACTIVATE_FACTOR_URL, user_id, device_id)
+        version_id = self.get_version_id(Constants.ACTIVATE_FACTOR_URL)
+        url = self.get_url(Constants.ACTIVATE_FACTOR_URL, user_id, device_id, version_id=version_id)
 
-            response = self.execute_call('post', url)
+        return self.create_resource(FactorEnrollmentResponse, url, None, version_id)
 
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return FactorEnrollmentResponse(json_data['data'][0])
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler_return_false
     def verify_factor(self, user_id, device_id, otp_token=None, state_token=None):
         """
 
@@ -1877,27 +1643,18 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.VERIFY_FACTOR_URL, user_id, device_id)
+        version_id = self.get_version_id(Constants.VERIFY_FACTOR_URL)
+        url = self.get_url(Constants.VERIFY_FACTOR_URL, user_id, device_id, version_id=version_id)
 
-            data = {}
-            if otp_token:
-                data['otp_token'] = otp_token
-            if state_token:
-                data['state_token'] = state_token
+        data = {}
+        if otp_token:
+            data['otp_token'] = otp_token
+        if state_token:
+            data['state_token'] = state_token
 
-            response = self.execute_call('post', url, json=data)
+        return self.create_operation(url, data)
 
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler_return_false
     def remove_factor(self, user_id, device_id):
         """
 
@@ -1917,23 +1674,13 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.DELETE_FACTOR_URL, user_id, device_id)
+        version_id = self.get_version_id(Constants.DELETE_FACTOR_URL)
+        url = self.get_url(Constants.DELETE_FACTOR_URL, user_id, device_id, version_id=version_id)
 
-            response = self.execute_call('delete', url)
-
-            if response.status_code == 200:
-                return True
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-                return False
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
+        return self.delete_resource(url, version_id)
 
     # Invite Links Methods
+    @exception_handler
     def generate_invite_link(self, email):
         """
 
@@ -1951,25 +1698,23 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GENERATE_INVITE_LINK_URL)
+        version_id = self.get_version_id(Constants.GENERATE_INVITE_LINK_URL)
+        url = self.get_url(Constants.GENERATE_INVITE_LINK_URL, version_id=version_id)
 
-            data = {
-                'email': email
-            }
+        data = {
+            'email': email
+        }
 
-            response = self.execute_call('post', url, json=data)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and json_data.get('data', None):
-                    return json_data['data'][0]
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        response = self.execute_call('post', url, json=data)
+        if response.status_code == 200:
+            json_data = response.json()
+            if json_data and json_data.get('data', None):
+                return json_data['data'][0]
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
 
+    @exception_handler_return_false
     def send_invite_link(self, email, personal_email=None):
         """
 
@@ -1992,28 +1737,20 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.SEND_INVITE_LINK_URL)
+        version_id = self.get_version_id(Constants.SEND_INVITE_LINK_URL)
+        url = self.get_url(Constants.SEND_INVITE_LINK_URL, version_id=version_id)
 
-            data = {
-                'email': email
-            }
+        data = {
+            'email': email
+        }
 
-            if personal_email:
-                data['personal_email'] = personal_email
+        if personal_email:
+            data['personal_email'] = personal_email
 
-            response = self.execute_call('post', url, json=data)
-            if response.status_code == 200:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
+        return self.create_operation(self, url, data)
 
     # Embed Apps Method
+    @exception_handler
     def get_embed_apps(self, token, email):
         """
 
@@ -2034,30 +1771,27 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = Constants.EMBED_APP_URL
+        url = Constants.EMBED_APP_URL
 
-            data = {
-                'token': token,
-                'email': email
-            }
+        data = {
+            'token': token,
+            'email': email
+        }
 
-            headers = {
-                'User-Agent': self.user_agent
-            }
+        headers = {
+            'User-Agent': self.user_agent
+        }
 
-            response = requests.get(url, headers=headers, params=data)
-            if response.status_code == 200 and response.content:
-                return self.retrieve_apps_from_xml(response.content)
-            else:
-                self.error = str(response.status_code)
-                if response.content:
-                    self.error_description = response.content
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        response = requests.get(url, headers=headers, params=data)
+        if response.status_code == 200 and response.content:
+            return self.retrieve_apps_from_xml(response.content)
+        else:
+            self.error = str(response.status_code)
+            if response.content:
+                self.error_description = response.content
 
     # Privilege Methods
+    @exception_handler
     def get_privileges(self):
         """
 
@@ -2072,25 +1806,13 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.LIST_PRIVILEGES_URL)
+        version_id = self.get_version_id(Constants.LIST_PRIVILEGES_URL)
+        url = self.get_url(Constants.LIST_PRIVILEGES_URL, version_id=version_id)
 
-            privileges = []
-            response = self.execute_call('get', url)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data:
-                    for privilege_data in json_data:
-                        privileges.append(Privilege(privilege_data))
-                else:
-                    self.error = self.extract_status_code_from_response(response)
-                    self.error_description = self.extract_error_message_from_response(response)
+        # It has version 2 result
+        return self.retrieve_resource_list(Privilege, url, None, 2)
 
-            return privileges
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-
+    @exception_handler
     def create_privilege(self, name, version, statements):
         """
 
@@ -2114,45 +1836,43 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.CREATE_PRIVILEGE_URL)
+        version_id = self.get_version_id(Constants.CREATE_PRIVILEGE_URL)
+        url = self.get_url(Constants.CREATE_PRIVILEGE_URL, version_id=version_id)
 
-            statement_data = []
-            for statement in statements:
-                if isinstance(statement, Statement):
-                    statement_data.append({
-                        'Effect': statement.effect,
-                        'Action': statement.actions,
-                        'Scope': statement.scopes
+        statement_data = []
+        for statement in statements:
+            if isinstance(statement, Statement):
+                statement_data.append({
+                    'Effect': statement.effect,
+                    'Action': statement.actions,
+                    'Scope': statement.scopes
 
-                    })
-                elif isinstance(statement, dict) and 'Effect' in statement and 'Action' in statement and 'Scope' in statement:
-                    statement_data.append(statement)
-                else:
-                    self.error = str(400)
-                    self.error_description = "statements is invalid. Provide a list of statements. The statement should be an Statement object or dict with the keys Effect, Action and Scope"
-                    return
-
-            privilege_data = {
-                'name': name,
-                'privilege': {
-                    'Version': version,
-                    'Statement': statement_data
-                }
-            }
-
-            response = self.execute_call('post', url, json=privilege_data)
-            if response.status_code == 201:
-                json_data = response.json()
-                if json_data and 'id' in json_data:
-                    return Privilege(json_data['id'], name, version, statements)
+                })
+            elif isinstance(statement, dict) and 'Effect' in statement and 'Action' in statement and 'Scope' in statement:
+                statement_data.append(statement)
             else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+                self.error = str(400)
+                self.error_description = "statements is invalid. Provide a list of statements. The statement should be an Statement object or dict with the keys Effect, Action and Scope"
+                return
 
+        privilege_data = {
+            'name': name,
+            'privilege': {
+                'Version': version,
+                'Statement': statement_data
+            }
+        }
+
+        response = self.execute_call('post', url, json=privilege_data)
+        if response.status_code == 201:
+            json_data = response.json()
+            if json_data and 'id' in json_data:
+                return Privilege(str(json_data['id']), name, version, statements)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+
+    @exception_handler
     def get_privilege(self, privilege_id):
         """
 
@@ -2170,22 +1890,15 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.GET_PRIVILEGE_URL, privilege_id)
+        privilege_id = str(privilege_id)
 
-            response = self.execute_call('get', url)
+        version_id = self.get_version_id(Constants.GET_PRIVILEGE_URL)
+        url = self.get_url(Constants.GET_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and 'id' in json_data:
-                    return Privilege(json_data)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        # It has version 2 result
+        return self.retrieve_resource(Privilege, url, 2)
 
+    @exception_handler
     def update_privilege(self, privilege_id, name, version, statements):
         """
 
@@ -2212,44 +1925,44 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.UPDATE_PRIVILEGE_URL, privilege_id)
+        privilege_id = str(privilege_id)
 
-            statement_data = []
-            for statement in statements:
-                if isinstance(statement, Statement):
-                    statement_data.append({
-                        'Effect': statement.effect,
-                        'Action': statement.actions,
-                        'Scope': statement.scopes
-                    })
-                elif isinstance(statement, dict) and 'Effect' in statement and 'Action' in statement and 'Scope' in statement:
-                    statement_data.append(statement)
-                else:
-                    self.error = str(400)
-                    self.error_description = "statements is invalid. Provide a list of statements. The statement should be an Statement object or dict with the keys Effect, Action and Scope"
-                    return
+        version_id = self.get_version_id(Constants.UPDATE_PRIVILEGE_URL)
+        url = self.get_url(Constants.UPDATE_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
-            privilege_data = {
-                'name': name,
-                'privilege': {
-                    'Version': version,
-                    'Statement': statement_data,
-                }
-            }
-
-            response = self.execute_call('put', url, json=privilege_data)
-            if response.status_code == 200:
-                json_data = response.json()
-                if json_data and 'id' in json_data:
-                    return Privilege(json_data['id'], name, version, statements)
+        statement_data = []
+        for statement in statements:
+            if isinstance(statement, Statement):
+                statement_data.append({
+                    'Effect': statement.effect,
+                    'Action': statement.actions,
+                    'Scope': statement.scopes
+                })
+            elif isinstance(statement, dict) and 'Effect' in statement and 'Action' in statement and 'Scope' in statement:
+                statement_data.append(statement)
             else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+                self.error = str(400)
+                self.error_description = "statements is invalid. Provide a list of statements. The statement should be an Statement object or dict with the keys Effect, Action and Scope"
+                return
 
+        privilege_data = {
+            'name': name,
+            'privilege': {
+                'Version': version,
+                'Statement': statement_data,
+            }
+        }
+
+        response = self.execute_call('put', url, json=privilege_data)
+        if response.status_code == 200:
+            json_data = response.json()
+            if json_data and 'id' in json_data:
+                return Privilege(str(json_data['id']), name, version, statements)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+
+    @exception_handler
     def delete_privilege(self, privilege_id):
         """
 
@@ -2267,20 +1980,15 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.DELETE_PRIVILEGE_URL, privilege_id)
+        privilege_id = str(privilege_id)
 
-            response = self.execute_call('delete', url)
+        version_id = self.get_version_id(Constants.DELETE_PRIVILEGE_URL)
+        url = self.get_url(Constants.DELETE_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
-            if response.status_code == 204:
-                return True
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        # Version 2 result, no content
+        return self.delete_resource(url, 2)
 
+    @exception_handler
     def get_roles_assigned_to_privilege(self, privilege_id, max_results=None):
         """
 
@@ -2304,45 +2012,43 @@ class OneLoginClient(object):
         if max_results is None:
             max_results = self.max_results if self.max_results > 1000 else 1000
 
-        try:
-            url = self.get_url(Constants.GET_ROLES_ASSIGNED_TO_PRIVILEGE_URL, privilege_id)
+        version_id = self.get_version_id(Constants.GET_ROLES_ASSIGNED_TO_PRIVILEGE_URL)
+        url = self.get_url(Constants.GET_ROLES_ASSIGNED_TO_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
-            role_ids = []
-            response = None
-            after_cursor = None
-            query_parameters = None
-            while (not response) or (len(role_ids) < max_results and after_cursor):
-                response = self.execute_call('get', url, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and 'roles' in json_data:
-                        if len(role_ids) + len(json_data['roles']) < max_results:
-                            role_ids += json_data['roles']
-                        elif len(role_ids) + len(json_data['roles']) == max_results:
-                            role_ids += json_data['roles']
-                            return role_ids
-                        else:
-                            for role_id in json_data['roles']:
-                                if len(role_ids) < max_results:
-                                    role_ids.append(role_id)
-                                else:
-                                    return role_ids
+        role_ids = []
+        response = None
+        after_cursor = None
+        query_parameters = None
+        while (not response) or (len(role_ids) < max_results and after_cursor):
+            response = self.execute_call('get', url, params=query_parameters)
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data and 'roles' in json_data:
+                    if len(role_ids) + len(json_data['roles']) < max_results:
+                        role_ids += json_data['roles']
+                    elif len(role_ids) + len(json_data['roles']) == max_results:
+                        role_ids += json_data['roles']
+                        return role_ids
+                    else:
+                        for role_id in json_data['roles']:
+                            if len(role_ids) < max_results:
+                                role_ids.append(role_id)
+                            else:
+                                return role_ids
 
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
+                after_cursor = self.get_after_cursor(response, version_id)
+                if after_cursor:
+                    if not query_parameters:
+                        query_parameters = {}
+                    query_parameters['after_cursor'] = after_cursor
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+                break
 
-            return role_ids
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return role_ids
 
+    @exception_handler_return_false
     def assign_roles_to_privilege(self, privilege_id, role_ids):
         """
 
@@ -2363,24 +2069,16 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.ASSIGN_ROLES_TO_PRIVILEGE_URL, privilege_id)
+        version_id = self.get_version_id(Constants.ASSIGN_ROLES_TO_PRIVILEGE_URL)
+        url = self.get_url(Constants.ASSIGN_ROLES_TO_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
-            data = {
-                'roles': role_ids,
-            }
+        data = {
+            'roles': role_ids,
+        }
 
-            response = self.execute_call('post', url, json=data)
-            if response.status_code == 201:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
+        return self.create_operation(url, data)
 
+    @exception_handler_return_false
     def remove_role_from_privilege(self, privilege_id, role_id):
         """
 
@@ -2401,21 +2099,13 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.REMOVE_ROLE_FROM_PRIVILEGE_URL, privilege_id, role_id)
+        version_id = self.get_version_id(Constants.REMOVE_ROLE_FROM_PRIVILEGE_URL)
+        url = self.get_url(Constants.REMOVE_ROLE_FROM_PRIVILEGE_URL, privilege_id, role_id, version_id=version_id)
 
-            response = self.execute_call('delete', url)
+        # Version 2 result, no content
+        return self.delete_resource(url, 2)
 
-            if response.status_code == 204:
-                return True
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
-
+    @exception_handler
     def get_users_assigned_to_privilege(self, privilege_id, max_results=None):
         """
 
@@ -2439,45 +2129,43 @@ class OneLoginClient(object):
         if max_results is None:
             max_results = self.max_results if self.max_results > 1000 else 1000
 
-        try:
-            url = self.get_url(Constants.GET_USERS_ASSIGNED_TO_PRIVILEGE_URL, privilege_id)
+        version_id = self.get_version_id(Constants.GET_USERS_ASSIGNED_TO_PRIVILEGE_URL)
+        url = self.get_url(Constants.GET_USERS_ASSIGNED_TO_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
-            user_ids = []
-            response = None
-            after_cursor = None
-            query_parameters = None
-            while (not response) or (len(user_ids) < max_results and after_cursor):
-                response = self.execute_call('get', url, params=query_parameters)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    if json_data and 'users' in json_data:
-                        if len(user_ids) + len(json_data['users']) < max_results:
-                            user_ids += json_data['users']
-                        elif len(user_ids) + len(json_data['users']) == max_results:
-                            user_ids += json_data['users']
-                            return user_ids
-                        else:
-                            for user_id in json_data['users']:
-                                if len(user_ids) < max_results:
-                                    user_ids.append(user_id)
-                                else:
-                                    return user_ids
+        user_ids = []
+        response = None
+        after_cursor = None
+        query_parameters = None
+        while (not response) or (len(user_ids) < max_results and after_cursor):
+            response = self.execute_call('get', url, params=query_parameters)
+            if response.status_code == 200:
+                json_data = response.json()
+                if json_data and 'users' in json_data:
+                    if len(user_ids) + len(json_data['users']) < max_results:
+                        user_ids += json_data['users']
+                    elif len(user_ids) + len(json_data['users']) == max_results:
+                        user_ids += json_data['users']
+                        return user_ids
+                    else:
+                        for user_id in json_data['users']:
+                            if len(user_ids) < max_results:
+                                user_ids.append(user_id)
+                            else:
+                                return user_ids
 
-                    after_cursor = self.get_after_cursor(response)
-                    if after_cursor:
-                        if not query_parameters:
-                            query_parameters = {}
-                        query_parameters['after_cursor'] = after_cursor
-                else:
-                    self.error = str(response.status_code)
-                    self.error_description = self.extract_error_message_from_response(response)
-                    break
+                after_cursor = self.get_after_cursor(response, version_id)
+                if after_cursor:
+                    if not query_parameters:
+                        query_parameters = {}
+                    query_parameters['after_cursor'] = after_cursor
+            else:
+                self.error = str(response.status_code)
+                self.error_description = self.extract_error_message_from_response(response)
+                break
 
-            return user_ids
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
+        return user_ids
 
+    @exception_handler_return_false
     def assign_users_to_privilege(self, privilege_id, user_ids):
         """
 
@@ -2498,24 +2186,16 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.ASSIGN_USERS_TO_PRIVILEGE_URL, privilege_id)
+        version_id = self.get_version_id(Constants.ASSIGN_USERS_TO_PRIVILEGE_URL)
+        url = self.get_url(Constants.ASSIGN_USERS_TO_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
-            data = {
-                'users': user_ids,
-            }
+        data = {
+            'users': user_ids,
+        }
 
-            response = self.execute_call('post', url, json=data)
-            if response.status_code == 201:
-                return self.handle_operation_response(response)
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
+        return self.create_operation(url, data)
 
+    @exception_handler_return_false
     def remove_user_from_privilege(self, privilege_id, user_id):
         """
 
@@ -2536,20 +2216,11 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        try:
-            url = self.get_url(Constants.REMOVE_USER_FROM_PRIVILEGE_URL, privilege_id, user_id)
+        version_id = self.get_version_id(Constants.REMOVE_USER_FROM_PRIVILEGE_URL)
+        url = self.get_url(Constants.REMOVE_USER_FROM_PRIVILEGE_URL, privilege_id, user_id, version_id=version_id)
 
-            response = self.execute_call('delete', url)
-
-            if response.status_code == 204:
-                return True
-            else:
-                self.error = str(response.status_code)
-                self.error_description = self.extract_error_message_from_response(response)
-        except Exception as e:
-            self.error = 500
-            self.error_description = e.args[0]
-        return False
+        # Version 2 result, no content
+        return self.delete_resource(url, 2)
 
     def execute_call(self, method, url, headers=None, params=None, json=None):
         self.prepare_token()
@@ -2569,7 +2240,7 @@ class OneLoginClient(object):
             elif method == 'delete':
                 response = requests.delete(url, headers=headers, timeout=self.requests_timeout)
             else:
-                break
+                return response
             if response.status_code == 504 or (response.status_code == 401 and self.extract_error_message_from_response(response) == "Unauthorized"):
                 if response.status_code == 401 and self.extract_error_message_from_response(response) == "Unauthorized":
                     if tries == 1:
@@ -2580,6 +2251,7 @@ class OneLoginClient(object):
 
                 tries += 1
             else:
-                break
+                return response
 
         return response
+ 

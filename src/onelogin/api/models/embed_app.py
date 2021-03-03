@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
+from .base import Base
 
-class EmbedApp(object):
+
+class EmbedApp(Base):
     def __init__(self, data):
         app_id = data.get('id', None)
         self.id = int(app_id) if app_id is not None else None

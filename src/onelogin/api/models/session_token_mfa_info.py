@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
 from .device import Device
+from .base import Base
 from .user import User
 
 
-class SessionTokenMFAInfo(object):
+class SessionTokenMFAInfo(Base):
     def __init__(self, data):
         if data['user']:
             self.user = User(data['user'])  # Partial info

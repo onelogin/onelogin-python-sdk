@@ -2,11 +2,12 @@
 
 from dateutil import parser
 
+from .base import Base
 from .group import Group
 from .role import Role
 
 
-class Event(object):
+class Event(Base):
     def __init__(self, data):
         self.id = data.get('id', None)
         self.created_at = parser.parse(data['created_at'])

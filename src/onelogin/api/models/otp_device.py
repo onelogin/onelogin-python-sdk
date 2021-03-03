@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
+from .base import Base
 
-class OTP_Device(object):
+
+class OTP_Device(Base):
     def __init__(self, data):
         otp_device_id = data.get('id', None)
         self.id = int(otp_device_id) if otp_device_id is not None else None

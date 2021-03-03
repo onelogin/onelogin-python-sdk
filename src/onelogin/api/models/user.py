@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
 from dateutil import parser
+from .base import Base
 
 
-class User(object):
+class User(Base):
 
     STATE_UNAPPROVED = 0
     STATE_APPROVED = 1
@@ -36,7 +37,11 @@ class User(object):
         self.group_id = data.get('group_id', None)
         if self.group_id:
             self.group_id = int(self.group_id)
-        self.role_ids = data.get('role_id', [])
+        self.role_ids = []
+        if "role_ids" in data.keys():
+            self.role_ids = data.get('role_ids', [])
+        elif "role_id" in data.keys():
+            self.role_ids = data.get('role_id', [])
         self.custom_attributes = data.get('custom_attributes', {})
         self.openid_name = data.get('openid_name', '')
         self.locale_code = data.get('locale_code', '')
@@ -117,6 +122,11 @@ class User(object):
 
     def get_custom_attributes(self):
         return self.custom_attributes
+
+    def get_custom_attribute(self, name):
+        if name in self.custom_attributes.keys():
+            return self.custom_attributes[name]
+        return None
 
     def get_user_params(self):
         return {

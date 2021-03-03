@@ -2,10 +2,11 @@
 
 from dateutil import parser
 
+from .base import Base
 from .user import User
 
 
-class SessionTokenInfo(object):
+class SessionTokenInfo(Base):
     def __init__(self, data):
         self.status = data.get('status', '')
         if data['user']:

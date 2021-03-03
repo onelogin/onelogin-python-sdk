@@ -1,13 +1,14 @@
 #!/usr/bin/python
 
+from .base import Base
 from .device import Device
 from .user import User
 
 
-class MFA(object):
+class MFA(Base):
     def __init__(self, data):
-        self.state_token = data.get('state_token', '')
-        self.callback_url = data.get('callback_url', '')
+        self.state_token = str(data.get('state_token', ''))
+        self.callback_url = str(data.get('callback_url', ''))
         self.user = None
         if data['user']:
             self.user = User(data['user'])
