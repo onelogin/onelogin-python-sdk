@@ -1,16 +1,15 @@
 #!/usr/bin/python
 
+from onelogin.api.util.utils import str2int, str2bool
 from .base import Base
 
 
 class OneLoginApp(Base):
     def __init__(self, data):
-        app_id = data.get('id', None)
-        self.id = int(app_id) if app_id is not None else None
-        connector_id = data.get('connector_id', None)
-        self.connector_id = int(connector_id) if connector_id is not None else None
+        self.id = str2int(data.get('id', None))
+        self.connector_id = str2int(data.get('connector_id', None))
         self.name = data.get('name', '')
-        self.extension = data.get('extension', None)
+        self.extension = str2bool(data.get('extension', None))
         self.icon = data.get('icon', '')        
-        self.visible = data.get('visible', None)
-        self.provisioning = data.get('provisioning', None)
+        self.visible = str2bool(data.get('visible', None))
+        self.provisioning = str2bool(data.get('provisioning', None))

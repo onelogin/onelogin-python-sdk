@@ -1,19 +1,16 @@
 #!/usr/bin/python
 
+from onelogin.api.util.utils import str2int, str2bool
+
 from .base import Base
 
 
 class EmbedApp(Base):
     def __init__(self, data):
-        app_id = data.get('id', None)
-        self.id = int(app_id) if app_id is not None else None
+        self.id = str2int(data.get('id', None))
         self.name = data.get('name', '')
         self.icon = data.get('icon', '')
-        provisioned = data.get('provisioned', '')
-        self.provisioned = int(provisioned) if provisioned is not None else None
-        extension_required = data.get('extension_required', None)
-        self.extension_required = extension_required.lower() in ("yes", "true", "1") if extension_required is not None else None
-        login_id = data.get('login_id', None)
-        self.login_id = int(login_id) if login_id is not None else None
-        personal = data.get('personal', None)
-        self.personal = personal.lower() in ("yes", "true", "1") if personal is not None else None
+        self.provisioned = str2bool(data.get('provisioned', None))
+        self.extension_required = str2bool(data.get('extension_required', None))
+        self.login_id = str2int(data.get('login_id', None))
+        self.personal = str2bool(data.get('personal', None))

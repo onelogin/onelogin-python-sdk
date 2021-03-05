@@ -49,7 +49,17 @@ class Constants(object):
     # Role URLs
     GET_ROLES_URL = "https://api.%s.onelogin.com/api/%s/roles"
     CREATE_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles"
-    GET_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles/%s"
+    GET_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles/%s"    
+    UPDATE_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles/%s"
+    GET_ROLE_APPS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/apps"
+    SET_ROLE_APPS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/apps"
+    GET_ROLE_USERS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/users"
+    ADD_ROLE_USERS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/users"
+    REMOVE_ROLE_USERS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/users"
+    GET_ROLE_ADMINS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/admins"
+    ADD_ROLE_ADMINS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/admins"
+    REMOVE_ROLE_ADMINS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/admins"
+    DELETE_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles/%s"
 
     # Event URLS
     GET_EVENT_TYPES_URL = "https://api.%s.onelogin.com/api/%s/events/types"

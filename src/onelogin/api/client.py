@@ -14,8 +14,17 @@ from dateutil import tz
 import requests
 from defusedxml.ElementTree import fromstring
 
+import base64
+try:
+    from urllib.parse import unquote_plus, parse_qsl
+except ImportError:
+    from urlparse import parse_qsl
+    from urllib import unquote_plus
+
 from onelogin.api.models.app import App
 from onelogin.api.models.auth_factor import AuthFactor
+from onelogin.api.models.assigned_user import AssignedUser
+from onelogin.api.models.assigned_admin import AssignedAdmin
 from onelogin.api.models.event import Event
 from onelogin.api.models.embed_app import EmbedApp
 from onelogin.api.models.event_type import EventType
@@ -56,7 +65,7 @@ class OneLoginClient(object):
     api_configuration = {
         "user": 2,
         "app": 1,
-        "role": 1,
+        "role": 2,
         "event": 1,
         "group": 1,
         "custom_login": 1,
@@ -132,14 +141,17 @@ class OneLoginClient(object):
         if content:
             if 'status' in content:
                 status = content['status']
-                if 'message' in status:
-                    if isinstance(status['message'], dict):
-                        if 'description' in status['message']:
-                            message = status['message']['description']
-                    else:
-                        message = status['message']
-                elif 'type' in status:
-                    message = status['type']
+                if isinstance(status, dict):
+                    if 'message' in status:
+                        if isinstance(status['message'], dict):
+                            if 'description' in status['message']:
+                                message = status['message']['description']
+                        else:
+                            message = status['message']
+                    elif 'type' in status:
+                        message = status['type']
+                elif 'description' in content:
+                    message = content['description']
             elif 'message' in content:
                 message = content['message']
             elif 'name' in content:
@@ -151,7 +163,7 @@ class OneLoginClient(object):
         content = response.json()
         if content and 'status' in content:
             status = content['status']
-            if 'message' in status:
+            if isinstance(status, dict) and 'message' in status:
                 if isinstance(status['message'], dict):
                     if 'attribute' in status['message']:
                         attribute = status['message']['attribute']
@@ -171,7 +183,7 @@ class OneLoginClient(object):
         else:
             headers = response.headers;
             if headers and 'after-cursor' in headers:
-                before_cursor = headers['after-cursor']
+                after_cursor = headers['after-cursor']
         return after_cursor
 
     def get_before_cursor(self, response, version_id):
@@ -268,7 +280,7 @@ class OneLoginClient(object):
         if max_results is None:
             max_results = self.max_results
 
-        if query_parameters is not None and type(query_parameters) != 'dict':
+        if query_parameters is not None and type(query_parameters) is not dict:
             raise Exception("query_parameters needs to be a dict")
 
         resources = []
@@ -292,7 +304,15 @@ class OneLoginClient(object):
                 if after_cursor:
                     if not query_parameters:
                         query_parameters = {}
-                    query_parameters['after_cursor'] = after_cursor
+                    if version_id == 1:
+                        query_parameters['after_cursor'] = after_cursor
+                    else:
+                        # TODO: Replace when cursor bug is gone
+                        #query_parameters['cursor'] = after_cursor
+                        data = base64.b64decode(unquote_plus(after_cursor))
+                        page_params = parse_qsl(data)
+                        for key,value in page_params:
+                            query_parameters[key] = value
             else:
                 self.error = str(response.status_code)
                 self.error_description = self.extract_error_message_from_response(response)
@@ -302,12 +322,12 @@ class OneLoginClient(object):
     def retrieve_resource(self, resource_cls, url, version_id):
         response = self.execute_call('get', url)
         if response.status_code == 200:
-            return self.get_resource(resource_cls, response.json(), version_id)
+            return self.get_resource_or_id(resource_cls, response.json(), version_id)
         else:
             self.error = str(response.status_code)
             self.error_description = self.extract_error_message_from_response(response)
 
-    def get_resource(self, resource_cls, json_data, version_id):
+    def get_resource_or_id(self, resource_cls, json_data, version_id):
         resource = None
         if version_id ==  1 and json_data and json_data.get('data', None):
             if isinstance (json_data['data'], list):
@@ -318,11 +338,24 @@ class OneLoginClient(object):
             data = json_data
 
         if data:
-            resource = resource_cls(data)
+            if data.keys() == ["id"]:
+                resource = data["id"]
+            else:
+                resource = resource_cls(data)
         return resource
 
-    def retrieve_resource_list(self, resource_cls, url, index, version_id):
-        response = self.execute_call('get', url)
+    def get_ids(self, json_data):
+        ids = []
+        if json_data:
+            for data in json_data:
+                if type(data) is dict and "id" in data.keys():
+                    ids.append(data["id"])
+                else:
+                    ids.append(data)
+        return ids
+
+    def retrieve_resource_list(self, resource_cls, url, params, index, version_id):
+        response = self.execute_call('get', url, params=params)
         if response.status_code == 200:
             return self.get_resource_list(resource_cls, response.json(), index, version_id)
         else:
@@ -358,17 +391,17 @@ class OneLoginClient(object):
             self.error = str(response.status_code)
             self.error_description = self.extract_error_message_from_response(response)
 
-    def create_resource(self, resource_cls, url, params, version_id):
-        response = self.execute_call('post', url, json=params)
+    def create_resource(self, resource_cls, url, data, query_params, version_id):
+        response = self.execute_call('post', url, json=data, params=query_params)
         if self.op_create_success(response.status_code):
-            return self.get_resource(resource_cls, response.json(), version_id)
+            return self.get_resource_or_id(resource_cls, response.json(), version_id)
         else:
             self.error = str(response.status_code)
             self.error_description = self.extract_error_message_from_response(response)
             self.error_attribute = self.extract_error_attribute_from_response(response)
 
-    def create_operation(self, url, params):
-        response = self.execute_call('post', url, json=params)
+    def create_operation(self, url, data):
+        response = self.execute_call('post', url, json=data)
 
         if self.op_create_success(response.status_code):
             return self.handle_operation_response(response)
@@ -378,17 +411,44 @@ class OneLoginClient(object):
             self.error_attribute = self.extract_error_attribute_from_response(response)
         return False
 
-    def update_resource(self, resource_cls, url, params, version_id):
-        response = self.execute_call('put', url, json=params)
+    def update_resource(self, resource_cls, url, data, query_params, version_id):
+        response = self.execute_call('put', url, json=data, params=query_params)
         if response.status_code == 200:
-            return self.get_resource(resource_cls, response.json(), version_id)
+            return self.get_resource_or_id(resource_cls, response.json(), version_id)
         else:
             self.error = str(response.status_code)
             self.error_description = self.extract_error_message_from_response(response)
             self.error_attribute = self.extract_error_attribute_from_response(response)
 
-    def update_operation(self, url, params):
-        response = self.execute_call('put', url, json=params)
+    def set_operation(self, url, ids, version_id):
+        response = self.execute_call('put', url, json=ids)
+        if response.status_code == 200:
+            return self.get_ids(response.json())
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+            self.error_attribute = self.extract_error_attribute_from_response(response)
+
+    def add_to_resource_operation(self, url, ids, version_id):
+        response = self.execute_call('post', url, json=ids)
+        if response.status_code == 200:
+            return self.get_ids(response.json())
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+            self.error_attribute = self.extract_error_attribute_from_response(response)
+
+    def remove_from_resource_operation(self, url, ids, version_id):
+        response = self.execute_call('delete', url, json=ids)
+        if response.status_code == 204:
+            return True
+        else:
+            self.error = str(response.status_code)
+            self.error_description = self.extract_error_message_from_response(response)
+            self.error_attribute = self.extract_error_attribute_from_response(response)
+
+    def update_operation(self, url, data):
+        response = self.execute_call('put', url, json=data)
 
         if response.status_code == 200:
             return self.handle_operation_response(response)
@@ -620,7 +680,7 @@ class OneLoginClient(object):
         :rtype: list[User]
 
         See https://developers.onelogin.com/api-docs/1/users/get-users Get Users documentation
-
+            https://developers.onelogin.com/api-docs/2/users/list-users   
         """
         self.clean_error()
 
@@ -642,7 +702,7 @@ class OneLoginClient(object):
         :rtype: User
 
         See https://developers.onelogin.com/api-docs/1/users/get-user-by-id Get User by ID documentation
-
+            https://developers.onelogin.com/api-docs/2/users/get-user
         """
         self.clean_error()
 
@@ -652,7 +712,7 @@ class OneLoginClient(object):
         return self.retrieve_resource(User, url , version_id)
 
     @exception_handler
-    def get_user_apps(self, user_id):
+    def get_user_apps(self, user_id, ignore_visibility=None):
         """
 
         Gets a list of apps accessible by a user, not including personal apps.
@@ -660,19 +720,30 @@ class OneLoginClient(object):
         :param user_id: Id of the user
         :type user_id: int
 
+        :param ignore_visibility Defaults to `false`. When `true` will all apps that are assigned to a user regardless of their portal visibility setting.
+        :type ignore_visibility bool
+
         Returns the apps user identified by the id
         :return: App list of the user
         :rtype: list[App]
 
         See https://developers.onelogin.com/api-docs/1/users/get-apps-for-user Get Apps for a User documentation
-
+            https://developers.onelogin.com/api-docs/2/users/get-user-apps
         """
         self.clean_error()
 
         version_id = self.get_version_id(Constants.GET_APPS_FOR_USER_URL)
         url = self.get_url(Constants.GET_APPS_FOR_USER_URL, user_id, version_id=version_id)
 
-        return self.retrieve_resource_list(App, url, None, version_id)
+        query_parameters = None
+        if version_id == 1:
+            if ignore_visibility is not None:
+                raise Exception("ignore_visibility parameter not available on /1")
+        else:
+            if ignore_visibility:
+                query_parameters = {"ignore_visibility": "true"}
+
+        return self.retrieve_resource_list(App, url, query_parameters, None, version_id)
 
     @exception_handler
     def get_user_roles(self, user_id):
@@ -718,7 +789,7 @@ class OneLoginClient(object):
         return self.retrieve_list(url)
 
     @exception_handler
-    def create_user(self, user_params):
+    def create_user(self, user_params, mappings=None, validate_policy=None):
         """
 
         Creates an user
@@ -729,24 +800,51 @@ class OneLoginClient(object):
                                        locale_code, manager_ad_id, member_of,
                                        openid_name, phone, samaccountname, title,
                                        userprincipalname)
+                                   v2 (password_confirmation, password_algorithm, salt, role_ids
+                                       state, status, trusted_idp_id)
         :type user_params: dict
+
+        :param mappings: Controls how mappings will be applied to the user on creation
+                        [async, sync, disabled]
+        :type mappings: string
+
+        :param validate_policy: Validate password against user policy?
+        :type validate_policy: bool
 
         Returns the created user
         :return: user
         :rtype: User
 
         See https://developers.onelogin.com/api-docs/1/users/create-user Create User documentation
-
+            https://developers.onelogin.com/api-docs/2/users/create-user
         """
         self.clean_error()
 
         version_id = self.get_version_id(Constants.CREATE_USER_URL)
         url = self.get_url(Constants.CREATE_USER_URL, version_id=version_id)
 
-        return self.create_resource(User, url, user_params, version_id)
+        query_params = None
+
+        if version_id == 1:
+            if mappings is not None:
+                raise Exception("mappings parameter not available on /1")
+            if validate_policy is not None:
+                raise Exception("validate_policy parameter not available on /1")
+            for key in user_params.keys():
+                if key in ["password_confirmation", "password_algorithm", "salt", "role_ids"
+                                       "state", "status", "trusted_idp_id"]:
+                    raise Exception("%s parameter not available on /1" % key)
+        else:
+            query_params = {}
+            if mappings is not None:
+                query_params["mappings"] = mappings
+            if validate_policy is False:
+                query_params["validate_policy"] = "false"
+
+        return self.create_resource(User, url, user_params, query_params, version_id)
 
     @exception_handler
-    def update_user(self, user_id, user_params):
+    def update_user(self, user_id, user_params, mappings=None, validate_policy=None):
         """
 
         Updates an user
@@ -760,21 +858,49 @@ class OneLoginClient(object):
                                        locale_code, manager_ad_id, member_of,
                                        openid_name, phone, samaccountname, title,
                                        userprincipalname)
+                                   v2 (password_confirmation, password_algorithm, salt, role_ids
+                                       state, status, trusted_idp_id)
         :type user_params: dict
+
+        :param mappings: Controls how mappings will be applied to the user on creation
+                        [async, sync, disabled]
+        :type mappings: string
+
+        :param validate_policy: Validate password against user policy?
+        :type validate_policy: bool
 
         Returns the modified user
         :return: user
         :rtype: User
 
         See https://developers.onelogin.com/api-docs/1/users/update-user Update User by ID documentation
-
+            https://developers.onelogin.com/api-docs/2/users/update-user
         """
         self.clean_error()
 
         version_id = self.get_version_id(Constants.UPDATE_USER_URL)
         url = self.get_url(Constants.UPDATE_USER_URL, user_id, version_id=version_id)
 
-        return self.update_resource(User, url, user_params, version_id)
+        query_parameters = None
+
+        if version_id == 1:
+            if mappings is not None:
+                raise Exception("mappings parameter not available on /1")
+            if validate_policy is not None:
+                raise Exception("validate_policy parameter not available on /1")
+            for key in user_params.keys():
+                if key in ["password_confirmation", "password_algorithm", "salt", "role_ids"
+                                       "state", "status"]:
+                    raise Exception("%s parameter not available on /1" % key)
+
+        else:
+            query_params = {}
+            if mappings is not None:
+                query_params["mappings"] = mappings
+            if validate_policy is False:
+                query_params["validate_policy"] = "false"
+
+        return self.update_resource(User, url, user_params, query_parameters, version_id)
 
     @exception_handler_return_false
     def assign_role_to_user(self, user_id, role_ids):
@@ -1090,7 +1216,7 @@ class OneLoginClient(object):
         }
 
         # It has version 2 result
-        return self.create_resource(MFAToken, url, data, 2)
+        return self.create_resource(MFAToken, url, data, None, 2)
 
     # Custom Login Pages
     @exception_handler
@@ -1219,17 +1345,36 @@ class OneLoginClient(object):
         :rtype: list[Role]
 
         See https://developers.onelogin.com/api-docs/1/roles/get-roles Get Roles documentation
-
+            https://developers.onelogin.com/api-docs/2/roles/list-roles
         """
         self.clean_error()
-
-        if max_results is None:
-            max_results = self.max_results
 
         version_id = self.get_version_id(Constants.GET_ROLES_URL)
         url = self.get_url(Constants.GET_ROLES_URL, version_id=version_id)
 
         return self.retrieve_resources(Role, url, query_parameters, max_results, version_id)        
+
+    @exception_handler
+    def create_role(self, role_params):
+        """
+
+        Create a role
+
+        :param role_params: Role data (name, apps, users, admins)
+        :type role_params: dict
+
+        Returns the role id
+        :return: role
+        :rtype: int
+
+        See https://developers.onelogin.com/api-docs/2/roles/create-role Create Role documentation
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.CREATE_ROLE_URL)
+        url = self.get_url(Constants.CREATE_ROLE_URL, version_id=version_id)
+
+        return self.create_resource(Role, url, role_params, None, version_id)
 
     @exception_handler
     def get_role(self, role_id):
@@ -1245,7 +1390,7 @@ class OneLoginClient(object):
         :rtype: Role
 
         See https://developers.onelogin.com/api-docs/1/roles/get-role-by-id Get Role by ID documentation
-
+            https://developers.onelogin.com/api-docs/2/roles/get-role
         """
         self.clean_error()
 
@@ -1253,6 +1398,304 @@ class OneLoginClient(object):
         url = self.get_url(Constants.GET_ROLE_URL, role_id, version_id=version_id)
 
         return self.retrieve_resource(Role, url, version_id)
+
+    @exception_handler
+    def update_role(self, role_id, role_params):
+        """
+
+        Updates a role
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param role_params: Role data (name)
+        :type role_params: dict
+
+        Returns the role id of the modified role
+        :return: role_id
+        :rtype: int
+
+        See https://developers.onelogin.com/api-docs/2/roles/update-role Update Role by ID documentation
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.UPDATE_ROLE_URL)
+        url = self.get_url(Constants.UPDATE_ROLE_URL, role_id, version_id=version_id)
+
+        return self.update_resource(Role, url, role_params, None, version_id)
+
+    @exception_handler
+    def get_role_apps(self, role_id, assigned=None, max_results=None):
+        """
+
+        Gets a list of App assigned to a role.
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param assigned: Defaults to true. Returns all apps not yet assigned to the role (optional)
+        :type assigned: bool
+
+        :param max_results: Limit the number of apps returned (optional)
+        :type max_results: int
+
+        Returns a list of App assigned to a role.
+        :return: app list
+        :rtype: list[App]
+
+        See https://developers.onelogin.com/api-docs/2/roles/get-role-apps Get Role Apps documentation
+
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.GET_ROLE_APPS_URL)
+        url = self.get_url(Constants.GET_ROLE_APPS_URL, role_id, version_id=version_id)
+
+        query_parameters = None
+        if assigned is False:
+            query_parameters = {"assigned": "false"}
+
+        return self.retrieve_resources(App, url, query_parameters, max_results, version_id)
+
+    @exception_handler
+    def set_role_apps(self, role_id, app_ids, max_results=None):
+        """
+
+        Assign applications to a role.
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param app_ids: List of app ids
+        :type app_ids: integer array
+
+        Returns a list of App assigned to a role.
+        :return: app id list
+        :rtype: list[int]
+
+        See https://developers.onelogin.com/api-docs/2/roles/set-role-apps Set Role Apps documentation
+
+        """
+
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.SET_ROLE_APPS_URL)
+        url = self.get_url(Constants.SET_ROLE_APPS_URL, role_id, version_id=version_id)
+
+        return self.set_operation(url, app_ids, version_id)
+
+    @exception_handler
+    def get_role_users(self, role_id, name=None, include_unassigned=None, max_results=None):
+        """
+
+        Gets a list of role users.
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param name: Filters on first name, last name, username, and email address. (optional)
+        :type name: string
+
+        :param include_unassigned: Include admins that aren’t assigned to the role. (optional)
+        :type include_unassigned: bool
+
+        :param max_results: Limit the number of apps returned (optional)
+        :type max_results: int
+
+        Returns a list of AssignedUser of a role.
+        :return: app list
+        :rtype: list[AssignedUser]
+
+        See https://developers.onelogin.com/api-docs/2/roles/get-role-users Get Role Users documentation
+
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.GET_ROLE_USERS_URL)
+        url = self.get_url(Constants.GET_ROLE_USERS_URL, role_id, version_id=version_id)
+
+        query_parameters = None
+        if include_unassigned is True or name:
+            query_parameters = {}
+            if name:
+                query_parameters["name"] = name
+
+            if include_unassigned is True:
+                query_parameters["include_unassigned"] = "true"
+
+        return self.retrieve_resources(AssignedUser, url, query_parameters, max_results, version_id)
+
+    @exception_handler
+    def add_role_users(self, role_id, user_ids):
+        """
+
+        Add users to a role.
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param user_ids: List of user ids
+        :type user_ids: integer array
+
+        Returns a list of ids of the assigned users to a role.
+        :return: user id list
+        :rtype: list[int]
+
+        See https://developers.onelogin.com/api-docs/2/roles/add-role-users Add Role Users documentation
+
+        """
+
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.ADD_ROLE_USERS_URL)
+        url = self.get_url(Constants.ADD_ROLE_USERS_URL, role_id, version_id=version_id)
+
+        return self.add_to_resource_operation(url, user_ids, version_id)
+
+    @exception_handler
+    def remove_role_users(self, role_id, user_ids):
+        """
+
+        Remove users from a role.
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param user_ids: List of admin ids
+        :type user_ids: integer array
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/2/roles/remove-role-users Remove Role Users documentation
+
+        """
+
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.REMOVE_ROLE_USERS_URL)
+        url = self.get_url(Constants.REMOVE_ROLE_USERS_URL, role_id, version_id=version_id)
+
+        return self.remove_from_resource_operation(url, user_ids, version_id)
+
+    @exception_handler
+    def get_role_admins(self, role_id, name=None, include_unassigned=None, max_results=None):
+        """
+
+        Gets a list of role administrators.
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param name: Filters on first name, last name, username, and email address. (optional)
+        :type name: string
+
+        :param include_unassigned: Include admins that aren’t assigned to the role. (optional)
+        :type include_unassigned: bool
+
+        :param max_results: Limit the number of apps returned (optional)
+        :type max_results: int
+
+        Returns a list of AssignedAdmin of a role.
+        :return: app list
+        :rtype: list[AssignedAdmin]
+
+        See https://developers.onelogin.com/api-docs/2/roles/get-role-admins Get Role Admins documentation
+
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.GET_ROLE_ADMINS_URL)
+        url = self.get_url(Constants.GET_ROLE_ADMINS_URL, role_id, version_id=version_id)
+
+        query_parameters = None
+        if include_unassigned is True or name:
+            query_parameters = {}
+            if name:
+                query_parameters["name"] = name
+
+            if include_unassigned is True:
+                query_parameters["include_unassigned"] = "true"
+
+        return self.retrieve_resources(AssignedAdmin, url, query_parameters, max_results, version_id)
+
+    @exception_handler
+    def add_role_admins(self, role_id, admin_ids):
+        """
+
+        Add admins to a role.
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param admin_ids: List of admin ids
+        :type admin_ids: integer array
+
+        Returns a list of ids of the assigned admins to a role.
+        :return: admin id list
+        :rtype: list[int]
+
+        See https://developers.onelogin.com/api-docs/2/roles/add-role-admins Add Role Admins documentation
+
+        """
+
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.ADD_ROLE_ADMINS_URL)
+        url = self.get_url(Constants.ADD_ROLE_ADMINS_URL, role_id, version_id=version_id)
+
+        return self.add_to_resource_operation(url, admin_ids, version_id)
+
+    @exception_handler
+    def remove_role_admins(self, role_id, admin_ids):
+        """
+
+        Remove admins from a role.
+
+        :param role_id: Id of the role
+        :type role_id: int
+
+        :param admin_ids: List of admin ids
+        :type admin_ids: integer array
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/2/roles/remove-role-admins Remove Role Admins documentation
+
+        """
+
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.REMOVE_ROLE_ADMINS_URL)
+        url = self.get_url(Constants.REMOVE_ROLE_ADMINS_URL, role_id, version_id=version_id)
+
+        return self.remove_from_resource_operation(url, admin_ids, version_id)
+
+    @exception_handler_return_false
+    def delete_role(self, role_id):
+        """
+
+        Deletes a role
+
+        :param role_id: Id of the role to be deleted
+        :type role_id: int
+
+        Returns if the action succeed
+        :return: true if success
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/2/roles/update-role Delete Role by ID documentation
+
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.DELETE_ROLE_URL)
+        url = self.get_url(Constants.DELETE_ROLE_URL, role_id, version_id=version_id)
+
+        return self.delete_resource(url, version_id)
 
     # Event Methods
     @exception_handler
@@ -1273,7 +1716,7 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.GET_EVENT_TYPES_URL)
         url = self.get_url(Constants.GET_EVENT_TYPES_URL, version_id=version_id)
 
-        return self.retrieve_resource_list(EventType, url, None, version_id)
+        return self.retrieve_resource_list(EventType, url, None, None, version_id)
 
     @exception_handler
     def get_events(self, query_parameters=None, max_results=None):
@@ -1295,9 +1738,6 @@ class OneLoginClient(object):
 
         """
         self.clean_error()
-
-        if max_results is None:
-            max_results = self.max_results
 
         version_id = self.get_version_id(Constants.GET_EVENTS_URL)
         url = self.get_url(Constants.GET_EVENTS_URL, version_id=version_id)
@@ -1376,9 +1816,6 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        if max_results is None:
-            max_results = self.max_results
-
         version_id = self.get_version_id(Constants.GET_GROUPS_URL)
         url = self.get_url(Constants.GET_GROUPS_URL, version_id=version_id)
 
@@ -1434,7 +1871,7 @@ class OneLoginClient(object):
         :rtype: SAMLEndpointResponse
 
         See https://developers.onelogin.com/api-docs/1/saml-assertions/generate-saml-assertion Generate SAML Assertion documentation
-
+            https://developers.onelogin.com/api-docs/2/saml-assertions/generate-saml-assertion
         """
         self.clean_error()
 
@@ -1482,7 +1919,7 @@ class OneLoginClient(object):
         :rtype: SAMLEndpointResponse
 
         See https://developers.onelogin.com/api-docs/1/saml-assertions/verify-factor Verify Factor documentation
-
+            https://developers.onelogin.com/api-docs/2/saml-assertions/verify-factor
         """
         self.clean_error()
 
@@ -1493,7 +1930,7 @@ class OneLoginClient(object):
             url = self.get_url(Constants.GET_SAML_VERIFY_FACTOR, version_id=version_id)
 
         data = {
-            'app_id': app_id,
+            'app_id': int(app_id),
             'device_id': str(device_id),
             'state_token': str(state_token),
             'do_not_notify': do_not_notify
@@ -1525,7 +1962,7 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.GET_FACTORS_URL)
         url = self.get_url(Constants.GET_FACTORS_URL, user_id, version_id=version_id)
 
-        return self.retrieve_resource_list(AuthFactor, url, 'auth_factors', version_id)
+        return self.retrieve_resource_list(AuthFactor, url, None, 'auth_factors', version_id)
 
     @exception_handler
     def enroll_factor(self, user_id, factor_id, display_name, number):
@@ -1562,7 +1999,7 @@ class OneLoginClient(object):
             'number': number
         }
 
-        return self.create_resource(OTP_Device, url, data, version_id)
+        return self.create_resource(OTP_Device, url, data, None, version_id)
 
     @exception_handler
     def get_enrolled_factors(self, user_id):
@@ -1584,7 +2021,7 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.GET_ENROLLED_FACTORS_URL)
         url = self.get_url(Constants.GET_ENROLLED_FACTORS_URL, user_id, version_id=version_id)
 
-        return self.retrieve_resource_list(OTP_Device, url, 'otp_devices', version_id)
+        return self.retrieve_resource_list(OTP_Device, url, None, 'otp_devices', version_id)
 
     @exception_handler
     def activate_factor(self, user_id, device_id):
@@ -1610,7 +2047,7 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.ACTIVATE_FACTOR_URL)
         url = self.get_url(Constants.ACTIVATE_FACTOR_URL, user_id, device_id, version_id=version_id)
 
-        return self.create_resource(FactorEnrollmentResponse, url, None, version_id)
+        return self.create_resource(FactorEnrollmentResponse, url, None, None, version_id)
 
     @exception_handler_return_false
     def verify_factor(self, user_id, device_id, otp_token=None, state_token=None):
@@ -1810,7 +2247,7 @@ class OneLoginClient(object):
         url = self.get_url(Constants.LIST_PRIVILEGES_URL, version_id=version_id)
 
         # It has version 2 result
-        return self.retrieve_resource_list(Privilege, url, None, 2)
+        return self.retrieve_resource_list(Privilege, url, None, None, 2)
 
     @exception_handler
     def create_privilege(self, name, version, statements):
@@ -2234,11 +2671,11 @@ class OneLoginClient(object):
             if method == 'get':
                 response = requests.get(url, headers=headers, params=params, timeout=self.requests_timeout)
             elif method == 'post':
-                response = requests.post(url, headers=headers, json=json, timeout=self.requests_timeout)
+                response = requests.post(url, headers=headers, json=json, params=params, timeout=self.requests_timeout)
             elif method == 'put':
-                response = requests.put(url, headers=headers, json=json, timeout=self.requests_timeout)
+                response = requests.put(url, headers=headers, json=json, params=params, timeout=self.requests_timeout)
             elif method == 'delete':
-                response = requests.delete(url, headers=headers, timeout=self.requests_timeout)
+                response = requests.delete(url, headers=headers, json=json, timeout=self.requests_timeout)
             else:
                 return response
             if response.status_code == 504 or (response.status_code == 401 and self.extract_error_message_from_response(response) == "Unauthorized"):

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from dateutil import parser
+from onelogin.api.util.utils import str2int, str2date
 from .base import Base
 
 
@@ -19,7 +19,7 @@ class User(Base):
     STATUS_AWAITING_PASSWORD_RESET = 5
 
     def __init__(self, data):
-        self.id = data.get('id', None)
+        self.id = str2int(data.get('id', None))
         self.external_id = data.get('external_id', None)
         self.email = data.get('email', '')
         self.username = data.get('username', '')
@@ -30,52 +30,34 @@ class User(Base):
         self.company = data.get('company', '')
         self.department = data.get('department', '')
         self.title = data.get('title', '')
-        self.status = data.get('status', '')
+        self.status = str2int(data.get('status', None))
         self.member_of = data.get('member_of', '')
         self.samaccountname = data.get('samaccountname', '')
         self.userprincipalname = data.get('userprincipalname', '')
-        self.group_id = data.get('group_id', None)
-        if self.group_id:
-            self.group_id = int(self.group_id)
+        self.group_id = str2int(data.get('group_id', None))
         self.role_ids = []
         if "role_ids" in data.keys():
             self.role_ids = data.get('role_ids', [])
-        elif "role_id" in data.keys():
+        else:
             self.role_ids = data.get('role_id', [])
         self.custom_attributes = data.get('custom_attributes', {})
         self.openid_name = data.get('openid_name', '')
         self.locale_code = data.get('locale_code', '')
         # self.notes = data.get('notes', None)
         self.comment = data.get('comment', '')
-        self.directory_id = data.get('directory_id', None)
-        self.manager_ad_id = data.get('manager_ad_id', None)
-        self.trusted_idp_id = data.get('trusted_idp_id', None)
+        self.directory_id = str2int(data.get('directory_id', None))
+        self.manager_ad_id = str2int(data.get('manager_ad_id', None))
+        self.trusted_idp_id = str2int(data.get('trusted_idp_id', None))
         self.manager_user_id = data.get('manager_user_id', None)
-
-        activated_info = data.get('activated_at', None)
-        self.activated_at = parser.parse(data['activated_at']) if activated_info is not None else None
-
-        created_info = data.get('created_at', None)
-        self.created_at = parser.parse(data['created_at']) if created_info is not None else None
-
-        updated_info = data.get('updated_at', None)
-        self.updated_at = parser.parse(data['updated_at']) if updated_info is not None else None
-
-        pw_changed_info = data.get('password_changed_at', None)
-        self.password_changed_at = parser.parse(data['password_changed_at']) if pw_changed_info is not None else None
-
-        invitation_sent_info = data.get('invitation_sent_at', None)
-        self.invitation_sent_at = parser.parse(data['invitation_sent_at']) if invitation_sent_info is not None else None
-
-        self.invalid_login_attempts = data.get('invalid_login_attempts', None)
-
-        last_login_info = data.get('last_login', None)
-        self.last_login = parser.parse(data['last_login']) if last_login_info is not None else None
-
-        locked_until_info = data.get('locked_until', None)
-        self.locked_until = parser.parse(data['locked_until']) if locked_until_info is not None else None
-
-        self.state = data.get('state', None)
+        self.activated_at = str2date(data.get('activated_at', None))
+        self.created_at = str2date(data.get('created_at', None))
+        self.updated_at = str2date(data.get('updated_at', None))
+        self.password_changed_at = str2date(data.get('password_changed_at', None))
+        self.invitation_sent_at = str2date(data.get('invitation_sent_at', None))
+        self.invalid_login_attempts = str2int(data.get('invalid_login_attempts', None))
+        self.last_login = str2date(data.get('last_login', None))
+        self.locked_until = str2date(data.get('locked_until', None))
+        self.state = str2int(data.get('state', None))
 
     def get_role_ids(self):
         return self.role_ids
