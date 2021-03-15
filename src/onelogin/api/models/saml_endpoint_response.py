@@ -2,6 +2,7 @@
 
 from .base import Base
 
+
 class SAMLEndpointResponse(Base):
     def __init__(self, status_type, status_message):
         self.type = status_type

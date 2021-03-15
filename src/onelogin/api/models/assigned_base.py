@@ -15,5 +15,5 @@ class AssignedBase(Base):
         self.assigned = data.get('assigned', None)
         self.added_by = data.get('added_by', None)
 
-    def get_added_by():
+    def get_added_by(self):
         return self.added_by

@@ -19,5 +19,5 @@ class Role(Base):
     def get_app_ids(self):
         return self.apps
 
-    def get_admin_ids(self):
+    def get_user_ids(self):
         return self.users

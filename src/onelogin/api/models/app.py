@@ -10,13 +10,23 @@ class App(Base):
         self.id = str2int(data.get('id', None))
         self.name = data.get('name', '')
         if "icon" in data.keys():
-            self.icon = data.get('icon', '')
+            self.icon_url = data.get('icon', None)
         else:
-            self.icon = data.get('icon_url', '')
-        self.provisioned = str2bool(data.get('provisioned', None))
-        self.extension = str2bool(data.get('extension', None))
-        self.login_id = str2int(data.get('login_id', None))
-        self.personal = str2bool(data.get('personal', None))
-        self.provisioning_status  = data.get('provisioning_status', None)
-        self.provisioning_state  = data.get('provisioning_state', None)
-        self.provisioning_enabled  = data.get('provisioning_enabled', None)
+            self.icon_url = data.get('icon_url', None)
+        self.connector_id = str2int(data.get('connector_id', None))
+        if 'extension' in data.keys():
+            self.extension = str2bool(data.get('extension', None))
+        if 'visible' in data.keys():
+            self.visible = str2bool(data.get('visible', None))
+        if 'login_id' in data.keys():
+            self.login_id = str2int(data.get('login_id', None))
+        if 'personal' in data.keys():
+            self.personal = str2bool(data.get('personal', None))
+        if 'provisioned' in data.keys():
+            self.provisioned = str2bool(data.get('provisioned', None))
+        if 'provisioning' in data.keys():
+            self.provisioning = str2bool(data.get('provisioning', None))
+        if 'provisioning_status' in data.keys():
+            self.provisioning_status = data.get('provisioning_status', None)
+            self.provisioning_state = data.get('provisioning_state', None)
+            self.provisioning_enabled = data.get('provisioning_enabled', None)

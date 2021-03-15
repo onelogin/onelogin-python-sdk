@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 class Base(object):
 
     def __str__(self):

@@ -43,13 +43,35 @@ class Constants(object):
     LOCK_USER_URL = "https://api.%s.onelogin.com/api/%s/users/%s/lock_user"
     GENERATE_MFA_TOKEN_URL = "https://api.%s.onelogin.com/api/%s/users/%s/mfa_token"
 
+    # Connectors URLS
+    GET_CONNECTORS_URL = "https://api.%s.onelogin.com/api/%s/connectors"
+
     # Apps URL
     GET_APPS_URL = "https://api.%s.onelogin.com/api/%s/apps"
+    CREATE_APP_URL = "https://api.%s.onelogin.com/api/%s/apps"
+    GET_APP_URL = "https://api.%s.onelogin.com/api/%s/apps/%s"
+    UPDATE_APP_URL = "https://api.%s.onelogin.com/api/%s/apps/%s"
+    DELETE_APP_URL = "https://api.%s.onelogin.com/api/%s/apps/%s"
+    DELETE_APP_PARAMETER_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/parameters/%s"
+    GET_APP_USERS_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/users"
+
+    # App Rules URL
+    GET_APP_RULES_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules"
+    CREATE_APP_RULE_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules"
+    GET_APP_RULE_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/%s"
+    UPDATE_APP_RULE_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/%s"
+    DELETE_APP_RULE_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/%s"
+    GET_APP_CONDITIONS_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/conditons"
+    GET_APP_CONDITION_OPERATORS_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/conditions/%s/operators"
+    GET_APP_CONDITION_VALUES_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/conditions/%s/values"
+    GET_APP_ACTIONS_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/actions"
+    GET_APP_ACTION_VALUES_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/actions/%s/values"
+    APP_RULE_SORT_URL = "https://api.%s.onelogin.com/api/%s/apps/%s/rules/sort"
 
     # Role URLs
     GET_ROLES_URL = "https://api.%s.onelogin.com/api/%s/roles"
     CREATE_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles"
-    GET_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles/%s"    
+    GET_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles/%s"
     UPDATE_ROLE_URL = "https://api.%s.onelogin.com/api/%s/roles/%s"
     GET_ROLE_APPS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/apps"
     SET_ROLE_APPS_URL = "https://api.%s.onelogin.com/api/%s/roles/%s/apps"
@@ -75,18 +97,27 @@ class Constants(object):
     # Custom Login URLs
     SESSION_LOGIN_TOKEN_URL = "https://api.%s.onelogin.com/api/%s/login/auth"
     GET_TOKEN_VERIFY_FACTOR = "https://api.%s.onelogin.com/api/%s/login/verify_factor"
-    
+
     # SAML Assertion URLs
     GET_SAML_ASSERTION_URL = "https://api.%s.onelogin.com/api/%s/saml_assertion"
     GET_SAML_VERIFY_FACTOR = "https://api.%s.onelogin.com/api/%s/saml_assertion/verify_factor"
 
     # Multi-Factor Authentication URLs
     GET_FACTORS_URL = "https://api.%s.onelogin.com/api/%s/users/%s/auth_factors"
+    V2_GET_FACTORS_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/factors"
     ENROLL_FACTOR_URL = "https://api.%s.onelogin.com/api/%s/users/%s/otp_devices"
+    V2_ENROLL_FACTOR_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/registrations"
     GET_ENROLLED_FACTORS_URL = "https://api.%s.onelogin.com/api/%s/users/%s/otp_devices"
+    VERIFY_ENROLLMENT_SMS_EMAIL_PROTECT_AUTH_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/registrations/%s"
+    VERIFY_ENROLLMENT__PROTECTPUSH_VOICE_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/registrations/%s"
+    V2_GET_ENROLLED_FACTORS_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/devices"
     ACTIVATE_FACTOR_URL = "https://api.%s.onelogin.com/api/%s/users/%s/otp_devices/%s/trigger"
+    V2_ACTIVATE_FACTOR_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/verifications"
     VERIFY_FACTOR_URL = "https://api.%s.onelogin.com/api/%s/users/%s/otp_devices/%s/verify"
+    VERIFY_FACTOR_SMS_EMAIL_PROTECT_AUTH_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/verifications/%s"
+    VERIFY_FACTOR_PROTECTPUSH_VOICE_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/verifications/%s"
     DELETE_FACTOR_URL = "https://api.%s.onelogin.com/api/%s/users/%s/otp_devices/%s"
+    V2_DELETE_FACTOR_URL = "https://api.%s.onelogin.com/api/%s/mfa/users/%s/devices/%s"
 
     # Invite Link URLS
     GENERATE_INVITE_LINK_URL = "https://api.%s.onelogin.com/api/%s/invites/get_invite_link"
@@ -94,6 +125,53 @@ class Constants(object):
 
     # Embed Apps URL
     EMBED_APP_URL = "https://api.onelogin.com/client/apps/embed2"
+
+    # Account Brands URLS
+    GET_ACCOUNT_BRANDS_URL = "https://api.%s.onelogin.com/api/%s/branding/brands"
+    CREATE_ACCOUNT_BRAND_URL = "https://api.%s.onelogin.com/api/%s/branding/brands/%s"
+    GET_ACCOUNT_BRAND_URL = "https://api.%s.onelogin.com/api/%s/branding/brands/%s"
+    UPDATE_ACCOUNT_BRAND_URL = "https://api.%s.onelogin.com/api/%s/branding/brands/%s"
+    DELETE_ACCOUNT_BRAND_URL = "https://api.%s.onelogin.com/api/%s/branding/brands/%s"
+    GET_APPS_BRAND_URL = "https://api.%s.onelogin.com/api/%s/branding/%s/apps"
+    GET_ACCOUNT_EMAIL_SETTINGS = "https://api.%s.onelogin.com/api/%s/branding/email_settings"
+    UPDATE_ACCOUNT_EMAIL_SETTINGS = "https://api.%s.onelogin.com/api/%s/branding/email_settings"
+    RESET_ACCOUNT_EMAIL_SETTINGS = "https://api.%s.onelogin.com/api/%s/branding/email_settings"
+
+    # Smart Hooks URLS
+    GET_HOOKS_URL = "https://api.%s.onelogin.com/api/%s/hooks"
+    CREATE_HOOK_URL = "https://api.%s.onelogin.com/api/%s/hooks"
+    GET_HOOK_URL = "https://api.%s.onelogin.com/api/%s/hooks/%s"
+    UPDATE_HOOK_URL = "https://api.%s.onelogin.com/api/%s/hooks/%s"
+    DELETE_HOOK_URL = "https://api.%s.onelogin.com/api/%s/hooks/%s"
+    GET_HOOK_LOGS_URL = "https://api.%s.onelogin.com/api/%s/hooks/%s/logs"
+    GET_HOOK_ENVS_URL = "https://api.%s.onelogin.com/api/%s/hooks/%s/env"
+    CREATE_HOOK_ENV_URL = "https://api.%s.onelogin.com/api/%s/hooks/%s/env"
+    UPDATE_HOOK_ENV_URL = "https://api.%s.onelogin.com/api/%s/hooks/%s/env_vars/%s"
+    DELETE_HOOK_ENV_URL = "https://api.%s.onelogin.com/api/%s/hooks/%s/env_vars/%s"
+
+    # Vigilance AI URLS
+    TRACK_EVENT_URL = "https://api.%s.onelogin.com/api/%s/risk/events"
+    GET_RISK_SCORE_URL = "https://api.%s.onelogin.com/api/%s/risk/verify"
+    GET_RISK_RULES_URL = "https://api.%s.onelogin.com/api/%s/risk/rules"
+    CREATE_RISK_RULE_URL = "https://api.%s.onelogin.com/api/%s/risk/rules"
+    GET_RISK_RULE_URL = "https://api.%s.onelogin.com/api/%s/risk/rules/%s"
+    UPDATE_RISK_RULE_URL = "https://api.%s.onelogin.com/api/%s/risk/rules/%s"
+    DELETE_RISK_RULE_URL = "https://api.%s.onelogin.com/api/%s/risk/rules/%s"
+    GET_SCORE_INSIGHTS = "https://api.%s.onelogin.com/api/%s/risk/scores"
+
+    # Mappings URLS
+    GET_MAPPINGS_URL = "https://api.%s.onelogin.com/api/%s/mappings"
+    CREATE_MAPPING_URL = "https://api.%s.onelogin.com/api/%s/mappings"
+    GET_MAPPING_URL = "https://api.%s.onelogin.com/api/%s/mappings/%s"
+    UPDATE_MAPPING_URL = "https://api.%s.onelogin.com/api/%s/mappings/%s"
+    DELETE_MAPPING_URL = "https://api.%s.onelogin.com/api/%s/mappings/%s"
+    DRYRUN_MAPPING_URL = "https://api.%s.onelogin.com/api/%s/mappings/%s/dryrun"
+    GET_MAPPING_CONDITIONS_URL = "https://api.%s.onelogin.com/api/%s/mappings/conditons"
+    GET_MAPPING_CONDITION_OPERATORS_URL = "https://api.%s.onelogin.com/api/%s/mappings/conditions/%s/operators"
+    GET_MAPPING_CONDITION_VALUES_URL = "https://api.%s.onelogin.com/api/%s/mappings/conditions/%s/values"
+    GET_MAPPING_ACTIONS_URL = "https://api.%s.onelogin.com/api/%s/mappings/actions"
+    GET_MAPPING_ACTION_VALUES_URL = "https://api.%s.onelogin.com/api/%s/mappings/actions/%s/values"
+    MAPPING_SORT_URL = "https://api.%s.onelogin.com/api/%s/mappings/sort"
 
     # Privileges URLS
     LIST_PRIVILEGES_URL = "https://api.%s.onelogin.com/api/%s/privileges"

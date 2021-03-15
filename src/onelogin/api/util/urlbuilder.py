@@ -53,7 +53,7 @@ class UrlBuilder(object):
             if resource not in api_configuration.keys():
                 version = resource_values[-1]
             elif api_configuration[resource] in resource_values:
-                version =  api_configuration[resource]
+                version = api_configuration[resource]
             else:
                 version = resource_values[-1]
         return version

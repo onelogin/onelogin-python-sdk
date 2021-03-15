@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from onelogin.api.util.utils import str2int, str2date
+from onelogin.api.util.utils import str2date
 
 from .base import Base
 
