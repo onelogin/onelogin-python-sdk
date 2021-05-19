@@ -11,7 +11,6 @@ class OneLoginApp(App):
         self.visible = str2bool(data.get('visible', None))
         if "extension" in data.keys():
             self.extension = str2bool(data.get('extension', None))
-        self.provisioning = data.get('provisioning', None)
 
         if "auth_method" in data.keys():
             # V2
@@ -22,7 +21,7 @@ class OneLoginApp(App):
             self.updated_at = str2date(data.get('updated_at', None))
             self.tab_id = str2int(data.get('tab_id', None))
             self.configuration = data.get('configuration', None)
-            self.allow_assumed_signin = str2bool(data.get('configuration', None))
+            self.allow_assumed_signin = str2bool(data.get('allow_assumed_signin', None))
             self.brand_id = str2int(data.get('brand_id', None))
             self.role_ids = data.get('role_ids', None)
             self.parameters = data.get('parameters', None)

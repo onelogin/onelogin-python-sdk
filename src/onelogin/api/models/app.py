@@ -25,7 +25,11 @@ class App(Base):
         if 'provisioned' in data.keys():
             self.provisioned = str2bool(data.get('provisioned', None))
         if 'provisioning' in data.keys():
-            self.provisioning = str2bool(data.get('provisioning', None))
+            provisioning = data.get('provisioning', None)
+            if isinstance(provisioning, dict):
+                self.provisioning = provisioning
+            else:
+                self.provisioning = str2bool(provisioning)
         if 'provisioning_status' in data.keys():
             self.provisioning_status = data.get('provisioning_status', None)
             self.provisioning_state = data.get('provisioning_state', None)
