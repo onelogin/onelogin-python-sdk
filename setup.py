@@ -23,6 +23,8 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     author='OneLogin',
     author_email='support@onelogin.com',
@@ -39,7 +41,7 @@ setup(
     },
     install_requires=[
         'requests>=2,<3',
-        'defusedxml>=0.5',
+        'defusedxml>=0.6.0',
         'python-dateutil>=2,<3'
     ],
     test_suite='tests',

@@ -122,6 +122,8 @@ class Endpoints(object):
         Constants.CREATE_HOOK_ENV_URL: {"smarthook": [2]},
         Constants.UPDATE_HOOK_ENV_URL: {"smarthook": [2]},
         Constants.DELETE_HOOK_ENV_URL: {"smarthook": [2]},
+        Constants.SMART_MFA_VALIDATE_USER: {"smartmfa": [2]},
+        Constants.SMART_MFA_VERFY_TOKEN: {"smartmfa": [2]},
         Constants.TRACK_EVENT_URL: {"risk": [2]},
         Constants.GET_RISK_SCORE_URL: {"risk": [2]},
         Constants.GET_RISK_RULES_URL: {"risk": [2]},

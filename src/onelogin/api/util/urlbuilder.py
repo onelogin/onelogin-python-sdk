@@ -19,29 +19,36 @@ class UrlBuilder(object):
     """
 
     region = 'us'
+    subdomain = None
 
-    def __init__(self, region='us'):
+    def __init__(self, region='us', subdomain=None):
         self.region = region
+        self.subdomain = subdomain
 
     def get_url(self, base, obj_id=None, extra_id=None, version_id=None):
+
+        if self.subdomain:
+            subdomain = self.subdomain
+        else:
+            subdomain = "api.%s" % self.region
 
         if obj_id is not None:
             self.validate_id(obj_id)
 
         if version_id is None:
             if obj_id is None:
-                return base % (self.region)
+                return base % (subdomain)
             elif extra_id is None:
-                return base % (self.region, obj_id)
+                return base % (subdomain, obj_id)
             else:
-                return base % (self.region, obj_id, extra_id)
+                return base % (subdomain, obj_id, extra_id)
         else:
             if obj_id is None:
-                return base % (self.region, version_id)
+                return base % (subdomain, version_id)
             elif extra_id is None:
-                return base % (self.region, version_id, obj_id)
+                return base % (subdomain, version_id, obj_id)
             else:
-                return base % (self.region, version_id, obj_id, extra_id)
+                return base % (subdomain, version_id, obj_id, extra_id)
 
     def get_version_id(self, api_configuration, base):
         resource_data = Endpoints.matrix.get(base, None)

@@ -44,6 +44,7 @@ from onelogin.api.models.role import Role
 from onelogin.api.models.smart_hook import SmartHook
 from onelogin.api.models.smart_hook_log import SmartHookLog
 from onelogin.api.models.smart_hook_env import SmartHookEnv
+from onelogin.api.models.smart_mfa import SmartMFA
 from onelogin.api.models.statement import Statement
 from onelogin.api.models.risk_rule import RiskRule
 from onelogin.api.models.risk_score import RiskScore
@@ -76,7 +77,9 @@ class OneLoginClient(object):
 
     api_configuration = {
         "user": 2,
+        "connector": 2,
         "app": 1,
+        "app_rule": 2,
         "role": 2,
         "event": 1,
         "group": 1,
@@ -85,9 +88,14 @@ class OneLoginClient(object):
         "mfa": 1,
         "invite": 1,
         "privilege": 1,
+        "branding": 2,
+        "smarthook": 2,
+        "smartmfa": 2,
+        "risk": 2,
+        "user_mapping": 2,
     }
 
-    def __init__(self, client_id, client_secret, region='us', max_results=1000, default_timeout=(10, 60), api_configuration={}):
+    def __init__(self, client_id, client_secret, region='us', max_results=1000, default_timeout=(10, 60), subdomain=None, api_configuration={}):
         """
 
         Create a new instance of OneLoginClient.
@@ -103,6 +111,8 @@ class OneLoginClient(object):
         :param default_timeout: a request timeout
         See http://docs.python-requests.org/en/master/user/advanced/#timeouts
         :type default_timeout: (float, float)
+        :param subdomain: If the subdomain is provided, API calls gonna be done using the subdomain instead the region
+        :type subdomain: string
         :param api_configuration: allows to define the api endpoint version to be used
         :type api_configuration: dict
 
@@ -110,7 +120,7 @@ class OneLoginClient(object):
         self.client_id = client_id
         self.client_secret = client_secret
         self.max_results = max_results
-        self.url_builder = UrlBuilder(region)
+        self.url_builder = UrlBuilder(region, subdomain)
         self.user_agent = self.CUSTOM_USER_AGENT
         self.access_token = self.refresh_token = self.expiration = None
         self.error = None
@@ -3069,6 +3079,66 @@ class OneLoginClient(object):
         url = self.get_url(Constants.DELETE_HOOK_ENV_URL, env_var_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
+
+    # Smart MFA
+    @exception_handler
+    def validate_user(self, validate_user_params):
+        """
+
+        Validates a User
+
+        :param validate_user_params: Smart MFA User data (user_identifier, email, phone, context, risk_threshold,
+                                                          firstname, lastname, expires_in)
+        :type validate_user_params: dict
+
+        Returns a mfa validation response
+        :return: smart_mfa
+        :rtype: SmartMFA
+
+        See https://developers.onelogin.com/api-docs/2/smart-mfa/validate-user Validate a User documentation
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.SMART_MFA_VALIDATE_USER)
+        url = self.get_url(Constants.SMART_MFA_VALIDATE_USER, version_id=version_id)
+
+        return self.create_resource(SmartMFA, url, validate_user_params, None, version_id)
+
+    @exception_handler
+    def verify_token(self, state_token, otp_token):
+        """
+
+        Verify MFA Token
+
+        :param state_token: The state_token value returned from the Validate a User endpoint
+        :type state_token: string
+
+        :param state_token: The MFA token that was sent to the user via Email or SMS using the Validate a User endpoint
+        :type state_token: string
+
+        :return: true if action succeed
+        :rtype: bool
+
+        See https://developers.onelogin.com/api-docs/2/smart-mfa/verify-token Verify MFA Token documentation
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.SMART_MFA_VERFY_TOKEN)
+        url = self.get_url(Constants.SMART_MFA_VERFY_TOKEN, version_id=version_id)
+
+        data = {
+            'state_token': state_token,
+            'otp_token': otp_token
+        }
+
+        response = self.execute_call('post', url, json=data)
+
+        if op_create_success(response.status_code):
+            return True
+        else:
+            self.error = str(response.status_code)
+            self.error_description = extract_error_message_from_response(response)
+        return False
 
     # Vigilance AI Methods
     @exception_handler
