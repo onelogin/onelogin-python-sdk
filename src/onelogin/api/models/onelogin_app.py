@@ -9,6 +9,6 @@ class OneLoginApp(object):
         self.connector_id = int(connector_id) if connector_id is not None else None
         self.name = data.get('name', '')
         self.extension = data.get('extension', None)
-        self.icon = data.get('icon', '')        
+        self.icon = data.get('icon', '')
         self.visible = data.get('visible', None)
         self.provisioning = data.get('provisioning', None)

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 class MFAToken(object):
     def __init__(self, data):
         self.value = data.get('mfa_token', None)
