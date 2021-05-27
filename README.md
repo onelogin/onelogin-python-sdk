@@ -680,9 +680,9 @@ result = client.remove_user_from_privilege(privilege.id, user_id2)
 
 ## Development
 
-After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then, run `pip setup test` to run the tests.
+After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then you can run `python setup test` to run the tests.
 
-Alternatively run `pip install -r requirements-test.txt` and then run `nosetests` from the project's root directory.
+Alternatively you can run `pip install .` or `pip install -e ".[test]"` from the project's root directory.
 
 To release a new version, update the version number in `src/onelogin/api/version.py` and commit it, then you will be able to update it to pypy.
 with `python setup.py sdist upload` and `python setup.py bdist_wheel upload`.
