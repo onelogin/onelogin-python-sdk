@@ -1087,7 +1087,6 @@ class OneLoginClient(object):
             self.error = 500
             self.error_description = e.args[0]
 
-
     # Custom Login Pages
     def create_session_login_token(self, query_params, allowed_origin=''):
         """

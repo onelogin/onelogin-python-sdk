@@ -3,6 +3,7 @@
 from onelogin.api.models.statement import Statement
 from onelogin.api.util.constants import Constants
 
+
 class Privilege(object):
     def __init__(self, *args, **kwargs):
         if len(args) == 1:
