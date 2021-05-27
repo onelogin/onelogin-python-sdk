@@ -10,6 +10,11 @@ UrlBuilder class of the OneLogin's Python SDK.
 """
 from onelogin.api.util.endpoints import Endpoints
 
+import sys
+if sys.version_info[0] >= 3:
+    unicode = str
+    long = str
+
 
 class UrlBuilder(object):
     """
