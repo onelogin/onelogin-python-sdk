@@ -120,6 +120,7 @@ class Endpoints(object):
         Constants.GET_HOOK_LOGS_URL: {"smarthook": [2]},
         Constants.GET_HOOK_ENVS_URL: {"smarthook": [2]},
         Constants.CREATE_HOOK_ENV_URL: {"smarthook": [2]},
+        Constants.GET_HOOK_ENV_URL: {"smarthook": [2]},
         Constants.UPDATE_HOOK_ENV_URL: {"smarthook": [2]},
         Constants.DELETE_HOOK_ENV_URL: {"smarthook": [2]},
         Constants.SMART_MFA_VALIDATE_USER: {"smartmfa": [2]},

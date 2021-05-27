@@ -1,7 +1,22 @@
 # OneLogin Python SDK
 
-This SDK will let you execute all the API methods, version/1, described
-at https://developers.onelogin.com/api-docs/1/getting-started/dev-overview.
+## What's new on v2
+
+v2 is backward compatible with v1, only some models where modified in order to be used for v1 and v2
+at same time.
+
+The code was deeply refactored to improve its maintainability.
+
+The SDK v1 only was able to interact with version/1 methods, 
+the SDK v2 will let you execute all the API methods available at:
+- version/1, described at https://developers.onelogin.com/api-docs/1/getting-started/dev-overview.
+- version/2, described at https://developers.onelogin.com/api-docs/2/getting-started/dev-overview.
+
+It implements a flexible mechanism to decide what version use per resource
+(read more about this at the `[Getting Started](https://github.com/onelogin/onelogin-python-sdk#getting-started)` section, the `api_configuration` parameter).
+
+It also allows you to call urls using the generic domain: api.<region>.onelogin.com (that was the unique way on SDK v1) or branded domain: <subdomain>.onelogin.com (read more about this at the `[Getting Started](https://github.com/onelogin/onelogin-python-sdk#getting-started)` section, the `subdomain` parameter).
+
 
 ## Installation
 ### Hosting
@@ -39,7 +54,9 @@ If you don't have an account you can [sign up for a free developer account here]
 |---|---|
 |client_id|Required: A valid OneLogin API client_id|   
 |client_secret|Required: A valid OneLogin API client_secret|   
-|region| Optional: `us` or `eu`. Defaults to `us`   |   
+|region| Optional: `us` or `eu`. Defaults to `us`|
+|subdomain| Optional: A valid OneLogin subdomain. When provided the API endpoint calls gonna be done to the specific subdomain `<subdomain>.onelogin.com` instead to `api.<region>.onelogin.com`|
+|api_configuration| Optional. The SDK by default sets a fixed version per resource. Use this parameter to override the default values.
 
 ```python
 from onelogin.api.client import OneLoginClient
@@ -50,12 +67,53 @@ client = OneLoginClient(
     region
 )
 
+or
+
+client = OneLoginClient(
+    client_id, 
+    client_secret,
+    subdomain=subdomain
+)
+
 # Now you can make requests
 client.get_users()
 ```
 
-For all methods see Pydoc of this SDK published at:
-https://onelogin.github.io/onelogin-python-sdk/index.html
+If you want to fix user, group and role resources to use the version/1 API,
+do the following:
+
+```python
+from onelogin.api.client import OneLoginClient
+
+api_configuration = {
+    "user": 1,
+    "group": 1,
+    "role": 1
+}
+
+client = OneLoginClient(
+    client_id, 
+    client_secret,
+    region,
+    api_configuration=api_configuration
+)
+```
+
+You can find the relation of all available endpoints/resources at [endpoints.py](https://github.com/onelogin/onelogin-python-sdk/blob/v2/src/onelogin/api/util/endpoints.py). It describes the different endpoints, its related resource and
+in what version they are available. For example the `Get List of Users` API, belong the `user` resource and is available on `/1` and `/2`
+
+```
+Constants.GET_USERS_URL: {"user": [1, 2]},
+```
+
+At [client.py](https://github.com/onelogin/onelogin-python-sdk/blob/v2/src/onelogin/api/client.py#L78) you will find a `api_configuration` attribute that
+set the default values that gonna be used on the SDK, if no `api_configuration` parameter is provided on client initialization to override its.
+
+The parameters of the different methods can differ depending on the API version
+enabled. Review the docs of each method that will provide detailed references for each API version
+
+To review all methods available at the SDK, there is a Pydoc published at:
+https://onelogin.github.io/onelogin-python-sdk/v2/index.html
 
 Is good practice to verify that the provided credentials are ok by executing
 a call to client.get_access_token() after call the client constructor and verify that client.error is None after that call, which means that the client was able to fetch an access_token to execute API calls.
@@ -152,6 +210,41 @@ role_ids.pop()
 result = client.remove_role_from_user(user.id, role_ids)
 user = client.get_user(user.id)
 
+# Create role
+new_role_id = client.create_role({"name": "New Role"})
+
+# Update role
+new_role_id = client.update_role(new_role_id, {"name": "New Role Updated"})
+
+# Delete role
+result = client.delete_role(new_role_id)
+
+# Set applications to a role
+apps = client.get_apps()
+assigned_apps = client.set_role_apps(new_role_id, [apps[0].id, apps[1].id])
+
+# List of App assigned to a role
+assigned_apps = client.get_role_apps(new_role_id)
+
+# Get Role Users (list of AssignedUser of a role)
+new_assigned_users = client.get_role_users(new_role_id)
+
+# Add Role Users
+new_assigned_users = client.add_role_users(new_role_id, [users[1].id])
+
+# Remove Role Users
+result = client.remove_role_users(new_role_id, [users[1].id])
+
+# Get Role Admins (list of AssignedAdmins of a role)
+assigned_users = client.get_role_admins(new_role_id)
+
+# Add Role Admins
+new_assigned_users = client.add_role_users(new_role_id, [users[0].id])
+
+# Remove Role Admins
+result = client.remove_role_users(new_role_id, [users[0].id])
+
+
 # Sets Password by ID Using Cleartext
 password = "Aa765431-XxX"
 result = client.set_password_using_clear_text(user.id, password, password)
@@ -185,8 +278,84 @@ role_ids = client.get_user_roles(user.id)
 # Generate MFA Token
 mfa_token = client.generate_mfa_token(user.id)
 
+# Connectors
+connectors = client.get_connectors()
+
 # Get all Apps in a OneLogin account
 apps = client.get_apps()
+
+# Create app
+app_params = {
+    "connector_id": 999999999999,
+    "name": "Test app",
+    "description": "Test app desc"
+} 
+app = client.create_app(app_params)
+
+# Get app
+app = client.get_app(app.id)
+
+# Update app
+app_params_mod = {
+    "description": "Test app desc modified"
+} 
+app = client.update_app(app.id)
+
+# Delete app parameter
+app_parameter_id = app.parameters.items()[0][1]['id']
+result = client.delete_app_parameter(app.id, app_parameter_id)
+
+# Get users of app
+users = client.get_app_users(app.id)
+
+# Get rules of app
+rules = client.get_app_rules(app.id)
+
+# Get rule of app
+rule = client.get_app_rule(app.id, rules[0].id)
+
+# Create rule
+rule_params = {
+    "name": "AppRule Example",
+    "enabled": True,
+    "match": "all",
+    "position": 1,
+    "actions": [{"action": "set_nameidvalue",
+                  "value": ["email"]}
+    ],
+    "conditions": [{"source": "last_login",
+                    "operator": ">",
+                    "value": "90"}
+    ]
+}
+rule = client.create_app_rule(app.id, rule_params)
+
+# Update rule
+rule = client.update_app_rule(app.id, rule.id, {"name": "AppRule Example2"})
+
+# List app conditions
+conditions = client.get_app_conditions(app.id)
+
+# List app condition operations
+condition_ops = client.get_app_condition_operators(app.id, conditions[0]["value"])
+
+# List app condition values
+condition_values = client.get_app_condition_values(app.id, conditions[0]["value"])
+
+# List app actions
+actions = client.get_app_actions(app.id)
+
+# List app action values
+action_values = client.get_app_action_values(app.id, actions[0]["value"])
+
+# Sort app rules
+result = client.app_rule_sort(app.id, [rules[2].id, rules[0].id, rules[1].id])
+
+# Delete rule
+result = client.delete_app_rule(app.id, rule.id)
+
+# Delete app
+result = client.delete_app(app.id)
 
 # Create user
 new_user_params = {
@@ -264,8 +433,18 @@ user_id = 00000000
 # Get Available Authentication Factors
 auth_factors = client.get_factors(user_id)
 
-# Enroll an Authentication Factor
-enroll_factor = client.enroll_factor(user_id, auth_factors[0].id, 'My Device', '+14156456830')
+# Enroll an Authentication Factor Phone V1
+enroll_factor = client.enroll_factor(user_id, auth_factors[0].id, 'My Device', phone='+14156456830')
+
+# Enroll an Authentication Factor Email V2
+enroll_factor2 = client.enroll_factor(user_id, auth_factors[1].id, 'My Mail', expires_in=240)
+
+# Verify Enrollment Email
+result = client.verify_enroll_factor_otp(user_id, enroll_factor2.id, "otp_token")
+
+# Verify Enrollment Voice
+result = client.verify_enroll_factor_poll(user_id, enroll_factor3.id)
+
 
 # Get Enrolled Authentication Factors
 otp_devices = client.get_enrolled_factors(user_id)
@@ -276,6 +455,13 @@ enrollment_response = client.activate_factor(user_id, device_id)
 
 # Verify an Authentication Factor
 result = client.verify_factor(user_id, device_id, otp_token="4242342423")
+
+verification_id = 000000
+# Verify Factor otp
+result = client.verify_factor_otp(user_id, verification_id, otp="2323", device_id)
+
+# Verify Factor poll
+result = client.verify_factor_poll(user_id, verification_id) 
 
 # Remove an Auth Factor
 result = client.remove_factor(user_id, device_id)
@@ -289,6 +475,139 @@ sent = client.send_invite_link("user@example.com")
 # Get Apps to Embed for a User
 embed_token = "30e256c101cd0d2e731de1ec222e93c4be8a1572"
 apps = client.get_embed_apps("30e256c101cd0d2e731de1ec222e93c4be8a1572", "user@example.com")
+
+# Get Mappings
+mappings = client.get_mappings()
+
+# Get Mapping conditions
+mapping_conditions = client.get_mapping_conditions()
+
+# Get Mapping condition operator
+mapping_condition_op = client.get_mapping_condition_operators(mapping_conditions[0]['value'])
+
+# Get Mapping condition values
+mapping_condition_values = client.get_mapping_condition_values(mapping_conditions[0]['value'])
+
+# Get Mapping actions
+mapping_actions = client.get_mapping_actions()
+
+# Get Mapping action values
+mapping_action_value = client.get_mapping_action_values(mapping_actions[0]['value'])
+
+# Track an event
+track_info = {"ip" : "1.2.3.4","verb" : "log-in","user_agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3)","user": {"id" : "US_112233", "name" : "Eve Smith"},"source" : {"id" : "1234","name" : "ABC Inc"},"session" : {"id" : "xxxx-xxxxx-xxxxx-xxxxx"},"device" : {"id" :"xxx-xxx-xxx"}} 
+result = client.track_event(track_info)
+
+# Get risk score
+risk_score = client.get_risk_score(track_info)
+
+# Get Score Insights
+risk_score_insights = client.get_risk_score_insights()
+
+# Get risk rules
+risk_rules = client.get_risk_rules()
+
+# Create risk rule
+risk_rule_params = {"name": "IP Blacklist G", "description": "Blacklist for guest", "type": "blacklist", "target": "location.ip", "source": "guest-123", "filters": ["123.123.123.123"]}
+risk_rule = client.create_risk_rule(risk_rule_params)
+
+# Get risk rule
+risk_rule = client.get_risk_rule(risk_rule.id)
+
+# Update risk rule
+updated_risk_rule = client.update_risk_rule(risk_rule.id, {"description": "Blacklist for guest user accounts"})
+
+# Delete risk rule
+result = client.update_risk_rule(risk_rule.id)
+
+# Get Smart-Hook list
+smart_hooks = client.get_smart_hooks()
+
+# Create Smart-Hook env
+env = client.create_env_var({"name": "EXAMPLE_API_KEY", "value": "xxxx-xxxx-xxxx-xxxx"})
+
+# Create Smart-Hook
+smart_hook_params = {"type": "pre-authentication","function": "","disabled": False,"runtime": "nodejs12.x","retries": 0,"timeout": 1,"options": {"risk_enabled": True,"location_enabled": False,"mfa_device_info_enabled": True},"env_vars": ["EXAMPLE_API_KEY"],"packages": {"axios": "0.21.1"},"conditions": [{"source": "roles","operator": "~", "value": "123456"}]}
+smart_hook = client.create_smart_hook(smart_hook_params)
+
+# Get Smart-Hook
+smart_hook = client.get_smart_hooks(smart_hook.id)
+
+# Update Smart-Hook
+smart_hook_params["options"]["location_enabled"] = True
+smart_hook = client.update_smart_hook(smart_hook.id, smart_hook_params)
+
+# Get Smart-Hook logs
+smart_hook_logs = client.get_smart_hook_logs(smart_hook.id)
+
+# Delete Smart-Hook
+result = client.delete_smart_hook(smart_hook.id)
+
+# Get env list
+envs = client.get_env_vars()
+
+# Get env
+env = client.get_env_var(env.id)
+
+# Update env
+env = client.update_env_var(env.id, "yyyy-yyyy")
+
+# Delete env
+result = client.delete_env_var(env.id)        
+
+# Smart MFA - Validate User
+validate_user_params = {
+    "user_identifier": "testmfa@example.com",
+    "phone": "+160000000",
+    "context": {
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64)",
+        "ip": "127.0.0.12"
+    }
+}
+smart_mfa = client.validate_user(validate_user_params)
+
+# Smart MFA - Validate MFA
+state_token = smart_mfa.mfa["state_token"]
+otp_token = "AB00CD"
+result = client.verify_token(state_token, otp_token)
+
+# Get Brands
+brands = client.get_brands()
+
+# Create brand
+brand_params = {
+    "name": "Brand example",
+    "enabled": False,
+    "custom_support_enabled": False
+}
+brand = client.create_brand(brand_params)
+
+# Update brand
+brand = client.update_brand(brand.id, {"name": "Brand example updated"})
+
+# Get apps associated with account brand
+brand_apps = client.get_brand_apps(brand.id)
+
+# Delete brand 
+brand = client.delete_brand(brand.id)
+
+# Get Email Settings Config
+email_settings = client.get_email_settings()
+
+# Update Email Settings Config
+new_email_settings = {
+   "address": "smtp.sendgrid.net",
+   "use_tls": True,
+   "from": "email@example.com",
+   "domain": "example.com",
+   "user_name": "user-name",
+   "password": "password",
+   "port": 587
+}
+email_settings = client.update_email_settings(new_email_settings)
+
+# Reset Email Settings Config 
+result = client.reset_email_settings()
 
 # Get Privileges
 privileges = client.get_privileges()

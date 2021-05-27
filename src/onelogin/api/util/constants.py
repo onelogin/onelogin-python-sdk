@@ -61,7 +61,7 @@ class Constants(object):
     GET_APP_RULE_URL = "https://%s.onelogin.com/api/%s/apps/%s/rules/%s"
     UPDATE_APP_RULE_URL = "https://%s.onelogin.com/api/%s/apps/%s/rules/%s"
     DELETE_APP_RULE_URL = "https://%s.onelogin.com/api/%s/apps/%s/rules/%s"
-    GET_APP_CONDITIONS_URL = "https://%s.onelogin.com/api/%s/apps/%s/rules/conditons"
+    GET_APP_CONDITIONS_URL = "https://%s.onelogin.com/api/%s/apps/%s/rules/conditions"
     GET_APP_CONDITION_OPERATORS_URL = "https://%s.onelogin.com/api/%s/apps/%s/rules/conditions/%s/operators"
     GET_APP_CONDITION_VALUES_URL = "https://%s.onelogin.com/api/%s/apps/%s/rules/conditions/%s/values"
     GET_APP_ACTIONS_URL = "https://%s.onelogin.com/api/%s/apps/%s/rules/actions"
@@ -128,7 +128,7 @@ class Constants(object):
 
     # Account Brands URLS
     GET_ACCOUNT_BRANDS_URL = "https://%s.onelogin.com/api/%s/branding/brands"
-    CREATE_ACCOUNT_BRAND_URL = "https://%s.onelogin.com/api/%s/branding/brands/%s"
+    CREATE_ACCOUNT_BRAND_URL = "https://%s.onelogin.com/api/%s/branding/brands"
     GET_ACCOUNT_BRAND_URL = "https://%s.onelogin.com/api/%s/branding/brands/%s"
     UPDATE_ACCOUNT_BRAND_URL = "https://%s.onelogin.com/api/%s/branding/brands/%s"
     DELETE_ACCOUNT_BRAND_URL = "https://%s.onelogin.com/api/%s/branding/brands/%s"
@@ -144,10 +144,11 @@ class Constants(object):
     UPDATE_HOOK_URL = "https://%s.onelogin.com/api/%s/hooks/%s"
     DELETE_HOOK_URL = "https://%s.onelogin.com/api/%s/hooks/%s"
     GET_HOOK_LOGS_URL = "https://%s.onelogin.com/api/%s/hooks/%s/logs"
-    GET_HOOK_ENVS_URL = "https://%s.onelogin.com/api/%s/hooks/%s/env"
-    CREATE_HOOK_ENV_URL = "https://%s.onelogin.com/api/%s/hooks/%s/env"
-    UPDATE_HOOK_ENV_URL = "https://%s.onelogin.com/api/%s/hooks/%s/env_vars/%s"
-    DELETE_HOOK_ENV_URL = "https://%s.onelogin.com/api/%s/hooks/%s/env_vars/%s"
+    GET_HOOK_ENVS_URL = "https://%s.onelogin.com/api/%s/hooks/envs"
+    CREATE_HOOK_ENV_URL = "https://%s.onelogin.com/api/%s/hooks/envs"
+    GET_HOOK_ENV_URL = "https://%s.onelogin.com/api/%s/hooks/envs/%s"
+    UPDATE_HOOK_ENV_URL = "https://%s.onelogin.com/api/%s/hooks/envs/%s"
+    DELETE_HOOK_ENV_URL = "https://%s.onelogin.com/api/%s/hooks/envs/%s"
 
     # Smart MFA
     SMART_MFA_VALIDATE_USER = "https://%s.onelogin.com/api/%s/smart-mfa"
@@ -170,7 +171,7 @@ class Constants(object):
     UPDATE_MAPPING_URL = "https://%s.onelogin.com/api/%s/mappings/%s"
     DELETE_MAPPING_URL = "https://%s.onelogin.com/api/%s/mappings/%s"
     DRYRUN_MAPPING_URL = "https://%s.onelogin.com/api/%s/mappings/%s/dryrun"
-    GET_MAPPING_CONDITIONS_URL = "https://%s.onelogin.com/api/%s/mappings/conditons"
+    GET_MAPPING_CONDITIONS_URL = "https://%s.onelogin.com/api/%s/mappings/conditions"
     GET_MAPPING_CONDITION_OPERATORS_URL = "https://%s.onelogin.com/api/%s/mappings/conditions/%s/operators"
     GET_MAPPING_CONDITION_VALUES_URL = "https://%s.onelogin.com/api/%s/mappings/conditions/%s/values"
     GET_MAPPING_ACTIONS_URL = "https://%s.onelogin.com/api/%s/mappings/actions"

@@ -85,7 +85,7 @@ class OneLoginClient(object):
         "group": 1,
         "custom_login": 1,
         "assertion": 2,
-        "mfa": 1,
+        "mfa": 2,
         "invite": 1,
         "privilege": 1,
         "branding": 2,
@@ -196,7 +196,7 @@ class OneLoginClient(object):
             else:
                 self.error = str(response.status_code)
                 self.error_description = extract_error_message_from_response(response)
-                break
+                return None
         return resources
 
     def retrieve_resource(self, resource_cls, url, version_id):
@@ -244,6 +244,17 @@ class OneLoginClient(object):
 
         if op_create_success(response.status_code):
             return handle_operation_response(response)
+        else:
+            self.error = str(response.status_code)
+            self.error_description = extract_error_message_from_response(response)
+            self.error_attribute = extract_error_attribute_from_response(response)
+        return False
+
+    def submit_operation(self, url, data):
+        response = self.execute_call('post', url, json=data)
+
+        if op_create_success(response.status_code):
+            return True
         else:
             self.error = str(response.status_code)
             self.error_description = extract_error_message_from_response(response)
@@ -1179,6 +1190,28 @@ class OneLoginClient(object):
         return self.retrieve_resources(OneLoginApp, url, query_parameters, max_results, version_id)
 
     @exception_handler
+    def get_app(self, app_id):
+        """
+
+        Gets App by ID.
+
+        :param app_id: Id of the app
+        :type app_id: int
+
+        Returns the app identified by the id
+        :return: app
+        :rtype: OneLoginApp
+
+        See https://developers.onelogin.com/api-docs/2/apps/get-app
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.GET_APP_URL)
+        url = self.get_url(Constants.GET_APP_URL, app_id, version_id=version_id)
+
+        return self.retrieve_resource(OneLoginApp, url, version_id)
+
+    @exception_handler
     def create_app(self, app_params):
         """
 
@@ -1225,7 +1258,7 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.UPDATE_APP_URL)
         url = self.get_url(Constants.UPDATE_APP_URL, app_id, version_id=version_id)
 
-        return self.update_resource(App, url, app_params, None, version_id)
+        return self.update_resource(OneLoginApp, url, app_params, None, version_id)
 
     @exception_handler_return_false
     def delete_app(self, app_id):
@@ -1300,19 +1333,24 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id(Constants.GET_APP_USERS_URL)
-        url = self.get_url(Constants.GET_APP_USERS_URL, version_id=version_id)
+        url = self.get_url(Constants.GET_APP_USERS_URL, app_id, version_id=version_id)
 
         return self.retrieve_resources(User, url, query_parameters, max_results, version_id)
 
     # App Rule Methods
     @exception_handler
-    def get_app_rules(self, app_id):
+    def get_app_rules(self, app_id, query_parameters=None):
         """
 
         Gets a list of app rules.
 
         :param app_id: Id of the App
         :type app_id: int
+
+        :param query_parameters: Parameters to filter the result of the list
+                                 (enabled, has_condition, has_condition_type,
+                                  has_action, has_action_type)
+        :type query_parameters: dict
 
         Returns the list of app rules
         :return: app rules list
@@ -1324,7 +1362,8 @@ class OneLoginClient(object):
 
         version_id = self.get_version_id(Constants.GET_APP_RULES_URL)
         url = self.get_url(Constants.GET_APP_RULES_URL, app_id, version_id=version_id)
-        return self.retrieve_resources(AppRule, url, None, None, version_id)
+
+        return self.retrieve_resource_list(AppRule, url, query_parameters, None, version_id)
 
     @exception_handler
     def get_app_rule(self, app_id, app_rule_id):
@@ -1376,6 +1415,14 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.CREATE_APP_RULE_URL)
         url = self.get_url(Constants.CREATE_APP_RULE_URL, app_id, version_id=version_id)
 
+        if 'actions' in app_rule_params:
+            for action in app_rule_params['actions']:
+                if 'value' in action and not isinstance(action['value'], list):
+                    self.error = "422"
+                    self.error_description = "Validation Failed"
+                    self.error_attribute = "Verify that the value of any action provided has the type array"
+                    return
+
         return self.create_resource(AppRule, url, app_rule_params, None, version_id)
 
     @exception_handler
@@ -1390,10 +1437,10 @@ class OneLoginClient(object):
         :param app_rule_id: Id of the app rule
         :type app_rule_id: int
 
-        :param risk_rule_params: App Rule data (name, enabled, match, position,
+        :param app_rule_params: App Rule data (name, enabled, match, position,
                                                conditions[source, operator, value],
                                                actions[action, value, expression,scriplet, macro])
-        :type risk_rule_params: dict
+        :type app_rule_params: dict
 
         Returns the modified app rule
         :return: app_rule
@@ -1435,10 +1482,13 @@ class OneLoginClient(object):
         return self.delete_resource(url, version_id)
 
     @exception_handler
-    def get_app_conditions(self):
+    def get_app_conditions(self, app_id):
         """
 
         Gets a list of App Conditions types that can be used to match users when app rules are run.
+
+        :param app_id: Id of the App
+        :type app_id: int
 
         Returns the list of conditions
         :return: condition list
@@ -1449,15 +1499,18 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id(Constants.GET_APP_CONDITIONS_URL)
-        url = self.get_url(Constants.GET_APP_CONDITIONS_URL, version_id=version_id)
+        url = self.get_url(Constants.GET_APP_CONDITIONS_URL, app_id, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
 
     @exception_handler
-    def get_app_condition_operators(self, condition_value):
+    def get_app_condition_operators(self, app_id, condition_value):
         """
 
         Gets a list of possible operators for a given condition value.
+
+        :param app_id: Id of the App
+        :type app_id: int
 
         :param condition_value: Value for the selected condition (An App Condition).
         :type condition_value: string
@@ -1471,15 +1524,18 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id(Constants.GET_APP_CONDITION_OPERATORS_URL)
-        url = self.get_url(Constants.GET_APP_CONDITION_OPERATORS_URL, condition_value, version_id=version_id)
+        url = self.get_url(Constants.GET_APP_CONDITION_OPERATORS_URL, app_id, condition_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
 
     @exception_handler
-    def get_app_condition_values(self, condition_value):
+    def get_app_condition_values(self, app_id, condition_value):
         """
 
         Gets a list of possible values to compare to a condition type.
+
+        :param app_id: Id of the App
+        :type app_id: int
 
         :param condition_value: Value for the selected condition (An App Condition).
         :type condition_value: string
@@ -1493,15 +1549,18 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id(Constants.GET_APP_CONDITION_VALUES_URL)
-        url = self.get_url(Constants.GET_APP_CONDITION_VALUES_URL, condition_value, version_id=version_id)
+        url = self.get_url(Constants.GET_APP_CONDITION_VALUES_URL, app_id, condition_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
 
     @exception_handler
-    def get_app_actions(self):
+    def get_app_actions(self, app_id):
         """
 
         Gets a list of the actions that can be applied when an App Rule run
+
+        :param app_id: Id of the App
+        :type app_id: int
 
         Returns the list of actions
         :return: action list
@@ -1512,15 +1571,18 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id(Constants.GET_APP_ACTIONS_URL)
-        url = self.get_url(Constants.GET_APP_ACTIONS_URL, version_id=version_id)
+        url = self.get_url(Constants.GET_APP_ACTIONS_URL, app_id, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
 
     @exception_handler
-    def get_app_action_value(self, action_value):
+    def get_app_action_values(self, app_id, action_value):
         """
 
         Gets a list of possible values to set using a given action.
+
+        :param app_id: Id of the App
+        :type app_id: int
 
         :param action_value: Value for the selected action (A Mapping Action).
         :type action_value: string
@@ -1534,15 +1596,18 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id(Constants.GET_APP_ACTION_VALUES_URL)
-        url = self.get_url(Constants.GET_APP_ACTION_VALUES_URL, action_value, version_id=version_id)
+        url = self.get_url(Constants.GET_APP_ACTION_VALUES_URL, app_id, action_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
 
     @exception_handler
-    def app_rule_sort(self, app_rule_ids):
+    def app_rule_sort(self, app_id, app_rule_ids):
         """
 
         Update order of app rule
+
+        :param app_id: Id of the App
+        :type app_id: int
 
         :param app_rule_ids: ordered list of app_rule_ids
         :type app_rule_ids: list
@@ -1556,7 +1621,7 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id(Constants.APP_RULE_SORT_URL)
-        url = self.get_url(Constants.APP_RULE_SORT_URL, version_id=version_id)
+        url = self.get_url(Constants.APP_RULE_SORT_URL, app_id, version_id=version_id)
 
         return self.set_operation(url, app_rule_ids, version_id)
 
@@ -1658,7 +1723,7 @@ class OneLoginClient(object):
         return self.update_resource(Role, url, role_params, None, version_id)
 
     @exception_handler
-    def get_role_apps(self, role_id, assigned=None, max_results=None):
+    def get_role_apps(self, role_id, assigned=True, max_results=None):
         """
 
         Gets a list of App assigned to a role.
@@ -1666,7 +1731,7 @@ class OneLoginClient(object):
         :param role_id: Id of the role
         :type role_id: int
 
-        :param assigned: Defaults to true. Returns all apps not yet assigned to the role (optional)
+        :param assigned: Defaults to true. Returns all apps assigned to the role, or the opposite (optional)
         :type assigned: bool
 
         :param max_results: Limit the number of apps returned (optional)
@@ -1686,7 +1751,7 @@ class OneLoginClient(object):
 
         query_parameters = None
         if assigned is False:
-            query_parameters = {"assigned": "false"}
+            query_parameters = {"assigned": False}
 
         return self.retrieve_resources(App, url, query_parameters, max_results, version_id)
 
@@ -2685,7 +2750,7 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.CREATE_ACCOUNT_BRAND_URL)
         url = self.get_url(Constants.CREATE_ACCOUNT_BRAND_URL, version_id=version_id)
 
-        return self.create_resource(User, url, brand_params, None, version_id)
+        return self.create_resource(Brand, url, brand_params, None, version_id)
 
     @exception_handler
     def get_brand(self, brand_id):
@@ -2736,7 +2801,7 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.UPDATE_ACCOUNT_BRAND_URL)
         url = self.get_url(Constants.UPDATE_ACCOUNT_BRAND_URL, brand_id, version_id=version_id)
 
-        return self.update_resource(User, url, brand_params, None, version_id)
+        return self.update_resource(Brand, url, brand_params, None, version_id)
 
     @exception_handler_return_false
     def delete_brand(self, brand_id):
@@ -2824,8 +2889,6 @@ class OneLoginClient(object):
 
         See https://developers.onelogin.com/api-docs/2/branding/update-email-settings Update Email Settings Config documentation
         """
-        email_settings = None
-
         self.clean_error()
 
         version_id = self.get_version_id(Constants.UPDATE_ACCOUNT_EMAIL_SETTINGS)
@@ -2845,15 +2908,13 @@ class OneLoginClient(object):
 
         See https://developers.onelogin.com/api-docs/2/branding/reset-email-settings Reset Email Settings Config documentation
         """
-        email_settings = None
-
         self.clean_error()
 
         version_id = self.get_version_id(Constants.UPDATE_ACCOUNT_EMAIL_SETTINGS)
         url = self.get_url(Constants.UPDATE_ACCOUNT_EMAIL_SETTINGS, version_id=version_id)
 
         # version 1 status code
-        return self.delete_resource(url, email_settings, 1)
+        return self.delete_resource(url, 1)
 
     # Smart Hooks Methods
     @exception_handler
@@ -2908,6 +2969,28 @@ class OneLoginClient(object):
         return self.create_resource(SmartHook, url, smart_hook_params, None, version_id)
 
     @exception_handler
+    def get_smart_hook(self, smart_hook_id):
+        """
+
+        Gets Smart Hook
+
+        :param smart_hook_id: Id of the smart_hook
+        :type smart_hook_id: string
+
+        Returns the requested smart_hook
+        :return: smart_hook
+        :rtype: SmartHook
+
+        See https://developers.onelogin.com/api-docs/2/smart-hooks/get-hook Get a Hook documentation
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.GET_HOOK_URL)
+        url = self.get_url(Constants.GET_HOOK_URL, smart_hook_id, version_id=version_id)
+
+        return self.retrieve_resource(SmartHook, url, version_id)
+
+    @exception_handler
     def update_smart_hook(self, smart_hook_id, smart_hook_params):
         """
 
@@ -2957,10 +3040,13 @@ class OneLoginClient(object):
         return self.delete_resource(url, version_id)
 
     @exception_handler
-    def get_env_logs(self, query_parameters=None, max_results=None):
+    def get_smart_hook_logs(self, smart_hook_id, query_parameters=None, max_results=None):
         """
 
         Gets a list of smart hook logs.
+
+        :param smart_hook_id: The id of the Smart Hook.
+        :type smart_hook_id: string
 
         :param query_parameters: Parameters to filter the result of the list
         :type query_parameters: dict
@@ -2978,7 +3064,7 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id(Constants.GET_HOOK_LOGS_URL)
-        url = self.get_url(Constants.GET_HOOK_LOGS_URL, version_id=version_id)
+        url = self.get_url(Constants.GET_HOOK_LOGS_URL, smart_hook_id, version_id=version_id)
 
         return self.retrieve_resource_list(SmartHookLog, url, query_parameters, max_results, version_id)
 
@@ -3026,6 +3112,28 @@ class OneLoginClient(object):
         url = self.get_url(Constants.CREATE_HOOK_ENV_URL, version_id=version_id)
 
         return self.create_resource(SmartHookEnv, url, env_var_params, None, version_id)
+
+    @exception_handler
+    def get_env_var(self, env_var_id):
+        """
+
+        Return a single Smart Hook Environment Variable
+
+        :param env_var_id: Id of the environment variable
+        :type env_var_id: string
+
+        Returns the requested environment variable
+        :return: environment variable
+        :rtype: SmartHookEnv
+
+        See https://developers.onelogin.com/api-docs/2/hooks/get-environment-variable Get Environment Variable documentation
+        """
+        self.clean_error()
+
+        version_id = self.get_version_id(Constants.GET_HOOK_ENV_URL)
+        url = self.get_url(Constants.GET_HOOK_ENV_URL, env_var_id, version_id=version_id)
+
+        return self.retrieve_resource(SmartHookEnv, url, version_id)
 
     @exception_handler
     def update_env_var(self, env_var_id, value):
@@ -3142,15 +3250,15 @@ class OneLoginClient(object):
 
     # Vigilance AI Methods
     @exception_handler
-    def track_event(self, event_params):
+    def track_event(self, track_event_params):
         """
 
         Tracks an Event
 
-        :param event_params: Event data (verb, ip, user_agent, user[id, name, authenticated],
+        :param track_event_params: Event data (verb, ip, user_agent, user[id, name, authenticated],
                                          source[id,name], session[id], device[id], fp, published)
                              user id data needs to be in the format: {instance region}_{OneLogin User Id}
-        :type event_params: dict
+        :type track_event_params: dict
 
         Returns if the action succeed
         :return: true if success
@@ -3163,18 +3271,18 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.TRACK_EVENT_URL)
         url = self.get_url(Constants.TRACK_EVENT_URL, version_id=version_id)
 
-        return self.create_operation(url, event_params)
+        return self.submit_operation(url, track_event_params)
 
     @exception_handler
-    def get_risk_score(self, event_params):
+    def get_risk_score(self, track_event_params):
         """
 
         Gets a Risk Score
 
-        :param event_params: Event data (verb, ip, user_agent, user[id, name, authenticated],
+        :param track_event_params: Event data (verb, ip, user_agent, user[id, name, authenticated],
                                          source[id,name], session[id], device[id], fp, published)
                              user id data needs to be in the format: {instance region}_{OneLogin User Id}
-        :type event_params: dict
+        :type track_event_params: dict
 
         Returns the risk score
         :return: risk_score
@@ -3187,7 +3295,7 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.GET_RISK_SCORE_URL)
         url = self.get_url(Constants.GET_RISK_SCORE_URL, version_id=version_id)
 
-        return self.create_resource(RiskScore, url, event_params, None, version_id)
+        return self.create_resource(RiskScore, url, track_event_params, None, version_id)
 
     @exception_handler
     def get_risk_rules(self):
@@ -3366,7 +3474,15 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.CREATE_MAPPING_URL)
         url = self.get_url(Constants.CREATE_MAPPING_URL, version_id=version_id)
 
-        return self.create_resource(Role, url, mapping_params, None, version_id)
+        if 'actions' in app_rule_params:
+            for action in app_rule_params['actions']:
+                if 'value' in action and not isinstance(action['value'], list):
+                    self.error = "422"
+                    self.error_description = "Validation Failed"
+                    self.error_attribute = "Verify that the value of any action provided has the type array"
+                    return
+
+        return self.create_resource(Mapping, url, mapping_params, None, version_id)
 
     @exception_handler
     def get_mapping(self, mapping_id):
@@ -3567,7 +3683,7 @@ class OneLoginClient(object):
         return self.retrieve_list(url, version_id)
 
     @exception_handler
-    def get_mapping_action_value(self, action_value):
+    def get_mapping_action_values(self, action_value):
         """
 
         Gets a list of possible values to set using a given action.

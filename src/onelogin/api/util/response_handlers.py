@@ -74,6 +74,8 @@ def extract_error_message_from_response(response):
                 message = content['description']
         elif 'message' in content:
             message = content['message']
+        elif 'messages' in content:
+            message = " | ".join(content['messages'])
         elif 'name' in content:
             message = content['name']
     return message
@@ -90,6 +92,14 @@ def extract_error_attribute_from_response(response):
                     attribute = status['message']['attribute']
     elif "message" in content and "unknown attribute" in content["message"]:
         attribute = content["message"].replace("unknown attribute: ", "")
+    elif "message" in content and "errors" in content:
+        errors = []
+        for error in content["errors"]:
+            if "field" in  error and "message" in error:
+                field = error["field"]
+                error_detail = ". ".join(error["message"])
+                errors.append("Field: %s - %s" % (field, error_detail))
+        attribute = ". ".join(errors)
     return attribute
 
 
