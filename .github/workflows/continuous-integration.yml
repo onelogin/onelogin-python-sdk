@@ -24,7 +24,7 @@ jobs:
         pip install -e ".[test]"
     - name: Lint
       run: |
-        pep8 tests/src/onelogin/*.py --config=tests/pep8.rc
+        pep8 src/onelogin/api tests/src/onelogin/*.py --config=tests/pep8.rc
         pyflakes src/onelogin/api tests/src/onelogin
     - name: Test
       run: |
