@@ -3474,8 +3474,8 @@ class OneLoginClient(object):
         version_id = self.get_version_id(Constants.CREATE_MAPPING_URL)
         url = self.get_url(Constants.CREATE_MAPPING_URL, version_id=version_id)
 
-        if 'actions' in app_rule_params:
-            for action in app_rule_params['actions']:
+        if 'actions' in mapping_params:
+            for action in mapping_params['actions']:
                 if 'value' in action and not isinstance(action['value'], list):
                     self.error = "422"
                     self.error_description = "Validation Failed"
