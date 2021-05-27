@@ -2,6 +2,10 @@
 
 from dateutil import parser
 
+import sys
+if sys.version_info[0] >= 3:
+    unicode = str
+
 
 def str2bool(v):
     if v is None:

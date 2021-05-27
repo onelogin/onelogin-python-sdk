@@ -10,6 +10,11 @@ UrlBuilder class of the OneLogin's Python SDK.
 """
 from onelogin.api.util.endpoints import Endpoints
 
+import sys
+if sys.version_info[0] >= 3:
+    unicode = str
+    long = str
+
 
 class UrlBuilder(object):
     """
@@ -66,5 +71,5 @@ class UrlBuilder(object):
         return version
 
     def validate_id(self, resource_id):
-        if not (type(resource_id) is str or type(resource_id) is int or type(resource_id) is long):
+        if not (type(resource_id) is str or type(resource_id) is unicode or type(resource_id) is int or type(resource_id) is long):
             raise Exception("Resource id needs to be provided as string or int/long")
