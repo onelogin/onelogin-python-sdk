@@ -113,7 +113,7 @@ The parameters of the different methods can differ depending on the API version
 enabled. Review the docs of each method that will provide detailed references for each API version
 
 To review all methods available at the SDK, there is a Pydoc published at:
-https://onelogin.github.io/onelogin-python-sdk/v2/index.html
+https://onelogin.github.io/onelogin-python-sdk/index.html
 
 Is good practice to verify that the provided credentials are ok by executing
 a call to client.get_access_token() after call the client constructor and verify that client.error is None after that call, which means that the client was able to fetch an access_token to execute API calls.
@@ -680,9 +680,9 @@ result = client.remove_user_from_privilege(privilege.id, user_id2)
 
 ## Development
 
-After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then, run `pip setup test` to run the tests.
+After checking out the repo, run `pip setup install` or `python setup.py develop` to install dependencies. Then you can run `python setup test` to run the tests.
 
-Alternatively run `pip install -r requirements-test.txt` and then run `nosetests` from the project's root directory.
+Alternatively you can run `pip install .` or `pip install -e ".[test]"` from the project's root directory.
 
 To release a new version, update the version number in `src/onelogin/api/version.py` and commit it, then you will be able to update it to pypy.
 with `python setup.py sdist upload` and `python setup.py bdist_wheel upload`.
