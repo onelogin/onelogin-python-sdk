@@ -13,9 +13,9 @@ the SDK v2 will let you execute all the API methods available at:
 - version/2, described at https://developers.onelogin.com/api-docs/2/getting-started/dev-overview.
 
 It implements a flexible mechanism to decide what version use per resource
-(read more about this at the `[Getting Started](https://github.com/onelogin/onelogin-python-sdk#getting-started)` section, the `api_configuration` parameter).
+(read more about this at the [Getting Started](https://github.com/onelogin/onelogin-python-sdk#getting-started) section, the `api_configuration` parameter).
 
-It also allows you to call urls using the generic domain: api.<region>.onelogin.com (that was the unique way on SDK v1) or branded domain: <subdomain>.onelogin.com (read more about this at the `[Getting Started](https://github.com/onelogin/onelogin-python-sdk#getting-started)` section, the `subdomain` parameter).
+It also allows you to call urls using the generic domain: api.<region>.onelogin.com (that was the unique way on SDK v1) or branded domain: <subdomain>.onelogin.com (read more about this at the [Getting Started](https://github.com/onelogin/onelogin-python-sdk#getting-started) section, the `subdomain` parameter).
 
 
 ## Installation
