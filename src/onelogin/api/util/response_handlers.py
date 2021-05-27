@@ -95,7 +95,7 @@ def extract_error_attribute_from_response(response):
     elif "message" in content and "errors" in content:
         errors = []
         for error in content["errors"]:
-            if "field" in  error and "message" in error:
+            if "field" in error and "message" in error:
                 field = error["field"]
                 error_detail = ". ".join(error["message"])
                 errors.append("Field: %s - %s" % (field, error_detail))
