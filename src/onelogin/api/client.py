@@ -1794,7 +1794,7 @@ class OneLoginClient(object):
         :param name: Filters on first name, last name, username, and email address. (optional)
         :type name: string
 
-        :param include_unassigned: Include admins that aren’t assigned to the role. (optional)
+        :param include_unassigned: Include admins that aren't assigned to the role. (optional)
         :type include_unassigned: bool
 
         :param max_results: Limit the number of users returned (optional)
@@ -1889,7 +1889,7 @@ class OneLoginClient(object):
         :param name: Filters on first name, last name, username, and email address. (optional)
         :type name: string
 
-        :param include_unassigned: Include admins that aren’t assigned to the role. (optional)
+        :param include_unassigned: Include admins that aren't assigned to the role. (optional)
         :type include_unassigned: bool
 
         :param max_results: Limit the number of admins returned (optional)
