@@ -156,6 +156,12 @@ class OneLoginClient(object):
     def get_url(self, base, obj_id=None, extra_id=None, version_id=None):
         return self.url_builder.get_url(base, obj_id, extra_id, version_id)
 
+    def set_error(self, response, include_attribute=False):
+        self.error = str(response.status_code)
+        self.error_description = extract_error_message_from_response(response)
+        if include_attribute:
+            self.error_attribute = extract_error_attribute_from_response(response)
+
     def retrieve_resources(self, resource_cls, url, query_parameters, max_results=None, version_id=1):
         if max_results is None:
             max_results = self.max_results
@@ -194,8 +200,7 @@ class OneLoginClient(object):
                         for key, value in page_params:
                             query_parameters[key] = value
             else:
-                self.error = str(response.status_code)
-                self.error_description = extract_error_message_from_response(response)
+                self.set_error(response)
                 return None
         return resources
 
@@ -204,16 +209,14 @@ class OneLoginClient(object):
         if response.status_code == 200:
             return get_resource_or_id(resource_cls, response.json(), version_id)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     def retrieve_resource_list(self, resource_cls, url, params, index, version_id):
         response = self.execute_call('get', url, params=params)
         if response.status_code == 200:
             return get_resource_list(resource_cls, response.json(), index, version_id)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     def retrieve_list(self, url, version_id):
         response = self.execute_call('get', url)
@@ -227,17 +230,14 @@ class OneLoginClient(object):
                 data_list = json_data
             return data_list
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     def create_resource(self, resource_cls, url, data, query_params, version_id):
         response = self.execute_call('post', url, json=data, params=query_params)
         if op_create_success(response.status_code):
             return get_resource_or_id(resource_cls, response.json(), version_id)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
 
     def create_operation(self, url, data):
         response = self.execute_call('post', url, json=data)
@@ -245,9 +245,7 @@ class OneLoginClient(object):
         if op_create_success(response.status_code):
             return handle_operation_response(response)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
         return False
 
     def submit_operation(self, url, data):
@@ -256,9 +254,7 @@ class OneLoginClient(object):
         if op_create_success(response.status_code):
             return True
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
         return False
 
     def update_resource(self, resource_cls, url, data, query_params, version_id):
@@ -266,36 +262,28 @@ class OneLoginClient(object):
         if response.status_code == 200:
             return get_resource_or_id(resource_cls, response.json(), version_id)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
 
     def set_operation(self, url, ids, version_id):
         response = self.execute_call('put', url, json=ids)
         if response.status_code == 200:
             return get_ids(response.json())
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
 
     def add_to_resource_operation(self, url, ids, version_id):
         response = self.execute_call('post', url, json=ids)
         if response.status_code == 200:
             return get_ids(response.json())
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
 
     def remove_from_resource_operation(self, url, ids, version_id):
         response = self.execute_call('delete', url, json=ids)
         if response.status_code == 204:
             return True
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
 
     def update_operation(self, url, data):
         response = self.execute_call('put', url, json=data)
@@ -303,9 +291,7 @@ class OneLoginClient(object):
         if response.status_code == 200:
             return handle_operation_response(response)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
         return False
 
     def delete_resource(self, url, version_id):
@@ -316,9 +302,7 @@ class OneLoginClient(object):
                 return handle_operation_response(response)
             return True
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
         return False
 
     def process_login(self, url, headers, data):
@@ -327,8 +311,7 @@ class OneLoginClient(object):
         if response.status_code == 200:
             return handle_session_token_response(response)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     def process_token_response(self, response):
         json_data = response.json()
@@ -348,8 +331,7 @@ class OneLoginClient(object):
         if response.status_code == 200:
             return handle_saml_endpoint_response(response, version_id)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     def is_expired(self):
         return self.expiration is not None and datetime.datetime.now(tz.tzutc()) > self.expiration
@@ -413,8 +395,7 @@ class OneLoginClient(object):
         if response.status_code == 200:
             return self.process_token_response(response)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     @exception_handler
     def regenerate_token(self):
@@ -446,8 +427,7 @@ class OneLoginClient(object):
         else:
             if response.status_code == 401:
                 self.remove_stored_token()
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     @exception_handler_return_false
     def revoke_token(self):
@@ -473,8 +453,7 @@ class OneLoginClient(object):
             self.remove_stored_token()
             return True
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
         return False
 
     @exception_handler
@@ -2620,8 +2599,7 @@ class OneLoginClient(object):
             if json_data and json_data.get('data', None):
                 return json_data['data'][0]
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     @exception_handler_return_false
     def send_invite_link(self, email, personal_email=None):
@@ -2874,8 +2852,7 @@ class OneLoginClient(object):
         if response.status_code == 200:
             return response.json()
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     @exception_handler
     def update_email_settings(self, email_settings):
@@ -3244,8 +3221,7 @@ class OneLoginClient(object):
         if op_create_success(response.status_code):
             return True
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
         return False
 
     # Vigilance AI Methods
@@ -3595,9 +3571,7 @@ class OneLoginClient(object):
                 result.append(result_entry)
             return result
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
-            self.error_attribute = extract_error_attribute_from_response(response)
+            self.set_error(response, True)
         return None
 
     @exception_handler
@@ -3805,8 +3779,7 @@ class OneLoginClient(object):
             if json_data and 'id' in json_data:
                 return Privilege(str(json_data['id']), name, version, statements)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     @exception_handler
     def get_privilege(self, privilege_id):
@@ -3895,8 +3868,7 @@ class OneLoginClient(object):
             if json_data and 'id' in json_data:
                 return Privilege(str(json_data['id']), name, version, statements)
         else:
-            self.error = str(response.status_code)
-            self.error_description = extract_error_message_from_response(response)
+            self.set_error(response)
 
     @exception_handler
     def delete_privilege(self, privilege_id):
@@ -3978,8 +3950,7 @@ class OneLoginClient(object):
                         query_parameters = {}
                     query_parameters['after_cursor'] = after_cursor
             else:
-                self.error = str(response.status_code)
-                self.error_description = extract_error_message_from_response(response)
+                self.set_error(response)
                 break
 
         return role_ids
@@ -4095,8 +4066,7 @@ class OneLoginClient(object):
                         query_parameters = {}
                     query_parameters['after_cursor'] = after_cursor
             else:
-                self.error = str(response.status_code)
-                self.error_description = extract_error_message_from_response(response)
+                self.set_error(response)
                 break
 
         return user_ids
