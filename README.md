@@ -113,7 +113,7 @@ The parameters of the different methods can differ depending on the API version
 enabled. Review the docs of each method that will provide detailed references for each API version
 
 To review all methods available at the SDK, there is a Pydoc published at:
-https://onelogin.github.io/onelogin-python-sdk/index.htm
+https://onelogin.github.io/onelogin-python-sdk/index.html
 
 Is good practice to verify that the provided credentials are ok by executing
 a call to client.get_access_token() after call the client constructor and verify that client.error is None after that call, which means that the client was able to fetch an access_token to execute API calls.
