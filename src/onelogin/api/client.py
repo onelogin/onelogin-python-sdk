@@ -156,7 +156,7 @@ class OneLoginClient(object):
     def get_url(self, base, obj_id=None, extra_id=None, version_id=None):
         return self.url_builder.get_url(base, obj_id, extra_id, version_id)
 
-    def set_error(response, include_attribute=False):
+    def set_error(self, response, include_attribute=False):
         self.error = str(response.status_code)
         self.error_description = extract_error_message_from_response(response)
         if include_attribute:
