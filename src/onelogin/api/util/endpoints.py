@@ -9,8 +9,6 @@ Endpoints class of the OneLogin's Python SDK.
 
 """
 
-from onelogin.api.util.constants import Constants
-
 
 class Endpoints(object):
     """
