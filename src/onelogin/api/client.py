@@ -498,7 +498,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_USERS_URL)
+        version_id = self.get_version_id("GET_USERS_URL")
         url = self.get_url(Constants.GET_USERS_URL, version_id=version_id)
         return self.retrieve_resources(User, url, query_parameters, max_results, version_id)
 
@@ -520,7 +520,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_USER_URL)
+        version_id = self.get_version_id("GET_USER_URL")
         url = self.get_url(Constants.GET_USER_URL, user_id, version_id=version_id)
 
         return self.retrieve_resource(User, url, version_id)
@@ -546,7 +546,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APPS_FOR_USER_URL)
+        version_id = self.get_version_id("GET_APPS_FOR_USER_URL")
         url = self.get_url(Constants.GET_APPS_FOR_USER_URL, user_id, version_id=version_id)
 
         query_parameters = None
@@ -577,7 +577,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ROLES_FOR_USER_URL)
+        version_id = self.get_version_id("GET_ROLES_FOR_USER_URL")
         url = self.get_url(Constants.GET_ROLES_FOR_USER_URL, user_id, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -597,7 +597,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_CUSTOM_ATTRIBUTES_URL)
+        version_id = self.get_version_id("GET_CUSTOM_ATTRIBUTES_URL")
         url = self.get_url(Constants.GET_CUSTOM_ATTRIBUTES_URL, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -634,7 +634,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_USER_URL)
+        version_id = self.get_version_id("CREATE_USER_URL")
         url = self.get_url(Constants.CREATE_USER_URL, version_id=version_id)
 
         query_params = None
@@ -692,7 +692,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_USER_URL)
+        version_id = self.get_version_id("UPDATE_USER_URL")
         url = self.get_url(Constants.UPDATE_USER_URL, user_id, version_id=version_id)
 
         query_parameters = None
@@ -737,7 +737,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.ADD_ROLE_TO_USER_URL)
+        version_id = self.get_version_id("ADD_ROLE_TO_USER_URL")
         url = self.get_url(Constants.ADD_ROLE_TO_USER_URL, user_id, version_id=version_id)
 
         data = {
@@ -767,7 +767,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_ROLE_TO_USER_URL)
+        version_id = self.get_version_id("DELETE_ROLE_TO_USER_URL")
         url = self.get_url(Constants.DELETE_ROLE_TO_USER_URL, user_id, version_id=version_id)
 
         data = {
@@ -803,7 +803,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SET_PW_CLEARTEXT)
+        version_id = self.get_version_id("SET_PW_CLEARTEXT")
         url = self.get_url(Constants.SET_PW_CLEARTEXT, user_id, version_id=version_id)
 
         data = {
@@ -844,7 +844,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SET_PW_SALT)
+        version_id = self.get_version_id("SET_PW_SALT")
         url = self.get_url(Constants.SET_PW_SALT, user_id, version_id=version_id)
 
         data = {
@@ -878,7 +878,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SET_STATE_TO_USER_URL)
+        version_id = self.get_version_id("SET_STATE_TO_USER_URL")
         url = self.get_url(Constants.SET_STATE_TO_USER_URL, user_id, version_id=version_id)
 
         data = {
@@ -908,7 +908,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SET_CUSTOM_ATTRIBUTE_TO_USER_URL)
+        version_id = self.get_version_id("SET_CUSTOM_ATTRIBUTE_TO_USER_URL")
         url = self.get_url(Constants.SET_CUSTOM_ATTRIBUTE_TO_USER_URL, user_id, version_id=version_id)
 
         data = {
@@ -935,7 +935,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.LOG_USER_OUT_URL)
+        version_id = self.get_version_id("LOG_USER_OUT_URL")
         url = self.get_url(Constants.LOG_USER_OUT_URL, user_id, version_id)
 
         return self.update_operation(url, None)
@@ -963,7 +963,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.LOCK_USER_URL)
+        version_id = self.get_version_id("LOCK_USER_URL")
         url = self.get_url(Constants.LOCK_USER_URL, user_id, version_id=version_id)
 
         data = {
@@ -990,7 +990,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_USER_URL)
+        version_id = self.get_version_id("DELETE_USER_URL")
         url = self.get_url(Constants.DELETE_USER_URL, user_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -1021,7 +1021,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GENERATE_MFA_TOKEN_URL)
+        version_id = self.get_version_id("GENERATE_MFA_TOKEN_URL")
         url = self.get_url(Constants.GENERATE_MFA_TOKEN_URL, user_id, version_id=version_id)
 
         data = {
@@ -1058,7 +1058,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SESSION_LOGIN_TOKEN_URL)
+        version_id = self.get_version_id("SESSION_LOGIN_TOKEN_URL")
         url = self.get_url(Constants.SESSION_LOGIN_TOKEN_URL, version_id=version_id)
         headers = self.get_authorized_headers()
 
@@ -1097,7 +1097,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_TOKEN_VERIFY_FACTOR)
+        version_id = self.get_version_id("GET_TOKEN_VERIFY_FACTOR")
         url = self.get_url(Constants.GET_TOKEN_VERIFY_FACTOR, version_id=version_id)
         headers = self.get_authorized_headers()
 
@@ -1136,7 +1136,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_CONNECTORS_URL)
+        version_id = self.get_version_id("GET_CONNECTORS_URL")
         url = self.get_url(Constants.GET_CONNECTORS_URL, version_id=version_id)
 
         return self.retrieve_resources(Connector, url, query_parameters, max_results, version_id)
@@ -1163,7 +1163,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APPS_URL)
+        version_id = self.get_version_id("GET_APPS_URL")
         url = self.get_url(Constants.GET_APPS_URL, version_id=version_id)
 
         return self.retrieve_resources(OneLoginApp, url, query_parameters, max_results, version_id)
@@ -1185,7 +1185,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_URL)
+        version_id = self.get_version_id("GET_APP_URL")
         url = self.get_url(Constants.GET_APP_URL, app_id, version_id=version_id)
 
         return self.retrieve_resource(OneLoginApp, url, version_id)
@@ -1208,7 +1208,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_APP_URL)
+        version_id = self.get_version_id("CREATE_APP_URL")
         url = self.get_url(Constants.CREATE_APP_URL, version_id=version_id)
 
         return self.create_resource(OneLoginApp, url, app_params, None, version_id)
@@ -1234,7 +1234,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_APP_URL)
+        version_id = self.get_version_id("UPDATE_APP_URL")
         url = self.get_url(Constants.UPDATE_APP_URL, app_id, version_id=version_id)
 
         return self.update_resource(OneLoginApp, url, app_params, None, version_id)
@@ -1257,7 +1257,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_APP_URL)
+        version_id = self.get_version_id("DELETE_APP_URL")
         url = self.get_url(Constants.DELETE_APP_URL, app_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -1283,7 +1283,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_APP_PARAMETER_URL)
+        version_id = self.get_version_id("DELETE_APP_PARAMETER_URL")
         url = self.get_url(Constants.DELETE_APP_PARAMETER_URL, app_id, parameter_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -1311,7 +1311,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_USERS_URL)
+        version_id = self.get_version_id("GET_APP_USERS_URL")
         url = self.get_url(Constants.GET_APP_USERS_URL, app_id, version_id=version_id)
 
         return self.retrieve_resources(User, url, query_parameters, max_results, version_id)
@@ -1339,7 +1339,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_RULES_URL)
+        version_id = self.get_version_id("GET_APP_RULES_URL")
         url = self.get_url(Constants.GET_APP_RULES_URL, app_id, version_id=version_id)
 
         return self.retrieve_resource_list(AppRule, url, query_parameters, None, version_id)
@@ -1364,7 +1364,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_RULE_URL)
+        version_id = self.get_version_id("GET_APP_RULE_URL")
         url = self.get_url(Constants.GET_APP_RULE_URL, app_id, app_rule_id, version_id=version_id)
 
         return self.retrieve_resource(AppRule, url, version_id)
@@ -1391,7 +1391,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_APP_RULE_URL)
+        version_id = self.get_version_id("CREATE_APP_RULE_URL")
         url = self.get_url(Constants.CREATE_APP_RULE_URL, app_id, version_id=version_id)
 
         if 'actions' in app_rule_params:
@@ -1429,7 +1429,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_APP_RULE_URL)
+        version_id = self.get_version_id("UPDATE_APP_RULE_URL")
         url = self.get_url(Constants.UPDATE_APP_RULE_URL, app_id, app_rule_id, version_id=version_id)
 
         return self.update_resource(AppRule, url, app_rule_params, None, version_id)
@@ -1455,7 +1455,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_APP_RULE_URL)
+        version_id = self.get_version_id("DELETE_APP_RULE_URL")
         url = self.get_url(Constants.DELETE_APP_RULE_URL, app_id, app_rule_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -1477,7 +1477,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_CONDITIONS_URL)
+        version_id = self.get_version_id("GET_APP_CONDITIONS_URL")
         url = self.get_url(Constants.GET_APP_CONDITIONS_URL, app_id, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -1502,7 +1502,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_CONDITION_OPERATORS_URL)
+        version_id = self.get_version_id("GET_APP_CONDITION_OPERATORS_URL")
         url = self.get_url(Constants.GET_APP_CONDITION_OPERATORS_URL, app_id, condition_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -1527,7 +1527,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_CONDITION_VALUES_URL)
+        version_id = self.get_version_id("GET_APP_CONDITION_VALUES_URL")
         url = self.get_url(Constants.GET_APP_CONDITION_VALUES_URL, app_id, condition_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -1549,7 +1549,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_ACTIONS_URL)
+        version_id = self.get_version_id("GET_APP_ACTIONS_URL")
         url = self.get_url(Constants.GET_APP_ACTIONS_URL, app_id, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -1574,7 +1574,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APP_ACTION_VALUES_URL)
+        version_id = self.get_version_id("GET_APP_ACTION_VALUES_URL")
         url = self.get_url(Constants.GET_APP_ACTION_VALUES_URL, app_id, action_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -1599,7 +1599,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.APP_RULE_SORT_URL)
+        version_id = self.get_version_id("APP_RULE_SORT_URL")
         url = self.get_url(Constants.APP_RULE_SORT_URL, app_id, version_id=version_id)
 
         return self.set_operation(url, app_rule_ids, version_id)
@@ -1626,7 +1626,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ROLES_URL)
+        version_id = self.get_version_id("GET_ROLES_URL")
         url = self.get_url(Constants.GET_ROLES_URL, version_id=version_id)
 
         return self.retrieve_resources(Role, url, query_parameters, max_results, version_id)
@@ -1648,7 +1648,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_ROLE_URL)
+        version_id = self.get_version_id("CREATE_ROLE_URL")
         url = self.get_url(Constants.CREATE_ROLE_URL, version_id=version_id)
 
         return self.create_resource(Role, url, role_params, None, version_id)
@@ -1671,7 +1671,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ROLE_URL)
+        version_id = self.get_version_id("GET_ROLE_URL")
         url = self.get_url(Constants.GET_ROLE_URL, role_id, version_id=version_id)
 
         return self.retrieve_resource(Role, url, version_id)
@@ -1696,7 +1696,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_ROLE_URL)
+        version_id = self.get_version_id("UPDATE_ROLE_URL")
         url = self.get_url(Constants.UPDATE_ROLE_URL, role_id, version_id=version_id)
 
         return self.update_resource(Role, url, role_params, None, version_id)
@@ -1725,7 +1725,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ROLE_APPS_URL)
+        version_id = self.get_version_id("GET_ROLE_APPS_URL")
         url = self.get_url(Constants.GET_ROLE_APPS_URL, role_id, version_id=version_id)
 
         query_parameters = None
@@ -1756,7 +1756,7 @@ class OneLoginClient(object):
 
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SET_ROLE_APPS_URL)
+        version_id = self.get_version_id("SET_ROLE_APPS_URL")
         url = self.get_url(Constants.SET_ROLE_APPS_URL, role_id, version_id=version_id)
 
         return self.set_operation(url, app_ids, version_id)
@@ -1788,7 +1788,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ROLE_USERS_URL)
+        version_id = self.get_version_id("GET_ROLE_USERS_URL")
         url = self.get_url(Constants.GET_ROLE_USERS_URL, role_id, version_id=version_id)
 
         query_parameters = None
@@ -1824,7 +1824,7 @@ class OneLoginClient(object):
 
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.ADD_ROLE_USERS_URL)
+        version_id = self.get_version_id("ADD_ROLE_USERS_URL")
         url = self.get_url(Constants.ADD_ROLE_USERS_URL, role_id, version_id=version_id)
 
         return self.add_to_resource_operation(url, user_ids, version_id)
@@ -1851,7 +1851,7 @@ class OneLoginClient(object):
 
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.REMOVE_ROLE_USERS_URL)
+        version_id = self.get_version_id("REMOVE_ROLE_USERS_URL")
         url = self.get_url(Constants.REMOVE_ROLE_USERS_URL, role_id, version_id=version_id)
 
         return self.remove_from_resource_operation(url, user_ids, version_id)
@@ -1883,7 +1883,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ROLE_ADMINS_URL)
+        version_id = self.get_version_id("GET_ROLE_ADMINS_URL")
         url = self.get_url(Constants.GET_ROLE_ADMINS_URL, role_id, version_id=version_id)
 
         query_parameters = None
@@ -1919,7 +1919,7 @@ class OneLoginClient(object):
 
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.ADD_ROLE_ADMINS_URL)
+        version_id = self.get_version_id("ADD_ROLE_ADMINS_URL")
         url = self.get_url(Constants.ADD_ROLE_ADMINS_URL, role_id, version_id=version_id)
 
         return self.add_to_resource_operation(url, admin_ids, version_id)
@@ -1946,7 +1946,7 @@ class OneLoginClient(object):
 
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.REMOVE_ROLE_ADMINS_URL)
+        version_id = self.get_version_id("REMOVE_ROLE_ADMINS_URL")
         url = self.get_url(Constants.REMOVE_ROLE_ADMINS_URL, role_id, version_id=version_id)
 
         return self.remove_from_resource_operation(url, admin_ids, version_id)
@@ -1969,7 +1969,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_ROLE_URL)
+        version_id = self.get_version_id("DELETE_ROLE_URL")
         url = self.get_url(Constants.DELETE_ROLE_URL, role_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -1990,7 +1990,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_EVENT_TYPES_URL)
+        version_id = self.get_version_id("GET_EVENT_TYPES_URL")
         url = self.get_url(Constants.GET_EVENT_TYPES_URL, version_id=version_id)
 
         return self.retrieve_resource_list(EventType, url, None, None, version_id)
@@ -2016,7 +2016,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_EVENTS_URL)
+        version_id = self.get_version_id("GET_EVENTS_URL")
         url = self.get_url(Constants.GET_EVENTS_URL, version_id=version_id)
 
         return self.retrieve_resources(Event, url, query_parameters, max_results, version_id)
@@ -2039,7 +2039,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_EVENT_URL)
+        version_id = self.get_version_id("GET_EVENT_URL")
         url = self.get_url(Constants.GET_EVENT_URL, event_id, version_id=version_id)
 
         return self.retrieve_resource(Event, url, version_id)
@@ -2069,7 +2069,7 @@ class OneLoginClient(object):
         self.clean_error()
         self.prepare_token()
 
-        version_id = self.get_version_id(Constants.CREATE_EVENT_URL)
+        version_id = self.get_version_id("CREATE_EVENT_URL")
         url = self.get_url(Constants.CREATE_EVENT_URL, version_id=version_id)
 
         return self.create_operation(url, event_params)
@@ -2093,7 +2093,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_GROUPS_URL)
+        version_id = self.get_version_id("GET_GROUPS_URL")
         url = self.get_url(Constants.GET_GROUPS_URL, version_id=version_id)
 
         return self.retrieve_resources(Group, url, None, max_results, version_id)
@@ -2116,7 +2116,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_GROUP_URL)
+        version_id = self.get_version_id("GET_GROUP_URL")
         url = self.get_url(Constants.GET_GROUP_URL, group_id, version_id=version_id)
 
         return self.retrieve_resource(Group, url, version_id)
@@ -2152,7 +2152,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_SAML_ASSERTION_URL)
+        version_id = self.get_version_id("GET_SAML_ASSERTION_URL")
         url = self.get_url(Constants.GET_SAML_ASSERTION_URL, version_id=version_id)
 
         data = {
@@ -2203,7 +2203,7 @@ class OneLoginClient(object):
         if url_endpoint:
             url = url_endpoint
         else:
-            version_id = self.get_version_id(Constants.GET_SAML_VERIFY_FACTOR)
+            version_id = self.get_version_id("GET_SAML_VERIFY_FACTOR")
             url = self.get_url(Constants.GET_SAML_VERIFY_FACTOR, version_id=version_id)
 
         data = {
@@ -2236,7 +2236,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_FACTORS_URL)
+        version_id = self.get_version_id("GET_FACTORS_URL")
         index = None
         if version_id == 1:
             index = 'auth_factors'
@@ -2282,7 +2282,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.ENROLL_FACTOR_URL)
+        version_id = self.get_version_id("ENROLL_FACTOR_URL")
         if version_id == 1:
             url = self.get_url(Constants.ENROLL_FACTOR_URL, user_id, version_id=version_id)
 
@@ -2332,7 +2332,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.VERIFY_ENROLLMENT_SMS_EMAIL_PROTECT_AUTH_URL)
+        version_id = self.get_version_id("VERIFY_ENROLLMENT_SMS_EMAIL_PROTECT_AUTH_URL")
         url = self.get_url(Constants.VERIFY_ENROLLMENT_SMS_EMAIL_PROTECT_AUTH_URL, user_id, registration_id, version_id=version_id)
 
         data = {
@@ -2360,7 +2360,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.VERIFY_ENROLLMENT__PROTECTPUSH_VOICE_URL)
+        version_id = self.get_version_id("VERIFY_ENROLLMENT__PROTECTPUSH_VOICE_URL")
         url = self.get_url(Constants.VERIFY_ENROLLMENT__PROTECTPUSH_VOICE_URL, user_id, registration_id, version_id=version_id)
 
         return self.retrieve_resource(MFACheckStatus, url, version_id)
@@ -2382,7 +2382,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ENROLLED_FACTORS_URL)
+        version_id = self.get_version_id("GET_ENROLLED_FACTORS_URL")
         index = None
         if version_id == 1:
             index = 'otp_devices'
@@ -2419,7 +2419,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.ACTIVATE_FACTOR_URL)
+        version_id = self.get_version_id("ACTIVATE_FACTOR_URL")
         data = None
         if version_id == 1:
             url = self.get_url(Constants.ACTIVATE_FACTOR_URL, user_id, device_id, version_id=version_id)
@@ -2468,7 +2468,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.VERIFY_FACTOR_URL)
+        version_id = self.get_version_id("VERIFY_FACTOR_URL")
         url = self.get_url(Constants.VERIFY_FACTOR_URL, user_id, device_id, version_id=version_id)
 
         data = {}
@@ -2504,7 +2504,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.VERIFY_FACTOR_SMS_EMAIL_PROTECT_AUTH_URL)
+        version_id = self.get_version_id("VERIFY_FACTOR_SMS_EMAIL_PROTECT_AUTH_URL")
         url = self.get_url(Constants.VERIFY_FACTOR_SMS_EMAIL_PROTECT_AUTH_URL, user_id, verification_id, version_id=version_id)
 
         data = {
@@ -2534,7 +2534,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.VERIFY_FACTOR_PROTECTPUSH_VOICE_URL)
+        version_id = self.get_version_id("VERIFY_FACTOR_PROTECTPUSH_VOICE_URL")
         url = self.get_url(Constants.VERIFY_FACTOR_PROTECTPUSH_VOICE_URL, user_id, verification_id, version_id=version_id)
 
         return self.retrieve_resource(MFACheckStatus, url, version_id)
@@ -2559,7 +2559,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_FACTOR_URL)
+        version_id = self.get_version_id("DELETE_FACTOR_URL")
         if version_id == 1:
             url = self.get_url(Constants.DELETE_FACTOR_URL, user_id, device_id, version_id=version_id)
         else:
@@ -2586,7 +2586,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GENERATE_INVITE_LINK_URL)
+        version_id = self.get_version_id("GENERATE_INVITE_LINK_URL")
         url = self.get_url(Constants.GENERATE_INVITE_LINK_URL, version_id=version_id)
 
         data = {
@@ -2624,7 +2624,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SEND_INVITE_LINK_URL)
+        version_id = self.get_version_id("SEND_INVITE_LINK_URL")
         url = self.get_url(Constants.SEND_INVITE_LINK_URL, version_id=version_id)
 
         data = {
@@ -2699,7 +2699,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ACCOUNT_BRANDS_URL)
+        version_id = self.get_version_id("GET_ACCOUNT_BRANDS_URL")
         url = self.get_url(Constants.GET_ACCOUNT_BRANDS_URL, version_id=version_id)
 
         return self.retrieve_resources(Brand, url, query_parameters, max_results, version_id)
@@ -2725,7 +2725,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_ACCOUNT_BRAND_URL)
+        version_id = self.get_version_id("CREATE_ACCOUNT_BRAND_URL")
         url = self.get_url(Constants.CREATE_ACCOUNT_BRAND_URL, version_id=version_id)
 
         return self.create_resource(Brand, url, brand_params, None, version_id)
@@ -2747,7 +2747,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ACCOUNT_BRAND_URL)
+        version_id = self.get_version_id("GET_ACCOUNT_BRAND_URL")
         url = self.get_url(Constants.GET_ACCOUNT_BRAND_URL, brand_id, version_id=version_id)
 
         return self.retrieve_resource(Brand, url, version_id)
@@ -2776,7 +2776,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_ACCOUNT_BRAND_URL)
+        version_id = self.get_version_id("UPDATE_ACCOUNT_BRAND_URL")
         url = self.get_url(Constants.UPDATE_ACCOUNT_BRAND_URL, brand_id, version_id=version_id)
 
         return self.update_resource(Brand, url, brand_params, None, version_id)
@@ -2799,7 +2799,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_ACCOUNT_BRAND_URL)
+        version_id = self.get_version_id("DELETE_ACCOUNT_BRAND_URL")
         url = self.get_url(Constants.DELETE_ACCOUNT_BRAND_URL, brand_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -2825,7 +2825,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_APPS_BRAND_URL)
+        version_id = self.get_version_id("GET_APPS_BRAND_URL")
         url = self.get_url(Constants.GET_APPS_BRAND_URL, brand_id, version_id=version_id)
 
         return self.retrieve_resources(OneLoginApp, url, None, max_results, version_id)
@@ -2845,7 +2845,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_ACCOUNT_EMAIL_SETTINGS)
+        version_id = self.get_version_id("GET_ACCOUNT_EMAIL_SETTINGS")
         url = self.get_url(Constants.GET_ACCOUNT_EMAIL_SETTINGS, version_id=version_id)
 
         response = self.execute_call('get', url)
@@ -2868,7 +2868,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_ACCOUNT_EMAIL_SETTINGS)
+        version_id = self.get_version_id("UPDATE_ACCOUNT_EMAIL_SETTINGS")
         url = self.get_url(Constants.UPDATE_ACCOUNT_EMAIL_SETTINGS, version_id=version_id)
 
         return self.update_operation(url, email_settings)
@@ -2887,7 +2887,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_ACCOUNT_EMAIL_SETTINGS)
+        version_id = self.get_version_id("UPDATE_ACCOUNT_EMAIL_SETTINGS")
         url = self.get_url(Constants.UPDATE_ACCOUNT_EMAIL_SETTINGS, version_id=version_id)
 
         # version 1 status code
@@ -2915,7 +2915,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_HOOKS_URL)
+        version_id = self.get_version_id("GET_HOOKS_URL")
         url = self.get_url(Constants.GET_HOOKS_URL, version_id=version_id)
 
         return self.retrieve_resource_list(SmartHook, url, query_parameters, max_results, version_id)
@@ -2940,7 +2940,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_HOOK_URL)
+        version_id = self.get_version_id("CREATE_HOOK_URL")
         url = self.get_url(Constants.CREATE_HOOK_URL, version_id=version_id)
 
         return self.create_resource(SmartHook, url, smart_hook_params, None, version_id)
@@ -2962,7 +2962,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_HOOK_URL)
+        version_id = self.get_version_id("GET_HOOK_URL")
         url = self.get_url(Constants.GET_HOOK_URL, smart_hook_id, version_id=version_id)
 
         return self.retrieve_resource(SmartHook, url, version_id)
@@ -2990,7 +2990,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_HOOK_URL)
+        version_id = self.get_version_id("UPDATE_HOOK_URL")
         url = self.get_url(Constants.UPDATE_HOOK_URL, smart_hook_id, version_id=version_id)
 
         return self.update_resource(SmartHook, url, smart_hook_params, None, version_id)
@@ -3011,7 +3011,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_HOOK_URL)
+        version_id = self.get_version_id("UPDATE_HOOK_URL")
         url = self.get_url(Constants.UPDATE_HOOK_URL, smart_hook_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -3040,7 +3040,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_HOOK_LOGS_URL)
+        version_id = self.get_version_id("GET_HOOK_LOGS_URL")
         url = self.get_url(Constants.GET_HOOK_LOGS_URL, smart_hook_id, version_id=version_id)
 
         return self.retrieve_resource_list(SmartHookLog, url, query_parameters, max_results, version_id)
@@ -3063,7 +3063,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_HOOK_ENVS_URL)
+        version_id = self.get_version_id("GET_HOOK_ENVS_URL")
         url = self.get_url(Constants.GET_HOOK_ENVS_URL, version_id=version_id)
 
         return self.retrieve_resource_list(SmartHookEnv, url, None, max_results, version_id)
@@ -3085,7 +3085,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_HOOK_ENV_URL)
+        version_id = self.get_version_id("CREATE_HOOK_ENV_URL")
         url = self.get_url(Constants.CREATE_HOOK_ENV_URL, version_id=version_id)
 
         return self.create_resource(SmartHookEnv, url, env_var_params, None, version_id)
@@ -3107,7 +3107,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_HOOK_ENV_URL)
+        version_id = self.get_version_id("GET_HOOK_ENV_URL")
         url = self.get_url(Constants.GET_HOOK_ENV_URL, env_var_id, version_id=version_id)
 
         return self.retrieve_resource(SmartHookEnv, url, version_id)
@@ -3139,7 +3139,7 @@ class OneLoginClient(object):
                 "value": value
             }
 
-        version_id = self.get_version_id(Constants.UPDATE_HOOK_ENV_URL)
+        version_id = self.get_version_id("UPDATE_HOOK_ENV_URL")
         url = self.get_url(Constants.UPDATE_HOOK_ENV_URL, env_var_id, version_id=version_id)
 
         return self.update_resource(SmartHookEnv, url, env_var_params, None, version_id)
@@ -3160,7 +3160,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_HOOK_ENV_URL)
+        version_id = self.get_version_id("DELETE_HOOK_ENV_URL")
         url = self.get_url(Constants.DELETE_HOOK_ENV_URL, env_var_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -3184,7 +3184,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SMART_MFA_VALIDATE_USER)
+        version_id = self.get_version_id("SMART_MFA_VALIDATE_USER")
         url = self.get_url(Constants.SMART_MFA_VALIDATE_USER, version_id=version_id)
 
         return self.create_resource(SmartMFA, url, validate_user_params, None, version_id)
@@ -3208,7 +3208,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.SMART_MFA_VERFY_TOKEN)
+        version_id = self.get_version_id("SMART_MFA_VERFY_TOKEN")
         url = self.get_url(Constants.SMART_MFA_VERFY_TOKEN, version_id=version_id)
 
         data = {
@@ -3244,7 +3244,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.TRACK_EVENT_URL)
+        version_id = self.get_version_id("TRACK_EVENT_URL")
         url = self.get_url(Constants.TRACK_EVENT_URL, version_id=version_id)
 
         return self.submit_operation(url, track_event_params)
@@ -3268,7 +3268,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_RISK_SCORE_URL)
+        version_id = self.get_version_id("GET_RISK_SCORE_URL")
         url = self.get_url(Constants.GET_RISK_SCORE_URL, version_id=version_id)
 
         return self.create_resource(RiskScore, url, track_event_params, None, version_id)
@@ -3287,7 +3287,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_RISK_RULES_URL)
+        version_id = self.get_version_id("GET_RISK_RULES_URL")
         url = self.get_url(Constants.GET_RISK_RULES_URL, version_id=version_id)
         return self.retrieve_resources(RiskRule, url, None, None, version_id)
 
@@ -3308,7 +3308,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_RISK_RULE_URL)
+        version_id = self.get_version_id("GET_RISK_RULE_URL")
         url = self.get_url(Constants.GET_RISK_RULE_URL, risk_rule_id, version_id=version_id)
 
         return self.retrieve_resource(RiskRule, url, version_id)
@@ -3330,7 +3330,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_RISK_RULE_URL)
+        version_id = self.get_version_id("CREATE_RISK_RULE_URL")
         url = self.get_url(Constants.CREATE_RISK_RULE_URL, version_id=version_id)
 
         return self.create_resource(RiskRule, url, risk_rule_params, None, version_id)
@@ -3355,7 +3355,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_RISK_RULE_URL)
+        version_id = self.get_version_id("UPDATE_RISK_RULE_URL")
         url = self.get_url(Constants.UPDATE_RISK_RULE_URL, risk_rule_id, version_id=version_id)
 
         return self.update_resource(RiskRule, url, risk_rule_params, None, version_id)
@@ -3378,7 +3378,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_RISK_RULE_URL)
+        version_id = self.get_version_id("DELETE_RISK_RULE_URL")
         url = self.get_url(Constants.DELETE_RISK_RULE_URL, risk_rule_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -3400,7 +3400,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_SCORE_INSIGHTS)
+        version_id = self.get_version_id("GET_SCORE_INSIGHTS")
         url = self.get_url(Constants.GET_SCORE_INSIGHTS, version_id=version_id)
 
         return self.retrieve_resource(RiskScoreInsights, url, version_id)
@@ -3423,7 +3423,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_MAPPINGS_URL)
+        version_id = self.get_version_id("GET_MAPPINGS_URL")
         url = self.get_url(Constants.GET_MAPPINGS_URL, version_id=version_id)
 
         return self.retrieve_resources(Mapping, url, query_parameters, None, version_id)
@@ -3447,7 +3447,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_MAPPING_URL)
+        version_id = self.get_version_id("CREATE_MAPPING_URL")
         url = self.get_url(Constants.CREATE_MAPPING_URL, version_id=version_id)
 
         if 'actions' in mapping_params:
@@ -3477,7 +3477,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_MAPPING_URL)
+        version_id = self.get_version_id("GET_MAPPING_URL")
         url = self.get_url(Constants.GET_MAPPING_URL, mapping_id, version_id=version_id)
 
         return self.retrieve_resource(Mapping, url, version_id)
@@ -3508,7 +3508,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.UPDATE_MAPPING_URL)
+        version_id = self.get_version_id("UPDATE_MAPPING_URL")
         url = self.get_url(Constants.UPDATE_MAPPING_URL, mapping_id, version_id=version_id)
 
         return self.update_resource(Mapping, url, mapping_params, None, version_id)
@@ -3531,7 +3531,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DELETE_MAPPING_URL)
+        version_id = self.get_version_id("DELETE_MAPPING_URL")
         url = self.get_url(Constants.DELETE_MAPPING_URL, mapping_id, version_id=version_id)
 
         return self.delete_resource(url, version_id)
@@ -3557,7 +3557,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.DRYRUN_MAPPING_URL)
+        version_id = self.get_version_id("DRYRUN_MAPPING_URL")
         url = self.get_url(Constants.DRYRUN_MAPPING_URL, mapping_id, version_id=version_id)
 
         response = self.execute_call('post', url, json=user_ids)
@@ -3588,7 +3588,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_MAPPING_CONDITIONS_URL)
+        version_id = self.get_version_id("GET_MAPPING_CONDITIONS_URL")
         url = self.get_url(Constants.GET_MAPPING_CONDITIONS_URL, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -3610,7 +3610,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_MAPPING_CONDITION_OPERATORS_URL)
+        version_id = self.get_version_id("GET_MAPPING_CONDITION_OPERATORS_URL")
         url = self.get_url(Constants.GET_MAPPING_CONDITION_OPERATORS_URL, condition_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -3632,7 +3632,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_MAPPING_CONDITION_VALUES_URL)
+        version_id = self.get_version_id("GET_MAPPING_CONDITION_VALUES_URL")
         url = self.get_url(Constants.GET_MAPPING_CONDITION_VALUES_URL, condition_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -3651,7 +3651,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_MAPPING_ACTIONS_URL)
+        version_id = self.get_version_id("GET_MAPPING_ACTIONS_URL")
         url = self.get_url(Constants.GET_MAPPING_ACTIONS_URL, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -3673,7 +3673,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.GET_MAPPING_ACTION_VALUES_URL)
+        version_id = self.get_version_id("GET_MAPPING_ACTION_VALUES_URL")
         url = self.get_url(Constants.GET_MAPPING_ACTION_VALUES_URL, action_value, version_id=version_id)
 
         return self.retrieve_list(url, version_id)
@@ -3695,7 +3695,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.MAPPING_SORT_URL)
+        version_id = self.get_version_id("MAPPING_SORT_URL")
         url = self.get_url(Constants.MAPPING_SORT_URL, version_id=version_id)
 
         return self.set_operation(url, mapping_ids, version_id)
@@ -3716,7 +3716,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.LIST_PRIVILEGES_URL)
+        version_id = self.get_version_id("LIST_PRIVILEGES_URL")
         url = self.get_url(Constants.LIST_PRIVILEGES_URL, version_id=version_id)
 
         # It has version 2 result
@@ -3746,7 +3746,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.CREATE_PRIVILEGE_URL)
+        version_id = self.get_version_id("CREATE_PRIVILEGE_URL")
         url = self.get_url(Constants.CREATE_PRIVILEGE_URL, version_id=version_id)
 
         statement_data = []
@@ -3801,7 +3801,7 @@ class OneLoginClient(object):
 
         privilege_id = str(privilege_id)
 
-        version_id = self.get_version_id(Constants.GET_PRIVILEGE_URL)
+        version_id = self.get_version_id("GET_PRIVILEGE_URL")
         url = self.get_url(Constants.GET_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
         # It has version 2 result
@@ -3836,7 +3836,7 @@ class OneLoginClient(object):
 
         privilege_id = str(privilege_id)
 
-        version_id = self.get_version_id(Constants.UPDATE_PRIVILEGE_URL)
+        version_id = self.get_version_id("UPDATE_PRIVILEGE_URL")
         url = self.get_url(Constants.UPDATE_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
         statement_data = []
@@ -3890,7 +3890,7 @@ class OneLoginClient(object):
 
         privilege_id = str(privilege_id)
 
-        version_id = self.get_version_id(Constants.DELETE_PRIVILEGE_URL)
+        version_id = self.get_version_id("DELETE_PRIVILEGE_URL")
         url = self.get_url(Constants.DELETE_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
         # Version 2 result, no content
@@ -3920,7 +3920,7 @@ class OneLoginClient(object):
         if max_results is None:
             max_results = self.max_results if self.max_results > 1000 else 1000
 
-        version_id = self.get_version_id(Constants.GET_ROLES_ASSIGNED_TO_PRIVILEGE_URL)
+        version_id = self.get_version_id("GET_ROLES_ASSIGNED_TO_PRIVILEGE_URL")
         url = self.get_url(Constants.GET_ROLES_ASSIGNED_TO_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
         role_ids = []
@@ -3976,7 +3976,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.ASSIGN_ROLES_TO_PRIVILEGE_URL)
+        version_id = self.get_version_id("ASSIGN_ROLES_TO_PRIVILEGE_URL")
         url = self.get_url(Constants.ASSIGN_ROLES_TO_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
         data = {
@@ -4006,7 +4006,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.REMOVE_ROLE_FROM_PRIVILEGE_URL)
+        version_id = self.get_version_id("REMOVE_ROLE_FROM_PRIVILEGE_URL")
         url = self.get_url(Constants.REMOVE_ROLE_FROM_PRIVILEGE_URL, privilege_id, role_id, version_id=version_id)
 
         # Version 2 result, no content
@@ -4036,7 +4036,7 @@ class OneLoginClient(object):
         if max_results is None:
             max_results = self.max_results if self.max_results > 1000 else 1000
 
-        version_id = self.get_version_id(Constants.GET_USERS_ASSIGNED_TO_PRIVILEGE_URL)
+        version_id = self.get_version_id("GET_USERS_ASSIGNED_TO_PRIVILEGE_URL")
         url = self.get_url(Constants.GET_USERS_ASSIGNED_TO_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
         user_ids = []
@@ -4092,7 +4092,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.ASSIGN_USERS_TO_PRIVILEGE_URL)
+        version_id = self.get_version_id("ASSIGN_USERS_TO_PRIVILEGE_URL")
         url = self.get_url(Constants.ASSIGN_USERS_TO_PRIVILEGE_URL, privilege_id, version_id=version_id)
 
         data = {
@@ -4122,7 +4122,7 @@ class OneLoginClient(object):
         """
         self.clean_error()
 
-        version_id = self.get_version_id(Constants.REMOVE_USER_FROM_PRIVILEGE_URL)
+        version_id = self.get_version_id("REMOVE_USER_FROM_PRIVILEGE_URL")
         url = self.get_url(Constants.REMOVE_USER_FROM_PRIVILEGE_URL, privilege_id, user_id, version_id=version_id)
 
         # Version 2 result, no content
