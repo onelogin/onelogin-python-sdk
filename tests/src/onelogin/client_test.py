@@ -60,3 +60,14 @@ class OneLogin_API_Client_Test(unittest.TestCase):
         )
         self.assertIsNone(client.error)
         self.assertIsNone(client.error_description)
+
+    def testGetVersionID(self):
+        """
+        Tests the method to get endpoint version
+        """
+        client = OneLoginClient(
+            client_id='test_client_id',
+            client_secret='test_client_secret',
+        )
+        version = client.get_version_id('GET_APPS_URL')
+        self.assertEqual(version, 1)

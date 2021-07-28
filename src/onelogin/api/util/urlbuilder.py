@@ -9,7 +9,6 @@ UrlBuilder class of the OneLogin's Python SDK.
 
 """
 from onelogin.api.util.endpoints import Endpoints
-
 import sys
 if sys.version_info[0] >= 3:
     unicode = str
@@ -60,8 +59,8 @@ class UrlBuilder(object):
 
         version = None
         if resource_data is not None:
-            resource = resource_data.keys()[0]
-            resource_values = resource_data.values()[0]
+            resource = next(iter(resource_data))
+            resource_values = resource_data[resource]
             if resource not in api_configuration.keys():
                 version = resource_values[-1]
             elif api_configuration[resource] in resource_values:
