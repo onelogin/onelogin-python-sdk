@@ -60,8 +60,8 @@ class UrlBuilder(object):
 
         version = None
         if resource_data is not None:
-            resource = resource_data.keys()[0]
-            resource_values = resource_data.values()[0]
+            resource = list(resource_data.keys())[0]
+            resource_values = list(resource_data.values())[0]
             if resource not in api_configuration.keys():
                 version = resource_values[-1]
             elif api_configuration[resource] in resource_values:

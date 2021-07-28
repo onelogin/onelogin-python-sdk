@@ -37,7 +37,7 @@ def get_resource_or_id(resource_cls, json_data, version_id):
         data = json_data
 
     if data:
-        if data.keys() == ["id"]:
+        if list(data.keys()) == ["id"]:
             resource = data["id"]
         else:
             resource = resource_cls(data)
