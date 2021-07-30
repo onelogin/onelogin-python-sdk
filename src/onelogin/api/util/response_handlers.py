@@ -190,7 +190,11 @@ def handle_saml_endpoint_response(response, version_id):
                         saml_endpoint_response.mfa = mfa
         elif version_id == 2:
             if 'message' in content:
-                status_type = "success"
+                status_type = None
+                if content['message'] == "Success" or "MFA is required" in content['message']:
+                    status_type = "success"
+                elif "pending" in content['message']:
+                    status_type = "pending"
                 status_message = content['message']
                 saml_endpoint_response = SAMLEndpointResponse(status_type, status_message)
                 if 'data' in content:
