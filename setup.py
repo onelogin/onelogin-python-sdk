@@ -51,6 +51,8 @@ setup(
             'pylint>=1,<3',
             'pep8>=1,<2',
             'pyflakes>=1,<3',
-        ),
+            "mock; python_version < '3.3'"
+        )
     },
-    keywords='onelogin api sdk',)
+    keywords='onelogin api sdk',
+)
