@@ -10,37 +10,47 @@ from onelogin.api.models.session_token_mfa_info import SessionTokenMFAInfo
 
 def get_resource_list(resource_cls, json_data, index, version_id):
     resources = []
-    if version_id == 1 and json_data and json_data.get('data', None):
-        if index is not None:
-            data = json_data['data'][index]
-        else:
-            data = json_data['data']
-    elif version_id == 2 and json_data is not None:
-        data = json_data
+    data = None
+    if json_data:
+        if version_id == 1 and isinstance(json_data, dict) and json_data.get('data', None):
+            if index is not None:
+                data = json_data['data'][index]
+            else:
+                data = json_data['data']
+        elif version_id == 2:
+            data = json_data
 
     if data:
         for data_item in data:
-            if data_item:
+            if isinstance(data_item, dict):
                 resources.append(resource_cls(data_item))
 
     return resources
 
 
 def get_resource_or_id(resource_cls, json_data, version_id):
-    resource = None
-    if version_id == 1 and json_data and json_data.get('data', None):
-        if isinstance(json_data['data'], list):
-            data = json_data['data'][0]
-        else:
-            data = json_data['data']
-    elif version_id == 2 and json_data is not None:
-        data = json_data
+    data = resource = None
 
-    if data:
-        if list(data.keys()) == ["id"]:
-            resource = data["id"]
-        else:
-            resource = resource_cls(data)
+    if json_data:
+        if version_id == 1 and isinstance(json_data, dict) and json_data.get('data', None):
+            if isinstance(json_data['data'], list):
+                data = json_data['data'][0]
+            else:
+                data = json_data['data']
+        elif version_id == 2:
+            if isinstance(json_data, list):
+                data = json_data[0]
+            else:
+                data = json_data
+
+        if data:
+            if isinstance(data, dict):
+                if list(data.keys()) == ["id"]:
+                    resource = data["id"]
+                else:
+                    resource = resource_cls(data)
+            else:
+                resource = data
     return resource
 
 
@@ -84,22 +94,25 @@ def extract_error_message_from_response(response):
 def extract_error_attribute_from_response(response):
     attribute = None
     content = response.json()
-    if content and 'status' in content:
-        status = content['status']
-        if isinstance(status, dict) and 'message' in status:
-            if isinstance(status['message'], dict):
-                if 'attribute' in status['message']:
-                    attribute = status['message']['attribute']
-    elif "message" in content and "unknown attribute" in content["message"]:
-        attribute = content["message"].replace("unknown attribute: ", "")
-    elif "message" in content and "errors" in content:
-        errors = []
-        for error in content["errors"]:
-            if "field" in error and "message" in error:
-                field = error["field"]
-                error_detail = ". ".join(error["message"])
-                errors.append("Field: %s - %s" % (field, error_detail))
-        attribute = ". ".join(errors)
+    if content:
+        if 'status' in content:
+            status = content['status']
+            if isinstance(status, dict) and 'message' in status:
+                if isinstance(status['message'], dict):
+                    if 'attribute' in status['message']:
+                        attribute = status['message']['attribute']
+        elif "message" in content and "unknown attribute" in content["message"]:
+            attribute = content["message"].replace("unknown attribute: ", "")
+        elif "message" in content and "errors" in content:
+            errors = []
+            for error in content["errors"]:
+                if "field" in error and "message" in error:
+                    field = error["field"]
+                    error_detail = ". ".join(error["message"])
+                    errors.append("Field: %s - %s" % (field, error_detail))
+            attribute = ". ".join(errors)
+        elif "message" in content and "field" in content:
+            attribute = content["field"]
     return attribute
 
 
@@ -169,7 +182,7 @@ def handle_session_token_response(response):
         elif content['status']['message'] == "MFA is required for this user":
             session_token = SessionTokenMFAInfo(content['data'][0])
         else:
-            raise Exception("Status Message type not reognized: %s" % content['status']['message'])
+            raise Exception("Status Message type not recognized: %s" % content['status']['message'])
     return session_token
 
 
@@ -199,7 +212,7 @@ def handle_saml_endpoint_response(response, version_id):
                 saml_endpoint_response = SAMLEndpointResponse(status_type, status_message)
                 if 'data' in content:
                     saml_endpoint_response.saml_response = str(content['data'])
-                else:
+                elif "state_token" in content:
                     mfa = MFA(content)
                     saml_endpoint_response.mfa = mfa
     except:

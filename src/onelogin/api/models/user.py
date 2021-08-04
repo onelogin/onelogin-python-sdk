@@ -88,6 +88,7 @@ class User(Base):
         user_data.manager_ad_id = self.manager_ad_id
         user_data.trusted_idp_id = self.trusted_idp_id
         user_data.manager_user_id = self.manager_user_id
+        return user_data
 
     def get_user_metadata(self):
         user_metadata = UserMetadata()
@@ -101,6 +102,7 @@ class User(Base):
         user_metadata.last_login = self.last_login
         user_metadata.locked_until = self.locked_until
         user_metadata.comment = self.comment
+        return user_metadata
 
     def get_custom_attributes(self):
         return self.custom_attributes

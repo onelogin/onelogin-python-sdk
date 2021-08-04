@@ -12,8 +12,12 @@ def str2bool(v):
         return None
     elif type(v) == bool:
         return v
-    else:
+    elif type(v) == str:
         return v.lower() in ("yes", "true", "t", "1")
+    elif type(v) == int:
+        return bool(v)
+    else:
+        return False
 
 
 def str2date(v):

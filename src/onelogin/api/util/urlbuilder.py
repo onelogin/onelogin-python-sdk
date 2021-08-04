@@ -27,7 +27,7 @@ class UrlBuilder(object):
     subdomain = None
 
     def __init__(self, region='us', subdomain=None):
-        self.region = region
+        self.region = "us" if region is None else region
         self.subdomain = subdomain
 
     def get_url(self, base, obj_id=None, extra_id=None, version_id=None):
@@ -73,3 +73,4 @@ class UrlBuilder(object):
     def validate_id(self, resource_id):
         if not (type(resource_id) is str or type(resource_id) is unicode or type(resource_id) is int or type(resource_id) is long):
             raise Exception("Resource id needs to be provided as string or int/long")
+        return True
