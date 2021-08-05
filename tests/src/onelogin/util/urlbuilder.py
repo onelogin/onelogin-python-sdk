@@ -67,18 +67,18 @@ class OneLogin_API_Client_Util_UrlBuilder(unittest.TestCase):
 
         api_configuration = {}
         self.assertIsNone(urlbuilder.get_version_id(api_configuration, "GET_RATE_URL"))
-        self.assertEquals(urlbuilder.get_version_id(api_configuration, "GET_USERS_URL"), 2)
-        self.assertEquals(urlbuilder.get_version_id(api_configuration, "GET_EVENTS_URL"), 1)
+        self.assertEqual(urlbuilder.get_version_id(api_configuration, "GET_USERS_URL"), 2)
+        self.assertEqual(urlbuilder.get_version_id(api_configuration, "GET_EVENTS_URL"), 1)
 
         api_configuration = {"user": 1, "event": 1}
         self.assertIsNone(urlbuilder.get_version_id(api_configuration, "GET_RATE_URL"))
-        self.assertEquals(urlbuilder.get_version_id(api_configuration, "GET_USERS_URL"), 1)
-        self.assertEquals(urlbuilder.get_version_id(api_configuration, "GET_EVENTS_URL"), 1)
+        self.assertEqual(urlbuilder.get_version_id(api_configuration, "GET_USERS_URL"), 1)
+        self.assertEqual(urlbuilder.get_version_id(api_configuration, "GET_EVENTS_URL"), 1)
 
         api_configuration = {"user": 2, "event": 2}
         self.assertIsNone(urlbuilder.get_version_id(api_configuration, "GET_RATE_URL"))
-        self.assertEquals(urlbuilder.get_version_id(api_configuration, "GET_USERS_URL"), 2)
-        self.assertEquals(urlbuilder.get_version_id(api_configuration, "GET_EVENTS_URL"), 1)
+        self.assertEqual(urlbuilder.get_version_id(api_configuration, "GET_USERS_URL"), 2)
+        self.assertEqual(urlbuilder.get_version_id(api_configuration, "GET_EVENTS_URL"), 1)
 
     def testvalidateId(self):
         urlbuilder = UrlBuilder()

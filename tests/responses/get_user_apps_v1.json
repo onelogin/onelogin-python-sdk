@@ -1,0 +1,1 @@
+{"status":{"error":false,"code":200,"type":"success","message":"Success"},"data":[{"id":1068583,"name":"SAML Test Connector (Advanced)","icon":"/images/missing_connector_icon/square/mobile_50.png","provisioned":null,"extension":false,"login_id":"usermfa@example.com","personal":false}]}
