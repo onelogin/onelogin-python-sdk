@@ -105,6 +105,24 @@ class OneLogin_API_OneLogin_App_Test(unittest.TestCase):
 
     def getTestBrandAppsV2(self):
         test_app = OneLoginApp({})
+        test_app.allow_assumed_signin = None
+        test_app.auth_method = 2
+        test_app.auth_method_description = "SAML2.0"
+        test_app.brand_id = None
+        test_app.configuration = None
+        test_app.connector_id = 3001
+        test_app.created_at = datetime.datetime(2020, 9, 8, 22, 24, 19, 551000, tzinfo=tzutc())
+        test_app.description = "Mom’s Friendly Robot Company"
+        test_app.icon_url = None
+        test_app.id = 1455
+        test_app.name = "Mom Corp"
+        test_app.notes = None
+        test_app.parameters = None
+        test_app.policy_id = None
+        test_app.role_ids = None
+        test_app.tab_id = None
+        test_app.updated_at = datetime.datetime(2020, 9, 11, 19, 35, 8, 288000, tzinfo=tzutc())
+        test_app.visible = True
         return test_app
 
     def testAppAttributes(self):
@@ -133,7 +151,16 @@ class OneLogin_API_OneLogin_App_Test(unittest.TestCase):
 
     def testAppV2_2Payload(self):
         app = OneLoginApp(self.app_v2_payload_2);
-        self.assertEqual(unicode(app), unicode(self.getTestAppV2_2()))
+        expected_app = self.getTestAppV2_2()
+        self.assertEqual(app.configuration,expected_app.configuration)
+        app.configuration = expected_app.configuration = {}
+        self.assertEqual(app.parameters,expected_app.parameters)
+        app.parameters = expected_app.parameters = {}
+        self.assertEqual(app.provisioning,expected_app.provisioning)
+        app.provisioning = expected_app.provisioning = {}
+        self.assertEqual(app.sso,expected_app.sso)
+        app.sso = expected_app.sso = {}
+        self.assertEqual(unicode(app), unicode(expected_app))
 
     def testBrandAppsV2Payload(self):
         app = OneLoginApp(self.brand_apps_v2_paylad);

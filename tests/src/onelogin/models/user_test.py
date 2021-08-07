@@ -54,7 +54,6 @@ class OneLogin_API_User_Test(unittest.TestCase):
         "trusted_idp_id": None
     }
 
-
     user_v1_payload = {
         "activated_at": "2019-12-02T17:16:03.432Z",
         "created_at": "2019-12-02T17:15:44.371Z",
@@ -95,7 +94,6 @@ class OneLogin_API_User_Test(unittest.TestCase):
         "trusted_idp_id": None
     }
 
-
     users_v2_payload = {
         "activated_at": None,
         "distinguished_name": None,
@@ -120,7 +118,6 @@ class OneLogin_API_User_Test(unittest.TestCase):
         "status": 1,
         "samaccountname": None
     }
-
 
     user_v2_payload = {
         "activated_at": "2017-12-12T23:59:28.665Z",
@@ -164,7 +161,6 @@ class OneLogin_API_User_Test(unittest.TestCase):
         "samaccountname": None
     }
 
-
     dry_run_mapping_user = {
       "id": 2,
       "firstname": "Mike",
@@ -172,7 +168,6 @@ class OneLogin_API_User_Test(unittest.TestCase):
       "username": "miketester",
       "email": "miketester@onelogin.com"
     }
-
 
     def getTestUserV1(self):
         test_user = User({})
@@ -256,7 +251,7 @@ class OneLogin_API_User_Test(unittest.TestCase):
         test_user.comment = ""
         test_user.company = "WSL"
         test_user.created_at = datetime.datetime(2017, 12, 12, 23, 57, 56, 781000, tzinfo=tzutc())
-        test_user.custom_attributes = {'food': 'chicken', 'employeenumber': None}
+        test_user.custom_attributes = {'employeenumber': None, 'food': 'chicken'}
         test_user.department = "Waves"
         test_user.directory_id = None
         test_user.distinguished_name = None
