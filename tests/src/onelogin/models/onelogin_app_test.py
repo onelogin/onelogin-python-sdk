@@ -128,7 +128,7 @@ class OneLogin_API_OneLogin_App_Test(unittest.TestCase):
     def testAppAttributes(self):
         """
         Tests the constructor method of the OneLoginApp class
-        Build a OneLoginApp object and check if all the required expected attributes 
+        Build a OneLoginApp object and check if all the required expected attributes
         exist as described in the OneLoginApp Resource of the OneLogin API
         """
         app = OneLoginApp(data={})
@@ -138,30 +138,26 @@ class OneLogin_API_OneLogin_App_Test(unittest.TestCase):
             self.assertTrue(hasattr(app, attr), "OneLoginApp has no attribute '{}'".format(attr))
 
     def testAppsV1Payload(self):
-        app = OneLoginApp(self.apps_v1_payload);
-        self.assertEqual(unicode(app), unicode(self.getTestAppsV1()))
+        app = OneLoginApp(self.apps_v1_payload)
+        expected_app = self.getTestAppsV1()
+        self.assertEqual(app.__dict__, expected_app.__dict__)
 
     def testAppsV2Payload(self):
-        app = OneLoginApp(self.apps_v2_payload);
-        self.assertEqual(unicode(app), unicode(self.getTestAppsV2()))
+        app = OneLoginApp(self.apps_v2_payload)
+        expected_app = self.getTestAppsV2()
+        self.assertEqual(app.__dict__, expected_app.__dict__)
 
     def testAppV2Payload(self):
-        app = OneLoginApp(self.apps_v2_payload);
-        self.assertEqual(unicode(app), unicode(self.getTestAppV2()))
+        app = OneLoginApp(self.apps_v2_payload)
+        expected_app = self.getTestAppV2()
+        self.assertEqual(app.__dict__, expected_app.__dict__)
 
     def testAppV2_2Payload(self):
-        app = OneLoginApp(self.app_v2_payload_2);
+        app = OneLoginApp(self.app_v2_payload_2)
         expected_app = self.getTestAppV2_2()
-        self.assertEqual(app.configuration,expected_app.configuration)
-        app.configuration = expected_app.configuration = {}
-        self.assertEqual(app.parameters,expected_app.parameters)
-        app.parameters = expected_app.parameters = {}
-        self.assertEqual(app.provisioning,expected_app.provisioning)
-        app.provisioning = expected_app.provisioning = {}
-        self.assertEqual(app.sso,expected_app.sso)
-        app.sso = expected_app.sso = {}
-        self.assertEqual(unicode(app), unicode(expected_app))
+        self.assertEqual(app.__dict__, expected_app.__dict__)
 
     def testBrandAppsV2Payload(self):
-        app = OneLoginApp(self.brand_apps_v2_paylad);
-        self.assertEqual(unicode(app), unicode(self.getTestBrandAppsV2()))        
+        app = OneLoginApp(self.brand_apps_v2_paylad)
+        expected_app = self.getTestBrandAppsV2()
+        self.assertEqual(app.__dict__, expected_app.__dict__)

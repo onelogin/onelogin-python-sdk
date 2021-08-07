@@ -3,7 +3,9 @@
 from onelogin.api.util.utils import str2int, str2date
 
 from .base import Base
+from .app import App
 from .group import Group
+from .otp_device import OTP_Device
 from .role import Role
 
 
@@ -48,11 +50,23 @@ class Event(Base):
     def get_role(self):
         role = None
         if self.role_id is not None and self.role_name:
-            role = Role(self.role_id, self.role_name)
+            role = Role({'id':self.role_id, 'name':self.role_name})
         return role
 
     def get_group(self):
         group = None
         if self.group_id is not None and self.group_name:
-            group = Group(self.group_id, self.group_name)
+            group = Group({'id': self.group_id, 'name': self.group_name})
         return group
+
+    def get_app(self):
+        app = None
+        if self.app_id is not None and self.app_name:
+            app = App({'id': self.app_id, 'name': self.app_name})
+        return app
+
+    def get_otp_device(self):
+        otp_device = None
+        if self.otp_device_id is not None and self.otp_device_name:
+            otp_device = OTP_Device({'id': self.otp_device_id, 'auth_factor_name': self.otp_device_name})
+        return otp_device

@@ -59,4 +59,6 @@ class OneLogin_API_UserApp_Test(unittest.TestCase):
 
     def testUserAppsV2Payload(self):
         user_app = UserApp(self.user_apps_v2_payload);
-        self.assertEqual(unicode(user_app), unicode(self.getTestUserAppV2()))
+        expected_user_app = self.getTestUserAppV2()
+        for attr in ['connector_id', 'extension', 'icon_url', 'id', 'login_id', 'name', 'provisioning_enabled', 'provisioning_state', 'provisioning_status']:
+            self.assertEqual(getattr(user_app, attr), getattr(expected_user_app, attr))
