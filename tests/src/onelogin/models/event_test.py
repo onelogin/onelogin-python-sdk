@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2017, OneLogin, Inc.
+# Copyright (c) 2021, OneLogin, Inc.
 # All rights reserved.
 from onelogin.api.models.app import App
 from onelogin.api.models.event import Event
@@ -17,7 +17,7 @@ if sys.version_info[0] >= 3:
     unicode = str
 
 # noinspection PySetFunctionToLiteral
-class OneLogin_API_AssignedAdmin_Test(unittest.TestCase):
+class OneLogin_API_Model_Event_Test(unittest.TestCase):
 
     events_v1_payload = {"id": 999999999, "created_at": "2014-12-19T02:02:39.276Z", "account_id": 55555, "user_id": 88888888, "event_type_id": 13, "notes": None, "ipaddr": "11.111.11.111", "actor_user_id": 7777777, "assuming_acting_user_id": None, "role_id": None, "app_id": None,
                          "group_id": None, "otp_device_id": None, "policy_id": None, "actor_system": "", "custom_message": None, "role_name": None, "app_name": None, "group_name": None, "actor_user_name": "Xavier Wong", "user_name": "Xavier Wong", "policy_name": None,
@@ -91,7 +91,7 @@ class OneLogin_API_AssignedAdmin_Test(unittest.TestCase):
         test_event.ipaddr = "123.456.789.0"
         test_event.notes = "Initiated by OneLogin via SAML"
         test_event.operation_name = None
-        test_event.otp_device_id = 3
+        test_event.otp_device_id = "3"
         test_event.otp_device_name = "Device 3"
         test_event.policy_id = None
         test_event.policy_name = None
@@ -156,7 +156,7 @@ Low trust for session (15%)...."""
         event = Event(self.event_v1_payload);
         otp_device = event.get_otp_device()
         self.assertTrue(isinstance(otp_device, OTP_Device))
-        self.assertEqual(otp_device.id, 3)
+        self.assertEqual(otp_device.id, "3")
         self.assertEqual(otp_device.auth_factor_name, "Device 3")
 
     def testEventsV1Payload(self):

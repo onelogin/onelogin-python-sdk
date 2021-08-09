@@ -3,6 +3,10 @@
 from onelogin.api.util.utils import str2bool, str2int, str2date
 from .base import Base
 
+import sys
+if sys.version_info[0] >= 3:
+    unicode = str
+
 
 class FactorEnrollmentResponse(Base):
     def __init__(self, data):
@@ -14,7 +18,10 @@ class FactorEnrollmentResponse(Base):
             # v1
             self.user_id = str2int(data.get('id', None))
 
-        self.device_id = str2int(data.get('device_id', None))
+        device_id = data.get('device_id', None)
+        if device_id:
+            device_id = unicode(device_id)
+        self.device_id = device_id
         self.auth_factor_name = data.get('auth_factor_name', '')
         self.type_display_name = data.get('type_display_name', '')
         self.user_display_name = data.get('user_display_name', '')

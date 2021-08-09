@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2017, OneLogin, Inc.
+# Copyright (c) 2021, OneLogin, Inc.
 # All rights reserved.
 from onelogin.api.models.device import Device
 import unittest
-
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
 
 
 class OneLogin_API_Model_Device_Test(unittest.TestCase):

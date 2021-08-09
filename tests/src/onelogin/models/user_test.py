@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2017, OneLogin, Inc.
+# Copyright (c) 2021, OneLogin, Inc.
 # All rights reserved.
 from onelogin.api.models.user import User, UserData, UserMetadata
 import unittest

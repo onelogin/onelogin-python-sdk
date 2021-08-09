@@ -8,6 +8,10 @@ from .group import Group
 from .otp_device import OTP_Device
 from .role import Role
 
+import sys
+if sys.version_info[0] >= 3:
+    unicode = str
+
 
 class Event(Base):
     def __init__(self, data):
@@ -28,7 +32,10 @@ class Event(Base):
         self.app_name = data.get('app_name', None)
         self.group_id = str2int(data.get('group_id', None))
         self.group_name = data.get('group_name', '')
-        self.otp_device_id = str2int(data.get('otp_device_id', None))
+        otp_device_id = data.get('otp_device_id', None)
+        if otp_device_id:
+            otp_device_id = unicode(otp_device_id)
+        self.otp_device_id = otp_device_id
         self.otp_device_name = data.get('otp_device_name', '')
         self.policy_id = str2int(data.get('policy_id', None))
         self.policy_name = data.get('policy_name', '')

@@ -16,15 +16,18 @@ class Privilege(Base):
     def from_data(self, data):
         self.id = str(data.get('id', ''))
         self.name = data.get('name', '')
-        self.version = data.get('privilege').get('Version', '')
-        statements_data = data.get('privilege').get('Statement', [])
+        self.description = data.get('description', '')
         self.statements = []
-        for statement_data in statements_data:
-            self.statements.append(Statement(statement_data))
+        if data.get('privilege'):
+            self.version = data.get('privilege').get('Version', '')
+            statements_data = data.get('privilege').get('Statement', [])
+            for statement_data in statements_data:
+                self.statements.append(Statement(statement_data))
 
-    def from_values(self, id, name, version, statements):
+    def from_values(self, id, name, version, statements, description=None):
         self.id = str(id)
         self.name = name
+        self.description = description
         self.version = version
         self.statements = []
         for statement in statements:

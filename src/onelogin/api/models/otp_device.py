@@ -4,13 +4,19 @@ from onelogin.api.util.utils import str2int, str2bool, str2date
 
 from .base import Base
 
+import sys
+if sys.version_info[0] >= 3:
+    unicode = str
+
 
 class OTP_Device(Base):
     def __init__(self, data):
         id_data = data.get('id', None)
         if id_data is None:
             id_data = data.get('device_id', None)
-        self.id = str2int(id_data)
+        if id_data:
+            id_data = unicode(id_data)
+        self.id = id_data
         self.auth_factor_name = data.get('auth_factor_name', '')
         self.type_display_name = data.get('type_display_name', '')
         self.user_display_name = data.get('user_display_name', '')

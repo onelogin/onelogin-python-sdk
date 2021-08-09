@@ -10,9 +10,9 @@ class MFA(Base):
         self.state_token = str(data.get('state_token', ''))
         self.callback_url = str(data.get('callback_url', ''))
         self.user = None
-        if data['user']:
+        if data and 'user' in data.keys():
             self.user = User(data['user'])
         self.devices = []
-        if data['devices']:
+        if data and 'devices' in data.keys():
             for device in data['devices']:
                 self.devices.append(Device(device))

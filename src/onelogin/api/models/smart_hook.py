@@ -17,9 +17,13 @@ class SmartHook(Base):
         self.disabled = str2bool(data.get('disabled', True))
         self.status = data.get('status', None)
         self.env_vars = data.get('env_vars', None)
-        self.risk_enabled = str2bool(data.get('risk_enabled', False))
-        self.location_enabled = str2bool(data.get('location_enabled', False))
-        self.mfa_device_info_enabled = str2bool(data.get('mfa_device_info_enabled', False))
-        self.activated_at = str2date(data.get('activated_at', None))
+        self.conditions = data.get('conditions', None)
+        options = data.get('options', None)
+        if options:
+            self.risk_enabled = str2bool(options.get('risk_enabled', False))
+            self.location_enabled = str2bool(options.get('location_enabled', False))
+            self.mfa_device_info_enabled = str2bool(options.get('mfa_device_info_enabled', False))
+        self.created_at = str2date(data.get('created_at', None))
         self.updated_at = str2date(data.get('updated_at', None))
         self.function = data.get('function', None)
+
