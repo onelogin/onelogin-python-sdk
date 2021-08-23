@@ -177,6 +177,7 @@ class OneLoginClient(object):
             if response.status_code == 200:
                 json_data = response.json()
                 if json_data:
+                    data = []
                     if version_id == 1 and json_data.get('data', None):
                         data = json_data['data']
                     elif version_id == 2 and json_data:
