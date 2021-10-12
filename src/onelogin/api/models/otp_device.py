@@ -34,7 +34,7 @@ class OTP_Device(Base):
         if 'status' in data.keys():
             self.status = data.get('status', None)
             if self.status == "accepted":
-                self.active = str2bool(data.get('active', False))
+                self.active = str2bool(data.get('active', True))
         if 'expires_at' in data.keys():
             self.expires_at = str2date(data.get('expires_at', None))
         if 'factor_data' in data.keys():
