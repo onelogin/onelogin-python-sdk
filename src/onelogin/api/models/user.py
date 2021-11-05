@@ -133,6 +133,8 @@ class User(object):
             "state": self.state,
             "member_of": self.member_of,
             "samaccountname": self.samaccountname,
+            "created_at" : self.created_at,
+            "last_login" : self.last_login,
             "invalid_login_attempts": self.invalid_login_attempts,
             "userprincipalname": self.userprincipalname,
             "group_id": self.group_id,
