@@ -33,4 +33,4 @@ class App(Base):
         if 'provisioning_status' in data.keys():
             self.provisioning_status = data.get('provisioning_status', None)
             self.provisioning_state = data.get('provisioning_state', None)
-            self.provisioning_enabled = data.get('provisioning_enabled', None)
+            self.provisioning_enabled = str2bool(data.get('provisioning_enabled', None))
