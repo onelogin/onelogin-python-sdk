@@ -168,7 +168,7 @@ def handle_operation_response(response):
                 result = True
             elif 'name' in content and content['name'] == 'Success':
                 result = True
-    except:
+    except Exception:
         pass
     return result
 
@@ -215,7 +215,7 @@ def handle_saml_endpoint_response(response, version_id):
                 elif "state_token" in content:
                     mfa = MFA(content)
                     saml_endpoint_response.mfa = mfa
-    except:
+    except Exception:
         pass
     return saml_endpoint_response
 

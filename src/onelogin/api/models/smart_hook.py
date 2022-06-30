@@ -26,4 +26,3 @@ class SmartHook(Base):
         self.created_at = str2date(data.get('created_at', None))
         self.updated_at = str2date(data.get('updated_at', None))
         self.function = data.get('function', None)
-
