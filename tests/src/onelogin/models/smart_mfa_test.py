@@ -6,10 +6,6 @@ from onelogin.api.models.risk_score import RiskScore
 from onelogin.api.models.smart_mfa import SmartMFA
 import unittest
 
-import datetime
-from dateutil.tz import tzutc
-
-
 class OneLogin_API_Model_SmartMFA_Test(unittest.TestCase):
 
     validate_user_v2_payload = {"user_id": 60254824, "risk": {"score": 93, "reasons": ["Chrome on Windows is used infrequently", "Kaohsiung City, Kaohsiung, Taiwan is a new location", "Taiwan is a new location", "Chrome on Windows has not been used before", "Accessed from a new IP address", "Accessed from a new browser session", "Infrequent access from 120.118.218.227", "Infrequent access from Kaohsiung City, Kaohsiung, Taiwan", "Infrequent access from Taiwan", "Infrequent access using Chrome on Windows", "Low trust for session", "Browser Cookie Expected"]}, "mfa": {"otp_sent": True, "state_token": "67ff7e91-ec38-467d-b7df-c0f4f61efd73"}}

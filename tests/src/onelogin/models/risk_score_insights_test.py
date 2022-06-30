@@ -4,8 +4,6 @@
 # All rights reserved.
 from onelogin.api.models.risk_score_insights import RiskScoreInsights
 import unittest
-import datetime
-from dateutil.tz import tzutc
 
 class OneLogin_API_Model_RiskScoreInsights_Test(unittest.TestCase):
 

@@ -4,8 +4,6 @@
 # All rights reserved.
 from onelogin.api.models.brand import Brand
 import unittest
-import datetime
-from dateutil.tz import tzutc
 
 import sys
 if sys.version_info[0] >= 3:

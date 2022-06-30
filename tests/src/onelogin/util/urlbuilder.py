@@ -4,8 +4,6 @@
 # All rights reserved.
 
 import unittest
-import datetime
-from dateutil.tz import tzutc
 
 from onelogin.api.util.urlbuilder import UrlBuilder
 from onelogin.api.util.constants import Constants
