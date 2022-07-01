@@ -27,6 +27,6 @@ class OneLogin_API_Model_RiskScoreInsights_Test(unittest.TestCase):
             self.assertTrue(hasattr(risk_score_insights, attr), "RiskScoreInsights has no attribute '{}'".format(attr))
 
     def testRiskScoreInsightsV1Payload(self):
-        risk_score_insights = RiskScoreInsights(self.risk_score_insights_v2_payload);
+        risk_score_insights = RiskScoreInsights(self.risk_score_insights_v2_payload)
         expected_risk_score_insights = self.getTestRiskScoreInsightsV1()
         self.assertEqual(risk_score_insights.__dict__, expected_risk_score_insights.__dict__)

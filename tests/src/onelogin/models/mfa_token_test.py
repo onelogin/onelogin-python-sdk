@@ -7,10 +7,6 @@ import unittest
 import datetime
 from dateutil.tz import tzutc
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 class OneLogin_API_Model_MFAToken_Test(unittest.TestCase):
 
     mfa_token_v1_payload = {"mfa_token": "55647655", "reusable": True, "expires_at": "2019-01-16T22:16:38Z"}
@@ -44,9 +40,9 @@ class OneLogin_API_Model_MFAToken_Test(unittest.TestCase):
             self.assertTrue(hasattr(mfa_token, attr), "MFAToken has no attribute '{}'".format(attr))
 
     def testMFATokenV1Payload(self):
-        mfa_token = MFAToken(self.mfa_token_v1_payload);
-        self.assertEqual(unicode(mfa_token), unicode(self.getTestMFATokenV1()))
+        mfa_token = MFAToken(self.mfa_token_v1_payload)
+        self.assertEqual(mfa_token.__dict__, self.getTestMFATokenV1().__dict__)
 
     def testMFATokenV2Payload(self):
-        mfa_token = MFAToken(self.mfa_token_v2_payload);
-        self.assertEqual(unicode(mfa_token), unicode(self.getTestMFATokenV2()))
+        mfa_token = MFAToken(self.mfa_token_v2_payload)
+        self.assertEqual(mfa_token.__dict__, self.getTestMFATokenV2().__dict__)

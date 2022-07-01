@@ -7,10 +7,6 @@ import unittest
 import datetime
 from dateutil.tz import tzutc
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 class OneLogin_API_Model_OneLoginToken_Test(unittest.TestCase):
 
     access_token_payload = {"access_token": "xx508xx63817x752xx74004x30705xx92x58349x5x78f5xx34xxxxx51", "created_at": "2015-11-11T03:36:18.714Z", "expires_in": 36000, "refresh_token": "628x9x0xx447xx4x421x517x4x474x33x2065x4x1xx523xxxxx6x7x20", "token_type": "bearer", "account_id": 555555}
@@ -49,9 +45,9 @@ class OneLogin_API_Model_OneLoginToken_Test(unittest.TestCase):
             self.assertTrue(hasattr(onelogin_token, attr), "OneLoginToken has no attribute '{}'".format(attr))
 
     def testOneLoginAccessTokenPayload(self):
-        onelogin_token = OneLoginToken(self.access_token_payload);
-        self.assertEqual(unicode(onelogin_token), unicode(self.getTestAccessToken()))
+        onelogin_token = OneLoginToken(self.access_token_payload)
+        self.assertEqual(onelogin_token.__dict__, self.getTestAccessToken().__dict__)
 
     def testOneLoginRefreshTokenPayload(self):
-        onelogin_token = OneLoginToken(self.refresh_token_payload);
-        self.assertEqual(unicode(onelogin_token), unicode(self.getTestRefreshToken()))
+        onelogin_token = OneLoginToken(self.refresh_token_payload)
+        self.assertEqual(onelogin_token.__dict__, self.getTestRefreshToken().__dict__)

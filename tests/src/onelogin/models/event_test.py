@@ -12,10 +12,6 @@ import unittest
 import datetime
 from dateutil.tz import tzutc
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_Model_Event_Test(unittest.TestCase):
 
@@ -120,49 +116,49 @@ Low trust for session (15%)...."""
             self.assertTrue(hasattr(event, attr), "Event has no attribute '{}'".format(attr))
 
     def testGroup(self):
-        event = Event(self.events_v1_payload);
+        event = Event(self.events_v1_payload)
         group = event.get_group()
         self.assertIsNone(group)
-        event = Event(self.event_v1_payload);
+        event = Event(self.event_v1_payload)
         group = event.get_group()
         self.assertTrue(isinstance(group, Group))
         self.assertEqual(group.id, 1)
         self.assertEqual(group.name, "Group 1")
 
     def testRole(self):
-        event = Event(self.events_v1_payload);
+        event = Event(self.events_v1_payload)
         role = event.get_role()
         self.assertIsNone(role)
-        event = Event(self.event_v1_payload);
+        event = Event(self.event_v1_payload)
         role = event.get_role()
         self.assertTrue(isinstance(role, Role))
         self.assertEqual(role.id, 2)
         self.assertEqual(role.name, "Admins")
 
     def testApp(self):
-        event = Event(self.events_v1_payload);
+        event = Event(self.events_v1_payload)
         app = event.get_app()
         self.assertIsNone(app)
-        event = Event(self.event_v1_payload);
+        event = Event(self.event_v1_payload)
         app = event.get_app()
         self.assertTrue(isinstance(app, App))
         self.assertEqual(app.id, 11111)
         self.assertEqual(app.name, "AppWonder")
 
     def testOTPDevice(self):
-        event = Event(self.events_v1_payload);
+        event = Event(self.events_v1_payload)
         otp_device = event.get_otp_device()
         self.assertIsNone(otp_device)
-        event = Event(self.event_v1_payload);
+        event = Event(self.event_v1_payload)
         otp_device = event.get_otp_device()
         self.assertTrue(isinstance(otp_device, OTP_Device))
         self.assertEqual(otp_device.id, "3")
         self.assertEqual(otp_device.auth_factor_name, "Device 3")
 
     def testEventsV1Payload(self):
-        event = Event(self.events_v1_payload);
-        self.assertEqual(unicode(event), unicode(self.getTestEventsV1()))
+        event = Event(self.events_v1_payload)
+        self.assertEqual(event.__dict__, self.getTestEventsV1().__dict__)
 
     def testEventV1Payload(self):
-        event = Event(self.event_v1_payload);
-        self.assertEqual(unicode(event), unicode(self.getTestEventV1()))
+        event = Event(self.event_v1_payload)
+        self.assertEqual(event.__dict__, self.getTestEventV1().__dict__)

@@ -5,11 +5,6 @@
 from onelogin.api.models.mapping import Mapping
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
-
 class OneLogin_API_MappingRule_Test(unittest.TestCase):
 
     mappings_v2_payload = {"id": 196673, "name": "My first mapping", "match": "all", "enabled": True, "position": 1, "conditions": [{"source": "last_login", "operator": ">", "value": "90"}],"actions": [{"action": "set_status", "value": ["2"]}]}
@@ -51,19 +46,19 @@ class OneLogin_API_MappingRule_Test(unittest.TestCase):
             self.assertTrue(hasattr(test_mapping, attr), "Mapping has no attribute '{}'".format(attr))
 
     def testMappingsV2Payload(self):
-        mapping = Mapping(self.mappings_v2_payload);
+        mapping = Mapping(self.mappings_v2_payload)
         expected_mapping = self.getTestMappingsV2()
         self.assertEqual(mapping.actions,expected_mapping.actions)
         mapping.actions = expected_mapping.actions = []
         self.assertEqual(mapping.conditions,expected_mapping.conditions)
         mapping.conditions = expected_mapping.conditions = []
-        self.assertEqual(unicode(mapping), unicode(expected_mapping))   
+        self.assertEqual(mapping.__dict__, expected_mapping.__dict__)   
 
     def testMappingV2Payload(self):
-        mapping = Mapping(self.mapping_v2_payload);
+        mapping = Mapping(self.mapping_v2_payload)
         expected_mapping = self.getTestMappingV2()
         self.assertEqual(mapping.actions,expected_mapping.actions)
         mapping.actions = expected_mapping.actions = []
         self.assertEqual(mapping.conditions,expected_mapping.conditions)
         mapping.conditions = expected_mapping.conditions = []
-        self.assertEqual(unicode(mapping), unicode(expected_mapping))   
+        self.assertEqual(mapping.__dict__, expected_mapping.__dict__)   

@@ -33,6 +33,6 @@ class OneLogin_API_Model_SmartHookLog_Test(unittest.TestCase):
             self.assertTrue(hasattr(smart_hook_log, attr), "SmartHookLog has no attribute '{}'".format(attr))
 
     def testGetHookLogsV2Payload(self):
-        smart_hook_log = SmartHookLog(self.get_hook_logs_v2_payload);
+        smart_hook_log = SmartHookLog(self.get_hook_logs_v2_payload)
         expected_smart_hook_log = self.getTestGetHookLogsV2()
         self.assertEqual(smart_hook_log.__dict__, expected_smart_hook_log.__dict__)

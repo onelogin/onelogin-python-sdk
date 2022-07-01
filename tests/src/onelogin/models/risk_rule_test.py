@@ -5,11 +5,6 @@
 from onelogin.api.models.risk_rule import RiskRule
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
-
 class OneLogin_API_RiskRule_Test(unittest.TestCase):
 
     risk_rules_v2_payload = {"id": "132456789", "name": "IP Blacklist for Guests", "description": "Blacklist for guest account users", "type": "blacklist", "target": "location.ip", "source": "guest-123", "filters": "123.123.123.123"}
@@ -52,9 +47,9 @@ class OneLogin_API_RiskRule_Test(unittest.TestCase):
             self.assertTrue(hasattr(risk_rule, attr), "RiskRule has no attribute '{}'".format(attr))
 
     def testRiskRulesV2Payload(self):
-        risk_rule = RiskRule(self.risk_rules_v2_payload);
-        self.assertEqual(unicode(risk_rule), unicode(self.getTestRiskRulesV2()))        
+        risk_rule = RiskRule(self.risk_rules_v2_payload)
+        self.assertEqual(risk_rule.__dict__, self.getTestRiskRulesV2().__dict__)        
 
     def testRiskRuleV2Payload(self):
-        risk_rule = RiskRule(self.risk_rule_v2_payload);
-        self.assertEqual(unicode(risk_rule), unicode(self.getTestRiskRuleV2()))
+        risk_rule = RiskRule(self.risk_rule_v2_payload)
+        self.assertEqual(risk_rule.__dict__, self.getTestRiskRuleV2().__dict__)

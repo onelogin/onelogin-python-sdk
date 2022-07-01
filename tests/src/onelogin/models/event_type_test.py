@@ -5,10 +5,6 @@
 from onelogin.api.models.event_type import EventType
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_Model_EventType_Test(unittest.TestCase):
 
@@ -33,5 +29,5 @@ class OneLogin_API_Model_EventType_Test(unittest.TestCase):
             self.assertTrue(hasattr(event_type, attr), "EventType has no attribute '{}'".format(attr))
 
     def testEventTypeV1Payload(self):
-        event_type = EventType(self.event_type_v1_payload);
-        self.assertEqual(unicode(event_type), unicode(self.getTestEventTypeV1()))
+        event_type = EventType(self.event_type_v1_payload)
+        self.assertEqual(event_type.__dict__, self.getTestEventTypeV1().__dict__)

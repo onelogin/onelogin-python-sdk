@@ -5,10 +5,6 @@
 from onelogin.api.models.mfa_check_status import MFACheckStatus
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 class OneLogin_API_Model_MFACheckStatus_Test(unittest.TestCase):
 
     verify_enroll_factor_otp_v2_payload = {"id": "406fefd4-8a36-4aee-880c-f3e4a928e27d", "status": "accepted", "device_id": "3919988"}
@@ -41,9 +37,9 @@ class OneLogin_API_Model_MFACheckStatus_Test(unittest.TestCase):
             self.assertTrue(hasattr(mfa_check_status, attr), "MFACheckStatus has no attribute '{}'".format(attr))
 
     def testVerifyEnrollFactorOTPV2Payload(self):
-        mfa_check_status = MFACheckStatus(self.verify_enroll_factor_otp_v2_payload);
-        self.assertEqual(unicode(mfa_check_status), unicode(self.getTestVerifyEnrollFactorOTP_V2()))
+        mfa_check_status = MFACheckStatus(self.verify_enroll_factor_otp_v2_payload)
+        self.assertEqual(mfa_check_status.__dict__, self.getTestVerifyEnrollFactorOTP_V2().__dict__)
 
     def testVerifyEnrollFactorPullV2Payload(self):
-        mfa_check_status = MFACheckStatus(self.verify_enroll_factor_poll_v2_payload);
-        self.assertEqual(unicode(mfa_check_status), unicode(self.getTestVerifyEnrollFactorPull_V2()))
+        mfa_check_status = MFACheckStatus(self.verify_enroll_factor_poll_v2_payload)
+        self.assertEqual(mfa_check_status.__dict__, self.getTestVerifyEnrollFactorPull_V2().__dict__)

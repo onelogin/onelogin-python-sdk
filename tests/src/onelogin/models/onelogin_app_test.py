@@ -7,11 +7,6 @@ import unittest
 import datetime
 from dateutil.tz import tzutc
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
-
 class OneLogin_API_OneLogin_App_Test(unittest.TestCase):
 
     apps_v1_payload = {"id":1056931,"connector_id":78887,"name":"Amazon Web Services (AWS) Multi Account","extension":False,"icon":"https://s3.amazonaws.com/onelogin-assets/images/icons/amazonwebservicesmultiaccount.png","visible":True,"provisioning":False}

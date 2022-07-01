@@ -7,10 +7,6 @@ import unittest
 import datetime
 from dateutil.tz import tzutc
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_User_Test(unittest.TestCase):
 
@@ -351,51 +347,51 @@ class OneLogin_API_User_Test(unittest.TestCase):
             self.assertTrue(hasattr(user, attr), "User has no attribute '{}'".format(attr))
 
     def testUsersV1Payload(self):
-        user = User(self.users_v1_payload);
-        self.assertEqual(unicode(user), unicode(self.getTestUserV1()))
+        user = User(self.users_v1_payload)
+        self.assertEqual(user.__dict__, self.getTestUserV1().__dict__)
 
     def testUserV1Payload(self):
-        user = User(self.user_v1_payload);
-        self.assertEqual(unicode(user), unicode(self.getTestUserV1()))
+        user = User(self.user_v1_payload)
+        self.assertEqual(user.__dict__, self.getTestUserV1().__dict__)
 
     def testUsersV2Payload(self):
-        user = User(self.users_v2_payload);
-        self.assertEqual(unicode(user), unicode(self.getTestUsersV2()))
+        user = User(self.users_v2_payload)
+        self.assertEqual(user.__dict__, self.getTestUsersV2().__dict__)
 
     def testUserV2Payload(self):
-        user = User(self.user_v2_payload);
-        self.assertEqual(unicode(user), unicode(self.getTestUserV2()))
+        user = User(self.user_v2_payload)
+        self.assertEqual(user.__dict__, self.getTestUserV2().__dict__)
 
     def testDryRunMapping(self):
-        user = User(self.dry_run_mapping_user);
-        self.assertEqual(unicode(user), unicode(self.getTestUserDryRun()))
+        user = User(self.dry_run_mapping_user)
+        self.assertEqual(user.__dict__, self.getTestUserDryRun().__dict__)
 
     def testGetRoleIds(self):
-        user = User(self.users_v1_payload);
+        user = User(self.users_v1_payload)
         self.assertEqual(user.get_role_ids(), [77777, 111111])
 
-        user = User(self.users_v2_payload);
+        user = User(self.users_v2_payload)
         self.assertEqual(user.get_role_ids(), [])
 
     def testGetGroupId(self):
-        user = User(self.users_v1_payload);
+        user = User(self.users_v1_payload)
         self.assertEqual(user.get_group_id(), 1)
 
-        user = User(self.users_v2_payload);
+        user = User(self.users_v2_payload)
         self.assertEqual(user.get_group_id(), None)
 
     def testGetCustomAttributes(self):
-        user = User(self.users_v2_payload);
+        user = User(self.users_v2_payload)
         self.assertEqual(user.get_custom_attributes(), {})
 
-        user = User(self.user_v2_payload);
+        user = User(self.user_v2_payload)
         self.assertEqual(user.get_custom_attributes(), {'employeenumber': None, 'food': 'chicken'})
 
     def testGetCustomAttribute(self):
-        user = User(self.users_v2_payload);
+        user = User(self.users_v2_payload)
         self.assertIsNone(user.get_custom_attribute('employeenumber'))
 
-        user = User(self.user_v2_payload);
+        user = User(self.user_v2_payload)
         self.assertIsNone(user.get_custom_attribute('social_id'))
         self.assertIsNone(user.get_custom_attribute('employeenumber'))
         self.assertEqual(user.get_custom_attribute('food'), 'chicken')

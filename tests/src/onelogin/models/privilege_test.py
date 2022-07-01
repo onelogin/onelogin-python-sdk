@@ -61,7 +61,7 @@ class OneLogin_API_Model_Privilege_Test(unittest.TestCase):
         self.assertEqual(Privilege.get_valid_actions(), Constants.VALID_ACTIONS)
 
     def testPrivilegesV1Payload(self):
-        privilege = Privilege(self.privileges_v1_payload);
+        privilege = Privilege(self.privileges_v1_payload)
         expected_privilege = self.getTestPrivilegesV1()
         self.assertEqual(len(privilege.statements), len(expected_privilege.statements))
         for i in range(len(privilege.statements)):
@@ -70,7 +70,7 @@ class OneLogin_API_Model_Privilege_Test(unittest.TestCase):
         self.assertEqual(privilege.__dict__, expected_privilege.__dict__)
 
     def testPrivilegeV1Payload(self):
-        privilege = Privilege(self.privilege_v1_payload);
+        privilege = Privilege(self.privilege_v1_payload)
         expected_privilege = self.getTestPrivilegeV1()
         self.assertEqual(len(privilege.statements), len(expected_privilege.statements))
         for i in range(len(privilege.statements)):

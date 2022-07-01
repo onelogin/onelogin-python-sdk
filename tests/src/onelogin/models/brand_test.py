@@ -5,10 +5,6 @@
 from onelogin.api.models.brand import Brand
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_Model_Brand_Test(unittest.TestCase):
 
@@ -34,5 +30,5 @@ class OneLogin_API_Model_Brand_Test(unittest.TestCase):
             self.assertTrue(hasattr(brand, attr), "Brand has no attribute '{}'".format(attr))
 
     def testBrandV2Payload(self):
-        brand = Brand(self.brand_v2_payload);
-        self.assertEqual(unicode(brand), unicode(self.getTestBrandsV2()))
+        brand = Brand(self.brand_v2_payload)
+        self.assertEqual(brand.__dict__, self.getTestBrandsV2().__dict__)

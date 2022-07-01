@@ -5,11 +5,6 @@
 from onelogin.api.models.app_rule import AppRule
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
-
 class OneLogin_API_Model_AppRule_Test(unittest.TestCase):
 
     app_rules_v2_payload = {"id": 196673, "name": "My first rule", "match": "all", "enabled": True, "position": 1, "conditions": [{"source": "last_login", "operator": ">", "value": "90"}],"actions": [{"action": "set_status","value": ["2"]}]}
@@ -52,19 +47,19 @@ class OneLogin_API_Model_AppRule_Test(unittest.TestCase):
 
 
     def testAppRulesV2Payload(self):
-        app_rule = AppRule(self.app_rules_v2_payload);
+        app_rule = AppRule(self.app_rules_v2_payload)
         expected_app_rule = self.getTestAppRulesV2()
         self.assertEqual(app_rule.actions,expected_app_rule.actions)
         app_rule.actions = expected_app_rule.actions = []
         self.assertEqual(app_rule.conditions,expected_app_rule.conditions)
         app_rule.conditions = expected_app_rule.conditions = []
-        self.assertEqual(unicode(app_rule), unicode(expected_app_rule))   
+        self.assertEqual(app_rule.__dict__, expected_app_rule.__dict__)   
 
     def testAppRuleV2Payload(self):
-        app_rule = AppRule(self.app_rule_v2_payload);
+        app_rule = AppRule(self.app_rule_v2_payload)
         expected_app_rule = self.getTestAppRuleV2()
         self.assertEqual(app_rule.actions,expected_app_rule.actions)
         app_rule.actions = expected_app_rule.actions = []
         self.assertEqual(app_rule.conditions,expected_app_rule.conditions)
         app_rule.conditions = expected_app_rule.conditions = []
-        self.assertEqual(unicode(app_rule), unicode(expected_app_rule))   
+        self.assertEqual(app_rule.__dict__, expected_app_rule.__dict__)   

@@ -29,7 +29,7 @@ class OneLogin_API_Model_SmartMFA_Test(unittest.TestCase):
             self.assertTrue(hasattr(smart_mfa, attr), "SmartMFA has no attribute '{}'".format(attr))
 
     def testValidateUserV2Payload(self):
-        smart_mfa = SmartMFA(self.validate_user_v2_payload);
+        smart_mfa = SmartMFA(self.validate_user_v2_payload)
         expected_smart_mfa = self.getTestValidateUserV2()
         self.assertEqual(smart_mfa.risk.__dict__, expected_smart_mfa.risk.__dict__)
         smart_mfa.risk = expected_smart_mfa.risk = None

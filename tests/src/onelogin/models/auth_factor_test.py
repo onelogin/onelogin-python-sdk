@@ -5,10 +5,6 @@
 from onelogin.api.models.auth_factor import AuthFactor
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_AssignedAdmin_Test(unittest.TestCase):
 
@@ -42,9 +38,9 @@ class OneLogin_API_AssignedAdmin_Test(unittest.TestCase):
             self.assertTrue(hasattr(auth_factor, attr), "AuthFactor has no attribute '{}'".format(attr))
 
     def testAuthFactorsV1Payload(self):
-        auth_factor = AuthFactor(self.auth_factor_v1_payload);
-        self.assertEqual(unicode(auth_factor), unicode(self.getTestAuthFactorsV1()))
+        auth_factor = AuthFactor(self.auth_factor_v1_payload)
+        self.assertEqual(auth_factor.__dict__, self.getTestAuthFactorsV1().__dict__)
 
     def testAuthFactorsV2Payload(self):
-        auth_factor = AuthFactor(self.auth_factor_v2_payload);
-        self.assertEqual(unicode(auth_factor), unicode(self.getTestAuthFactorsV2()))
+        auth_factor = AuthFactor(self.auth_factor_v2_payload)
+        self.assertEqual(auth_factor.__dict__, self.getTestAuthFactorsV2().__dict__)

@@ -8,10 +8,6 @@ import unittest
 import datetime
 from dateutil.tz import tzutc
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_Model_FactorEnrollmentResponse_Test(unittest.TestCase):
 
@@ -68,13 +64,13 @@ class OneLogin_API_Model_FactorEnrollmentResponse_Test(unittest.TestCase):
             self.assertTrue(hasattr(factor_enrollment_response, attr), "FactorEnrollmentResponse has no attribute '{}'".format(attr))
 
     def testFactorEnrollmentResponseV1Payload(self):
-        factor_enrollment_response = FactorEnrollmentResponse(self.factor_enrollment_response_v1_payload);
-        self.assertEqual(unicode(factor_enrollment_response), unicode(self.getTestFactorEnrollmentResponseV1()))
+        factor_enrollment_response = FactorEnrollmentResponse(self.factor_enrollment_response_v1_payload)
+        self.assertEqual(factor_enrollment_response.__dict__, self.getTestFactorEnrollmentResponseV1().__dict__)
 
     def testFactorEnrollmentResponseV2Payload(self):
-        factor_enrollment_response = FactorEnrollmentResponse(self.factor_enrollment_response_v2_payload);
-        self.assertEqual(unicode(factor_enrollment_response), unicode(self.getTestFactorEnrollmentResponseV2()))
+        factor_enrollment_response = FactorEnrollmentResponse(self.factor_enrollment_response_v2_payload)
+        self.assertEqual(factor_enrollment_response.__dict__, self.getTestFactorEnrollmentResponseV2().__dict__)
 
     def testFactorEnrollmentResponseV2_2Payload(self):
-        factor_enrollment_response = FactorEnrollmentResponse(self.factor_enrollment_response_v2_payload2);
-        self.assertEqual(unicode(factor_enrollment_response), unicode(self.getTestFactorEnrollmentResponseV2_2()))
+        factor_enrollment_response = FactorEnrollmentResponse(self.factor_enrollment_response_v2_payload2)
+        self.assertEqual(factor_enrollment_response.__dict__, self.getTestFactorEnrollmentResponseV2_2().__dict__)
