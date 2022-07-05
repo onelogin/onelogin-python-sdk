@@ -5,10 +5,6 @@
 from onelogin.api.models.mfa import MFA
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 class OneLogin_API_Model_MFA_Test(unittest.TestCase):
 
     def testMFA(self):

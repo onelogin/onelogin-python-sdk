@@ -17,5 +17,5 @@ class MFAToken(Base):
         if data and 'device_id' in data.keys():
             device_id = data.get('device_id', None)
             if device_id:
-                 device_id = unicode(device_id)
+                device_id = unicode(device_id)
             self.device_id = device_id

@@ -43,11 +43,11 @@ class OneLogin_API_Model_SmartHookEnv_Test(unittest.TestCase):
             self.assertTrue(hasattr(smart_hook_env, attr), "SmartHookEnv has no attribute '{}'".format(attr))
 
     def testGetHookEnvsV2Payload(self):
-        smart_hook_env = SmartHookEnv(self.get_hook_envs_v2_payload);
+        smart_hook_env = SmartHookEnv(self.get_hook_envs_v2_payload)
         expected_smart_hook_env = self.getTestGetHookEnvsV2()
         self.assertEqual(smart_hook_env.__dict__, expected_smart_hook_env.__dict__)
 
     def testGetHookV2Payload(self):
-        smart_hook_env = SmartHookEnv(self.get_hook_env_v2_payload);
+        smart_hook_env = SmartHookEnv(self.get_hook_env_v2_payload)
         expected_smart_hook_env = self.getTestGetHookEnvV2()
         self.assertEqual(smart_hook_env.__dict__, expected_smart_hook_env.__dict__)

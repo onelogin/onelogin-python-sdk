@@ -49,7 +49,7 @@ setup(
         'test': (
             'coverage>=3,<6',
             'pylint>=1,<3',
-            'pep8>=1,<2',
+            'pycodestyle',
             'pyflakes>=1,<3',
             "mock; python_version < '3.3'"
         )

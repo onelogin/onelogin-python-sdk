@@ -25,7 +25,7 @@ def str2date(v):
 
 
 def str2int(v):
-    if v is not None and (isinstance(v, str) and v.isdigit()) or(isinstance(v, unicode) and v.isnumeric()):
+    if v is not None and (isinstance(v, str) and v.isdigit()) or (isinstance(v, unicode) and v.isnumeric()):
         return int(v)
     else:
         return v

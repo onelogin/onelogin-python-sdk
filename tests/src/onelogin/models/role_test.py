@@ -88,21 +88,21 @@ class OneLogin_API_Model_Role_Test(unittest.TestCase):
         self.assertEqual([], role.get_app_ids())
 
     def testRolesV1Payload(self):
-        role = Role(self.roles_v1_payload);
+        role = Role(self.roles_v1_payload)
         expected_role = self.getTestRolesV1()
         self.assertEqual(role.__dict__, expected_role.__dict__)
 
     def testRoleV1Payload(self):
-        role = Role(self.role_v1_payload);
+        role = Role(self.role_v1_payload)
         expected_role = self.getTestRoleV1()
         self.assertEqual(role.__dict__, expected_role.__dict__)
 
     def testRolesV2Payload(self):
-        role = Role(self.roles_v2_payload);
+        role = Role(self.roles_v2_payload)
         expected_role = self.getTestRolesV2()
         self.assertEqual(role.__dict__, expected_role.__dict__)
 
     def testRoleV2Payload(self):
-        role = Role(self.role_v2_payload);
+        role = Role(self.role_v2_payload)
         expected_role = self.getTestRoleV2()
         self.assertEqual(role.__dict__, expected_role.__dict__)

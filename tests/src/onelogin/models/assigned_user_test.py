@@ -7,10 +7,6 @@ import unittest
 import datetime
 from dateutil.tz import tzutc
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_AssignedUser_Test(unittest.TestCase):
 
@@ -40,12 +36,12 @@ class OneLogin_API_AssignedUser_Test(unittest.TestCase):
             self.assertTrue(hasattr(assigned_user, attr), "AssignedUser has no attribute '{}'".format(attr))
 
     def testGetAddedBy(self):
-        assigned_user = AssignedUser(self.role_users_v2_payload);
+        assigned_user = AssignedUser(self.role_users_v2_payload)
         self.assertEqual(assigned_user.get_added_by(), {'name:': 'Susan Boss', 'id': 678})
 
     def testRoleUsersV2Payload(self):
-        assigned_user = AssignedUser(self.role_users_v2_payload);
+        assigned_user = AssignedUser(self.role_users_v2_payload)
         expected_assigned_user = self.getTestRoleUsersAppV2()
         self.assertEqual(assigned_user.added_by, expected_assigned_user.added_by)
         assigned_user.added_by = expected_assigned_user.added_by = {}
-        self.assertEqual(unicode(assigned_user), unicode(expected_assigned_user))
+        self.assertEqual(assigned_user.__dict__, expected_assigned_user.__dict__)

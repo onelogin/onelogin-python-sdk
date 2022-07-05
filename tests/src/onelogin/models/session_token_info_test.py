@@ -46,14 +46,14 @@ class OneLogin_API_Model_SessionTokenInfo_Test(unittest.TestCase):
             self.assertTrue(hasattr(session_token_info, attr), "SessionTokenInfo has no attribute '{}'".format(attr))
 
     def testCreateSessionLoginV1Payload(self):
-        session_token_info = SessionTokenInfo(self.create_session_login_v1_payload);
+        session_token_info = SessionTokenInfo(self.create_session_login_v1_payload)
         expected_session_token_info = self.getTestCreateSessionLoginV1()
         self.assertEqual(session_token_info.user.__dict__, expected_session_token_info.user.__dict__)
         session_token_info.user = expected_session_token_info.user = {}
         self.assertEqual(session_token_info.__dict__, expected_session_token_info.__dict__)
 
     def testGetSessionTokenVerifiedV1Payload(self):
-        session_token_info = SessionTokenInfo(self.get_session_token_verified_v1_payload);
+        session_token_info = SessionTokenInfo(self.get_session_token_verified_v1_payload)
         expected_session_token_info = self.getTestGetSessionTokenVerifiedInfoV1()
         self.assertEqual(session_token_info.user.__dict__, expected_session_token_info.user.__dict__)
         session_token_info.user = expected_session_token_info.user = {}

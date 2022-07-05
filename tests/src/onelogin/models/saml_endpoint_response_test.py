@@ -22,7 +22,7 @@ class OneLogin_API_Model_SAMLEndpointResponse_Test(unittest.TestCase):
         for attr in expected_attributes:
             self.assertTrue(hasattr(saml_endpoint_response, attr), "SAMLEndpointResponse has no attribute '{}'".format(attr))
 
-    def testSAMLEndpointResponse(self):
+    def testSAMLEndpointResponseV2(self):
         saml_endpoint_response = SAMLEndpointResponse("pending", "SMS token sent to your mobile device. Authentication pending.")
         self.assertEqual(saml_endpoint_response.type, "pending")
         self.assertEqual(saml_endpoint_response.message, "SMS token sent to your mobile device. Authentication pending.")

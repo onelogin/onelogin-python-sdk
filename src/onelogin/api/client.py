@@ -937,7 +937,7 @@ class OneLoginClient(object):
         self.clean_error()
 
         version_id = self.get_version_id("LOG_USER_OUT_URL")
-        url = self.get_url(Constants.LOG_USER_OUT_URL, user_id, version_id)
+        url = self.get_url(Constants.LOG_USER_OUT_URL, user_id, version_id=version_id)
 
         return self.update_operation(url, None)
 

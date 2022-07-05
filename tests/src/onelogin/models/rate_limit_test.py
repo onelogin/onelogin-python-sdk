@@ -4,8 +4,6 @@
 # All rights reserved.
 from onelogin.api.models.rate_limit import RateLimit
 import unittest
-import datetime
-from dateutil.tz import tzutc
 
 class OneLogin_API_Model_RateLimit_Test(unittest.TestCase):
 
@@ -30,6 +28,6 @@ class OneLogin_API_Model_RateLimit_Test(unittest.TestCase):
             self.assertTrue(hasattr(rate_limit, attr), "RateLimit has no attribute '{}'".format(attr))
 
     def testRateLimitV1Payload(self):
-        rate_limit = RateLimit(self.rate_limit_v1_payload);
+        rate_limit = RateLimit(self.rate_limit_v1_payload)
         expected_rate_limit = self.getTestRateLimitV1()
         self.assertEqual(rate_limit.__dict__, expected_rate_limit.__dict__)

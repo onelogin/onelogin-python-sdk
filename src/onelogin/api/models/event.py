@@ -57,7 +57,7 @@ class Event(Base):
     def get_role(self):
         role = None
         if self.role_id is not None and self.role_name:
-            role = Role({'id':self.role_id, 'name':self.role_name})
+            role = Role({'id': self.role_id, 'name': self.role_name})
         return role
 
     def get_group(self):

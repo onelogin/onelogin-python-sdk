@@ -5,10 +5,6 @@
 from onelogin.api.models.group import Group
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 class OneLogin_API_Model_Group_Test(unittest.TestCase):
 
     groups_v1_payload = {"id": 417333, "name": "employees", "reference": None}
@@ -41,9 +37,9 @@ class OneLogin_API_Model_Group_Test(unittest.TestCase):
             self.assertTrue(hasattr(group, attr), "Group has no attribute '{}'".format(attr))
 
     def testGroupsV1Payload(self):
-        group = Group(self.groups_v1_payload);
-        self.assertEqual(unicode(group), unicode(self.getTestGroupsV1()))
+        group = Group(self.groups_v1_payload)
+        self.assertEqual(group.__dict__, self.getTestGroupsV1().__dict__)
 
     def testGroupV1Payload(self):
-        group = Group(self.group_v1_payload);
-        self.assertEqual(unicode(group), unicode(self.getTestGroupV1()))
+        group = Group(self.group_v1_payload)
+        self.assertEqual(group.__dict__, self.getTestGroupV1().__dict__)

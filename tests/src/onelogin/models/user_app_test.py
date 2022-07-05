@@ -5,10 +5,6 @@
 from onelogin.api.models.user_app import UserApp
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_UserApp_Test(unittest.TestCase):
 
@@ -54,11 +50,11 @@ class OneLogin_API_UserApp_Test(unittest.TestCase):
             self.assertTrue(hasattr(user_app, attr), "UserApp has no attribute '{}'".format(attr))
 
     def testUserAppsV1Payload(self):
-        user_app = UserApp(self.user_apps_v1_payload);
-        self.assertEqual(unicode(user_app), unicode(self.getTestUserAppV1()))
+        user_app = UserApp(self.user_apps_v1_payload)
+        self.assertEqual(user_app.__dict__, self.getTestUserAppV1().__dict__)
 
     def testUserAppsV2Payload(self):
-        user_app = UserApp(self.user_apps_v2_payload);
+        user_app = UserApp(self.user_apps_v2_payload)
         expected_user_app = self.getTestUserAppV2()
         for attr in ['connector_id', 'extension', 'icon_url', 'id', 'login_id', 'name', 'provisioning_enabled', 'provisioning_state', 'provisioning_status']:
             self.assertEqual(getattr(user_app, attr), getattr(expected_user_app, attr))

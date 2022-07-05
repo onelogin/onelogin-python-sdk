@@ -102,7 +102,7 @@ class OneLogin_API_Client_Test(unittest.TestCase):
         self.assertEqual(version, self.DEFAULT_API_CONFIGURATION['user'])
         self.assertEqual(version, client.api_configuration['user'])
 
-        api_configuration = {'user': 1 }
+        api_configuration = {'user': 1}
         client = OneLoginClient(
             client_id='test_client_id',
             client_secret='test_client_secret',
@@ -112,7 +112,7 @@ class OneLogin_API_Client_Test(unittest.TestCase):
         self.assertEqual(version, 1)
         self.assertEqual(version, client.api_configuration['user'])
 
-        api_configuration = {"user": 2 }
+        api_configuration = {"user": 2}
         client = OneLoginClient(
             client_id='test_client_id',
             client_secret='test_client_secret',

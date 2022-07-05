@@ -5,10 +5,6 @@
 from onelogin.api.models.connector import Connector
 import unittest
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 # noinspection PySetFunctionToLiteral
 class OneLogin_API_Model_Connector_Test(unittest.TestCase):
 
@@ -36,5 +32,5 @@ class OneLogin_API_Model_Connector_Test(unittest.TestCase):
             self.assertTrue(hasattr(connector, attr), "Connector has no attribute '{}'".format(attr))
 
     def testConnectorV2Payload(self):
-        connector = Connector(self.connector_v2_payload);
-        self.assertEqual(unicode(connector), unicode(self.getTestConnectorsV2()))
+        connector = Connector(self.connector_v2_payload)
+        self.assertEqual(connector.__dict__, self.getTestConnectorsV2().__dict__)

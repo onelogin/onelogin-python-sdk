@@ -33,7 +33,7 @@ class OneLogin_API_Model_SessionTokenMFAInfo_Test(unittest.TestCase):
             self.assertTrue(hasattr(session_token_mfa_info, attr), "SessionTokenMFAInfo has no attribute '{}'".format(attr))
 
     def testCreateSessionLoginV1Payload(self):
-        session_token_mfa_info = SessionTokenMFAInfo(self.create_session_login_v1_payload);
+        session_token_mfa_info = SessionTokenMFAInfo(self.create_session_login_v1_payload)
         expected_session_token_mfa_info = self.getTestCreateSessionLoginV1()
         self.assertEqual(len(session_token_mfa_info.devices), len(expected_session_token_mfa_info.devices))
         for i in range(len(session_token_mfa_info.devices)):

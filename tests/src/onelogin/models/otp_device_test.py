@@ -7,10 +7,6 @@ import unittest
 import datetime
 from dateutil.tz import tzutc
 
-import sys
-if sys.version_info[0] >= 3:
-    unicode = str
-
 class OneLogin_API_Model_OTP_Device_Test(unittest.TestCase):
 
     enroll_factor_v1_payload = {"active": False, "default": True, "state_token": "f2402de2b446abd86ea5aa1f79b3fa72b4befacd", "auth_factor_name": "OneLogin SMS", "phone_number": "+1xxxxxxxxxx", "type_display_name": "OneLogin SMS", "needs_trigger": True, "user_display_name": "Rich's Phone", "id": 525509}
@@ -92,22 +88,22 @@ class OneLogin_API_Model_OTP_Device_Test(unittest.TestCase):
             self.assertTrue(hasattr(otp_device, attr), "OTP_Device has no attribute '{}'".format(attr))
 
     def testEnrollFactorV1Payload(self):
-        otp_device = OTP_Device(self.enroll_factor_v1_payload);
+        otp_device = OTP_Device(self.enroll_factor_v1_payload)
         expected_otp_device = self.getTestEnrollFactorV1()
         self.assertEqual(otp_device.__dict__, expected_otp_device.__dict__)
 
     def testEnrollFactorV2Payload(self):
-        otp_device = OTP_Device(self.enroll_factor_v2_payload);
-        self.assertEqual(unicode(otp_device), unicode(self.getTestEnrollFactorV2()))
+        otp_device = OTP_Device(self.enroll_factor_v2_payload)
+        self.assertEqual(otp_device.__dict__, self.getTestEnrollFactorV2().__dict__)
 
     def testEnrollFactorV2_2Payload(self):
-        otp_device = OTP_Device(self.enroll_factor_v2_payload2);
-        self.assertEqual(unicode(otp_device), unicode(self.getTestEnrollFactorV2_2()))
+        otp_device = OTP_Device(self.enroll_factor_v2_payload2)
+        self.assertEqual(otp_device.__dict__, self.getTestEnrollFactorV2_2().__dict__)
 
     def testEnrolledFactorsV1Payload(self):
-        otp_device = OTP_Device(self.enrolled_factors_v1_payload);
-        self.assertEqual(unicode(otp_device), unicode(self.getTestEnrolledFactorsV1()))
+        otp_device = OTP_Device(self.enrolled_factors_v1_payload)
+        self.assertEqual(otp_device.__dict__, self.getTestEnrolledFactorsV1().__dict__)
 
     def testEnrolledFactorsV2Payload(self):
-        otp_device = OTP_Device(self.enrolled_factors_v2_payload);
-        self.assertEqual(unicode(otp_device), unicode(self.getTestEnrolledFactorsV2()))
+        otp_device = OTP_Device(self.enrolled_factors_v2_payload)
+        self.assertEqual(otp_device.__dict__, self.getTestEnrolledFactorsV2().__dict__)
