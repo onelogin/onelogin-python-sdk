@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.get_client_apps200_response_inner_scopes_inner import GetClientApps200ResponseInnerScopesInner
+import onelogin
+from onelogin.model.get_client_apps200_response_inner_scopes_inner import GetClientApps200ResponseInnerScopesInner
 
 
 class TestGetClientApps200ResponseInnerScopesInner(unittest.TestCase):

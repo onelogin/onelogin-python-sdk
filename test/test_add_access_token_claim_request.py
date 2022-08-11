@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.add_access_token_claim_request import AddAccessTokenClaimRequest
+import onelogin
+from onelogin.model.add_access_token_claim_request import AddAccessTokenClaimRequest
 
 
 class TestAddAccessTokenClaimRequest(unittest.TestCase):

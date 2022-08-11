@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.status import Status
+import onelogin
+from onelogin.model.status import Status
 globals()['Status'] = Status
-from openapi_client.model.generate_token400_response import GenerateToken400Response
+from onelogin.model.generate_token400_response import GenerateToken400Response
 
 
 class TestGenerateToken400Response(unittest.TestCase):

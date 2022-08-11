@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.factor_inner_factor_data import FactorInnerFactorData
+import onelogin
+from onelogin.model.factor_inner_factor_data import FactorInnerFactorData
 globals()['FactorInnerFactorData'] = FactorInnerFactorData
-from openapi_client.model.factor_inner import FactorInner
+from onelogin.model.factor_inner import FactorInner
 
 
 class TestFactorInner(unittest.TestCase):

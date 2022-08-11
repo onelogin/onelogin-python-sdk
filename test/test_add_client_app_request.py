@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.add_client_app_request import AddClientAppRequest
+import onelogin
+from onelogin.model.add_client_app_request import AddClientAppRequest
 
 
 class TestAddClientAppRequest(unittest.TestCase):

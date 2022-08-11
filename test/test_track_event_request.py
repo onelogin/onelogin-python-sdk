@@ -11,16 +11,16 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.risk_device import RiskDevice
-from openapi_client.model.risk_user import RiskUser
-from openapi_client.model.session import Session
-from openapi_client.model.source import Source
+import onelogin
+from onelogin.model.risk_device import RiskDevice
+from onelogin.model.risk_user import RiskUser
+from onelogin.model.session import Session
+from onelogin.model.source import Source
 globals()['RiskDevice'] = RiskDevice
 globals()['RiskUser'] = RiskUser
 globals()['Session'] = Session
 globals()['Source'] = Source
-from openapi_client.model.track_event_request import TrackEventRequest
+from onelogin.model.track_event_request import TrackEventRequest
 
 
 class TestTrackEventRequest(unittest.TestCase):

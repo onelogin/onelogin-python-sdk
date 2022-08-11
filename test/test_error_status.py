@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.error_status_errors_inner import ErrorStatusErrorsInner
+import onelogin
+from onelogin.model.error_status_errors_inner import ErrorStatusErrorsInner
 globals()['ErrorStatusErrorsInner'] = ErrorStatusErrorsInner
-from openapi_client.model.error_status import ErrorStatus
+from onelogin.model.error_status import ErrorStatus
 
 
 class TestErrorStatus(unittest.TestCase):

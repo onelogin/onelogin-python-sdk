@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.add_scope_request import AddScopeRequest
+import onelogin
+from onelogin.model.add_scope_request import AddScopeRequest
 
 
 class TestAddScopeRequest(unittest.TestCase):

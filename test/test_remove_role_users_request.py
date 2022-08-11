@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.remove_role_users_request import RemoveRoleUsersRequest
+import onelogin
+from onelogin.model.remove_role_users_request import RemoveRoleUsersRequest
 
 
 class TestRemoveRoleUsersRequest(unittest.TestCase):

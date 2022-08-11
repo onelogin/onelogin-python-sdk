@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.generate_mfa_token_request import GenerateMfaTokenRequest
+import onelogin
+from onelogin.model.generate_mfa_token_request import GenerateMfaTokenRequest
 
 
 class TestGenerateMfaTokenRequest(unittest.TestCase):

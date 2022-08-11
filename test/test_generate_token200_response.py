@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.generate_token200_response import GenerateToken200Response
+import onelogin
+from onelogin.model.generate_token200_response import GenerateToken200Response
 
 
 class TestGenerateToken200Response(unittest.TestCase):

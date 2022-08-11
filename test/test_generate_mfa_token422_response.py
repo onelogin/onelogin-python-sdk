@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.generate_mfa_token422_response_details import GenerateMfaToken422ResponseDetails
+import onelogin
+from onelogin.model.generate_mfa_token422_response_details import GenerateMfaToken422ResponseDetails
 globals()['GenerateMfaToken422ResponseDetails'] = GenerateMfaToken422ResponseDetails
-from openapi_client.model.generate_mfa_token422_response import GenerateMfaToken422Response
+from onelogin.model.generate_mfa_token422_response import GenerateMfaToken422Response
 
 
 class TestGenerateMfaToken422Response(unittest.TestCase):

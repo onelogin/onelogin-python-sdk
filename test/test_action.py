@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.action import Action
+import onelogin
+from onelogin.model.action import Action
 
 
 class TestAction(unittest.TestCase):

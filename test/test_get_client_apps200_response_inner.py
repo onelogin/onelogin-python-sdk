@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.get_client_apps200_response_inner_scopes_inner import GetClientApps200ResponseInnerScopesInner
+import onelogin
+from onelogin.model.get_client_apps200_response_inner_scopes_inner import GetClientApps200ResponseInnerScopesInner
 globals()['GetClientApps200ResponseInnerScopesInner'] = GetClientApps200ResponseInnerScopesInner
-from openapi_client.model.get_client_apps200_response_inner import GetClientApps200ResponseInner
+from onelogin.model.get_client_apps200_response_inner import GetClientApps200ResponseInner
 
 
 class TestGetClientApps200ResponseInner(unittest.TestCase):

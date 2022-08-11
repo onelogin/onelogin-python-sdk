@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.schema_provisioning import SchemaProvisioning
+import onelogin
+from onelogin.model.schema_provisioning import SchemaProvisioning
 globals()['SchemaProvisioning'] = SchemaProvisioning
-from openapi_client.model.schema import Schema
+from onelogin.model.schema import Schema
 
 
 class TestSchema(unittest.TestCase):

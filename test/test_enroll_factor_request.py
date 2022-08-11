@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.enroll_factor_request import EnrollFactorRequest
+import onelogin
+from onelogin.model.enroll_factor_request import EnrollFactorRequest
 
 
 class TestEnrollFactorRequest(unittest.TestCase):

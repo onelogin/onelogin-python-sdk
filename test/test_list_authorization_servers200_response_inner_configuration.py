@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.list_authorization_servers200_response_inner_configuration import ListAuthorizationServers200ResponseInnerConfiguration
+import onelogin
+from onelogin.model.list_authorization_servers200_response_inner_configuration import ListAuthorizationServers200ResponseInnerConfiguration
 
 
 class TestListAuthorizationServers200ResponseInnerConfiguration(unittest.TestCase):

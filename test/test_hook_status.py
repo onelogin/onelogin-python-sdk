@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.hook_status import HookStatus
+import onelogin
+from onelogin.model.hook_status import HookStatus
 
 
 class TestHookStatus(unittest.TestCase):

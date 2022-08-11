@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.auth_server_configuration import AuthServerConfiguration
+import onelogin
+from onelogin.model.auth_server_configuration import AuthServerConfiguration
 
 
 class TestAuthServerConfiguration(unittest.TestCase):

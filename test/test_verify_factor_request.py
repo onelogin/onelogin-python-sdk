@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.verify_factor_request import VerifyFactorRequest
+import onelogin
+from onelogin.model.verify_factor_request import VerifyFactorRequest
 
 
 class TestVerifyFactorRequest(unittest.TestCase):

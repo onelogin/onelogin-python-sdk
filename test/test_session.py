@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.session import Session
+import onelogin
+from onelogin.model.session import Session
 
 
 class TestSession(unittest.TestCase):

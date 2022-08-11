@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.hook_options import HookOptions
+import onelogin
+from onelogin.model.hook_options import HookOptions
 
 
 class TestHookOptions(unittest.TestCase):

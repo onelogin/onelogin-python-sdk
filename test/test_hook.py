@@ -11,12 +11,12 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.hook_conditions_inner import HookConditionsInner
-from openapi_client.model.hook_options import HookOptions
+import onelogin
+from onelogin.model.hook_conditions_inner import HookConditionsInner
+from onelogin.model.hook_options import HookOptions
 globals()['HookConditionsInner'] = HookConditionsInner
 globals()['HookOptions'] = HookOptions
-from openapi_client.model.hook import Hook
+from onelogin.model.hook import Hook
 
 
 class TestHook(unittest.TestCase):

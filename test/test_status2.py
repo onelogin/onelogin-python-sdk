@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.status2_status import Status2Status
+import onelogin
+from onelogin.model.status2_status import Status2Status
 globals()['Status2Status'] = Status2Status
-from openapi_client.model.status2 import Status2
+from onelogin.model.status2 import Status2
 
 
 class TestStatus2(unittest.TestCase):

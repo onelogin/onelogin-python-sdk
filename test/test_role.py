@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.role import Role
+import onelogin
+from onelogin.model.role import Role
 
 
 class TestRole(unittest.TestCase):

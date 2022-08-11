@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.generate_mfa_token200_response import GenerateMfaToken200Response
+import onelogin
+from onelogin.model.generate_mfa_token200_response import GenerateMfaToken200Response
 
 
 class TestGenerateMfaToken200Response(unittest.TestCase):

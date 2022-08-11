@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.create_environment_variable_request import CreateEnvironmentVariableRequest
+import onelogin
+from onelogin.model.create_environment_variable_request import CreateEnvironmentVariableRequest
 
 
 class TestCreateEnvironmentVariableRequest(unittest.TestCase):

@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.verify_enrollment_request import VerifyEnrollmentRequest
+import onelogin
+from onelogin.model.verify_enrollment_request import VerifyEnrollmentRequest
 
 
 class TestVerifyEnrollmentRequest(unittest.TestCase):

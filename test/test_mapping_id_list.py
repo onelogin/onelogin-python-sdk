@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.mapping_id_list import MappingIdList
+import onelogin
+from onelogin.model.mapping_id_list import MappingIdList
 
 
 class TestMappingIdList(unittest.TestCase):

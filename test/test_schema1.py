@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.schema1_added_by import Schema1AddedBy
+import onelogin
+from onelogin.model.schema1_added_by import Schema1AddedBy
 globals()['Schema1AddedBy'] = Schema1AddedBy
-from openapi_client.model.schema1 import Schema1
+from onelogin.model.schema1 import Schema1
 
 
 class TestSchema1(unittest.TestCase):

@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.activate_factor_request import ActivateFactorRequest
+import onelogin
+from onelogin.model.activate_factor_request import ActivateFactorRequest
 
 
 class TestActivateFactorRequest(unittest.TestCase):

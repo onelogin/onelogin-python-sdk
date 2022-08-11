@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.update_authorization_server400_response import UpdateAuthorizationServer400Response
+import onelogin
+from onelogin.model.update_authorization_server400_response import UpdateAuthorizationServer400Response
 
 
 class TestUpdateAuthorizationServer400Response(unittest.TestCase):

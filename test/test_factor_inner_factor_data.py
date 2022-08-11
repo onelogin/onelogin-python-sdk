@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.factor_inner_factor_data import FactorInnerFactorData
+import onelogin
+from onelogin.model.factor_inner_factor_data import FactorInnerFactorData
 
 
 class TestFactorInnerFactorData(unittest.TestCase):

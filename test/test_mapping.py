@@ -11,12 +11,12 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.action import Action
-from openapi_client.model.condition import Condition
+import onelogin
+from onelogin.model.action import Action
+from onelogin.model.condition import Condition
 globals()['Action'] = Action
 globals()['Condition'] = Condition
-from openapi_client.model.mapping import Mapping
+from onelogin.model.mapping import Mapping
 
 
 class TestMapping(unittest.TestCase):

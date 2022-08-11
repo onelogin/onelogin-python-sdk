@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.id import Id
+import onelogin
+from onelogin.model.id import Id
 
 
 class TestId(unittest.TestCase):

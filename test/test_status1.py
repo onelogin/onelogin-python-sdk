@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.model.status1 import Status1
 
 
 class TestStatus1(unittest.TestCase):

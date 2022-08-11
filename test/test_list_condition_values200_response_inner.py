@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
+import onelogin
+from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
 
 
 class TestListConditionValues200ResponseInner(unittest.TestCase):

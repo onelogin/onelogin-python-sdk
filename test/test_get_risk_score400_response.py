@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.get_risk_score400_response import GetRiskScore400Response
+import onelogin
+from onelogin.model.get_risk_score400_response import GetRiskScore400Response
 
 
 class TestGetRiskScore400Response(unittest.TestCase):

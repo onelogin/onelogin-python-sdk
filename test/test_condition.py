@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.condition import Condition
+import onelogin
+from onelogin.model.condition import Condition
 
 
 class TestCondition(unittest.TestCase):

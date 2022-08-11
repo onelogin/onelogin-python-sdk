@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.revoke_token_request import RevokeTokenRequest
+import onelogin
+from onelogin.model.revoke_token_request import RevokeTokenRequest
 
 
 class TestRevokeTokenRequest(unittest.TestCase):

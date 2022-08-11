@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.get_available_factors200_response_inner import GetAvailableFactors200ResponseInner
+import onelogin
+from onelogin.model.get_available_factors200_response_inner import GetAvailableFactors200ResponseInner
 
 
 class TestGetAvailableFactors200ResponseInner(unittest.TestCase):

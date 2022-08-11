@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.generate_saml_assertion_request import GenerateSamlAssertionRequest
+import onelogin
+from onelogin.model.generate_saml_assertion_request import GenerateSamlAssertionRequest
 
 
 class TestGenerateSamlAssertionRequest(unittest.TestCase):

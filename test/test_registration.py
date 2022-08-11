@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.registration import Registration
+import onelogin
+from onelogin.model.registration import Registration
 
 
 class TestRegistration(unittest.TestCase):

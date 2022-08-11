@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.verify_factor_saml200_response import VerifyFactorSaml200Response
+import onelogin
+from onelogin.model.verify_factor_saml200_response import VerifyFactorSaml200Response
 
 
 class TestVerifyFactorSaml200Response(unittest.TestCase):

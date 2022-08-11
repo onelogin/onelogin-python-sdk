@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.error_status_errors_inner import ErrorStatusErrorsInner
+import onelogin
+from onelogin.model.error_status_errors_inner import ErrorStatusErrorsInner
 
 
 class TestErrorStatusErrorsInner(unittest.TestCase):

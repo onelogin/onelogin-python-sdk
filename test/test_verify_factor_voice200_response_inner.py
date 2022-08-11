@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.verify_factor_voice200_response_inner import VerifyFactorVoice200ResponseInner
+import onelogin
+from onelogin.model.verify_factor_voice200_response_inner import VerifyFactorVoice200ResponseInner
 
 
 class TestVerifyFactorVoice200ResponseInner(unittest.TestCase):

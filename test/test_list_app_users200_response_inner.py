@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.list_app_users200_response_inner import ListAppUsers200ResponseInner
+import onelogin
+from onelogin.model.list_app_users200_response_inner import ListAppUsers200ResponseInner
 
 
 class TestListAppUsers200ResponseInner(unittest.TestCase):

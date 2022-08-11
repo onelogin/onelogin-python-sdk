@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.auth_server_configuration import AuthServerConfiguration
+import onelogin
+from onelogin.model.auth_server_configuration import AuthServerConfiguration
 globals()['AuthServerConfiguration'] = AuthServerConfiguration
-from openapi_client.model.get_authorization_server200_response import GetAuthorizationServer200Response
+from onelogin.model.get_authorization_server200_response import GetAuthorizationServer200Response
 
 
 class TestGetAuthorizationServer200Response(unittest.TestCase):

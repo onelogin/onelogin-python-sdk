@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.device import Device
+import onelogin
+from onelogin.model.device import Device
 
 
 class TestDevice(unittest.TestCase):

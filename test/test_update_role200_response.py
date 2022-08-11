@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.update_role200_response import UpdateRole200Response
+import onelogin
+from onelogin.model.update_role200_response import UpdateRole200Response
 
 
 class TestUpdateRole200Response(unittest.TestCase):

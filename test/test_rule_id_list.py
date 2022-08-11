@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.rule_id_list import RuleIdList
+import onelogin
+from onelogin.model.rule_id_list import RuleIdList
 
 
 class TestRuleIdList(unittest.TestCase):

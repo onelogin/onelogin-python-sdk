@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.auth_method import AuthMethod
+import onelogin
+from onelogin.model.auth_method import AuthMethod
 globals()['AuthMethod'] = AuthMethod
-from openapi_client.model.connector import Connector
+from onelogin.model.connector import Connector
 
 
 class TestConnector(unittest.TestCase):

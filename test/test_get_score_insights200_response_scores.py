@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.get_score_insights200_response_scores import GetScoreInsights200ResponseScores
+import onelogin
+from onelogin.model.get_score_insights200_response_scores import GetScoreInsights200ResponseScores
 
 
 class TestGetScoreInsights200ResponseScores(unittest.TestCase):

@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.log import Log
+import onelogin
+from onelogin.model.log import Log
 
 
 class TestLog(unittest.TestCase):

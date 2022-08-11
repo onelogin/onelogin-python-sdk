@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.list_mapping_condition_operators200_response_inner import ListMappingConditionOperators200ResponseInner
+import onelogin
+from onelogin.model.list_mapping_condition_operators200_response_inner import ListMappingConditionOperators200ResponseInner
 
 
 class TestListMappingConditionOperators200ResponseInner(unittest.TestCase):

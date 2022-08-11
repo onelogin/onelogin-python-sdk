@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.auth_method import AuthMethod
+import onelogin
+from onelogin.model.auth_method import AuthMethod
 
 
 class TestAuthMethod(unittest.TestCase):

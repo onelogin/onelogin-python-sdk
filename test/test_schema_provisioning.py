@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.schema_provisioning import SchemaProvisioning
+import onelogin
+from onelogin.model.schema_provisioning import SchemaProvisioning
 
 
 class TestSchemaProvisioning(unittest.TestCase):

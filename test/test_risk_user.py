@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.risk_user import RiskUser
+import onelogin
+from onelogin.model.risk_user import RiskUser
 
 
 class TestRiskUser(unittest.TestCase):

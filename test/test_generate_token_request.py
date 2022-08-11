@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.generate_token_request import GenerateTokenRequest
+import onelogin
+from onelogin.model.generate_token_request import GenerateTokenRequest
 
 
 class TestGenerateTokenRequest(unittest.TestCase):

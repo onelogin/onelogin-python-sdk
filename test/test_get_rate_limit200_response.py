@@ -11,12 +11,12 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.get_rate_limit200_response_data import GetRateLimit200ResponseData
-from openapi_client.model.status import Status
+import onelogin
+from onelogin.model.get_rate_limit200_response_data import GetRateLimit200ResponseData
+from onelogin.model.status import Status
 globals()['GetRateLimit200ResponseData'] = GetRateLimit200ResponseData
 globals()['Status'] = Status
-from openapi_client.model.get_rate_limit200_response import GetRateLimit200Response
+from onelogin.model.get_rate_limit200_response import GetRateLimit200Response
 
 
 class TestGetRateLimit200Response(unittest.TestCase):

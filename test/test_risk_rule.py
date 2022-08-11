@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.source import Source
+import onelogin
+from onelogin.model.source import Source
 globals()['Source'] = Source
-from openapi_client.model.risk_rule import RiskRule
+from onelogin.model.risk_rule import RiskRule
 
 
 class TestRiskRule(unittest.TestCase):

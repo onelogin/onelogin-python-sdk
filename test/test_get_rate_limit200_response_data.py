@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.get_rate_limit200_response_data import GetRateLimit200ResponseData
+import onelogin
+from onelogin.model.get_rate_limit200_response_data import GetRateLimit200ResponseData
 
 
 class TestGetRateLimit200ResponseData(unittest.TestCase):

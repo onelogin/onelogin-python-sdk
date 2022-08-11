@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
+import onelogin
+from onelogin.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
 
 
 class TestAddRoleUsers200ResponseInner(unittest.TestCase):

@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.envvar import Envvar
+import onelogin
+from onelogin.model.envvar import Envvar
 
 
 class TestEnvvar(unittest.TestCase):
