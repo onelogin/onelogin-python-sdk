@@ -1,4 +1,4 @@
-# openapi_client.DefaultApi
+# onelogin.DefaultApi
 
 All URIs are relative to *https://onelogininc.onelogin.com*
 
@@ -117,20 +117,20 @@ Method | HTTP request | Description
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.activate_factor_request import ActivateFactorRequest
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.activate_factor_request import ActivateFactorRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -145,7 +145,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.activate_factor(authorization, user_id, activate_factor_request)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->activate_factor: %s\n" % e)
 ```
 
@@ -191,21 +191,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.add_access_token_claim_request import AddAccessTokenClaimRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.id import Id
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.add_access_token_claim_request import AddAccessTokenClaimRequest
+from onelogin.model.status1 import Status1
+from onelogin.model.id import Id
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -220,7 +220,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.add_access_token_claim(authorization, id, add_access_token_claim_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_access_token_claim: %s\n" % e)
 ```
 
@@ -268,21 +268,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.client_app import ClientApp
-from openapi_client.model.status1 import Status1
-from openapi_client.model.add_client_app_request import AddClientAppRequest
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.add_client_app_request import AddClientAppRequest
+from onelogin.model.client_app import ClientApp
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -298,7 +298,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.add_client_app(authorization, id, add_client_app_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_client_app: %s\n" % e)
 ```
 
@@ -346,20 +346,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -372,7 +372,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.add_role_admins(authorization, role_id, request_body)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_role_admins: %s\n" % e)
 ```
 
@@ -418,20 +418,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -444,7 +444,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.add_role_users(authorization, role_id, request_body)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_role_users: %s\n" % e)
 ```
 
@@ -491,21 +491,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.add_scope_request import AddScopeRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.id import Id
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.id import Id
+from onelogin.model.add_scope_request import AddScopeRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -519,7 +519,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.add_scope(authorization, id, add_scope_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_scope: %s\n" % e)
 ```
 
@@ -567,21 +567,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.mapping_id_list import MappingIdList
-from openapi_client.model.status1 import Status1
-from openapi_client.model.error_status import ErrorStatus
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.error_status import ErrorStatus
+from onelogin.model.status1 import Status1
+from onelogin.model.mapping_id_list import MappingIdList
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -593,7 +593,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.bulk_mapping_sort(authorization, mapping_id_list)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->bulk_mapping_sort: %s\n" % e)
 ```
 
@@ -639,21 +639,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.rule_id_list import RuleIdList
-from openapi_client.model.status1 import Status1
-from openapi_client.model.error_status import ErrorStatus
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.error_status import ErrorStatus
+from onelogin.model.status1 import Status1
+from onelogin.model.rule_id_list import RuleIdList
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -666,7 +666,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.bulk_sort(authorization, app_id, rule_id_list)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->bulk_sort: %s\n" % e)
 ```
 
@@ -713,20 +713,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.schema import Schema
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.schema import Schema
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -761,7 +761,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.create_app(authorization, schema)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_app: %s\n" % e)
 ```
 
@@ -807,21 +807,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.create_authorization_server_request import CreateAuthorizationServerRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.id import Id
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.create_authorization_server_request import CreateAuthorizationServerRequest
+from onelogin.model.id import Id
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -842,7 +842,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.create_authorization_server(authorization, create_authorization_server_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_authorization_server: %s\n" % e)
 ```
 
@@ -888,21 +888,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.create_environment_variable_request import CreateEnvironmentVariableRequest
-from openapi_client.model.envvar import Envvar
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.create_environment_variable_request import CreateEnvironmentVariableRequest
+from onelogin.model.envvar import Envvar
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -915,7 +915,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.create_environment_variable(authorization, create_environment_variable_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_environment_variable: %s\n" % e)
 ```
 
@@ -961,19 +961,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.hook import Hook
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.hook import Hook
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1010,7 +1010,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.create_hook(authorization, hook)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_hook: %s\n" % e)
 ```
 
@@ -1048,21 +1048,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.error_status import ErrorStatus
-from openapi_client.model.mapping import Mapping
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.error_status import ErrorStatus
+from onelogin.model.status1 import Status1
+from onelogin.model.mapping import Mapping
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1096,7 +1096,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.create_mapping(authorization, mapping)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_mapping: %s\n" % e)
 ```
 
@@ -1142,19 +1142,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.risk_rule import RiskRule
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.risk_rule import RiskRule
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1176,7 +1176,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.create_risk_rule(authorization, risk_rule)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_risk_rule: %s\n" % e)
 ```
 
@@ -1214,20 +1214,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.create_roles201_response_inner import CreateRoles201ResponseInner
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.create_roles201_response_inner import CreateRoles201ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1236,7 +1236,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.create_roles(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_roles: %s\n" % e)
 ```
 
@@ -1280,22 +1280,22 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.rule_id import RuleId
-from openapi_client.model.rule import Rule
-from openapi_client.model.status1 import Status1
-from openapi_client.model.error_status import ErrorStatus
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.error_status import ErrorStatus
+from onelogin.model.status1 import Status1
+from onelogin.model.rule import Rule
+from onelogin.model.rule_id import RuleId
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1330,7 +1330,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.create_rule(authorization, app_id, rule)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_rule: %s\n" % e)
 ```
 
@@ -1377,20 +1377,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.user import User
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.user import User
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1442,7 +1442,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.create_user(authorization, user)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_user: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -1450,7 +1450,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.create_user(authorization, user, mappings=mappings, validate_policy=validate_policy)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_user: %s\n" % e)
 ```
 
@@ -1499,19 +1499,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1521,7 +1521,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_access_token_claim(authorization, id, claim_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_access_token_claim: %s\n" % e)
 ```
 
@@ -1568,19 +1568,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1589,7 +1589,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_app(authorization, app_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_app: %s\n" % e)
 ```
 
@@ -1635,19 +1635,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1657,7 +1657,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_app_parameter(authorization, app_id, parameter_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_app_parameter: %s\n" % e)
 ```
 
@@ -1705,19 +1705,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1726,7 +1726,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_authorization_server(authorization, id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_authorization_server: %s\n" % e)
 ```
 
@@ -1772,19 +1772,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1793,7 +1793,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_environment_variable(authorization, envvar_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_environment_variable: %s\n" % e)
 ```
 
@@ -1839,18 +1839,18 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
+import onelogin
+from onelogin.api import default_api
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1860,7 +1860,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_factor(authorization, user_id, device_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_factor: %s\n" % e)
 ```
 
@@ -1905,19 +1905,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1926,7 +1926,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_hook(authorization, hook_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_hook: %s\n" % e)
 ```
 
@@ -1972,19 +1972,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -1993,7 +1993,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_mapping(authorization, mapping_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_mapping: %s\n" % e)
 ```
 
@@ -2039,19 +2039,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.risk_rule import RiskRule
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.risk_rule import RiskRule
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2061,7 +2061,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.delete_risk_rule(authorization, risk_rule_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_risk_rule: %s\n" % e)
 ```
 
@@ -2106,19 +2106,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2127,7 +2127,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_role(authorization, role_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_role: %s\n" % e)
 ```
 
@@ -2173,19 +2173,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2195,7 +2195,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_rule(authorization, app_id, rule_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_rule: %s\n" % e)
 ```
 
@@ -2242,19 +2242,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2264,7 +2264,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_scope(authorization, id, scope_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_scope: %s\n" % e)
 ```
 
@@ -2311,19 +2311,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2332,7 +2332,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.delete_user(authorization, user_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_user: %s\n" % e)
 ```
 
@@ -2378,20 +2378,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.error_status import ErrorStatus
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.error_status import ErrorStatus
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2404,7 +2404,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.dry_run_mapping(authorization, mapping_id, request_body)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->dry_run_mapping: %s\n" % e)
 ```
 
@@ -2451,21 +2451,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.factor import Factor
-from openapi_client.model.enroll_factor_request import EnrollFactorRequest
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.factor import Factor
+from onelogin.model.enroll_factor_request import EnrollFactorRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2483,7 +2483,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.enroll_factor(authorization, user_id, enroll_factor_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->enroll_factor: %s\n" % e)
 ```
 
@@ -2530,22 +2530,22 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.generate_mfa_token200_response import GenerateMfaToken200Response
-from openapi_client.model.generate_mfa_token_request import GenerateMfaTokenRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.generate_mfa_token422_response import GenerateMfaToken422Response
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.generate_mfa_token200_response import GenerateMfaToken200Response
+from onelogin.model.generate_mfa_token_request import GenerateMfaTokenRequest
+from onelogin.model.generate_mfa_token422_response import GenerateMfaToken422Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2558,7 +2558,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.generate_mfa_token(authorization, generate_mfa_token_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->generate_mfa_token: %s\n" % e)
 ```
 
@@ -2604,19 +2604,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.generate_saml_assertion_request import GenerateSamlAssertionRequest
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.generate_saml_assertion_request import GenerateSamlAssertionRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2631,7 +2631,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.generate_saml_assertion(authorization, generate_saml_assertion_request)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->generate_saml_assertion: %s\n" % e)
 ```
 
@@ -2675,21 +2675,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.generate_token400_response import GenerateToken400Response
-from openapi_client.model.generate_token200_response import GenerateToken200Response
-from openapi_client.model.generate_token_request import GenerateTokenRequest
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.generate_token200_response import GenerateToken200Response
+from onelogin.model.generate_token400_response import GenerateToken400Response
+from onelogin.model.generate_token_request import GenerateTokenRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2701,7 +2701,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.generate_token(authorization, generate_token_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->generate_token: %s\n" % e)
 ```
 
@@ -2748,20 +2748,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.schema import Schema
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.schema import Schema
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2771,7 +2771,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_app(authorization, app_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_app: %s\n" % e)
 ```
 
@@ -2817,20 +2817,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.get_authorization_server200_response import GetAuthorizationServer200Response
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.get_authorization_server200_response import GetAuthorizationServer200Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2840,7 +2840,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_authorization_server(authorization, id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_authorization_server: %s\n" % e)
 ```
 
@@ -2886,20 +2886,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.get_available_factors200_response_inner import GetAvailableFactors200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.get_available_factors200_response_inner import GetAvailableFactors200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2909,7 +2909,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_available_factors(authorization, user_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_available_factors: %s\n" % e)
 ```
 
@@ -2954,20 +2954,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.get_client_apps200_response_inner import GetClientApps200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.get_client_apps200_response_inner import GetClientApps200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -2977,7 +2977,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_client_apps(authorization, id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_client_apps: %s\n" % e)
 ```
 
@@ -3023,20 +3023,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.device import Device
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.device import Device
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3046,7 +3046,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_enrolled_factors(authorization, user_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_enrolled_factors: %s\n" % e)
 ```
 
@@ -3091,20 +3091,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.envvar import Envvar
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.envvar import Envvar
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3114,7 +3114,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_environment_variable(authorization, envvar_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_environment_variable: %s\n" % e)
 ```
 
@@ -3159,20 +3159,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.hook import Hook
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.hook import Hook
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3182,7 +3182,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_hook(authorization, hook_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_hook: %s\n" % e)
 ```
 
@@ -3228,20 +3228,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.log import Log
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.log import Log
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3256,7 +3256,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_logs(authorization, hook_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_logs: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -3264,7 +3264,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_logs(authorization, hook_id, limit=limit, page=page, cursor=cursor, request_id=request_id, correlation_id=correlation_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_logs: %s\n" % e)
 ```
 
@@ -3315,20 +3315,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.mapping import Mapping
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.mapping import Mapping
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3338,7 +3338,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_mapping(authorization, mapping_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_mapping: %s\n" % e)
 ```
 
@@ -3384,20 +3384,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.get_rate_limit200_response import GetRateLimit200Response
-from openapi_client.model.generate_token400_response import GenerateToken400Response
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.get_rate_limit200_response import GetRateLimit200Response
+from onelogin.model.generate_token400_response import GenerateToken400Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3406,7 +3406,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_rate_limit(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_rate_limit: %s\n" % e)
 ```
 
@@ -3452,18 +3452,18 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
+import onelogin
+from onelogin.api import default_api
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3472,7 +3472,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.get_risk_rule(authorization, risk_rule_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_risk_rule: %s\n" % e)
 ```
 
@@ -3510,21 +3510,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.get_risk_score200_response import GetRiskScore200Response
-from openapi_client.model.get_risk_score_request import GetRiskScoreRequest
-from openapi_client.model.get_risk_score400_response import GetRiskScore400Response
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.get_risk_score400_response import GetRiskScore400Response
+from onelogin.model.get_risk_score_request import GetRiskScoreRequest
+from onelogin.model.get_risk_score200_response import GetRiskScore200Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3553,7 +3553,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_risk_score(authorization, get_risk_score_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_risk_score: %s\n" % e)
 ```
 
@@ -3599,20 +3599,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.role import Role
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.role import Role
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3622,7 +3622,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_role(authorization, role_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role: %s\n" % e)
 ```
 
@@ -3668,20 +3668,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.schema1 import Schema1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.schema1 import Schema1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3696,7 +3696,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_role_admins(authorization, role_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_admins: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -3704,7 +3704,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_role_admins(authorization, role_id, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_admins: %s\n" % e)
 ```
 
@@ -3755,20 +3755,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.schema import Schema
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.schema import Schema
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3782,7 +3782,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_role_apps(authorization, role_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_apps: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -3790,7 +3790,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_role_apps(authorization, role_id, limit=limit, page=page, cursor=cursor, assigned=assigned)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_apps: %s\n" % e)
 ```
 
@@ -3840,20 +3840,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.schema1 import Schema1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.schema1 import Schema1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3868,7 +3868,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_role_users(authorization, role_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_users: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -3876,7 +3876,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_role_users(authorization, role_id, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_users: %s\n" % e)
 ```
 
@@ -3927,20 +3927,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.rule import Rule
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.rule import Rule
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -3951,7 +3951,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_rule(authorization, app_id, rule_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_rule: %s\n" % e)
 ```
 
@@ -3998,19 +3998,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.get_score_insights200_response import GetScoreInsights200Response
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.get_score_insights200_response import GetScoreInsights200Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4021,7 +4021,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_score_insights(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_score_insights: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -4029,7 +4029,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_score_insights(authorization, before=before, after=after)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_score_insights: %s\n" % e)
 ```
 
@@ -4075,20 +4075,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.user import User
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.user import User
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4098,7 +4098,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_user(authorization, user_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_user: %s\n" % e)
 ```
 
@@ -4144,20 +4144,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.get_user_apps200_response_inner import GetUserApps200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.get_user_apps200_response_inner import GetUserApps200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4168,7 +4168,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_user_apps(authorization, user_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_user_apps: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -4176,7 +4176,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.get_user_apps(authorization, user_id, ignore_visibility=ignore_visibility)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_user_apps: %s\n" % e)
 ```
 
@@ -4223,20 +4223,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.list_access_token_claims200_response_inner import ListAccessTokenClaims200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_access_token_claims200_response_inner import ListAccessTokenClaims200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4246,7 +4246,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_access_token_claims(authorization, id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_access_token_claims: %s\n" % e)
 ```
 
@@ -4292,20 +4292,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4316,7 +4316,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_action_values(authorization, app_id, action_value)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_action_values: %s\n" % e)
 ```
 
@@ -4362,20 +4362,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.list_actions200_response_inner import ListActions200ResponseInner
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_actions200_response_inner import ListActions200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4385,7 +4385,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_actions(authorization, app_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_actions: %s\n" % e)
 ```
 
@@ -4430,20 +4430,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.list_app_users200_response_inner import ListAppUsers200ResponseInner
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_app_users200_response_inner import ListAppUsers200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4456,7 +4456,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_app_users(authorization, app_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_app_users: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -4464,7 +4464,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_app_users(authorization, app_id, limit=limit, page=page, cursor=cursor)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_app_users: %s\n" % e)
 ```
 
@@ -4512,21 +4512,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.schema import Schema
-from openapi_client.model.auth_method import AuthMethod
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.schema import Schema
+from onelogin.model.auth_method import AuthMethod
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4541,7 +4541,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_apps(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_apps: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -4549,7 +4549,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_apps(authorization, limit=limit, page=page, cursor=cursor, name=name, connector_id=connector_id, auth_method=auth_method)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_apps: %s\n" % e)
 ```
 
@@ -4600,20 +4600,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.list_authorization_servers200_response_inner import ListAuthorizationServers200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_authorization_servers200_response_inner import ListAuthorizationServers200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4622,7 +4622,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_authorization_servers(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_authorization_servers: %s\n" % e)
 ```
 
@@ -4666,20 +4666,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4690,7 +4690,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_condition_operators(authorization, app_id, condition_value)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_condition_operators: %s\n" % e)
 ```
 
@@ -4736,20 +4736,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4760,7 +4760,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_condition_values(authorization, app_id, condition_value)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_condition_values: %s\n" % e)
 ```
 
@@ -4806,20 +4806,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.list_conditions200_response_inner import ListConditions200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_conditions200_response_inner import ListConditions200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4829,7 +4829,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_conditions(authorization, app_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_conditions: %s\n" % e)
 ```
 
@@ -4874,21 +4874,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.auth_method import AuthMethod
-from openapi_client.model.status1 import Status1
-from openapi_client.model.connector import Connector
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.connector import Connector
+from onelogin.model.auth_method import AuthMethod
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4902,7 +4902,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_connectors(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_connectors: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -4910,7 +4910,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_connectors(authorization, limit=limit, page=page, cursor=cursor, name=name, auth_method=auth_method)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_connectors: %s\n" % e)
 ```
 
@@ -4960,20 +4960,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.envvar import Envvar
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.envvar import Envvar
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -4985,7 +4985,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_environment_variables(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_environment_variables: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -4993,7 +4993,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_environment_variables(authorization, limit=limit, page=page, cursor=cursor)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_environment_variables: %s\n" % e)
 ```
 
@@ -5040,20 +5040,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.hook import Hook
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.hook import Hook
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5065,7 +5065,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_hooks(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_hooks: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -5073,7 +5073,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_hooks(authorization, limit=limit, page=page, cursor=cursor)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_hooks: %s\n" % e)
 ```
 
@@ -5120,20 +5120,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5143,7 +5143,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_mapping_action_values(authorization, action_value)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_action_values: %s\n" % e)
 ```
 
@@ -5188,20 +5188,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.list_actions200_response_inner import ListActions200ResponseInner
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_actions200_response_inner import ListActions200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5210,7 +5210,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_mapping_actions(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_actions: %s\n" % e)
 ```
 
@@ -5254,20 +5254,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.list_mapping_condition_operators200_response_inner import ListMappingConditionOperators200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_mapping_condition_operators200_response_inner import ListMappingConditionOperators200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5277,7 +5277,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_mapping_condition_operators(authorization, condition_value)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_condition_operators: %s\n" % e)
 ```
 
@@ -5322,20 +5322,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5345,7 +5345,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_mapping_condition_values(authorization, condition_value)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_condition_values: %s\n" % e)
 ```
 
@@ -5390,20 +5390,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.list_mapping_conditions200_response_inner import ListMappingConditions200ResponseInner
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_mapping_conditions200_response_inner import ListMappingConditions200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5412,7 +5412,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_mapping_conditions(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_conditions: %s\n" % e)
 ```
 
@@ -5456,20 +5456,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.mapping import Mapping
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.mapping import Mapping
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5483,7 +5483,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_mappings(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mappings: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -5491,7 +5491,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_mappings(authorization, enabled=enabled, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mappings: %s\n" % e)
 ```
 
@@ -5540,18 +5540,18 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
+import onelogin
+from onelogin.api import default_api
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5559,7 +5559,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.list_risk_rules(authorization)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_risk_rules: %s\n" % e)
 ```
 
@@ -5596,20 +5596,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.role import Role
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.role import Role
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5624,7 +5624,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_roles(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_roles: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -5632,7 +5632,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_roles(authorization, limit=limit, page=page, cursor=cursor, name=name, app_id=app_id, fields=fields)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_roles: %s\n" % e)
 ```
 
@@ -5682,20 +5682,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.rule import Rule
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.rule import Rule
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5710,7 +5710,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_rules(authorization, app_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_rules: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -5718,7 +5718,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_rules(authorization, app_id, enabled=enabled, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_rules: %s\n" % e)
 ```
 
@@ -5768,20 +5768,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.list_scopes200_response_inner import ListScopes200ResponseInner
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.list_scopes200_response_inner import ListScopes200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5791,7 +5791,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_scopes(authorization, id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_scopes: %s\n" % e)
 ```
 
@@ -5837,20 +5837,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.user import User
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.user import User
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5879,7 +5879,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_users(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_users: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -5887,7 +5887,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.list_users(authorization, limit=limit, page=page, cursor=cursor, created_since=created_since, created_until=created_until, updated_since=updated_since, updated_until=updated_until, last_login_since=last_login_since, last_login_until=last_login_until, firstname=firstname, lastname=lastname, email=email, username=username, samaccountname=samaccountname, directory_id=directory_id, external_id=external_id, app_id=app_id, user_ids=user_ids, custom_attributes_attribute_name=custom_attributes_attribute_name, fields=fields)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_users: %s\n" % e)
 ```
 
@@ -5953,19 +5953,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -5975,7 +5975,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.remove_client_app(authorization, id, client_app_id)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->remove_client_app: %s\n" % e)
 ```
 
@@ -6022,20 +6022,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.remove_role_users_request import RemoveRoleUsersRequest
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.remove_role_users_request import RemoveRoleUsersRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6049,7 +6049,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.remove_role_admins(authorization, role_id, remove_role_users_request)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->remove_role_admins: %s\n" % e)
 ```
 
@@ -6096,20 +6096,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.remove_role_users_request import RemoveRoleUsersRequest
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.remove_role_users_request import RemoveRoleUsersRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6123,7 +6123,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.remove_role_users(authorization, role_id, remove_role_users_request)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->remove_role_users: %s\n" % e)
 ```
 
@@ -6170,20 +6170,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.generate_token400_response import GenerateToken400Response
-from openapi_client.model.revoke_token_request import RevokeTokenRequest
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.revoke_token_request import RevokeTokenRequest
+from onelogin.model.generate_token400_response import GenerateToken400Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6195,7 +6195,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.revoke_token(authorization)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->revoke_token: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -6203,7 +6203,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.revoke_token(authorization, revoke_token_request=revoke_token_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->revoke_token: %s\n" % e)
 ```
 
@@ -6250,20 +6250,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.set_role_apps200_response_inner import SetRoleApps200ResponseInner
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.set_role_apps200_response_inner import SetRoleApps200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6276,7 +6276,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.set_role_apps(authorization, role_id, request_body)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->set_role_apps: %s\n" % e)
 ```
 
@@ -6323,19 +6323,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.track_event_request import TrackEventRequest
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.track_event_request import TrackEventRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6365,7 +6365,7 @@ with openapi_client.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     try:
         api_instance.track_event(authorization, track_event_request)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->track_event: %s\n" % e)
 ```
 
@@ -6411,21 +6411,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.add_access_token_claim_request import AddAccessTokenClaimRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.id import Id
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.add_access_token_claim_request import AddAccessTokenClaimRequest
+from onelogin.model.status1 import Status1
+from onelogin.model.id import Id
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6441,7 +6441,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_access_token_claim(authorization, id, claim_id, add_access_token_claim_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_access_token_claim: %s\n" % e)
 ```
 
@@ -6490,20 +6490,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.schema import Schema
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.schema import Schema
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6539,7 +6539,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_app(authorization, app_id, schema)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_app: %s\n" % e)
 ```
 
@@ -6586,22 +6586,22 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.create_authorization_server_request import CreateAuthorizationServerRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.update_authorization_server400_response import UpdateAuthorizationServer400Response
-from openapi_client.model.id import Id
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.create_authorization_server_request import CreateAuthorizationServerRequest
+from onelogin.model.id import Id
+from onelogin.model.update_authorization_server400_response import UpdateAuthorizationServer400Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6623,7 +6623,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_authorization_server(authorization, id, create_authorization_server_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_authorization_server: %s\n" % e)
 ```
 
@@ -6671,21 +6671,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.update_client_app_request import UpdateClientAppRequest
-from openapi_client.model.client_app import ClientApp
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.update_client_app_request import UpdateClientAppRequest
+from onelogin.model.client_app import ClientApp
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6701,7 +6701,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_client_app(authorization, id, client_app_id, update_client_app_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_client_app: %s\n" % e)
 ```
 
@@ -6750,22 +6750,22 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.update_environment_variable_request import UpdateEnvironmentVariableRequest
-from openapi_client.model.hook_status import HookStatus
-from openapi_client.model.envvar import Envvar
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.update_environment_variable_request import UpdateEnvironmentVariableRequest
+from onelogin.model.hook_status import HookStatus
+from onelogin.model.envvar import Envvar
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6778,7 +6778,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_environment_variable(authorization, envvar_id, update_environment_variable_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_environment_variable: %s\n" % e)
 ```
 
@@ -6826,21 +6826,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.hook_status import HookStatus
-from openapi_client.model.hook import Hook
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.hook import Hook
+from onelogin.model.hook_status import HookStatus
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6879,7 +6879,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_hook(authorization, hook_id, hook)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_hook: %s\n" % e)
 ```
 
@@ -6926,21 +6926,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.error_status import ErrorStatus
-from openapi_client.model.mapping import Mapping
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.error_status import ErrorStatus
+from onelogin.model.status1 import Status1
+from onelogin.model.mapping import Mapping
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6975,7 +6975,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_mapping(authorization, mapping_id, mapping)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_mapping: %s\n" % e)
 ```
 
@@ -7022,19 +7022,19 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.risk_rule import RiskRule
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.risk_rule import RiskRule
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7058,7 +7058,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_risk_rule(authorization, risk_rule_id, risk_rule)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_risk_rule: %s\n" % e)
 ```
 
@@ -7105,21 +7105,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.role import Role
-from openapi_client.model.update_role200_response import UpdateRole200Response
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.role import Role
+from onelogin.model.update_role200_response import UpdateRole200Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7142,7 +7142,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_role(authorization, role_id, role)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_role: %s\n" % e)
 ```
 
@@ -7189,22 +7189,22 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.rule_id import RuleId
-from openapi_client.model.rule import Rule
-from openapi_client.model.status1 import Status1
-from openapi_client.model.error_status import ErrorStatus
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.error_status import ErrorStatus
+from onelogin.model.status1 import Status1
+from onelogin.model.rule import Rule
+from onelogin.model.rule_id import RuleId
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7240,7 +7240,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_rule(authorization, app_id, rule_id, rule)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_rule: %s\n" % e)
 ```
 
@@ -7288,21 +7288,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.add_scope_request import AddScopeRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.id import Id
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.id import Id
+from onelogin.model.add_scope_request import AddScopeRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7317,7 +7317,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_scope(authorization, id, scope_id, add_scope_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_scope: %s\n" % e)
 ```
 
@@ -7366,20 +7366,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.user import User
-from openapi_client.model.status1 import Status1
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.user import User
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7432,7 +7432,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_user(authorization, user_id, user)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_user: %s\n" % e)
 
     # example passing only required values which don't have defaults set
@@ -7440,7 +7440,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.update_user(authorization, user_id, user, mappings=mappings, validate_policy=validate_policy)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_user: %s\n" % e)
 ```
 
@@ -7491,21 +7491,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.verify_enrollment_request import VerifyEnrollmentRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.registration import Registration
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.registration import Registration
+from onelogin.model.status1 import Status1
+from onelogin.model.verify_enrollment_request import VerifyEnrollmentRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7519,7 +7519,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.verify_enrollment(authorization, user_id, registration_id, verify_enrollment_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_enrollment: %s\n" % e)
 ```
 
@@ -7566,20 +7566,20 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.status1 import Status1
-from openapi_client.model.registration import Registration
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.registration import Registration
+from onelogin.model.status1 import Status1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7590,7 +7590,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.verify_enrollment_voice_protect(authorization, user_id, registration_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_enrollment_voice_protect: %s\n" % e)
 ```
 
@@ -7636,21 +7636,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.verify_factor_request import VerifyFactorRequest
-from openapi_client.model.status1 import Status1
-from openapi_client.model.status2 import Status2
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.verify_factor_request import VerifyFactorRequest
+from onelogin.model.status2 import Status2
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7665,7 +7665,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.verify_factor(authorization, user_id, verification_id, verify_factor_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_factor: %s\n" % e)
 ```
 
@@ -7713,21 +7713,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.verify_factor_saml200_response import VerifyFactorSaml200Response
-from openapi_client.model.status1 import Status1
-from openapi_client.model.verify_factor_saml_request import VerifyFactorSamlRequest
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.verify_factor_saml_request import VerifyFactorSamlRequest
+from onelogin.model.status1 import Status1
+from onelogin.model.verify_factor_saml200_response import VerifyFactorSaml200Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7743,7 +7743,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.verify_factor_saml(authorization, verify_factor_saml_request)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_factor_saml: %s\n" % e)
 ```
 
@@ -7790,21 +7790,21 @@ No authorization required
 
 ```python
 import time
-import openapi_client
-from openapi_client.api import default_api
-from openapi_client.model.verify_factor_voice200_response_inner import VerifyFactorVoice200ResponseInner
-from openapi_client.model.status1 import Status1
-from openapi_client.model.status2 import Status2
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.status1 import Status1
+from onelogin.model.verify_factor_voice200_response_inner import VerifyFactorVoice200ResponseInner
+from onelogin.model.status2 import Status2
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://onelogininc.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -7815,7 +7815,7 @@ with openapi_client.ApiClient() as api_client:
     try:
         api_response = api_instance.verify_factor_voice(authorization, user_id, verification_id)
         pprint(api_response)
-    except openapi_client.ApiException as e:
+    except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_factor_voice: %s\n" % e)
 ```
 
