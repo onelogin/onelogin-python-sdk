@@ -24,5 +24,4 @@ jobs:
         pip install -e ".[test]"
     - name: Test
       run: |
-        coverage run --source=src/onelogin/api --rcfile=tests/coverage.rc setup.py test
-        coverage report -m --rcfile=tests/coverage.rc
+        python -m unittest
