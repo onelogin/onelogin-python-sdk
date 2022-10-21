@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**create_risk_rule**](DefaultApi.md#create_risk_rule) | **POST** /api/2/risk/rules | 
 [**create_roles**](DefaultApi.md#create_roles) | **POST** /api/2/roles | 
 [**create_rule**](DefaultApi.md#create_rule) | **POST** /api/2/apps/{app_id}/rules | 
+[**create_session_login_token**](DefaultApi.md#create_session_login_token) | **POST** /api/1/login/auth | 
 [**create_user**](DefaultApi.md#create_user) | **POST** /api/2/users | 
 [**delete_access_token_claim**](DefaultApi.md#delete_access_token_claim) | **DELETE** /api/2/api_authorizations/{id}/claims/{claim_id} | 
 [**delete_app**](DefaultApi.md#delete_app) | **DELETE** /api/2/apps/{app_id} | 
@@ -45,6 +46,11 @@ Method | HTTP request | Description
 [**get_client_apps**](DefaultApi.md#get_client_apps) | **GET** /api/2/api_authorizations/{id}/clients | 
 [**get_enrolled_factors**](DefaultApi.md#get_enrolled_factors) | **GET** /api/2/mfa/users/{user_id}/devices | 
 [**get_environment_variable**](DefaultApi.md#get_environment_variable) | **GET** /api/2/hooks/envs/{envvar_id} | 
+[**get_event_by_id**](DefaultApi.md#get_event_by_id) | **GET** /api/1/events/{event_id} | 
+[**get_event_types**](DefaultApi.md#get_event_types) | **GET** /api/1/events/types | 
+[**get_events**](DefaultApi.md#get_events) | **GET** /api/1/events | 
+[**get_group_by_id**](DefaultApi.md#get_group_by_id) | **GET** /api/1/groups/{group_id} | 
+[**get_groups**](DefaultApi.md#get_groups) | **GET** /api/1/groups | 
 [**get_hook**](DefaultApi.md#get_hook) | **GET** /api/2/hooks/{hook_id} | 
 [**get_logs**](DefaultApi.md#get_logs) | **GET** /api/2/hooks/{hook_id}/logs | 
 [**get_mapping**](DefaultApi.md#get_mapping) | **GET** /api/2/mappings/{mapping_id} | 
@@ -100,6 +106,7 @@ Method | HTTP request | Description
 [**update_rule**](DefaultApi.md#update_rule) | **PUT** /api/2/apps/{app_id}/rules/{rule_id} | 
 [**update_scope**](DefaultApi.md#update_scope) | **PUT** /api/2/api_authorizations/{id}/scopes/{scope_id} | 
 [**update_user**](DefaultApi.md#update_user) | **PUT** /api/2/users/{user_id} | 
+[**v1_verify_factor**](DefaultApi.md#v1_verify_factor) | **POST** /api/1/login/verify_factor | 
 [**verify_enrollment**](DefaultApi.md#verify_enrollment) | **PUT** /api/2/mfa/users/{user_id}/registrations/{registration_id} | 
 [**verify_enrollment_voice_protect**](DefaultApi.md#verify_enrollment_voice_protect) | **GET** /api/2/mfa/users/{user_id}/registrations/{registration_id} | 
 [**verify_factor**](DefaultApi.md#verify_factor) | **PUT** /api/2/mfa/users/{user_id}/verifications/{verification_id} | 
@@ -119,7 +126,7 @@ Method | HTTP request | Description
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.activate_factor_request import ActivateFactorRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -194,7 +201,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.add_access_token_claim_request import AddAccessTokenClaimRequest
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.id import Id
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -270,7 +277,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.add_client_app_request import AddClientAppRequest
 from onelogin.model.client_app import ClientApp
 from pprint import pprint
@@ -348,8 +355,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -420,8 +427,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -493,7 +500,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.id import Id
 from onelogin.model.add_scope_request import AddScopeRequest
 from pprint import pprint
@@ -570,7 +577,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.error_status import ErrorStatus
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.mapping_id_list import MappingIdList
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -642,8 +649,8 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.error_status import ErrorStatus
-from onelogin.model.status1 import Status1
 from onelogin.model.rule_id_list import RuleIdList
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -715,7 +722,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -809,8 +816,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.create_authorization_server_request import CreateAuthorizationServerRequest
+from onelogin.model.status import Status
 from onelogin.model.id import Id
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -890,7 +897,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.create_environment_variable_request import CreateEnvironmentVariableRequest
 from onelogin.model.envvar import Envvar
 from pprint import pprint
@@ -1051,7 +1058,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.error_status import ErrorStatus
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.mapping import Mapping
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -1216,8 +1223,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.create_roles201_response_inner import CreateRoles201ResponseInner
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1283,8 +1290,8 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.error_status import ErrorStatus
-from onelogin.model.status1 import Status1
 from onelogin.model.rule import Rule
+from onelogin.model.status import Status
 from onelogin.model.rule_id import RuleId
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -1367,6 +1374,92 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **create_session_login_token**
+> CreateSessionLoginToken200Response create_session_login_token(authorization, create_session_login_token_request)
+
+
+
+### Example
+
+
+```python
+import time
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.create_session_login_token_request import CreateSessionLoginTokenRequest
+from onelogin.model.generate_token400_response import GenerateToken400Response
+from onelogin.model.create_session_login_token400_response import CreateSessionLoginToken400Response
+from onelogin.model.create_session_login_token200_response import CreateSessionLoginToken200Response
+from pprint import pprint
+# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = onelogin.Configuration(
+    host = "https://onelogininc.onelogin.com"
+)
+
+
+# Enter a context with an instance of the API client
+with onelogin.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    authorization = "Authorization_example" # str | 
+    create_session_login_token_request = CreateSessionLoginTokenRequest(
+        username_or_email="username_or_email_example",
+        password="password_example",
+        subodmain="subodmain_example",
+        fields="fields_example",
+    ) # CreateSessionLoginTokenRequest | 
+    custom_allowed_origin_header_1 = "Custom-Allowed-Origin-Header-1_example" # str | Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. (optional)
+
+    # example passing only required values which don't have defaults set
+    try:
+        api_response = api_instance.create_session_login_token(authorization, create_session_login_token_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_session_login_token: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_session_login_token(authorization, create_session_login_token_request, custom_allowed_origin_header_1=custom_allowed_origin_header_1)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_session_login_token: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **str**|  |
+ **create_session_login_token_request** | [**CreateSessionLoginTokenRequest**](CreateSessionLoginTokenRequest.md)|  |
+ **custom_allowed_origin_header_1** | **str**| Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. | [optional]
+
+### Return type
+
+[**CreateSessionLoginToken200Response**](CreateSessionLoginToken200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | BAD REQUEST |  -  |
+**401** | UNAUTHORIZED |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **create_user**
 > User create_user(authorization, user)
 
@@ -1379,7 +1472,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.user import User
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -1501,7 +1594,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1570,7 +1663,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1637,7 +1730,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1707,7 +1800,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1774,7 +1867,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1907,7 +2000,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1974,7 +2067,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -2108,7 +2201,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -2175,7 +2268,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -2244,7 +2337,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -2313,7 +2406,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -2327,7 +2420,7 @@ with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
-    user_id = 1 # int | Set to the id of the user that you want to return.
+    user_id = 1 # int | Set to the id of the user.
 
     # example passing only required values which don't have defaults set
     try:
@@ -2342,7 +2435,7 @@ with onelogin.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **str**|  |
- **user_id** | **int**| Set to the id of the user that you want to return. |
+ **user_id** | **int**| Set to the id of the user. |
 
 ### Return type
 
@@ -2381,7 +2474,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.error_status import ErrorStatus
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -2453,7 +2546,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.factor import Factor
 from onelogin.model.enroll_factor_request import EnrollFactorRequest
 from pprint import pprint
@@ -2532,8 +2625,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.generate_mfa_token200_response import GenerateMfaToken200Response
+from onelogin.model.status import Status
 from onelogin.model.generate_mfa_token_request import GenerateMfaTokenRequest
 from onelogin.model.generate_mfa_token422_response import GenerateMfaToken422Response
 from pprint import pprint
@@ -2750,7 +2843,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -2819,7 +2912,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.get_authorization_server200_response import GetAuthorizationServer200Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -2888,7 +2981,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.get_available_factors200_response_inner import GetAvailableFactors200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -2956,8 +3049,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.get_client_apps200_response_inner import GetClientApps200ResponseInner
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -3025,7 +3118,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.device import Device
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -3093,7 +3186,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.envvar import Envvar
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -3149,6 +3242,394 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_event_by_id**
+> GetEventById200Response get_event_by_id(authorization, id)
+
+
+
+### Example
+
+
+```python
+import time
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.get_event_by_id200_response import GetEventById200Response
+from onelogin.model.status import Status
+from pprint import pprint
+# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = onelogin.Configuration(
+    host = "https://onelogininc.onelogin.com"
+)
+
+
+# Enter a context with an instance of the API client
+with onelogin.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    authorization = "Authorization_example" # str | 
+    id = 1 # int | 
+
+    # example passing only required values which don't have defaults set
+    try:
+        api_response = api_instance.get_event_by_id(authorization, id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_event_by_id: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **str**|  |
+ **id** | **int**|  |
+
+### Return type
+
+[**GetEventById200Response**](GetEventById200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | BAD REQUEST |  -  |
+**401** | Typically, this error means that your access token value is invalid. |  -  |
+**404** | Invalid ID |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_event_types**
+> GetEventTypes200Response get_event_types()
+
+
+
+### Example
+
+
+```python
+import time
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.get_event_types200_response import GetEventTypes200Response
+from pprint import pprint
+# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = onelogin.Configuration(
+    host = "https://onelogininc.onelogin.com"
+)
+
+
+# Enter a context with an instance of the API client
+with onelogin.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+
+    # example, this endpoint has no required or optional parameters
+    try:
+        api_response = api_instance.get_event_types()
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_event_types: %s\n" % e)
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**GetEventTypes200Response**](GetEventTypes200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_events**
+> GetEvents200Response get_events(authorization, user_id)
+
+
+
+### Example
+
+
+```python
+import time
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.get_events200_response import GetEvents200Response
+from onelogin.model.status import Status
+from pprint import pprint
+# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = onelogin.Configuration(
+    host = "https://onelogininc.onelogin.com"
+)
+
+
+# Enter a context with an instance of the API client
+with onelogin.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    authorization = "Authorization_example" # str | 
+    user_id = 1 # int | Set to the id of the user.
+    fields = "apps" # str | Optional. Comma delimited list of fields to return. (optional)
+    until = "until_example" # str | Include the until query parameter to return results with created_at before the value (optional)
+    since = "since_example" # str | Include the until query parameter to return results with created_at after the value (optional)
+    limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
+    sort = "sort_example" # str | When you call a resource API, include the sort query parameter to sort results by id attribute value. (optional)
+    client_id = 1 # int |  (optional)
+    created_at = "created_at_example" # str |  (optional)
+    directory_id = "directory_id_example" # str | The ID in OneLogin of the Directory that the user belongs to (optional)
+    event_type_id = [
+        1,
+    ] # [int] |  (optional)
+    id = 1 # int |  (optional)
+    resolution = "resolution_example" # str |  (optional)
+
+    # example passing only required values which don't have defaults set
+    try:
+        api_response = api_instance.get_events(authorization, user_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_events: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_events(authorization, user_id, fields=fields, until=until, since=since, limit=limit, sort=sort, client_id=client_id, created_at=created_at, directory_id=directory_id, event_type_id=event_type_id, id=id, resolution=resolution)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_events: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **str**|  |
+ **user_id** | **int**| Set to the id of the user. |
+ **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional]
+ **until** | **str**| Include the until query parameter to return results with created_at before the value | [optional]
+ **since** | **str**| Include the until query parameter to return results with created_at after the value | [optional]
+ **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
+ **sort** | **str**| When you call a resource API, include the sort query parameter to sort results by id attribute value. | [optional]
+ **client_id** | **int**|  | [optional]
+ **created_at** | **str**|  | [optional]
+ **directory_id** | **str**| The ID in OneLogin of the Directory that the user belongs to | [optional]
+ **event_type_id** | **[int]**|  | [optional]
+ **id** | **int**|  | [optional]
+ **resolution** | **str**|  | [optional]
+
+### Return type
+
+[**GetEvents200Response**](GetEvents200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | BAD REQUEST |  -  |
+**401** | Typically, this error means that your access token value is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_group_by_id**
+> GetGroupById200Response get_group_by_id(authorization, id)
+
+
+
+### Example
+
+
+```python
+import time
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.get_group_by_id200_response import GetGroupById200Response
+from onelogin.model.status import Status
+from pprint import pprint
+# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = onelogin.Configuration(
+    host = "https://onelogininc.onelogin.com"
+)
+
+
+# Enter a context with an instance of the API client
+with onelogin.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    authorization = "Authorization_example" # str | 
+    id = 1 # int | 
+
+    # example passing only required values which don't have defaults set
+    try:
+        api_response = api_instance.get_group_by_id(authorization, id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_group_by_id: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **str**|  |
+ **id** | **int**|  |
+
+### Return type
+
+[**GetGroupById200Response**](GetGroupById200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | BAD REQUEST |  -  |
+**401** | Typically, this error means that your access token value is invalid. |  -  |
+**404** | Invalid ID |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_groups**
+> GetGroups200Response get_groups(authorization)
+
+
+
+### Example
+
+
+```python
+import time
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.get_groups200_response import GetGroups200Response
+from onelogin.model.status import Status
+from pprint import pprint
+# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = onelogin.Configuration(
+    host = "https://onelogininc.onelogin.com"
+)
+
+
+# Enter a context with an instance of the API client
+with onelogin.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    authorization = "Authorization_example" # str | 
+    fields = "apps" # str | Optional. Comma delimited list of fields to return. (optional)
+    until = "until_example" # str | Include the until query parameter to return results with created_at before the value (optional)
+    since = "since_example" # str | Include the until query parameter to return results with created_at after the value (optional)
+    limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
+    sort = "sort_example" # str | When you call a resource API, include the sort query parameter to sort results by id attribute value. (optional)
+    id = 1 # int |  (optional)
+
+    # example passing only required values which don't have defaults set
+    try:
+        api_response = api_instance.get_groups(authorization)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_groups: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_groups(authorization, fields=fields, until=until, since=since, limit=limit, sort=sort, id=id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_groups: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **str**|  |
+ **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional]
+ **until** | **str**| Include the until query parameter to return results with created_at before the value | [optional]
+ **since** | **str**| Include the until query parameter to return results with created_at after the value | [optional]
+ **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
+ **sort** | **str**| When you call a resource API, include the sort query parameter to sort results by id attribute value. | [optional]
+ **id** | **int**|  | [optional]
+
+### Return type
+
+[**GetGroups200Response**](GetGroups200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | BAD REQUEST |  -  |
+**401** | Typically, this error means that your access token value is invalid. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_hook**
 > Hook get_hook(authorization, hook_id)
 
@@ -3161,8 +3642,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.hook import Hook
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -3230,8 +3711,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.log import Log
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -3317,7 +3798,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.mapping import Mapping
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -3601,7 +4082,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.role import Role
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -3670,7 +4151,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.schema1 import Schema1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -3757,7 +4238,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -3842,7 +4323,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.schema1 import Schema1
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -3929,8 +4410,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.rule import Rule
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -4077,7 +4558,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.user import User
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -4092,7 +4573,7 @@ with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
-    user_id = 1 # int | Set to the id of the user that you want to return.
+    user_id = 1 # int | Set to the id of the user.
 
     # example passing only required values which don't have defaults set
     try:
@@ -4108,7 +4589,7 @@ with onelogin.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **str**|  |
- **user_id** | **int**| Set to the id of the user that you want to return. |
+ **user_id** | **int**| Set to the id of the user. |
 
 ### Return type
 
@@ -4146,7 +4627,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.get_user_apps200_response_inner import GetUserApps200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -4161,7 +4642,7 @@ with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
-    user_id = 1 # int | Set to the id of the user that you want to return.
+    user_id = 1 # int | Set to the id of the user.
     ignore_visibility = True # bool | Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting. (optional)
 
     # example passing only required values which don't have defaults set
@@ -4186,7 +4667,7 @@ with onelogin.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **str**|  |
- **user_id** | **int**| Set to the id of the user that you want to return. |
+ **user_id** | **int**| Set to the id of the user. |
  **ignore_visibility** | **bool**| Defaults to &#x60;false&#x60;. When &#x60;true&#x60; will show all apps that are assigned to a user regardless of their portal visibility setting. | [optional]
 
 ### Return type
@@ -4225,7 +4706,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.list_access_token_claims200_response_inner import ListAccessTokenClaims200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -4295,7 +4776,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -4364,8 +4845,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.list_actions200_response_inner import ListActions200ResponseInner
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -4432,7 +4913,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.list_app_users200_response_inner import ListAppUsers200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -4514,7 +4995,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from onelogin.model.auth_method import AuthMethod
 from pprint import pprint
@@ -4602,7 +5083,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.list_authorization_servers200_response_inner import ListAuthorizationServers200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -4668,7 +5149,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -4739,7 +5220,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -4808,7 +5289,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.list_conditions200_response_inner import ListConditions200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -4876,8 +5357,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.connector import Connector
+from onelogin.model.status import Status
 from onelogin.model.auth_method import AuthMethod
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -4895,8 +5376,8 @@ with onelogin.ApiClient() as api_client:
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
-    name = "name_example" # str | The name or partial name of the connector to search for. When using a partial name you must append a wildcard `*` (optional)
-    auth_method = AuthMethod(0) # AuthMethod | Returns all connectors of a given type. (optional)
+    name = "name_example" # str | The name or partial name of the app to search for. When using a partial name you must append a wildcard `*` (optional)
+    auth_method = AuthMethod(0) # AuthMethod | Returns all apps based of a given type. (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -4923,8 +5404,8 @@ Name | Type | Description  | Notes
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
- **name** | **str**| The name or partial name of the connector to search for. When using a partial name you must append a wildcard &#x60;*&#x60; | [optional]
- **auth_method** | **AuthMethod**| Returns all connectors of a given type. | [optional]
+ **name** | **str**| The name or partial name of the app to search for. When using a partial name you must append a wildcard &#x60;*&#x60; | [optional]
+ **auth_method** | **AuthMethod**| Returns all apps based of a given type. | [optional]
 
 ### Return type
 
@@ -4962,7 +5443,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.envvar import Envvar
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -5042,8 +5523,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.hook import Hook
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -5123,7 +5604,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -5190,8 +5671,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.list_actions200_response_inner import ListActions200ResponseInner
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -5256,7 +5737,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.list_mapping_condition_operators200_response_inner import ListMappingConditionOperators200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -5325,7 +5806,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -5392,7 +5873,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.list_mapping_conditions200_response_inner import ListMappingConditions200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -5458,7 +5939,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.mapping import Mapping
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -5473,11 +5954,11 @@ with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
-    enabled = True # bool | Defaults to true. When set to `false` will return all disabled mappings. (optional) if omitted the server will use the default value of True
-    has_condition = "has_condition=has_role:123456,status:1" # str | Filters Mappings based on their Conditions. (optional)
-    has_condition_type = "builtin" # str | Filters Mappings based on their condition types. (optional)
-    has_action = "has_action=set_groups:123456,set_usertype:*" # str | Filters Mappings based on their Actions. (optional)
-    has_action_type = "builtin" # str | Filters Mappings based on their action types. (optional)
+    enabled = True # bool | Defaults to true. When set to `false` will return all disabled rules. (optional)
+    has_condition = "has_condition_example" # str | Filters Rules based on their Conditions. (optional)
+    has_condition_type = "has_condition_type_example" # str | Filters Rules based on their condition types. (optional)
+    has_action = "has_action_example" # str | Filters Rules based on their Actions. (optional)
+    has_action_type = "has_action_type_example" # str | Filters Rules based on their action types. (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -5501,11 +5982,11 @@ with onelogin.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **str**|  |
- **enabled** | **bool**| Defaults to true. When set to &#x60;false&#x60; will return all disabled mappings. | [optional] if omitted the server will use the default value of True
- **has_condition** | **str**| Filters Mappings based on their Conditions. | [optional]
- **has_condition_type** | **str**| Filters Mappings based on their condition types. | [optional]
- **has_action** | **str**| Filters Mappings based on their Actions. | [optional]
- **has_action_type** | **str**| Filters Mappings based on their action types. | [optional]
+ **enabled** | **bool**| Defaults to true. When set to &#x60;false&#x60; will return all disabled rules. | [optional]
+ **has_condition** | **str**| Filters Rules based on their Conditions. | [optional]
+ **has_condition_type** | **str**| Filters Rules based on their condition types. | [optional]
+ **has_action** | **str**| Filters Rules based on their Actions. | [optional]
+ **has_action_type** | **str**| Filters Rules based on their action types. | [optional]
 
 ### Return type
 
@@ -5598,7 +6079,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.role import Role
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -5684,8 +6165,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.rule import Rule
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -5770,7 +6251,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.list_scopes200_response_inner import ListScopes200ResponseInner
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -5828,7 +6309,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_users**
-> [User] list_users(authorization)
+> [User] list_users(authorization, app_id)
 
 
 
@@ -5839,7 +6320,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.user import User
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -5854,6 +6335,7 @@ with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
+    app_id = 1 # int | 
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -5870,14 +6352,13 @@ with onelogin.ApiClient() as api_client:
     samaccountname = "samaccountname_example" # str | The AD login name for the user (optional)
     directory_id = "directory_id_example" # str | The ID in OneLogin of the Directory that the user belongs to (optional)
     external_id = "external_id_example" # str | An external identifier that has been set on the user (optional)
-    app_id = "app_id_example" # str | The ID of a OneLogin Application (optional)
     user_ids = "user_ids_example" # str | A comma separated list of OneLogin User IDs (optional)
     custom_attributes_attribute_name = "custom_attributes.{attribute_name}_example" # str | The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes. (optional)
-    fields = "fields_example" # str | A comma separated list user attributes to return. (optional)
+    fields = "apps" # str | Optional. Comma delimited list of fields to return. (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_users(authorization)
+        api_response = api_instance.list_users(authorization, app_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_users: %s\n" % e)
@@ -5885,7 +6366,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_users(authorization, limit=limit, page=page, cursor=cursor, created_since=created_since, created_until=created_until, updated_since=updated_since, updated_until=updated_until, last_login_since=last_login_since, last_login_until=last_login_until, firstname=firstname, lastname=lastname, email=email, username=username, samaccountname=samaccountname, directory_id=directory_id, external_id=external_id, app_id=app_id, user_ids=user_ids, custom_attributes_attribute_name=custom_attributes_attribute_name, fields=fields)
+        api_response = api_instance.list_users(authorization, app_id, limit=limit, page=page, cursor=cursor, created_since=created_since, created_until=created_until, updated_since=updated_since, updated_until=updated_until, last_login_since=last_login_since, last_login_until=last_login_until, firstname=firstname, lastname=lastname, email=email, username=username, samaccountname=samaccountname, directory_id=directory_id, external_id=external_id, user_ids=user_ids, custom_attributes_attribute_name=custom_attributes_attribute_name, fields=fields)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_users: %s\n" % e)
@@ -5897,6 +6378,7 @@ with onelogin.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **str**|  |
+ **app_id** | **int**|  |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5913,10 +6395,9 @@ Name | Type | Description  | Notes
  **samaccountname** | **str**| The AD login name for the user | [optional]
  **directory_id** | **str**| The ID in OneLogin of the Directory that the user belongs to | [optional]
  **external_id** | **str**| An external identifier that has been set on the user | [optional]
- **app_id** | **str**| The ID of a OneLogin Application | [optional]
  **user_ids** | **str**| A comma separated list of OneLogin User IDs | [optional]
  **custom_attributes_attribute_name** | **str**| The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes. | [optional]
- **fields** | **str**| A comma separated list user attributes to return. | [optional]
+ **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional]
 
 ### Return type
 
@@ -5955,7 +6436,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -6024,8 +6505,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.remove_role_users_request import RemoveRoleUsersRequest
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -6098,8 +6579,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.remove_role_users_request import RemoveRoleUsersRequest
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -6252,8 +6733,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.set_role_apps200_response_inner import SetRoleApps200ResponseInner
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -6414,7 +6895,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.add_access_token_claim_request import AddAccessTokenClaimRequest
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.id import Id
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -6492,7 +6973,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -6588,8 +7069,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.create_authorization_server_request import CreateAuthorizationServerRequest
+from onelogin.model.status import Status
 from onelogin.model.id import Id
 from onelogin.model.update_authorization_server400_response import UpdateAuthorizationServer400Response
 from pprint import pprint
@@ -6673,7 +7154,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.update_client_app_request import UpdateClientAppRequest
 from onelogin.model.client_app import ClientApp
 from pprint import pprint
@@ -6752,8 +7233,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.update_environment_variable_request import UpdateEnvironmentVariableRequest
+from onelogin.model.status import Status
 from onelogin.model.hook_status import HookStatus
 from onelogin.model.envvar import Envvar
 from pprint import pprint
@@ -6828,8 +7309,8 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
 from onelogin.model.hook import Hook
+from onelogin.model.status import Status
 from onelogin.model.hook_status import HookStatus
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -6929,7 +7410,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.error_status import ErrorStatus
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.mapping import Mapping
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -7107,7 +7588,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.role import Role
 from onelogin.model.update_role200_response import UpdateRole200Response
 from pprint import pprint
@@ -7192,8 +7673,8 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.error_status import ErrorStatus
-from onelogin.model.status1 import Status1
 from onelogin.model.rule import Rule
+from onelogin.model.status import Status
 from onelogin.model.rule_id import RuleId
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -7290,7 +7771,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.id import Id
 from onelogin.model.add_scope_request import AddScopeRequest
 from pprint import pprint
@@ -7368,7 +7849,7 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.user import User
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -7383,7 +7864,7 @@ with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
-    user_id = 1 # int | Set to the id of the user that you want to return.
+    user_id = 1 # int | Set to the id of the user.
     user = User(
         id=1,
         username="username_example",
@@ -7450,7 +7931,7 @@ with onelogin.ApiClient() as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **str**|  |
- **user_id** | **int**| Set to the id of the user that you want to return. |
+ **user_id** | **int**| Set to the id of the user. |
  **user** | [**User**](User.md)|  |
  **mappings** | **str**| Controls how mappings will be applied to the user on creation. Defaults to async. | [optional]
  **validate_policy** | **bool**| Will passwords validate against the User Policy? Defaults to true. | [optional]
@@ -7481,6 +7962,91 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **v1_verify_factor**
+> V1VerifyFactor200Response v1_verify_factor(authorization, v1_verify_factor_request)
+
+
+
+### Example
+
+
+```python
+import time
+import onelogin
+from onelogin.api import default_api
+from onelogin.model.v1_verify_factor_request import V1VerifyFactorRequest
+from onelogin.model.generate_token400_response import GenerateToken400Response
+from onelogin.model.v1_verify_factor200_response import V1VerifyFactor200Response
+from pprint import pprint
+# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = onelogin.Configuration(
+    host = "https://onelogininc.onelogin.com"
+)
+
+
+# Enter a context with an instance of the API client
+with onelogin.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+    authorization = "Authorization_example" # str | 
+    v1_verify_factor_request = V1VerifyFactorRequest(
+        device_id="device_id_example",
+        state_token="state_token_example",
+        otp_token="otp_token_example",
+        do_not_notify=True,
+    ) # V1VerifyFactorRequest | 
+    custom_allowed_origin_header_1 = "Custom-Allowed-Origin-Header-1_example" # str | Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. (optional)
+
+    # example passing only required values which don't have defaults set
+    try:
+        api_response = api_instance.v1_verify_factor(authorization, v1_verify_factor_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->v1_verify_factor: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.v1_verify_factor(authorization, v1_verify_factor_request, custom_allowed_origin_header_1=custom_allowed_origin_header_1)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->v1_verify_factor: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **str**|  |
+ **v1_verify_factor_request** | [**V1VerifyFactorRequest**](V1VerifyFactorRequest.md)|  |
+ **custom_allowed_origin_header_1** | **str**| Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. | [optional]
+
+### Return type
+
+[**V1VerifyFactor200Response**](V1VerifyFactor200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | BAD REQUEST |  -  |
+**401** | UNAUTHORIZED |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **verify_enrollment**
 > [Registration] verify_enrollment(authorization, user_id, registration_id, verify_enrollment_request)
 
@@ -7494,7 +8060,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.registration import Registration
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.verify_enrollment_request import VerifyEnrollmentRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
@@ -7569,7 +8135,7 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.registration import Registration
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -7627,7 +8193,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_factor**
-> Status2 verify_factor(authorization, user_id, verification_id, verify_factor_request)
+> GenerateToken400Response verify_factor(authorization, user_id, verification_id, verify_factor_request)
 
 
 
@@ -7638,9 +8204,9 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
 from onelogin.model.verify_factor_request import VerifyFactorRequest
-from onelogin.model.status2 import Status2
+from onelogin.model.generate_token400_response import GenerateToken400Response
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -7681,7 +8247,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Status2**](Status2.md)
+[**GenerateToken400Response**](GenerateToken400Response.md)
 
 ### Authorization
 
@@ -7716,8 +8282,8 @@ import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.verify_factor_saml_request import VerifyFactorSamlRequest
-from onelogin.model.status1 import Status1
 from onelogin.model.verify_factor_saml200_response import VerifyFactorSaml200Response
+from onelogin.model.status import Status
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -7792,9 +8358,9 @@ No authorization required
 import time
 import onelogin
 from onelogin.api import default_api
-from onelogin.model.status1 import Status1
+from onelogin.model.status import Status
+from onelogin.model.generate_token400_response import GenerateToken400Response
 from onelogin.model.verify_factor_voice200_response_inner import VerifyFactorVoice200ResponseInner
-from onelogin.model.status2 import Status2
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
