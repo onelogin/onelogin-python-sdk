@@ -38,7 +38,6 @@ docs/GenerateMfaTokenRequest.md
 docs/GenerateSamlAssertionRequest.md
 docs/GenerateToken200Response.md
 docs/GenerateToken400Response.md
-docs/GenerateTokenRequest.md
 docs/GetAuthorizationServer200Response.md
 docs/GetAvailableFactors200ResponseInner.md
 docs/GetClientApps200ResponseInner.md
@@ -156,7 +155,6 @@ onelogin/model/generate_mfa_token_request.py
 onelogin/model/generate_saml_assertion_request.py
 onelogin/model/generate_token200_response.py
 onelogin/model/generate_token400_response.py
-onelogin/model/generate_token_request.py
 onelogin/model/get_authorization_server200_response.py
 onelogin/model/get_available_factors200_response_inner.py
 onelogin/model/get_client_apps200_response_inner.py
