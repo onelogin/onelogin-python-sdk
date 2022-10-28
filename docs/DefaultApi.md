@@ -2759,7 +2759,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_token**
-> GenerateToken200Response generate_token(authorization, generate_token_request)
+> GenerateToken200Response generate_token(client_id, client_secret, )
 
 
 
@@ -2772,7 +2772,6 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.generate_token200_response import GenerateToken200Response
 from onelogin.model.generate_token400_response import GenerateToken400Response
-from onelogin.model.generate_token_request import GenerateTokenRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://onelogininc.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -2785,14 +2784,12 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
-    generate_token_request = GenerateTokenRequest(
-        grant_type="client_credentials",
-    ) # GenerateTokenRequest | 
+    client_id = "client_id_example" # str | 
+    client_secret = "client_secret_example" # str | 
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.generate_token(authorization, generate_token_request)
+        api_response = api_instance.generate_token(client_id, client_secret, )
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->generate_token: %s\n" % e)
@@ -2803,8 +2800,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
- **generate_token_request** | [**GenerateTokenRequest**](GenerateTokenRequest.md)|  |
+ **client_id** | **str**|  |
+ **client_secret** | **str**|  |
+ **grant_type** | **str**|  | defaults to "client_credentials"
 
 ### Return type
 
@@ -2816,7 +2814,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 
