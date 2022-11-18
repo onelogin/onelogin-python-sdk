@@ -140,7 +140,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     activate_factor_request = ActivateFactorRequest(
         device_id=1,
@@ -161,7 +161,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **activate_factor_request** | [**ActivateFactorRequest**](ActivateFactorRequest.md)|  |
 
@@ -215,7 +215,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     add_access_token_claim_request = AddAccessTokenClaimRequest(
         name="name_example",
@@ -236,7 +236,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **add_access_token_claim_request** | [**AddAccessTokenClaimRequest**](AddAccessTokenClaimRequest.md)|  |
 
@@ -292,7 +292,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     add_client_app_request = AddClientAppRequest(
         app_id=1,
@@ -314,7 +314,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **add_client_app_request** | [**AddClientAppRequest**](AddClientAppRequest.md)|  |
 
@@ -369,7 +369,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     request_body = [
         1,
@@ -388,7 +388,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **request_body** | **[int]**|  |
 
@@ -441,7 +441,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     request_body = [
         1,
@@ -460,7 +460,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **request_body** | **[int]**|  |
 
@@ -515,7 +515,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     add_scope_request = AddScopeRequest(
         value="value_example",
@@ -535,7 +535,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **add_scope_request** | [**AddScopeRequest**](AddScopeRequest.md)|  |
 
@@ -591,7 +591,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id_list = MappingIdList([
         1,
     ]) # MappingIdList | The request body must contain an array of User Mapping IDs in the desired order.
@@ -609,7 +609,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id_list** | [**MappingIdList**](MappingIdList.md)| The request body must contain an array of User Mapping IDs in the desired order. |
 
 ### Return type
@@ -663,7 +663,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule_id_list = RuleIdList([
         1,
@@ -682,7 +682,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule_id_list** | [**RuleIdList**](RuleIdList.md)| The request body must contain an array of App Rule IDs in the desired order. |
 
@@ -736,7 +736,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     schema = Schema(
         id=1,
         connector_id=1,
@@ -777,7 +777,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **schema** | [**Schema**](Schema.md)|  |
 
 ### Return type
@@ -831,7 +831,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     create_authorization_server_request = CreateAuthorizationServerRequest(
         name="name_example",
         description="description_example",
@@ -858,7 +858,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **create_authorization_server_request** | [**CreateAuthorizationServerRequest**](CreateAuthorizationServerRequest.md)|  |
 
 ### Return type
@@ -912,7 +912,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     create_environment_variable_request = CreateEnvironmentVariableRequest(
         name="name_example",
         value="value_example",
@@ -931,7 +931,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **create_environment_variable_request** | [**CreateEnvironmentVariableRequest**](CreateEnvironmentVariableRequest.md)|  |
 
 ### Return type
@@ -983,7 +983,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook = Hook(
         id="id_example",
         type="type_example",
@@ -1026,7 +1026,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook** | [**Hook**](Hook.md)|  |
 
 ### Return type
@@ -1072,7 +1072,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping = Mapping(
         id=1,
         name="name_example",
@@ -1112,7 +1112,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping** | [**Mapping**](Mapping.md)|  |
 
 ### Return type
@@ -1164,7 +1164,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     risk_rule = RiskRule(
         id="id_example",
         name="name_example",
@@ -1192,7 +1192,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **risk_rule** | [**RiskRule**](RiskRule.md)|  |
 
 ### Return type
@@ -1237,7 +1237,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
 
     # example passing only required values which don't have defaults set
     try:
@@ -1252,7 +1252,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
 
 ### Return type
 
@@ -1305,7 +1305,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule = Rule(
         id=1,
@@ -1346,7 +1346,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule** | [**Rule**](Rule.md)|  |
 
@@ -1402,7 +1402,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     create_session_login_token_request = CreateSessionLoginTokenRequest(
         username_or_email="username_or_email_example",
         password="password_example",
@@ -1432,7 +1432,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **create_session_login_token_request** | [**CreateSessionLoginTokenRequest**](CreateSessionLoginTokenRequest.md)|  |
  **custom_allowed_origin_header_1** | **str**| Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. | [optional]
 
@@ -1486,7 +1486,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user = User(
         id=1,
         username="username_example",
@@ -1552,7 +1552,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user** | [**User**](User.md)|  |
  **mappings** | **str**| Controls how mappings will be applied to the user on creation. Defaults to async. | [optional]
  **validate_policy** | **bool**| Will passwords validate against the User Policy? Defaults to true. | [optional]
@@ -1607,7 +1607,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     claim_id = 1 # int | 
 
@@ -1623,7 +1623,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **claim_id** | **int**|  |
 
@@ -1676,7 +1676,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -1691,7 +1691,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
 
 ### Return type
@@ -1743,7 +1743,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     parameter_id = 1 # int | 
 
@@ -1759,7 +1759,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **parameter_id** | **int**|  |
 
@@ -1813,7 +1813,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -1828,7 +1828,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
 
 ### Return type
@@ -1880,7 +1880,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     envvar_id = "envvar_id_example" # str | Set to the id of the Hook Environment Variable that you want to fetch.
 
     # example passing only required values which don't have defaults set
@@ -1895,7 +1895,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **envvar_id** | **str**| Set to the id of the Hook Environment Variable that you want to fetch. |
 
 ### Return type
@@ -1946,7 +1946,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     device_id = 1 # int | Set to the device_id of the MFA device.
 
@@ -1962,7 +1962,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **device_id** | **int**| Set to the device_id of the MFA device. |
 
@@ -2013,7 +2013,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook_id = "hook_id_example" # str | Set to the id of the Hook that you want to return.
 
     # example passing only required values which don't have defaults set
@@ -2028,7 +2028,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook_id** | **str**| Set to the id of the Hook that you want to return. |
 
 ### Return type
@@ -2080,7 +2080,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id = 1 # int | The id of the user mapping to locate.
 
     # example passing only required values which don't have defaults set
@@ -2095,7 +2095,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id** | **int**| The id of the user mapping to locate. |
 
 ### Return type
@@ -2147,7 +2147,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     risk_rule_id = "risk_rule_id_example" # str | 
 
     # example passing only required values which don't have defaults set
@@ -2163,7 +2163,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **risk_rule_id** | **str**|  |
 
 ### Return type
@@ -2214,7 +2214,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
 
     # example passing only required values which don't have defaults set
@@ -2229,7 +2229,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
 
 ### Return type
@@ -2281,7 +2281,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule_id = 1 # int | The id of the app rule to locate.
 
@@ -2297,7 +2297,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule_id** | **int**| The id of the app rule to locate. |
 
@@ -2350,7 +2350,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     scope_id = 1 # int | 
 
@@ -2366,7 +2366,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **scope_id** | **int**|  |
 
@@ -2419,7 +2419,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
 
     # example passing only required values which don't have defaults set
@@ -2434,7 +2434,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
 
 ### Return type
@@ -2487,7 +2487,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id = 1 # int | The id of the user mapping to locate.
     request_body = [
         1,
@@ -2506,7 +2506,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id** | **int**| The id of the user mapping to locate. |
  **request_body** | **[int]**| Request body is a list of user IDs tested against the mapping conditions to verify that the mapping would be applied |
 
@@ -2561,7 +2561,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     enroll_factor_request = EnrollFactorRequest(
         factor_id=1,
@@ -2585,7 +2585,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **enroll_factor_request** | [**EnrollFactorRequest**](EnrollFactorRequest.md)|  |
 
@@ -2641,7 +2641,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     generate_mfa_token_request = GenerateMfaTokenRequest(
         expires_in="expires_in_example",
         reusable=True,
@@ -2660,7 +2660,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **generate_mfa_token_request** | [**GenerateMfaTokenRequest**](GenerateMfaTokenRequest.md)|  |
 
 ### Return type
@@ -2712,7 +2712,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     generate_saml_assertion_request = GenerateSamlAssertionRequest(
         username_or_email="username_or_email_example",
         password="password_example",
@@ -2733,7 +2733,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **generate_saml_assertion_request** | [**GenerateSamlAssertionRequest**](GenerateSamlAssertionRequest.md)|  |
 
 ### Return type
@@ -2855,7 +2855,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -2871,7 +2871,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
 
 ### Return type
@@ -2924,7 +2924,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -2940,7 +2940,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
 
 ### Return type
@@ -2993,7 +2993,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
 
     # example passing only required values which don't have defaults set
@@ -3009,7 +3009,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
 
 ### Return type
@@ -3061,7 +3061,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -3077,7 +3077,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
 
 ### Return type
@@ -3130,7 +3130,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
 
     # example passing only required values which don't have defaults set
@@ -3146,7 +3146,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
 
 ### Return type
@@ -3198,7 +3198,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     envvar_id = "envvar_id_example" # str | Set to the id of the Hook Environment Variable that you want to fetch.
 
     # example passing only required values which don't have defaults set
@@ -3214,7 +3214,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **envvar_id** | **str**| Set to the id of the Hook Environment Variable that you want to fetch. |
 
 ### Return type
@@ -3266,7 +3266,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -3282,7 +3282,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
 
 ### Return type
@@ -3396,7 +3396,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     fields = "apps" # str | Optional. Comma delimited list of fields to return. (optional)
     until = "until_example" # str | Include the until query parameter to return results with created_at before the value (optional)
@@ -3433,7 +3433,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional]
  **until** | **str**| Include the until query parameter to return results with created_at before the value | [optional]
@@ -3497,7 +3497,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -3513,7 +3513,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
 
 ### Return type
@@ -3567,7 +3567,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     fields = "apps" # str | Optional. Comma delimited list of fields to return. (optional)
     until = "until_example" # str | Include the until query parameter to return results with created_at before the value (optional)
     since = "since_example" # str | Include the until query parameter to return results with created_at after the value (optional)
@@ -3596,7 +3596,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional]
  **until** | **str**| Include the until query parameter to return results with created_at before the value | [optional]
  **since** | **str**| Include the until query parameter to return results with created_at after the value | [optional]
@@ -3654,7 +3654,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook_id = "hook_id_example" # str | Set to the id of the Hook that you want to return.
 
     # example passing only required values which don't have defaults set
@@ -3670,7 +3670,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook_id** | **str**| Set to the id of the Hook that you want to return. |
 
 ### Return type
@@ -3723,7 +3723,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook_id = "hook_id_example" # str | Set to the id of the Hook that you want to return.
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
@@ -3752,7 +3752,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook_id** | **str**| Set to the id of the Hook that you want to return. |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
@@ -3810,7 +3810,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id = 1 # int | The id of the user mapping to locate.
 
     # example passing only required values which don't have defaults set
@@ -3826,7 +3826,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id** | **int**| The id of the user mapping to locate. |
 
 ### Return type
@@ -3879,7 +3879,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
 
     # example passing only required values which don't have defaults set
     try:
@@ -3894,7 +3894,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
 
 ### Return type
 
@@ -3945,7 +3945,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     risk_rule_id = "risk_rule_id_example" # str | 
 
     # example passing only required values which don't have defaults set
@@ -3960,7 +3960,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **risk_rule_id** | **str**|  |
 
 ### Return type
@@ -4006,7 +4006,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     get_risk_score_request = GetRiskScoreRequest(
         ip="ip_example",
         user_agent="user_agent_example",
@@ -4041,7 +4041,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **get_risk_score_request** | [**GetRiskScoreRequest**](GetRiskScoreRequest.md)|  |
 
 ### Return type
@@ -4094,7 +4094,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
 
     # example passing only required values which don't have defaults set
@@ -4110,7 +4110,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
 
 ### Return type
@@ -4163,7 +4163,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
@@ -4192,7 +4192,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
@@ -4250,7 +4250,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
@@ -4278,7 +4278,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
@@ -4335,7 +4335,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
@@ -4364,7 +4364,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
@@ -4422,7 +4422,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule_id = 1 # int | The id of the app rule to locate.
 
@@ -4439,7 +4439,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule_id** | **int**| The id of the app rule to locate. |
 
@@ -4492,7 +4492,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     before = "before_example" # str | Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago. (optional)
     after = "after_example" # str | Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago. (optional)
 
@@ -4517,7 +4517,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **before** | **str**| Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago. | [optional]
  **after** | **str**| Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago. | [optional]
 
@@ -4570,7 +4570,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
 
     # example passing only required values which don't have defaults set
@@ -4586,7 +4586,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
 
 ### Return type
@@ -4639,7 +4639,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     ignore_visibility = True # bool | Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting. (optional)
 
@@ -4664,7 +4664,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **ignore_visibility** | **bool**| Defaults to &#x60;false&#x60;. When &#x60;true&#x60; will show all apps that are assigned to a user regardless of their portal visibility setting. | [optional]
 
@@ -4718,7 +4718,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -4734,7 +4734,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
 
 ### Return type
@@ -4787,7 +4787,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     action_value = "action_value_example" # str | The value for the selected action.
 
@@ -4804,7 +4804,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **action_value** | **str**| The value for the selected action. |
 
@@ -4857,7 +4857,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -4873,7 +4873,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
 
 ### Return type
@@ -4925,7 +4925,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
@@ -4952,7 +4952,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
@@ -5008,7 +5008,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -5037,7 +5037,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5095,7 +5095,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
 
     # example passing only required values which don't have defaults set
     try:
@@ -5110,7 +5110,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
 
 ### Return type
 
@@ -5161,7 +5161,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     condition_value = "condition_value_example" # str | The value for the selected condition.
 
@@ -5178,7 +5178,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **condition_value** | **str**| The value for the selected condition. |
 
@@ -5231,7 +5231,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     condition_value = "condition_value_example" # str | The value for the selected condition.
 
@@ -5248,7 +5248,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **condition_value** | **str**| The value for the selected condition. |
 
@@ -5301,7 +5301,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -5317,7 +5317,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
 
 ### Return type
@@ -5370,7 +5370,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -5398,7 +5398,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5455,7 +5455,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -5481,7 +5481,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5535,7 +5535,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -5561,7 +5561,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5615,7 +5615,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     action_value = "action_value_example" # str | The value for the selected action.
 
     # example passing only required values which don't have defaults set
@@ -5631,7 +5631,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **action_value** | **str**| The value for the selected action. |
 
 ### Return type
@@ -5683,7 +5683,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
 
     # example passing only required values which don't have defaults set
     try:
@@ -5698,7 +5698,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
 
 ### Return type
 
@@ -5749,7 +5749,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     condition_value = "condition_value_example" # str | The value for the selected condition.
 
     # example passing only required values which don't have defaults set
@@ -5765,7 +5765,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **condition_value** | **str**| The value for the selected condition. |
 
 ### Return type
@@ -5817,7 +5817,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     condition_value = "condition_value_example" # str | The value for the selected condition.
 
     # example passing only required values which don't have defaults set
@@ -5833,7 +5833,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **condition_value** | **str**| The value for the selected condition. |
 
 ### Return type
@@ -5885,7 +5885,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
 
     # example passing only required values which don't have defaults set
     try:
@@ -5900,7 +5900,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
 
 ### Return type
 
@@ -5951,7 +5951,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     enabled = True # bool | Defaults to true. When set to `false` will return all disabled rules. (optional)
     has_condition = "has_condition_example" # str | Filters Rules based on their Conditions. (optional)
     has_condition_type = "has_condition_type_example" # str | Filters Rules based on their condition types. (optional)
@@ -5979,7 +5979,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **enabled** | **bool**| Defaults to true. When set to &#x60;false&#x60; will return all disabled rules. | [optional]
  **has_condition** | **str**| Filters Rules based on their Conditions. | [optional]
  **has_condition_type** | **str**| Filters Rules based on their condition types. | [optional]
@@ -6033,7 +6033,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
 
     # example passing only required values which don't have defaults set
     try:
@@ -6047,7 +6047,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
 
 ### Return type
 
@@ -6091,7 +6091,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -6120,7 +6120,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -6177,7 +6177,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     enabled = True # bool | Defaults to true. When set to `false` will return all disabled rules. (optional)
     has_condition = "has_condition_example" # str | Filters Rules based on their Conditions. (optional)
@@ -6206,7 +6206,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **enabled** | **bool**| Defaults to true. When set to &#x60;false&#x60; will return all disabled rules. | [optional]
  **has_condition** | **str**| Filters Rules based on their Conditions. | [optional]
@@ -6263,7 +6263,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
 
     # example passing only required values which don't have defaults set
@@ -6279,7 +6279,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
 
 ### Return type
@@ -6332,7 +6332,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
@@ -6375,7 +6375,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
@@ -6447,7 +6447,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     client_app_id = 1 # int | 
 
@@ -6463,7 +6463,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **client_app_id** | **int**|  |
 
@@ -6517,7 +6517,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     remove_role_users_request = RemoveRoleUsersRequest(
         user_id=[
@@ -6537,7 +6537,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **remove_role_users_request** | [**RemoveRoleUsersRequest**](RemoveRoleUsersRequest.md)|  |
 
@@ -6591,7 +6591,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     remove_role_users_request = RemoveRoleUsersRequest(
         user_id=[
@@ -6611,7 +6611,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **remove_role_users_request** | [**RemoveRoleUsersRequest**](RemoveRoleUsersRequest.md)|  |
 
@@ -6745,7 +6745,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     request_body = [
         1,
@@ -6764,7 +6764,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **request_body** | **[int]**|  |
 
@@ -6817,7 +6817,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     track_event_request = TrackEventRequest(
         verb="verb_example",
         ip="ip_example",
@@ -6853,7 +6853,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **track_event_request** | [**TrackEventRequest**](TrackEventRequest.md)|  |
 
 ### Return type
@@ -6907,7 +6907,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     claim_id = 1 # int | 
     add_access_token_claim_request = AddAccessTokenClaimRequest(
@@ -6929,7 +6929,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **claim_id** | **int**|  |
  **add_access_token_claim_request** | [**AddAccessTokenClaimRequest**](AddAccessTokenClaimRequest.md)|  |
@@ -6985,7 +6985,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     schema = Schema(
         id=1,
@@ -7027,7 +7027,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **schema** | [**Schema**](Schema.md)|  |
 
@@ -7083,7 +7083,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     create_authorization_server_request = CreateAuthorizationServerRequest(
         name="name_example",
@@ -7111,7 +7111,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **create_authorization_server_request** | [**CreateAuthorizationServerRequest**](CreateAuthorizationServerRequest.md)|  |
 
@@ -7167,7 +7167,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     client_app_id = 1 # int | 
     update_client_app_request = UpdateClientAppRequest(
@@ -7189,7 +7189,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **client_app_id** | **int**|  |
  **update_client_app_request** | [**UpdateClientAppRequest**](UpdateClientAppRequest.md)|  |
@@ -7247,7 +7247,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     envvar_id = "envvar_id_example" # str | Set to the id of the Hook Environment Variable that you want to fetch.
     update_environment_variable_request = UpdateEnvironmentVariableRequest(
         value="value_example",
@@ -7266,7 +7266,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **envvar_id** | **str**| Set to the id of the Hook Environment Variable that you want to fetch. |
  **update_environment_variable_request** | [**UpdateEnvironmentVariableRequest**](UpdateEnvironmentVariableRequest.md)|  |
 
@@ -7322,7 +7322,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook_id = "hook_id_example" # str | Set to the id of the Hook that you want to return.
     hook = Hook(
         id="id_example",
@@ -7367,7 +7367,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook_id** | **str**| Set to the id of the Hook that you want to return. |
  **hook** | [**Hook**](Hook.md)|  |
 
@@ -7422,7 +7422,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id = 1 # int | The id of the user mapping to locate.
     mapping = Mapping(
         id=1,
@@ -7463,7 +7463,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id** | **int**| The id of the user mapping to locate. |
  **mapping** | [**Mapping**](Mapping.md)|  |
 
@@ -7516,7 +7516,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     risk_rule_id = "risk_rule_id_example" # str | 
     risk_rule = RiskRule(
         id="id_example",
@@ -7546,7 +7546,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **risk_rule_id** | **str**|  |
  **risk_rule** | [**RiskRule**](RiskRule.md)|  |
 
@@ -7601,7 +7601,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     role = Role(
         id=1,
@@ -7630,7 +7630,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **role** | [**Role**](Role.md)|  |
 
@@ -7686,7 +7686,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule_id = 1 # int | The id of the app rule to locate.
     rule = Rule(
@@ -7728,7 +7728,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule_id** | **int**| The id of the app rule to locate. |
  **rule** | [**Rule**](Rule.md)|  |
@@ -7784,7 +7784,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     scope_id = 1 # int | 
     add_scope_request = AddScopeRequest(
@@ -7805,7 +7805,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **scope_id** | **int**|  |
  **add_scope_request** | [**AddScopeRequest**](AddScopeRequest.md)|  |
@@ -7861,7 +7861,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     user = User(
         id=1,
@@ -7928,7 +7928,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **user** | [**User**](User.md)|  |
  **mappings** | **str**| Controls how mappings will be applied to the user on creation. Defaults to async. | [optional]
@@ -7987,7 +7987,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     v1_verify_factor_request = V1VerifyFactorRequest(
         device_id="device_id_example",
         state_token="state_token_example",
@@ -8017,7 +8017,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **v1_verify_factor_request** | [**V1VerifyFactorRequest**](V1VerifyFactorRequest.md)|  |
  **custom_allowed_origin_header_1** | **str**| Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. | [optional]
 
@@ -8072,7 +8072,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     registration_id = 1 # int | Set to the uuid of the registration. This was included in the response as part of the initial request in Enroll Factor.
     verify_enrollment_request = VerifyEnrollmentRequest(
@@ -8092,7 +8092,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **registration_id** | **int**| Set to the uuid of the registration. This was included in the response as part of the initial request in Enroll Factor. |
  **verify_enrollment_request** | [**VerifyEnrollmentRequest**](VerifyEnrollmentRequest.md)|  |
@@ -8146,7 +8146,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     registration_id = 1 # int | Set to the uuid of the registration. This was included in the response as part of the initial request in Enroll Factor.
 
@@ -8163,7 +8163,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **registration_id** | **int**| Set to the uuid of the registration. This was included in the response as part of the initial request in Enroll Factor. |
 
@@ -8217,7 +8217,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     verification_id = 1 # int | The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.
     verify_factor_request = VerifyFactorRequest(
@@ -8238,7 +8238,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **verification_id** | **int**| The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call. |
  **verify_factor_request** | [**VerifyFactorRequest**](VerifyFactorRequest.md)|  |
@@ -8294,7 +8294,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     verify_factor_saml_request = VerifyFactorSamlRequest(
         app_id="app_id_example",
         device_id="device_id_example",
@@ -8316,7 +8316,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **verify_factor_saml_request** | [**VerifyFactorSamlRequest**](VerifyFactorSamlRequest.md)|  |
 
 ### Return type
@@ -8371,7 +8371,7 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient() as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     verification_id = 1 # int | The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.
 
@@ -8388,7 +8388,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **verification_id** | **int**| The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call. |
 
