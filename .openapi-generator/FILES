@@ -23,6 +23,8 @@ docs/CreateSessionLoginToken400Response.md
 docs/CreateSessionLoginTokenRequest.md
 docs/DefaultApi.md
 docs/Device.md
+docs/DryRunMapping200ResponseInner.md
+docs/DryRunMapping200ResponseInnerUser.md
 docs/EnrollFactorRequest.md
 docs/Envvar.md
 docs/ErrorStatus.md
@@ -35,6 +37,9 @@ docs/GenerateMfaToken200Response.md
 docs/GenerateMfaToken422Response.md
 docs/GenerateMfaToken422ResponseDetails.md
 docs/GenerateMfaTokenRequest.md
+docs/GenerateSamlAssertion200Response.md
+docs/GenerateSamlAssertion200ResponseDevicesInner.md
+docs/GenerateSamlAssertion200ResponseUser.md
 docs/GenerateSamlAssertionRequest.md
 docs/GenerateToken200Response.md
 docs/GenerateToken400Response.md
@@ -140,6 +145,8 @@ onelogin/model/create_session_login_token200_response_data_inner_devices_inner.p
 onelogin/model/create_session_login_token400_response.py
 onelogin/model/create_session_login_token_request.py
 onelogin/model/device.py
+onelogin/model/dry_run_mapping200_response_inner.py
+onelogin/model/dry_run_mapping200_response_inner_user.py
 onelogin/model/enroll_factor_request.py
 onelogin/model/envvar.py
 onelogin/model/error_status.py
@@ -152,6 +159,9 @@ onelogin/model/generate_mfa_token200_response.py
 onelogin/model/generate_mfa_token422_response.py
 onelogin/model/generate_mfa_token422_response_details.py
 onelogin/model/generate_mfa_token_request.py
+onelogin/model/generate_saml_assertion200_response.py
+onelogin/model/generate_saml_assertion200_response_devices_inner.py
+onelogin/model/generate_saml_assertion200_response_user.py
 onelogin/model/generate_saml_assertion_request.py
 onelogin/model/generate_token200_response.py
 onelogin/model/generate_token400_response.py
