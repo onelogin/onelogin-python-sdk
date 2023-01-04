@@ -1,6 +1,6 @@
 # onelogin.DefaultApi
 
-All URIs are relative to *https://onelogininc.onelogin.com*
+All URIs are relative to *https://api.us.onelogin.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -66,7 +66,7 @@ Method | HTTP request | Description
 [**get_user**](DefaultApi.md#get_user) | **GET** /api/2/users/{user_id} | 
 [**get_user_apps**](DefaultApi.md#get_user_apps) | **GET** /api/2/users/{user_id}/apps | 
 [**list_access_token_claims**](DefaultApi.md#list_access_token_claims) | **GET** /api/2/api_authorizations/{id}/claims | 
-[**list_action_values**](DefaultApi.md#list_action_values) | **GET** /api/2/apps/{app_id}/rules/actions/{actuion_value}/values | 
+[**list_action_values**](DefaultApi.md#list_action_values) | **GET** /api/2/apps/{app_id}/rules/actions/{action_value}/values | 
 [**list_actions**](DefaultApi.md#list_actions) | **GET** /api/2/apps/{app_id}/rules/actions | 
 [**list_app_users**](DefaultApi.md#list_app_users) | **GET** /api/2/apps/{app_id}/users | 
 [**list_apps**](DefaultApi.md#list_apps) | **GET** /api/2/apps | 
@@ -77,7 +77,7 @@ Method | HTTP request | Description
 [**list_connectors**](DefaultApi.md#list_connectors) | **GET** /api/2/connectors | 
 [**list_environment_variables**](DefaultApi.md#list_environment_variables) | **GET** /api/2/hooks/envs | 
 [**list_hooks**](DefaultApi.md#list_hooks) | **GET** /api/2/hooks | 
-[**list_mapping_action_values**](DefaultApi.md#list_mapping_action_values) | **GET** /api/2/apps/mappings/actions/{actuion_value}/values | 
+[**list_mapping_action_values**](DefaultApi.md#list_mapping_action_values) | **GET** /api/2/apps/mappings/actions/{action_value}/values | 
 [**list_mapping_actions**](DefaultApi.md#list_mapping_actions) | **GET** /api/2/apps/mappings/actions | 
 [**list_mapping_condition_operators**](DefaultApi.md#list_mapping_condition_operators) | **GET** /api/2/apps/mappings/conditions/{condition_value}/operators | 
 [**list_mapping_condition_values**](DefaultApi.md#list_mapping_condition_values) | **GET** /api/2/apps/mappings/conditions/{condition_value}/values | 
@@ -115,12 +115,13 @@ Method | HTTP request | Description
 
 
 # **activate_factor**
-> activate_factor(authorization, user_id, activate_factor_request)
+> Status activate_factor(user_id, activate_factor_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -129,18 +130,26 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.activate_factor_request import ActivateFactorRequest
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     activate_factor_request = ActivateFactorRequest(
         device_id=1,
@@ -148,10 +157,20 @@ with onelogin.ApiClient() as api_client:
         redirect_to="redirect_to_example",
         custom_message="custom_message_example",
     ) # ActivateFactorRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.activate_factor(authorization, user_id, activate_factor_request)
+        api_response = api_instance.activate_factor(user_id, activate_factor_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->activate_factor: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.activate_factor(user_id, activate_factor_request, authorization=authorization)
+        pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->activate_factor: %s\n" % e)
 ```
@@ -161,17 +180,17 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **activate_factor_request** | [**ActivateFactorRequest**](ActivateFactorRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
-void (empty response body)
+[**Status**](Status.md)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -183,18 +202,18 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | CREATED |  -  |
-**401** | Typically, this error means that your access token value is invalid. |  -  |
+**201** | Typically, this error means that your access token value is invalid. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_access_token_claim**
-> Id add_access_token_claim(authorization, id, add_access_token_claim_request)
+> Id add_access_token_claim(id, add_access_token_claim_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -204,28 +223,45 @@ from onelogin.model.add_access_token_claim_request import AddAccessTokenClaimReq
 from onelogin.model.status import Status
 from onelogin.model.id import Id
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     add_access_token_claim_request = AddAccessTokenClaimRequest(
         name="name_example",
         user_attribute_mappings="user_attribute_mappings_example",
         user_attribute_macros="user_attribute_macros_example",
     ) # AddAccessTokenClaimRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.add_access_token_claim(authorization, id, add_access_token_claim_request)
+        api_response = api_instance.add_access_token_claim(id, add_access_token_claim_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->add_access_token_claim: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.add_access_token_claim(id, add_access_token_claim_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_access_token_claim: %s\n" % e)
@@ -236,9 +272,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **add_access_token_claim_request** | [**AddAccessTokenClaimRequest**](AddAccessTokenClaimRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -246,7 +282,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -266,12 +302,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_client_app**
-> ClientApp add_client_app(authorization, id, add_client_app_request)
+> ClientApp add_client_app(id, add_client_app_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -281,18 +318,26 @@ from onelogin.model.status import Status
 from onelogin.model.add_client_app_request import AddClientAppRequest
 from onelogin.model.client_app import ClientApp
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     add_client_app_request = AddClientAppRequest(
         app_id=1,
@@ -300,10 +345,19 @@ with onelogin.ApiClient() as api_client:
             1,
         ],
     ) # AddClientAppRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.add_client_app(authorization, id, add_client_app_request)
+        api_response = api_instance.add_client_app(id, add_client_app_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->add_client_app: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.add_client_app(id, add_client_app_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_client_app: %s\n" % e)
@@ -314,9 +368,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **add_client_app_request** | [**AddClientAppRequest**](AddClientAppRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -324,7 +378,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -344,12 +398,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_role_admins**
-> [AddRoleUsers200ResponseInner] add_role_admins(authorization, role_id, request_body)
+> [AddRoleUsers200ResponseInner] add_role_admins(role_id, request_body)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -358,26 +413,43 @@ from onelogin.api import default_api
 from onelogin.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     request_body = [
         1,
     ] # [int] | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.add_role_admins(authorization, role_id, request_body)
+        api_response = api_instance.add_role_admins(role_id, request_body)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->add_role_admins: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.add_role_admins(role_id, request_body, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_role_admins: %s\n" % e)
@@ -388,9 +460,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **request_body** | **[int]**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -398,7 +470,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -416,12 +488,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_role_users**
-> [AddRoleUsers200ResponseInner] add_role_users(authorization, role_id, request_body)
+> [AddRoleUsers200ResponseInner] add_role_users(role_id, request_body)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -430,26 +503,43 @@ from onelogin.api import default_api
 from onelogin.model.add_role_users200_response_inner import AddRoleUsers200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     request_body = [
         1,
     ] # [int] | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.add_role_users(authorization, role_id, request_body)
+        api_response = api_instance.add_role_users(role_id, request_body)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->add_role_users: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.add_role_users(role_id, request_body, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_role_users: %s\n" % e)
@@ -460,9 +550,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **request_body** | **[int]**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -470,7 +560,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -489,12 +579,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_scope**
-> Id add_scope(authorization, id, add_scope_request)
+> Id add_scope(id, add_scope_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -504,27 +595,44 @@ from onelogin.model.status import Status
 from onelogin.model.id import Id
 from onelogin.model.add_scope_request import AddScopeRequest
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     add_scope_request = AddScopeRequest(
         value="value_example",
         description="description_example",
     ) # AddScopeRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.add_scope(authorization, id, add_scope_request)
+        api_response = api_instance.add_scope(id, add_scope_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->add_scope: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.add_scope(id, add_scope_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->add_scope: %s\n" % e)
@@ -535,9 +643,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **add_scope_request** | [**AddScopeRequest**](AddScopeRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -545,7 +653,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -565,12 +673,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_mapping_sort**
-> MappingIdList bulk_mapping_sort(authorization, mapping_id_list)
+> MappingIdList bulk_mapping_sort(mapping_id_list)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -580,25 +689,42 @@ from onelogin.model.error_status import ErrorStatus
 from onelogin.model.status import Status
 from onelogin.model.mapping_id_list import MappingIdList
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id_list = MappingIdList([
         1,
     ]) # MappingIdList | The request body must contain an array of User Mapping IDs in the desired order.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.bulk_mapping_sort(authorization, mapping_id_list)
+        api_response = api_instance.bulk_mapping_sort(mapping_id_list)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->bulk_mapping_sort: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.bulk_mapping_sort(mapping_id_list, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->bulk_mapping_sort: %s\n" % e)
@@ -609,8 +735,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id_list** | [**MappingIdList**](MappingIdList.md)| The request body must contain an array of User Mapping IDs in the desired order. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -618,7 +744,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -637,12 +763,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_sort**
-> RuleIdList bulk_sort(authorization, app_id, rule_id_list)
+> RuleIdList bulk_sort(app_id, rule_id_list)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -652,26 +779,43 @@ from onelogin.model.error_status import ErrorStatus
 from onelogin.model.rule_id_list import RuleIdList
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule_id_list = RuleIdList([
         1,
     ]) # RuleIdList | The request body must contain an array of App Rule IDs in the desired order.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.bulk_sort(authorization, app_id, rule_id_list)
+        api_response = api_instance.bulk_sort(app_id, rule_id_list)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->bulk_sort: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.bulk_sort(app_id, rule_id_list, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->bulk_sort: %s\n" % e)
@@ -682,9 +826,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule_id_list** | [**RuleIdList**](RuleIdList.md)| The request body must contain an array of App Rule IDs in the desired order. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -692,7 +836,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -711,12 +855,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_app**
-> Schema create_app(authorization, schema)
+> Schema create_app(schema)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -725,18 +870,26 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     schema = Schema(
         id=1,
         connector_id=1,
@@ -763,10 +916,19 @@ with onelogin.ApiClient() as api_client:
         parameters={},
         enforcement_point={},
     ) # Schema | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.create_app(authorization, schema)
+        api_response = api_instance.create_app(schema)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_app: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_app(schema, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_app: %s\n" % e)
@@ -777,8 +939,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **schema** | [**Schema**](Schema.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -786,7 +948,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -805,12 +967,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_authorization_server**
-> Id create_authorization_server(authorization, create_authorization_server_request)
+> Id create_authorization_server(create_authorization_server_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -820,18 +983,26 @@ from onelogin.model.create_authorization_server_request import CreateAuthorizati
 from onelogin.model.status import Status
 from onelogin.model.id import Id
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     create_authorization_server_request = CreateAuthorizationServerRequest(
         name="name_example",
         description="description_example",
@@ -844,10 +1015,19 @@ with onelogin.ApiClient() as api_client:
             access_token_expiration_minutes=1,
         ),
     ) # CreateAuthorizationServerRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.create_authorization_server(authorization, create_authorization_server_request)
+        api_response = api_instance.create_authorization_server(create_authorization_server_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_authorization_server: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_authorization_server(create_authorization_server_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_authorization_server: %s\n" % e)
@@ -858,8 +1038,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **create_authorization_server_request** | [**CreateAuthorizationServerRequest**](CreateAuthorizationServerRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -867,7 +1047,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -886,12 +1066,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_environment_variable**
-> Envvar create_environment_variable(authorization, create_environment_variable_request)
+> Envvar create_environment_variable(create_environment_variable_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -901,26 +1082,43 @@ from onelogin.model.status import Status
 from onelogin.model.create_environment_variable_request import CreateEnvironmentVariableRequest
 from onelogin.model.envvar import Envvar
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     create_environment_variable_request = CreateEnvironmentVariableRequest(
         name="name_example",
         value="value_example",
     ) # CreateEnvironmentVariableRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.create_environment_variable(authorization, create_environment_variable_request)
+        api_response = api_instance.create_environment_variable(create_environment_variable_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_environment_variable: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_environment_variable(create_environment_variable_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_environment_variable: %s\n" % e)
@@ -931,8 +1129,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **create_environment_variable_request** | [**CreateEnvironmentVariableRequest**](CreateEnvironmentVariableRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -940,7 +1138,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -959,31 +1157,42 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_hook**
-> create_hook(authorization, hook)
+> Hook create_hook(hook)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
 import onelogin
 from onelogin.api import default_api
 from onelogin.model.hook import Hook
+from onelogin.model.status import Status
+from onelogin.model.hook_status import HookStatus
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook = Hook(
         id="id_example",
         type="type_example",
@@ -1013,10 +1222,20 @@ with onelogin.ApiClient() as api_client:
         created_at="created_at_example",
         updated_at="updated_at_example",
     ) # Hook | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.create_hook(authorization, hook)
+        api_response = api_instance.create_hook(hook)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_hook: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_hook(hook, authorization=authorization)
+        pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_hook: %s\n" % e)
 ```
@@ -1026,32 +1245,42 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook** | [**Hook**](Hook.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
-void (empty response body)
+[**Hook**](Hook.md)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | CREATED |  -  |
+**401** | Typically, this error means that your access token value is invalid. |  -  |
+**409** | You have tried to create another function for a hook that only allows a single one to be defined. |  -  |
+**422** | You function is not base64 encoded. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_mapping**
-> int create_mapping(authorization, mapping)
+> int create_mapping(mapping)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1061,18 +1290,26 @@ from onelogin.model.error_status import ErrorStatus
 from onelogin.model.status import Status
 from onelogin.model.mapping import Mapping
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping = Mapping(
         id=1,
         name="name_example",
@@ -1098,10 +1335,19 @@ with onelogin.ApiClient() as api_client:
             ),
         ],
     ) # Mapping | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.create_mapping(authorization, mapping)
+        api_response = api_instance.create_mapping(mapping)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_mapping: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_mapping(mapping, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_mapping: %s\n" % e)
@@ -1112,8 +1358,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping** | [**Mapping**](Mapping.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1121,7 +1367,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1140,12 +1386,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_risk_rule**
-> create_risk_rule(authorization, risk_rule)
+> RiskRule create_risk_rule(risk_rule)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1153,18 +1400,26 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.risk_rule import RiskRule
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     risk_rule = RiskRule(
         id="id_example",
         name="name_example",
@@ -1179,10 +1434,20 @@ with onelogin.ApiClient() as api_client:
             name="name_example",
         ),
     ) # RiskRule | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.create_risk_rule(authorization, risk_rule)
+        api_response = api_instance.create_risk_rule(risk_rule)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_risk_rule: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_risk_rule(risk_rule, authorization=authorization)
+        pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_risk_rule: %s\n" % e)
 ```
@@ -1192,32 +1457,41 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **risk_rule** | [**RiskRule**](RiskRule.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
-void (empty response body)
+[**RiskRule**](RiskRule.md)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | CREATED |  -  |
+**400** | BAD REQUEST |  -  |
+**401** | Invalid API Key |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_roles**
-> [CreateRoles201ResponseInner] create_roles(authorization)
+> [CreateRoles201ResponseInner] create_roles(role)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1225,23 +1499,54 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.create_roles201_response_inner import CreateRoles201ResponseInner
 from onelogin.model.status import Status
+from onelogin.model.role import Role
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    role = Role(
+        id=1,
+        name="name_example",
+        apps=[
+            1,
+        ],
+        users=[
+            1,
+        ],
+        admins=[
+            1,
+        ],
+    ) # Role | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.create_roles(authorization)
+        api_response = api_instance.create_roles(role)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_roles: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_roles(role, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_roles: %s\n" % e)
@@ -1252,7 +1557,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **role** | [**Role**](Role.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1260,11 +1566,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -1278,12 +1584,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_rule**
-> RuleId create_rule(authorization, app_id, rule)
+> RuleId create_rule(app_id, rule)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1294,18 +1601,26 @@ from onelogin.model.rule import Rule
 from onelogin.model.status import Status
 from onelogin.model.rule_id import RuleId
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule = Rule(
         id=1,
@@ -1332,10 +1647,19 @@ with onelogin.ApiClient() as api_client:
             ),
         ],
     ) # Rule | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.create_rule(authorization, app_id, rule)
+        api_response = api_instance.create_rule(app_id, rule)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->create_rule: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.create_rule(app_id, rule, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_rule: %s\n" % e)
@@ -1346,9 +1670,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule** | [**Rule**](Rule.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1356,7 +1680,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1375,12 +1699,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_session_login_token**
-> CreateSessionLoginToken200Response create_session_login_token(authorization, create_session_login_token_request)
+> CreateSessionLoginToken200Response create_session_login_token(create_session_login_token_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1391,29 +1716,38 @@ from onelogin.model.generate_token400_response import GenerateToken400Response
 from onelogin.model.create_session_login_token400_response import CreateSessionLoginToken400Response
 from onelogin.model.create_session_login_token200_response import CreateSessionLoginToken200Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     create_session_login_token_request = CreateSessionLoginTokenRequest(
         username_or_email="username_or_email_example",
         password="password_example",
         subodmain="subodmain_example",
         fields="fields_example",
     ) # CreateSessionLoginTokenRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     custom_allowed_origin_header_1 = "Custom-Allowed-Origin-Header-1_example" # str | Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.create_session_login_token(authorization, create_session_login_token_request)
+        api_response = api_instance.create_session_login_token(create_session_login_token_request)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_session_login_token: %s\n" % e)
@@ -1421,7 +1755,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.create_session_login_token(authorization, create_session_login_token_request, custom_allowed_origin_header_1=custom_allowed_origin_header_1)
+        api_response = api_instance.create_session_login_token(create_session_login_token_request, authorization=authorization, custom_allowed_origin_header_1=custom_allowed_origin_header_1)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_session_login_token: %s\n" % e)
@@ -1432,8 +1766,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **create_session_login_token_request** | [**CreateSessionLoginTokenRequest**](CreateSessionLoginTokenRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **custom_allowed_origin_header_1** | **str**| Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. | [optional]
 
 ### Return type
@@ -1442,7 +1776,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1461,12 +1795,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_user**
-> User create_user(authorization, user)
+> User create_user(user)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1475,18 +1810,26 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.user import User
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user = User(
         id=1,
         username="username_example",
@@ -1528,12 +1871,13 @@ with onelogin.ApiClient() as api_client:
         password_algorithm="password_algorithm_example",
         salt="salt_example",
     ) # User | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     mappings = "async" # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.create_user(authorization, user)
+        api_response = api_instance.create_user(user)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_user: %s\n" % e)
@@ -1541,7 +1885,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.create_user(authorization, user, mappings=mappings, validate_policy=validate_policy)
+        api_response = api_instance.create_user(user, authorization=authorization, mappings=mappings, validate_policy=validate_policy)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->create_user: %s\n" % e)
@@ -1552,8 +1896,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user** | [**User**](User.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **mappings** | **str**| Controls how mappings will be applied to the user on creation. Defaults to async. | [optional]
  **validate_policy** | **bool**| Will passwords validate against the User Policy? Defaults to true. | [optional]
 
@@ -1563,7 +1907,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1583,12 +1927,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_access_token_claim**
-> delete_access_token_claim(authorization, id, claim_id)
+> delete_access_token_claim(id, claim_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1596,24 +1941,40 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     claim_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_access_token_claim(authorization, id, claim_id)
+        api_instance.delete_access_token_claim(id, claim_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_access_token_claim: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_access_token_claim(id, claim_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_access_token_claim: %s\n" % e)
 ```
@@ -1623,9 +1984,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **claim_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1633,7 +1994,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1652,12 +2013,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_app**
-> delete_app(authorization, app_id)
+> delete_app(app_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1665,23 +2027,39 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_app(authorization, app_id)
+        api_instance.delete_app(app_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_app: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_app(app_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_app: %s\n" % e)
 ```
@@ -1691,8 +2069,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1700,7 +2078,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1719,12 +2097,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_app_parameter**
-> delete_app_parameter(authorization, app_id, parameter_id)
+> delete_app_parameter(app_id, parameter_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1732,24 +2111,40 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     parameter_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_app_parameter(authorization, app_id, parameter_id)
+        api_instance.delete_app_parameter(app_id, parameter_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_app_parameter: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_app_parameter(app_id, parameter_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_app_parameter: %s\n" % e)
 ```
@@ -1759,9 +2154,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **parameter_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1769,7 +2164,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1789,12 +2184,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_authorization_server**
-> delete_authorization_server(authorization, id)
+> delete_authorization_server(id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1802,23 +2198,39 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_authorization_server(authorization, id)
+        api_instance.delete_authorization_server(id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_authorization_server: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_authorization_server(id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_authorization_server: %s\n" % e)
 ```
@@ -1828,8 +2240,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1837,7 +2249,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1856,12 +2268,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_environment_variable**
-> delete_environment_variable(authorization, envvar_id)
+> delete_environment_variable(envvar_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -1869,23 +2282,39 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     envvar_id = "envvar_id_example" # str | Set to the id of the Hook Environment Variable that you want to fetch.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_environment_variable(authorization, envvar_id)
+        api_instance.delete_environment_variable(envvar_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_environment_variable: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_environment_variable(envvar_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_environment_variable: %s\n" % e)
 ```
@@ -1895,8 +2324,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **envvar_id** | **str**| Set to the id of the Hook Environment Variable that you want to fetch. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1904,7 +2333,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1923,36 +2352,53 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_factor**
-> delete_factor(authorization, user_id, device_id)
+> delete_factor(user_id, device_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
 import onelogin
 from onelogin.api import default_api
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     device_id = 1 # int | Set to the device_id of the MFA device.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_factor(authorization, user_id, device_id)
+        api_instance.delete_factor(user_id, device_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_factor: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_factor(user_id, device_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_factor: %s\n" % e)
 ```
@@ -1962,9 +2408,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **device_id** | **int**| Set to the device_id of the MFA device. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -1972,7 +2418,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -1989,12 +2435,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_hook**
-> delete_hook(authorization, hook_id)
+> delete_hook(hook_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2002,23 +2449,39 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook_id = "hook_id_example" # str | Set to the id of the Hook that you want to return.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_hook(authorization, hook_id)
+        api_instance.delete_hook(hook_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_hook: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_hook(hook_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_hook: %s\n" % e)
 ```
@@ -2028,8 +2491,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook_id** | **str**| Set to the id of the Hook that you want to return. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2037,7 +2500,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2056,12 +2519,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_mapping**
-> delete_mapping(authorization, mapping_id)
+> delete_mapping(mapping_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2069,23 +2533,39 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id = 1 # int | The id of the user mapping to locate.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_mapping(authorization, mapping_id)
+        api_instance.delete_mapping(mapping_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_mapping: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_mapping(mapping_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_mapping: %s\n" % e)
 ```
@@ -2095,8 +2575,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id** | **int**| The id of the user mapping to locate. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2104,7 +2584,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2123,12 +2603,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_risk_rule**
-> RiskRule delete_risk_rule(authorization, risk_rule_id)
+> RiskRule delete_risk_rule(risk_rule_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2136,23 +2617,40 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.risk_rule import RiskRule
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     risk_rule_id = "risk_rule_id_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.delete_risk_rule(authorization, risk_rule_id)
+        api_response = api_instance.delete_risk_rule(risk_rule_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_risk_rule: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.delete_risk_rule(risk_rule_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_risk_rule: %s\n" % e)
@@ -2163,8 +2661,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **risk_rule_id** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2172,7 +2670,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2190,12 +2688,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_role**
-> delete_role(authorization, role_id)
+> delete_role(role_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2203,23 +2702,39 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_role(authorization, role_id)
+        api_instance.delete_role(role_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_role: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_role(role_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_role: %s\n" % e)
 ```
@@ -2229,8 +2744,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2238,7 +2753,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2257,12 +2772,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_rule**
-> delete_rule(authorization, app_id, rule_id)
+> delete_rule(app_id, rule_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2270,24 +2786,40 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule_id = 1 # int | The id of the app rule to locate.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_rule(authorization, app_id, rule_id)
+        api_instance.delete_rule(app_id, rule_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_rule: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_rule(app_id, rule_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_rule: %s\n" % e)
 ```
@@ -2297,9 +2829,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule_id** | **int**| The id of the app rule to locate. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2307,7 +2839,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2326,12 +2858,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_scope**
-> delete_scope(authorization, id, scope_id)
+> delete_scope(id, scope_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2339,24 +2872,40 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     scope_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_scope(authorization, id, scope_id)
+        api_instance.delete_scope(id, scope_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_scope: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_scope(id, scope_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_scope: %s\n" % e)
 ```
@@ -2366,9 +2915,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **scope_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2376,7 +2925,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2395,12 +2944,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_user**
-> delete_user(authorization, user_id)
+> delete_user(user_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2408,23 +2958,39 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.delete_user(authorization, user_id)
+        api_instance.delete_user(user_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->delete_user: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.delete_user(user_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->delete_user: %s\n" % e)
 ```
@@ -2434,8 +3000,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2443,7 +3009,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2462,12 +3028,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **dry_run_mapping**
-> [{str: (bool, date, datetime, dict, float, int, list, str, none_type)}] dry_run_mapping(authorization, mapping_id, request_body)
+> [DryRunMapping200ResponseInner] dry_run_mapping(mapping_id, request_body)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2475,27 +3042,45 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.error_status import ErrorStatus
 from onelogin.model.status import Status
+from onelogin.model.dry_run_mapping200_response_inner import DryRunMapping200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id = 1 # int | The id of the user mapping to locate.
     request_body = [
         1,
     ] # [int] | Request body is a list of user IDs tested against the mapping conditions to verify that the mapping would be applied
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.dry_run_mapping(authorization, mapping_id, request_body)
+        api_response = api_instance.dry_run_mapping(mapping_id, request_body)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->dry_run_mapping: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.dry_run_mapping(mapping_id, request_body, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->dry_run_mapping: %s\n" % e)
@@ -2506,17 +3091,17 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id** | **int**| The id of the user mapping to locate. |
  **request_body** | **[int]**| Request body is a list of user IDs tested against the mapping conditions to verify that the mapping would be applied |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
-**[{str: (bool, date, datetime, dict, float, int, list, str, none_type)}]**
+[**[DryRunMapping200ResponseInner]**](DryRunMapping200ResponseInner.md)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2535,12 +3120,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **enroll_factor**
-> [Factor] enroll_factor(authorization, user_id, enroll_factor_request)
+> [Factor] enroll_factor(user_id, enroll_factor_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2550,18 +3136,26 @@ from onelogin.model.status import Status
 from onelogin.model.factor import Factor
 from onelogin.model.enroll_factor_request import EnrollFactorRequest
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     enroll_factor_request = EnrollFactorRequest(
         factor_id=1,
@@ -2571,10 +3165,19 @@ with onelogin.ApiClient() as api_client:
         redirect_to="redirect_to_example",
         custom_message="custom_message_example",
     ) # EnrollFactorRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.enroll_factor(authorization, user_id, enroll_factor_request)
+        api_response = api_instance.enroll_factor(user_id, enroll_factor_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->enroll_factor: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.enroll_factor(user_id, enroll_factor_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->enroll_factor: %s\n" % e)
@@ -2585,9 +3188,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **enroll_factor_request** | [**EnrollFactorRequest**](EnrollFactorRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2595,7 +3198,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2614,12 +3217,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_mfa_token**
-> GenerateMfaToken200Response generate_mfa_token(authorization, generate_mfa_token_request)
+> GenerateMfaToken200Response generate_mfa_token(user_id, generate_mfa_token_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2630,26 +3234,44 @@ from onelogin.model.status import Status
 from onelogin.model.generate_mfa_token_request import GenerateMfaTokenRequest
 from onelogin.model.generate_mfa_token422_response import GenerateMfaToken422Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    user_id = 1 # int | Set to the id of the user.
     generate_mfa_token_request = GenerateMfaTokenRequest(
         expires_in="expires_in_example",
         reusable=True,
     ) # GenerateMfaTokenRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.generate_mfa_token(authorization, generate_mfa_token_request)
+        api_response = api_instance.generate_mfa_token(user_id, generate_mfa_token_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->generate_mfa_token: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.generate_mfa_token(user_id, generate_mfa_token_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->generate_mfa_token: %s\n" % e)
@@ -2660,8 +3282,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **user_id** | **int**| Set to the id of the user. |
  **generate_mfa_token_request** | [**GenerateMfaTokenRequest**](GenerateMfaTokenRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2669,7 +3292,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2688,31 +3311,42 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_saml_assertion**
-> generate_saml_assertion(authorization, generate_saml_assertion_request)
+> GenerateSamlAssertion200Response generate_saml_assertion(generate_saml_assertion_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
 import onelogin
 from onelogin.api import default_api
+from onelogin.model.status import Status
 from onelogin.model.generate_saml_assertion_request import GenerateSamlAssertionRequest
+from onelogin.model.generate_saml_assertion200_response import GenerateSamlAssertion200Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     generate_saml_assertion_request = GenerateSamlAssertionRequest(
         username_or_email="username_or_email_example",
         password="password_example",
@@ -2720,10 +3354,20 @@ with onelogin.ApiClient() as api_client:
         subdomain="subdomain_example",
         ip_address="ip_address_example",
     ) # GenerateSamlAssertionRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.generate_saml_assertion(authorization, generate_saml_assertion_request)
+        api_response = api_instance.generate_saml_assertion(generate_saml_assertion_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->generate_saml_assertion: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.generate_saml_assertion(generate_saml_assertion_request, authorization=authorization)
+        pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->generate_saml_assertion: %s\n" % e)
 ```
@@ -2733,16 +3377,16 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **generate_saml_assertion_request** | [**GenerateSamlAssertionRequest**](GenerateSamlAssertionRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
-void (empty response body)
+[**GenerateSamlAssertion200Response**](GenerateSamlAssertion200Response.md)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2755,6 +3399,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**400** | BAD REQUEST |  -  |
+**401** | UNAUTHORIZED |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2765,6 +3411,7 @@ No authorization required
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2773,15 +3420,24 @@ from onelogin.api import default_api
 from onelogin.model.generate_token200_response import GenerateToken200Response
 from onelogin.model.generate_token400_response import GenerateToken400Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     client_id = "client_id_example" # str | 
@@ -2810,7 +3466,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2830,12 +3486,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_app**
-> Schema get_app(authorization, app_id)
+> Schema get_app(app_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2844,23 +3501,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_app(authorization, app_id)
+        api_response = api_instance.get_app(app_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_app: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_app(app_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_app: %s\n" % e)
@@ -2871,8 +3545,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2880,7 +3554,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2899,12 +3573,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_authorization_server**
-> GetAuthorizationServer200Response get_authorization_server(authorization, id)
+> GetAuthorizationServer200Response get_authorization_server(id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2913,23 +3588,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.get_authorization_server200_response import GetAuthorizationServer200Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_authorization_server(authorization, id)
+        api_response = api_instance.get_authorization_server(id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_authorization_server: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_authorization_server(id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_authorization_server: %s\n" % e)
@@ -2940,8 +3632,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -2949,7 +3641,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -2968,12 +3660,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_available_factors**
-> [GetAvailableFactors200ResponseInner] get_available_factors(authorization, user_id)
+> [GetAvailableFactors200ResponseInner] get_available_factors(user_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -2982,23 +3675,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.get_available_factors200_response_inner import GetAvailableFactors200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_available_factors(authorization, user_id)
+        api_response = api_instance.get_available_factors(user_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_available_factors: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_available_factors(user_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_available_factors: %s\n" % e)
@@ -3009,8 +3719,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3018,7 +3728,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3036,12 +3746,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_client_apps**
-> [GetClientApps200ResponseInner] get_client_apps(authorization, id)
+> [GetClientApps200ResponseInner] get_client_apps(id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3050,23 +3761,40 @@ from onelogin.api import default_api
 from onelogin.model.get_client_apps200_response_inner import GetClientApps200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_client_apps(authorization, id)
+        api_response = api_instance.get_client_apps(id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_client_apps: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_client_apps(id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_client_apps: %s\n" % e)
@@ -3077,8 +3805,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3086,7 +3814,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3105,12 +3833,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_enrolled_factors**
-> [Device] get_enrolled_factors(authorization, user_id)
+> [Device] get_enrolled_factors(user_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3119,23 +3848,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.device import Device
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_enrolled_factors(authorization, user_id)
+        api_response = api_instance.get_enrolled_factors(user_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_enrolled_factors: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_enrolled_factors(user_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_enrolled_factors: %s\n" % e)
@@ -3146,8 +3892,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3155,7 +3901,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3173,12 +3919,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_environment_variable**
-> Envvar get_environment_variable(authorization, envvar_id)
+> Envvar get_environment_variable(envvar_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3187,23 +3934,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.envvar import Envvar
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     envvar_id = "envvar_id_example" # str | Set to the id of the Hook Environment Variable that you want to fetch.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_environment_variable(authorization, envvar_id)
+        api_response = api_instance.get_environment_variable(envvar_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_environment_variable: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_environment_variable(envvar_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_environment_variable: %s\n" % e)
@@ -3214,8 +3978,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **envvar_id** | **str**| Set to the id of the Hook Environment Variable that you want to fetch. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3223,7 +3987,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3241,12 +4005,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_event_by_id**
-> GetEventById200Response get_event_by_id(authorization, id)
+> GetEventById200Response get_event_by_id(event_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3255,23 +4020,40 @@ from onelogin.api import default_api
 from onelogin.model.get_event_by_id200_response import GetEventById200Response
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
-    id = 1 # int | 
+    event_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_event_by_id(authorization, id)
+        api_response = api_instance.get_event_by_id(event_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_event_by_id: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_event_by_id(event_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_event_by_id: %s\n" % e)
@@ -3282,8 +4064,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
- **id** | **int**|  |
+ **event_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3291,7 +4073,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3317,6 +4099,7 @@ No authorization required
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3324,15 +4107,24 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.get_event_types200_response import GetEventTypes200Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
 
@@ -3354,7 +4146,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3371,12 +4163,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_events**
-> GetEvents200Response get_events(authorization, user_id)
+> GetEvents200Response get_events(user_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3385,19 +4178,28 @@ from onelogin.api import default_api
 from onelogin.model.get_events200_response import GetEvents200Response
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     fields = "apps" # str | Optional. Comma delimited list of fields to return. (optional)
     until = "until_example" # str | Include the until query parameter to return results with created_at before the value (optional)
     since = "since_example" # str | Include the until query parameter to return results with created_at after the value (optional)
@@ -3414,7 +4216,7 @@ with onelogin.ApiClient() as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_events(authorization, user_id)
+        api_response = api_instance.get_events(user_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_events: %s\n" % e)
@@ -3422,7 +4224,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.get_events(authorization, user_id, fields=fields, until=until, since=since, limit=limit, sort=sort, client_id=client_id, created_at=created_at, directory_id=directory_id, event_type_id=event_type_id, id=id, resolution=resolution)
+        api_response = api_instance.get_events(user_id, authorization=authorization, fields=fields, until=until, since=since, limit=limit, sort=sort, client_id=client_id, created_at=created_at, directory_id=directory_id, event_type_id=event_type_id, id=id, resolution=resolution)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_events: %s\n" % e)
@@ -3433,8 +4235,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional]
  **until** | **str**| Include the until query parameter to return results with created_at before the value | [optional]
  **since** | **str**| Include the until query parameter to return results with created_at after the value | [optional]
@@ -3453,7 +4255,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3472,12 +4274,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_group_by_id**
-> GetGroupById200Response get_group_by_id(authorization, id)
+> GetGroupById200Response get_group_by_id(group_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3486,23 +4289,40 @@ from onelogin.api import default_api
 from onelogin.model.get_group_by_id200_response import GetGroupById200Response
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
-    id = 1 # int | 
+    group_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_group_by_id(authorization, id)
+        api_response = api_instance.get_group_by_id(group_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_group_by_id: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_group_by_id(group_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_group_by_id: %s\n" % e)
@@ -3513,8 +4333,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
- **id** | **int**|  |
+ **group_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3522,7 +4342,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3542,12 +4362,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_groups**
-> GetGroups200Response get_groups(authorization)
+> GetGroups200Response get_groups()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3556,36 +4377,38 @@ from onelogin.api import default_api
 from onelogin.model.get_groups200_response import GetGroups200Response
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     fields = "apps" # str | Optional. Comma delimited list of fields to return. (optional)
     until = "until_example" # str | Include the until query parameter to return results with created_at before the value (optional)
     since = "since_example" # str | Include the until query parameter to return results with created_at after the value (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     sort = "sort_example" # str | When you call a resource API, include the sort query parameter to sort results by id attribute value. (optional)
-    id = 1 # int |  (optional)
-
-    # example passing only required values which don't have defaults set
-    try:
-        api_response = api_instance.get_groups(authorization)
-        pprint(api_response)
-    except onelogin.ApiException as e:
-        print("Exception when calling DefaultApi->get_groups: %s\n" % e)
+    group_id = 1 # int |  (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.get_groups(authorization, fields=fields, until=until, since=since, limit=limit, sort=sort, id=id)
+        api_response = api_instance.get_groups(authorization=authorization, fields=fields, until=until, since=since, limit=limit, sort=sort, group_id=group_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_groups: %s\n" % e)
@@ -3596,13 +4419,13 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional]
  **until** | **str**| Include the until query parameter to return results with created_at before the value | [optional]
  **since** | **str**| Include the until query parameter to return results with created_at after the value | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **sort** | **str**| When you call a resource API, include the sort query parameter to sort results by id attribute value. | [optional]
- **id** | **int**|  | [optional]
+ **group_id** | **int**|  | [optional]
 
 ### Return type
 
@@ -3610,7 +4433,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3629,12 +4452,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_hook**
-> Hook get_hook(authorization, hook_id)
+> Hook get_hook(hook_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3643,23 +4467,40 @@ from onelogin.api import default_api
 from onelogin.model.hook import Hook
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook_id = "hook_id_example" # str | Set to the id of the Hook that you want to return.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_hook(authorization, hook_id)
+        api_response = api_instance.get_hook(hook_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_hook: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_hook(hook_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_hook: %s\n" % e)
@@ -3670,8 +4511,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook_id** | **str**| Set to the id of the Hook that you want to return. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3679,7 +4520,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3698,12 +4539,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_logs**
-> [Log] get_logs(authorization, hook_id)
+> [Log] get_logs(hook_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3712,19 +4554,28 @@ from onelogin.api import default_api
 from onelogin.model.log import Log
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook_id = "hook_id_example" # str | Set to the id of the Hook that you want to return.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -3733,7 +4584,7 @@ with onelogin.ApiClient() as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_logs(authorization, hook_id)
+        api_response = api_instance.get_logs(hook_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_logs: %s\n" % e)
@@ -3741,7 +4592,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.get_logs(authorization, hook_id, limit=limit, page=page, cursor=cursor, request_id=request_id, correlation_id=correlation_id)
+        api_response = api_instance.get_logs(hook_id, authorization=authorization, limit=limit, page=page, cursor=cursor, request_id=request_id, correlation_id=correlation_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_logs: %s\n" % e)
@@ -3752,8 +4603,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook_id** | **str**| Set to the id of the Hook that you want to return. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -3766,7 +4617,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3785,12 +4636,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_mapping**
-> Mapping get_mapping(authorization, mapping_id)
+> Mapping get_mapping(mapping_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3799,23 +4651,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.mapping import Mapping
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id = 1 # int | The id of the user mapping to locate.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_mapping(authorization, mapping_id)
+        api_response = api_instance.get_mapping(mapping_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_mapping: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_mapping(mapping_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_mapping: %s\n" % e)
@@ -3826,8 +4695,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id** | **int**| The id of the user mapping to locate. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3835,7 +4704,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3854,12 +4723,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_rate_limit**
-> GetRateLimit200Response get_rate_limit(authorization)
+> GetRateLimit200Response get_rate_limit()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3868,22 +4738,32 @@ from onelogin.api import default_api
 from onelogin.model.get_rate_limit200_response import GetRateLimit200Response
 from onelogin.model.generate_token400_response import GenerateToken400Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
+    # and optional values
     try:
-        api_response = api_instance.get_rate_limit(authorization)
+        api_response = api_instance.get_rate_limit(authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_rate_limit: %s\n" % e)
@@ -3894,7 +4774,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -3902,7 +4782,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -3917,40 +4797,60 @@ No authorization required
 **200** | OK |  -  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized |  -  |
-**404** |  |  -  |
+**404** | Typically, this error means that you are using the incorrect method. If you receive this error, ensure that you are making a GET. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_risk_rule**
-> get_risk_rule(authorization, risk_rule_id)
+> RiskRule get_risk_rule(risk_rule_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
 import onelogin
 from onelogin.api import default_api
+from onelogin.model.risk_rule import RiskRule
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     risk_rule_id = "risk_rule_id_example" # str | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.get_risk_rule(authorization, risk_rule_id)
+        api_response = api_instance.get_risk_rule(risk_rule_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_risk_rule: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_risk_rule(risk_rule_id, authorization=authorization)
+        pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_risk_rule: %s\n" % e)
 ```
@@ -3960,32 +4860,40 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **risk_rule_id** | **str**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
-void (empty response body)
+[**RiskRule**](RiskRule.md)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Invalid API Key |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_risk_score**
-> GetRiskScore200Response get_risk_score(authorization, get_risk_score_request)
+> GetRiskScore200Response get_risk_score(get_risk_score_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -3995,18 +4903,26 @@ from onelogin.model.get_risk_score400_response import GetRiskScore400Response
 from onelogin.model.get_risk_score_request import GetRiskScoreRequest
 from onelogin.model.get_risk_score200_response import GetRiskScore200Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     get_risk_score_request = GetRiskScoreRequest(
         ip="ip_example",
         user_agent="user_agent_example",
@@ -4027,10 +4943,19 @@ with onelogin.ApiClient() as api_client:
         ),
         fp="fp_example",
     ) # GetRiskScoreRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_risk_score(authorization, get_risk_score_request)
+        api_response = api_instance.get_risk_score(get_risk_score_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_risk_score: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_risk_score(get_risk_score_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_risk_score: %s\n" % e)
@@ -4041,8 +4966,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **get_risk_score_request** | [**GetRiskScoreRequest**](GetRiskScoreRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -4050,7 +4975,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4069,12 +4994,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_role**
-> Role get_role(authorization, role_id)
+> Role get_role(role_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4083,23 +5009,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.role import Role
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_role(authorization, role_id)
+        api_response = api_instance.get_role(role_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_role: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_role(role_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role: %s\n" % e)
@@ -4110,8 +5053,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -4119,7 +5062,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4138,12 +5081,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_role_admins**
-> [Schema1] get_role_admins(authorization, role_id)
+> [Schema1] get_role_admins(role_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4152,19 +5096,28 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.schema1 import Schema1
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -4173,7 +5126,7 @@ with onelogin.ApiClient() as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_role_admins(authorization, role_id)
+        api_response = api_instance.get_role_admins(role_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_admins: %s\n" % e)
@@ -4181,7 +5134,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.get_role_admins(authorization, role_id, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
+        api_response = api_instance.get_role_admins(role_id, authorization=authorization, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_admins: %s\n" % e)
@@ -4192,8 +5145,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -4206,7 +5159,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4225,12 +5178,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_role_apps**
-> [Schema] get_role_apps(authorization, role_id)
+> [Schema] get_role_apps(role_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4239,19 +5193,28 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -4259,7 +5222,7 @@ with onelogin.ApiClient() as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_role_apps(authorization, role_id)
+        api_response = api_instance.get_role_apps(role_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_apps: %s\n" % e)
@@ -4267,7 +5230,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.get_role_apps(authorization, role_id, limit=limit, page=page, cursor=cursor, assigned=assigned)
+        api_response = api_instance.get_role_apps(role_id, authorization=authorization, limit=limit, page=page, cursor=cursor, assigned=assigned)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_apps: %s\n" % e)
@@ -4278,8 +5241,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -4291,7 +5254,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4310,12 +5273,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_role_users**
-> [Schema1] get_role_users(authorization, role_id)
+> [Schema1] get_role_users(role_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4324,19 +5288,28 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.schema1 import Schema1
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -4345,7 +5318,7 @@ with onelogin.ApiClient() as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_role_users(authorization, role_id)
+        api_response = api_instance.get_role_users(role_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_users: %s\n" % e)
@@ -4353,7 +5326,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.get_role_users(authorization, role_id, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
+        api_response = api_instance.get_role_users(role_id, authorization=authorization, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_role_users: %s\n" % e)
@@ -4364,8 +5337,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -4378,7 +5351,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4397,12 +5370,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_rule**
-> Rule get_rule(authorization, app_id, rule_id)
+> Rule get_rule(app_id, rule_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4411,24 +5385,41 @@ from onelogin.api import default_api
 from onelogin.model.rule import Rule
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule_id = 1 # int | The id of the app rule to locate.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_rule(authorization, app_id, rule_id)
+        api_response = api_instance.get_rule(app_id, rule_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_rule: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_rule(app_id, rule_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_rule: %s\n" % e)
@@ -4439,9 +5430,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule_id** | **int**| The id of the app rule to locate. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -4449,7 +5440,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4468,12 +5459,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_score_insights**
-> GetScoreInsights200Response get_score_insights(authorization)
+> GetScoreInsights200Response get_score_insights()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4481,32 +5473,34 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.get_score_insights200_response import GetScoreInsights200Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     before = "before_example" # str | Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago. (optional)
     after = "after_example" # str | Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago. (optional)
 
     # example passing only required values which don't have defaults set
-    try:
-        api_response = api_instance.get_score_insights(authorization)
-        pprint(api_response)
-    except onelogin.ApiException as e:
-        print("Exception when calling DefaultApi->get_score_insights: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.get_score_insights(authorization, before=before, after=after)
+        api_response = api_instance.get_score_insights(authorization=authorization, before=before, after=after)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_score_insights: %s\n" % e)
@@ -4517,7 +5511,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **before** | **str**| Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago. | [optional]
  **after** | **str**| Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago. | [optional]
 
@@ -4527,7 +5521,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4545,12 +5539,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_user**
-> User get_user(authorization, user_id)
+> User get_user(user_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4559,23 +5554,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.user import User
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_user(authorization, user_id)
+        api_response = api_instance.get_user(user_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->get_user: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.get_user(user_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_user: %s\n" % e)
@@ -4586,8 +5598,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -4595,7 +5607,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4614,12 +5626,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_user_apps**
-> [GetUserApps200ResponseInner] get_user_apps(authorization, user_id)
+> [GetUserApps200ResponseInner] get_user_apps(user_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4628,24 +5641,33 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.get_user_apps200_response_inner import GetUserApps200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     ignore_visibility = True # bool | Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting. (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.get_user_apps(authorization, user_id)
+        api_response = api_instance.get_user_apps(user_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_user_apps: %s\n" % e)
@@ -4653,7 +5675,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.get_user_apps(authorization, user_id, ignore_visibility=ignore_visibility)
+        api_response = api_instance.get_user_apps(user_id, authorization=authorization, ignore_visibility=ignore_visibility)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->get_user_apps: %s\n" % e)
@@ -4664,8 +5686,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **ignore_visibility** | **bool**| Defaults to &#x60;false&#x60;. When &#x60;true&#x60; will show all apps that are assigned to a user regardless of their portal visibility setting. | [optional]
 
 ### Return type
@@ -4674,7 +5696,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4693,12 +5715,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_access_token_claims**
-> [ListAccessTokenClaims200ResponseInner] list_access_token_claims(authorization, id)
+> [ListAccessTokenClaims200ResponseInner] list_access_token_claims(id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4707,23 +5730,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.list_access_token_claims200_response_inner import ListAccessTokenClaims200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_access_token_claims(authorization, id)
+        api_response = api_instance.list_access_token_claims(id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_access_token_claims: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_access_token_claims(id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_access_token_claims: %s\n" % e)
@@ -4734,8 +5774,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -4743,7 +5783,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4762,12 +5802,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_action_values**
-> [ListConditionValues200ResponseInner] list_action_values(authorization, app_id, action_value)
+> [ListConditionValues200ResponseInner] list_action_values(app_id, action_value)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4776,24 +5817,41 @@ from onelogin.api import default_api
 from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     action_value = "action_value_example" # str | The value for the selected action.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_action_values(authorization, app_id, action_value)
+        api_response = api_instance.list_action_values(app_id, action_value)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_action_values: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_action_values(app_id, action_value, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_action_values: %s\n" % e)
@@ -4804,9 +5862,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **action_value** | **str**| The value for the selected action. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -4814,7 +5872,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4832,12 +5890,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_actions**
-> [ListActions200ResponseInner] list_actions(authorization, app_id)
+> [ListActions200ResponseInner] list_actions(app_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4846,23 +5905,40 @@ from onelogin.api import default_api
 from onelogin.model.list_actions200_response_inner import ListActions200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_actions(authorization, app_id)
+        api_response = api_instance.list_actions(app_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_actions: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_actions(app_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_actions: %s\n" % e)
@@ -4873,8 +5949,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -4882,7 +5958,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4900,12 +5976,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_app_users**
-> [ListAppUsers200ResponseInner] list_app_users(authorization, app_id)
+> [ListAppUsers200ResponseInner] list_app_users(app_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4914,26 +5991,35 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.list_app_users200_response_inner import ListAppUsers200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_app_users(authorization, app_id)
+        api_response = api_instance.list_app_users(app_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_app_users: %s\n" % e)
@@ -4941,7 +6027,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_app_users(authorization, app_id, limit=limit, page=page, cursor=cursor)
+        api_response = api_instance.list_app_users(app_id, authorization=authorization, limit=limit, page=page, cursor=cursor)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_app_users: %s\n" % e)
@@ -4952,8 +6038,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -4964,7 +6050,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -4982,12 +6068,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_apps**
-> [Schema] list_apps(authorization)
+> [Schema] list_apps()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -4997,18 +6084,27 @@ from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from onelogin.model.auth_method import AuthMethod
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -5017,16 +6113,9 @@ with onelogin.ApiClient() as api_client:
     auth_method = AuthMethod(0) # AuthMethod | Returns all apps based of a given type. (optional)
 
     # example passing only required values which don't have defaults set
-    try:
-        api_response = api_instance.list_apps(authorization)
-        pprint(api_response)
-    except onelogin.ApiException as e:
-        print("Exception when calling DefaultApi->list_apps: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_apps(authorization, limit=limit, page=page, cursor=cursor, name=name, connector_id=connector_id, auth_method=auth_method)
+        api_response = api_instance.list_apps(authorization=authorization, limit=limit, page=page, cursor=cursor, name=name, connector_id=connector_id, auth_method=auth_method)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_apps: %s\n" % e)
@@ -5037,7 +6126,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5051,7 +6140,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5070,12 +6159,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_authorization_servers**
-> [ListAuthorizationServers200ResponseInner] list_authorization_servers(authorization)
+> [ListAuthorizationServers200ResponseInner] list_authorization_servers()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5084,22 +6174,32 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.list_authorization_servers200_response_inner import ListAuthorizationServers200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
+    # and optional values
     try:
-        api_response = api_instance.list_authorization_servers(authorization)
+        api_response = api_instance.list_authorization_servers(authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_authorization_servers: %s\n" % e)
@@ -5110,7 +6210,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5118,7 +6218,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5136,12 +6236,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_condition_operators**
-> [ListConditionOperators200ResponseInner] list_condition_operators(authorization, app_id, condition_value)
+> [ListConditionOperators200ResponseInner] list_condition_operators(app_id, condition_value)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5150,24 +6251,41 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     condition_value = "condition_value_example" # str | The value for the selected condition.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_condition_operators(authorization, app_id, condition_value)
+        api_response = api_instance.list_condition_operators(app_id, condition_value)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_condition_operators: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_condition_operators(app_id, condition_value, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_condition_operators: %s\n" % e)
@@ -5178,9 +6296,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **condition_value** | **str**| The value for the selected condition. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5188,7 +6306,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5206,12 +6324,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_condition_values**
-> [ListConditionValues200ResponseInner] list_condition_values(authorization, app_id, condition_value)
+> [ListConditionValues200ResponseInner] list_condition_values(app_id, condition_value)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5220,24 +6339,41 @@ from onelogin.api import default_api
 from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     condition_value = "condition_value_example" # str | The value for the selected condition.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_condition_values(authorization, app_id, condition_value)
+        api_response = api_instance.list_condition_values(app_id, condition_value)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_condition_values: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_condition_values(app_id, condition_value, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_condition_values: %s\n" % e)
@@ -5248,9 +6384,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **condition_value** | **str**| The value for the selected condition. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5258,7 +6394,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5276,12 +6412,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_conditions**
-> [ListConditions200ResponseInner] list_conditions(authorization, app_id)
+> [ListConditions200ResponseInner] list_conditions(app_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5290,23 +6427,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.list_conditions200_response_inner import ListConditions200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_conditions(authorization, app_id)
+        api_response = api_instance.list_conditions(app_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_conditions: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_conditions(app_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_conditions: %s\n" % e)
@@ -5317,8 +6471,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5326,7 +6480,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5344,12 +6498,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_connectors**
-> [Connector] list_connectors(authorization)
+> [Connector] list_connectors()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5359,18 +6514,27 @@ from onelogin.model.connector import Connector
 from onelogin.model.status import Status
 from onelogin.model.auth_method import AuthMethod
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -5378,16 +6542,9 @@ with onelogin.ApiClient() as api_client:
     auth_method = AuthMethod(0) # AuthMethod | Returns all apps based of a given type. (optional)
 
     # example passing only required values which don't have defaults set
-    try:
-        api_response = api_instance.list_connectors(authorization)
-        pprint(api_response)
-    except onelogin.ApiException as e:
-        print("Exception when calling DefaultApi->list_connectors: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_connectors(authorization, limit=limit, page=page, cursor=cursor, name=name, auth_method=auth_method)
+        api_response = api_instance.list_connectors(authorization=authorization, limit=limit, page=page, cursor=cursor, name=name, auth_method=auth_method)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_connectors: %s\n" % e)
@@ -5398,7 +6555,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5411,7 +6568,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5430,12 +6587,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_environment_variables**
-> [Envvar] list_environment_variables(authorization)
+> [Envvar] list_environment_variables()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5444,33 +6602,35 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.envvar import Envvar
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
 
     # example passing only required values which don't have defaults set
-    try:
-        api_response = api_instance.list_environment_variables(authorization)
-        pprint(api_response)
-    except onelogin.ApiException as e:
-        print("Exception when calling DefaultApi->list_environment_variables: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_environment_variables(authorization, limit=limit, page=page, cursor=cursor)
+        api_response = api_instance.list_environment_variables(authorization=authorization, limit=limit, page=page, cursor=cursor)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_environment_variables: %s\n" % e)
@@ -5481,7 +6641,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5492,7 +6652,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5510,12 +6670,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_hooks**
-> [Hook] list_hooks(authorization)
+> [Hook] list_hooks()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5524,33 +6685,35 @@ from onelogin.api import default_api
 from onelogin.model.hook import Hook
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
 
     # example passing only required values which don't have defaults set
-    try:
-        api_response = api_instance.list_hooks(authorization)
-        pprint(api_response)
-    except onelogin.ApiException as e:
-        print("Exception when calling DefaultApi->list_hooks: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_hooks(authorization, limit=limit, page=page, cursor=cursor)
+        api_response = api_instance.list_hooks(authorization=authorization, limit=limit, page=page, cursor=cursor)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_hooks: %s\n" % e)
@@ -5561,7 +6724,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -5572,7 +6735,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5590,12 +6753,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_mapping_action_values**
-> [ListConditionValues200ResponseInner] list_mapping_action_values(authorization, action_value)
+> [ListConditionValues200ResponseInner] list_mapping_action_values(action_value)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5604,23 +6768,40 @@ from onelogin.api import default_api
 from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     action_value = "action_value_example" # str | The value for the selected action.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_mapping_action_values(authorization, action_value)
+        api_response = api_instance.list_mapping_action_values(action_value)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_mapping_action_values: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_mapping_action_values(action_value, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_action_values: %s\n" % e)
@@ -5631,8 +6812,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **action_value** | **str**| The value for the selected action. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5640,7 +6821,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5658,12 +6839,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_mapping_actions**
-> [ListActions200ResponseInner] list_mapping_actions(authorization)
+> [ListActions200ResponseInner] list_mapping_actions()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5672,22 +6854,32 @@ from onelogin.api import default_api
 from onelogin.model.list_actions200_response_inner import ListActions200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
+    # and optional values
     try:
-        api_response = api_instance.list_mapping_actions(authorization)
+        api_response = api_instance.list_mapping_actions(authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_actions: %s\n" % e)
@@ -5698,7 +6890,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5706,7 +6898,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5724,12 +6916,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_mapping_condition_operators**
-> [ListMappingConditionOperators200ResponseInner] list_mapping_condition_operators(authorization, condition_value)
+> [ListMappingConditionOperators200ResponseInner] list_mapping_condition_operators(condition_value)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5738,23 +6931,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.list_mapping_condition_operators200_response_inner import ListMappingConditionOperators200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     condition_value = "condition_value_example" # str | The value for the selected condition.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_mapping_condition_operators(authorization, condition_value)
+        api_response = api_instance.list_mapping_condition_operators(condition_value)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_mapping_condition_operators: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_mapping_condition_operators(condition_value, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_condition_operators: %s\n" % e)
@@ -5765,8 +6975,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **condition_value** | **str**| The value for the selected condition. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5774,7 +6984,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5792,12 +7002,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_mapping_condition_values**
-> [ListConditionValues200ResponseInner] list_mapping_condition_values(authorization, condition_value)
+> [ListConditionValues200ResponseInner] list_mapping_condition_values(condition_value)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5806,23 +7017,40 @@ from onelogin.api import default_api
 from onelogin.model.list_condition_values200_response_inner import ListConditionValues200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     condition_value = "condition_value_example" # str | The value for the selected condition.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_mapping_condition_values(authorization, condition_value)
+        api_response = api_instance.list_mapping_condition_values(condition_value)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_mapping_condition_values: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_mapping_condition_values(condition_value, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_condition_values: %s\n" % e)
@@ -5833,8 +7061,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **condition_value** | **str**| The value for the selected condition. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5842,7 +7070,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5860,12 +7088,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_mapping_conditions**
-> [ListMappingConditions200ResponseInner] list_mapping_conditions(authorization)
+> [ListMappingConditions200ResponseInner] list_mapping_conditions()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5874,22 +7103,32 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.list_mapping_conditions200_response_inner import ListMappingConditions200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
+    # and optional values
     try:
-        api_response = api_instance.list_mapping_conditions(authorization)
+        api_response = api_instance.list_mapping_conditions(authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mapping_conditions: %s\n" % e)
@@ -5900,7 +7139,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -5908,7 +7147,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -5926,12 +7165,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_mappings**
-> [Mapping] list_mappings(authorization)
+> [Mapping] list_mappings()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -5940,18 +7180,27 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.mapping import Mapping
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     enabled = True # bool | Defaults to true. When set to `false` will return all disabled rules. (optional)
     has_condition = "has_condition_example" # str | Filters Rules based on their Conditions. (optional)
     has_condition_type = "has_condition_type_example" # str | Filters Rules based on their condition types. (optional)
@@ -5959,16 +7208,9 @@ with onelogin.ApiClient() as api_client:
     has_action_type = "has_action_type_example" # str | Filters Rules based on their action types. (optional)
 
     # example passing only required values which don't have defaults set
-    try:
-        api_response = api_instance.list_mappings(authorization)
-        pprint(api_response)
-    except onelogin.ApiException as e:
-        print("Exception when calling DefaultApi->list_mappings: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_mappings(authorization, enabled=enabled, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type)
+        api_response = api_instance.list_mappings(authorization=authorization, enabled=enabled, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_mappings: %s\n" % e)
@@ -5979,7 +7221,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **enabled** | **bool**| Defaults to true. When set to &#x60;false&#x60; will return all disabled rules. | [optional]
  **has_condition** | **str**| Filters Rules based on their Conditions. | [optional]
  **has_condition_type** | **str**| Filters Rules based on their condition types. | [optional]
@@ -5992,7 +7234,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6010,34 +7252,47 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_risk_rules**
-> list_risk_rules(authorization)
+> [RiskRule] list_risk_rules()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
 import onelogin
 from onelogin.api import default_api
+from onelogin.model.risk_rule import RiskRule
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
+    # and optional values
     try:
-        api_instance.list_risk_rules(authorization)
+        api_response = api_instance.list_risk_rules(authorization=authorization)
+        pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_risk_rules: %s\n" % e)
 ```
@@ -6047,31 +7302,39 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
-void (empty response body)
+[**[RiskRule]**](RiskRule.md)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Invalid API Key |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_roles**
-> [Role] list_roles(authorization)
+> [Role] list_roles()
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6080,18 +7343,27 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.role import Role
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -6100,16 +7372,9 @@ with onelogin.ApiClient() as api_client:
     fields = "apps" # str | Optional. Comma delimited list of fields to return. (optional)
 
     # example passing only required values which don't have defaults set
-    try:
-        api_response = api_instance.list_roles(authorization)
-        pprint(api_response)
-    except onelogin.ApiException as e:
-        print("Exception when calling DefaultApi->list_roles: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_roles(authorization, limit=limit, page=page, cursor=cursor, name=name, app_id=app_id, fields=fields)
+        api_response = api_instance.list_roles(authorization=authorization, limit=limit, page=page, cursor=cursor, name=name, app_id=app_id, fields=fields)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_roles: %s\n" % e)
@@ -6120,7 +7385,7 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -6134,7 +7399,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6152,12 +7417,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_rules**
-> [Rule] list_rules(authorization, app_id)
+> [Rule] list_rules(app_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6166,19 +7432,28 @@ from onelogin.api import default_api
 from onelogin.model.rule import Rule
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     enabled = True # bool | Defaults to true. When set to `false` will return all disabled rules. (optional)
     has_condition = "has_condition_example" # str | Filters Rules based on their Conditions. (optional)
     has_condition_type = "has_condition_type_example" # str | Filters Rules based on their condition types. (optional)
@@ -6187,7 +7462,7 @@ with onelogin.ApiClient() as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_rules(authorization, app_id)
+        api_response = api_instance.list_rules(app_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_rules: %s\n" % e)
@@ -6195,7 +7470,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_rules(authorization, app_id, enabled=enabled, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type)
+        api_response = api_instance.list_rules(app_id, authorization=authorization, enabled=enabled, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_rules: %s\n" % e)
@@ -6206,8 +7481,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **enabled** | **bool**| Defaults to true. When set to &#x60;false&#x60; will return all disabled rules. | [optional]
  **has_condition** | **str**| Filters Rules based on their Conditions. | [optional]
  **has_condition_type** | **str**| Filters Rules based on their condition types. | [optional]
@@ -6220,7 +7495,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6238,12 +7513,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_scopes**
-> [ListScopes200ResponseInner] list_scopes(authorization, id)
+> [ListScopes200ResponseInner] list_scopes(id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6252,23 +7528,40 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.list_scopes200_response_inner import ListScopes200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_scopes(authorization, id)
+        api_response = api_instance.list_scopes(id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->list_scopes: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.list_scopes(id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_scopes: %s\n" % e)
@@ -6279,8 +7572,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -6288,7 +7581,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6307,12 +7600,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_users**
-> [User] list_users(authorization, app_id)
+> [User] list_users(app_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6321,19 +7615,28 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.user import User
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     limit = 1 # int | The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. (optional)
     page = 1 # int | The page number of results to return. (optional)
     cursor = "cursor_example" # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -6342,7 +7645,7 @@ with onelogin.ApiClient() as api_client:
     updated_since = "updated_since_example" # str | An ISO8601 timestamp value that returns all users updated after a given date & time. (optional)
     updated_until = "updated_until_example" # str | An ISO8601 timestamp value that returns all users updated before a given date & time. (optional)
     last_login_since = "last_login_since_example" # str | An ISO8601 timestamp value that returns all users that logged in after a given date & time. (optional)
-    last_login_until = "last_login_until_example" # str |  (optional)
+    last_login_until = "last_login_until_example" # str | An ISO8601 timestamp value that returns all users that logged in before a given date & time. (optional)
     firstname = "firstname_example" # str | The first name of the user (optional)
     lastname = "lastname_example" # str | The last name of the user (optional)
     email = "email_example" # str | The email address of the user (optional)
@@ -6356,7 +7659,7 @@ with onelogin.ApiClient() as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.list_users(authorization, app_id)
+        api_response = api_instance.list_users(app_id)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_users: %s\n" % e)
@@ -6364,7 +7667,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.list_users(authorization, app_id, limit=limit, page=page, cursor=cursor, created_since=created_since, created_until=created_until, updated_since=updated_since, updated_until=updated_until, last_login_since=last_login_since, last_login_until=last_login_until, firstname=firstname, lastname=lastname, email=email, username=username, samaccountname=samaccountname, directory_id=directory_id, external_id=external_id, user_ids=user_ids, custom_attributes_attribute_name=custom_attributes_attribute_name, fields=fields)
+        api_response = api_instance.list_users(app_id, authorization=authorization, limit=limit, page=page, cursor=cursor, created_since=created_since, created_until=created_until, updated_since=updated_since, updated_until=updated_until, last_login_since=last_login_since, last_login_until=last_login_until, firstname=firstname, lastname=lastname, email=email, username=username, samaccountname=samaccountname, directory_id=directory_id, external_id=external_id, user_ids=user_ids, custom_attributes_attribute_name=custom_attributes_attribute_name, fields=fields)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->list_users: %s\n" % e)
@@ -6375,8 +7678,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **limit** | **int**| The total number of items returned per page. The maximum limit varies between endpoints, see the relevant endpoint documentation for the specific limit. | [optional]
  **page** | **int**| The page number of results to return. | [optional]
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional]
@@ -6385,7 +7688,7 @@ Name | Type | Description  | Notes
  **updated_since** | **str**| An ISO8601 timestamp value that returns all users updated after a given date &amp; time. | [optional]
  **updated_until** | **str**| An ISO8601 timestamp value that returns all users updated before a given date &amp; time. | [optional]
  **last_login_since** | **str**| An ISO8601 timestamp value that returns all users that logged in after a given date &amp; time. | [optional]
- **last_login_until** | **str**|  | [optional]
+ **last_login_until** | **str**| An ISO8601 timestamp value that returns all users that logged in before a given date &amp; time. | [optional]
  **firstname** | **str**| The first name of the user | [optional]
  **lastname** | **str**| The last name of the user | [optional]
  **email** | **str**| The email address of the user | [optional]
@@ -6403,7 +7706,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6423,12 +7726,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_client_app**
-> remove_client_app(authorization, id, client_app_id)
+> remove_client_app(id, client_app_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6436,24 +7740,40 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     client_app_id = 1 # int | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.remove_client_app(authorization, id, client_app_id)
+        api_instance.remove_client_app(id, client_app_id)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->remove_client_app: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.remove_client_app(id, client_app_id, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->remove_client_app: %s\n" % e)
 ```
@@ -6463,9 +7783,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **client_app_id** | **int**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -6473,7 +7793,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6492,12 +7812,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_role_admins**
-> remove_role_admins(authorization, role_id, remove_role_users_request)
+> remove_role_admins(role_id, remove_role_users_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6506,28 +7827,44 @@ from onelogin.api import default_api
 from onelogin.model.remove_role_users_request import RemoveRoleUsersRequest
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     remove_role_users_request = RemoveRoleUsersRequest(
         user_id=[
             1,
         ],
     ) # RemoveRoleUsersRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.remove_role_admins(authorization, role_id, remove_role_users_request)
+        api_instance.remove_role_admins(role_id, remove_role_users_request)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->remove_role_admins: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.remove_role_admins(role_id, remove_role_users_request, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->remove_role_admins: %s\n" % e)
 ```
@@ -6537,9 +7874,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **remove_role_users_request** | [**RemoveRoleUsersRequest**](RemoveRoleUsersRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -6547,7 +7884,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6566,12 +7903,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_role_users**
-> remove_role_users(authorization, role_id, remove_role_users_request)
+> remove_role_users(role_id, remove_role_users_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6580,28 +7918,44 @@ from onelogin.api import default_api
 from onelogin.model.remove_role_users_request import RemoveRoleUsersRequest
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     remove_role_users_request = RemoveRoleUsersRequest(
         user_id=[
             1,
         ],
     ) # RemoveRoleUsersRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.remove_role_users(authorization, role_id, remove_role_users_request)
+        api_instance.remove_role_users(role_id, remove_role_users_request)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->remove_role_users: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.remove_role_users(role_id, remove_role_users_request, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->remove_role_users: %s\n" % e)
 ```
@@ -6611,9 +7965,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **remove_role_users_request** | [**RemoveRoleUsersRequest**](RemoveRoleUsersRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -6621,7 +7975,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6646,6 +8000,7 @@ No authorization required
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6654,15 +8009,24 @@ from onelogin.api import default_api
 from onelogin.model.revoke_token_request import RevokeTokenRequest
 from onelogin.model.generate_token400_response import GenerateToken400Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
     authorization = "Authorization_example" # str | 
@@ -6700,7 +8064,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6720,12 +8084,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_role_apps**
-> [SetRoleApps200ResponseInner] set_role_apps(authorization, role_id, request_body)
+> [SetRoleApps200ResponseInner] set_role_apps(role_id, request_body)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6734,26 +8099,43 @@ from onelogin.api import default_api
 from onelogin.model.set_role_apps200_response_inner import SetRoleApps200ResponseInner
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     request_body = [
         1,
     ] # [int] | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.set_role_apps(authorization, role_id, request_body)
+        api_response = api_instance.set_role_apps(role_id, request_body)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->set_role_apps: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.set_role_apps(role_id, request_body, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->set_role_apps: %s\n" % e)
@@ -6764,9 +8146,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **request_body** | **[int]**|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -6774,7 +8156,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6793,12 +8175,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **track_event**
-> track_event(authorization, track_event_request)
+> track_event(track_event_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6806,18 +8189,26 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.track_event_request import TrackEventRequest
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     track_event_request = TrackEventRequest(
         verb="verb_example",
         ip="ip_example",
@@ -6840,10 +8231,18 @@ with onelogin.ApiClient() as api_client:
         fp="fp_example",
         published="published_example",
     ) # TrackEventRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_instance.track_event(authorization, track_event_request)
+        api_instance.track_event(track_event_request)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->track_event: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_instance.track_event(track_event_request, authorization=authorization)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->track_event: %s\n" % e)
 ```
@@ -6853,8 +8252,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **track_event_request** | [**TrackEventRequest**](TrackEventRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -6862,7 +8261,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6881,12 +8280,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_access_token_claim**
-> Id update_access_token_claim(authorization, id, claim_id, add_access_token_claim_request)
+> Id update_access_token_claim(id, claim_id, add_access_token_claim_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6896,18 +8296,26 @@ from onelogin.model.add_access_token_claim_request import AddAccessTokenClaimReq
 from onelogin.model.status import Status
 from onelogin.model.id import Id
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     claim_id = 1 # int | 
     add_access_token_claim_request = AddAccessTokenClaimRequest(
@@ -6915,10 +8323,19 @@ with onelogin.ApiClient() as api_client:
         user_attribute_mappings="user_attribute_mappings_example",
         user_attribute_macros="user_attribute_macros_example",
     ) # AddAccessTokenClaimRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_access_token_claim(authorization, id, claim_id, add_access_token_claim_request)
+        api_response = api_instance.update_access_token_claim(id, claim_id, add_access_token_claim_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_access_token_claim: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_access_token_claim(id, claim_id, add_access_token_claim_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_access_token_claim: %s\n" % e)
@@ -6929,10 +8346,10 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **claim_id** | **int**|  |
  **add_access_token_claim_request** | [**AddAccessTokenClaimRequest**](AddAccessTokenClaimRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -6940,7 +8357,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -6960,12 +8377,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_app**
-> Schema update_app(authorization, app_id, schema)
+> Schema update_app(app_id, schema)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -6974,18 +8392,26 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.schema import Schema
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     schema = Schema(
         id=1,
@@ -7013,10 +8439,19 @@ with onelogin.ApiClient() as api_client:
         parameters={},
         enforcement_point={},
     ) # Schema | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_app(authorization, app_id, schema)
+        api_response = api_instance.update_app(app_id, schema)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_app: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_app(app_id, schema, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_app: %s\n" % e)
@@ -7027,9 +8462,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **schema** | [**Schema**](Schema.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7037,7 +8472,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7056,12 +8491,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_authorization_server**
-> Id update_authorization_server(authorization, id, create_authorization_server_request)
+> Id update_authorization_server(id, create_authorization_server_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7072,18 +8508,26 @@ from onelogin.model.status import Status
 from onelogin.model.id import Id
 from onelogin.model.update_authorization_server400_response import UpdateAuthorizationServer400Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     create_authorization_server_request = CreateAuthorizationServerRequest(
         name="name_example",
@@ -7097,10 +8541,19 @@ with onelogin.ApiClient() as api_client:
             access_token_expiration_minutes=1,
         ),
     ) # CreateAuthorizationServerRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_authorization_server(authorization, id, create_authorization_server_request)
+        api_response = api_instance.update_authorization_server(id, create_authorization_server_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_authorization_server: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_authorization_server(id, create_authorization_server_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_authorization_server: %s\n" % e)
@@ -7111,9 +8564,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **create_authorization_server_request** | [**CreateAuthorizationServerRequest**](CreateAuthorizationServerRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7121,7 +8574,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7141,12 +8594,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_client_app**
-> ClientApp update_client_app(authorization, id, client_app_id, update_client_app_request)
+> ClientApp update_client_app(id, client_app_id, update_client_app_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7156,18 +8610,26 @@ from onelogin.model.status import Status
 from onelogin.model.update_client_app_request import UpdateClientAppRequest
 from onelogin.model.client_app import ClientApp
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     client_app_id = 1 # int | 
     update_client_app_request = UpdateClientAppRequest(
@@ -7175,10 +8637,19 @@ with onelogin.ApiClient() as api_client:
             1,
         ],
     ) # UpdateClientAppRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_client_app(authorization, id, client_app_id, update_client_app_request)
+        api_response = api_instance.update_client_app(id, client_app_id, update_client_app_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_client_app: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_client_app(id, client_app_id, update_client_app_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_client_app: %s\n" % e)
@@ -7189,10 +8660,10 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **client_app_id** | **int**|  |
  **update_client_app_request** | [**UpdateClientAppRequest**](UpdateClientAppRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7200,7 +8671,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7220,12 +8691,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_environment_variable**
-> Envvar update_environment_variable(authorization, envvar_id, update_environment_variable_request)
+> Envvar update_environment_variable(envvar_id, update_environment_variable_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7236,26 +8708,43 @@ from onelogin.model.status import Status
 from onelogin.model.hook_status import HookStatus
 from onelogin.model.envvar import Envvar
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     envvar_id = "envvar_id_example" # str | Set to the id of the Hook Environment Variable that you want to fetch.
     update_environment_variable_request = UpdateEnvironmentVariableRequest(
         value="value_example",
     ) # UpdateEnvironmentVariableRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_environment_variable(authorization, envvar_id, update_environment_variable_request)
+        api_response = api_instance.update_environment_variable(envvar_id, update_environment_variable_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_environment_variable: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_environment_variable(envvar_id, update_environment_variable_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_environment_variable: %s\n" % e)
@@ -7266,9 +8755,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **envvar_id** | **str**| Set to the id of the Hook Environment Variable that you want to fetch. |
  **update_environment_variable_request** | [**UpdateEnvironmentVariableRequest**](UpdateEnvironmentVariableRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7276,7 +8765,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7296,12 +8785,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_hook**
-> Hook update_hook(authorization, hook_id, hook)
+> Hook update_hook(hook_id, hook)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7311,18 +8801,26 @@ from onelogin.model.hook import Hook
 from onelogin.model.status import Status
 from onelogin.model.hook_status import HookStatus
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     hook_id = "hook_id_example" # str | Set to the id of the Hook that you want to return.
     hook = Hook(
         id="id_example",
@@ -7353,10 +8851,19 @@ with onelogin.ApiClient() as api_client:
         created_at="created_at_example",
         updated_at="updated_at_example",
     ) # Hook | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_hook(authorization, hook_id, hook)
+        api_response = api_instance.update_hook(hook_id, hook)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_hook: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_hook(hook_id, hook, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_hook: %s\n" % e)
@@ -7367,9 +8874,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **hook_id** | **str**| Set to the id of the Hook that you want to return. |
  **hook** | [**Hook**](Hook.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7377,7 +8884,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7396,12 +8903,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_mapping**
-> int update_mapping(authorization, mapping_id, mapping)
+> int update_mapping(mapping_id, mapping)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7411,18 +8919,26 @@ from onelogin.model.error_status import ErrorStatus
 from onelogin.model.status import Status
 from onelogin.model.mapping import Mapping
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     mapping_id = 1 # int | The id of the user mapping to locate.
     mapping = Mapping(
         id=1,
@@ -7449,10 +8965,19 @@ with onelogin.ApiClient() as api_client:
             ),
         ],
     ) # Mapping | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_mapping(authorization, mapping_id, mapping)
+        api_response = api_instance.update_mapping(mapping_id, mapping)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_mapping: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_mapping(mapping_id, mapping, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_mapping: %s\n" % e)
@@ -7463,9 +8988,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **mapping_id** | **int**| The id of the user mapping to locate. |
  **mapping** | [**Mapping**](Mapping.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7473,7 +8998,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7492,12 +9017,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_risk_rule**
-> RiskRule update_risk_rule(authorization, risk_rule_id, risk_rule)
+> RiskRule update_risk_rule(risk_rule_id, risk_rule)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7505,18 +9031,26 @@ import onelogin
 from onelogin.api import default_api
 from onelogin.model.risk_rule import RiskRule
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     risk_rule_id = "risk_rule_id_example" # str | 
     risk_rule = RiskRule(
         id="id_example",
@@ -7532,10 +9066,19 @@ with onelogin.ApiClient() as api_client:
             name="name_example",
         ),
     ) # RiskRule | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_risk_rule(authorization, risk_rule_id, risk_rule)
+        api_response = api_instance.update_risk_rule(risk_rule_id, risk_rule)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_risk_rule: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_risk_rule(risk_rule_id, risk_rule, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_risk_rule: %s\n" % e)
@@ -7546,9 +9089,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **risk_rule_id** | **str**|  |
  **risk_rule** | [**RiskRule**](RiskRule.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7556,7 +9099,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7575,12 +9118,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_role**
-> UpdateRole200Response update_role(authorization, role_id, role)
+> UpdateRole200Response update_role(role_id, role)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7590,18 +9134,26 @@ from onelogin.model.status import Status
 from onelogin.model.role import Role
 from onelogin.model.update_role200_response import UpdateRole200Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     role_id = 1 # int | Set to the id of the role you want to return.
     role = Role(
         id=1,
@@ -7616,10 +9168,19 @@ with onelogin.ApiClient() as api_client:
             1,
         ],
     ) # Role | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_role(authorization, role_id, role)
+        api_response = api_instance.update_role(role_id, role)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_role: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_role(role_id, role, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_role: %s\n" % e)
@@ -7630,9 +9191,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **role_id** | **int**| Set to the id of the role you want to return. |
  **role** | [**Role**](Role.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7640,7 +9201,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7659,12 +9220,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_rule**
-> RuleId update_rule(authorization, app_id, rule_id, rule)
+> RuleId update_rule(app_id, rule_id, rule)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7675,18 +9237,26 @@ from onelogin.model.rule import Rule
 from onelogin.model.status import Status
 from onelogin.model.rule_id import RuleId
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     app_id = 1 # int | 
     rule_id = 1 # int | The id of the app rule to locate.
     rule = Rule(
@@ -7714,10 +9284,19 @@ with onelogin.ApiClient() as api_client:
             ),
         ],
     ) # Rule | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_rule(authorization, app_id, rule_id, rule)
+        api_response = api_instance.update_rule(app_id, rule_id, rule)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_rule: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_rule(app_id, rule_id, rule, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_rule: %s\n" % e)
@@ -7728,10 +9307,10 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **app_id** | **int**|  |
  **rule_id** | **int**| The id of the app rule to locate. |
  **rule** | [**Rule**](Rule.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7739,7 +9318,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7758,12 +9337,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_scope**
-> Id update_scope(authorization, id, scope_id, add_scope_request)
+> Id update_scope(id, scope_id, add_scope_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7773,28 +9353,45 @@ from onelogin.model.status import Status
 from onelogin.model.id import Id
 from onelogin.model.add_scope_request import AddScopeRequest
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     id = 1 # int | 
     scope_id = 1 # int | 
     add_scope_request = AddScopeRequest(
         value="value_example",
         description="description_example",
     ) # AddScopeRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_scope(authorization, id, scope_id, add_scope_request)
+        api_response = api_instance.update_scope(id, scope_id, add_scope_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->update_scope: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.update_scope(id, scope_id, add_scope_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_scope: %s\n" % e)
@@ -7805,10 +9402,10 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **id** | **int**|  |
  **scope_id** | **int**|  |
  **add_scope_request** | [**AddScopeRequest**](AddScopeRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -7816,7 +9413,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7836,12 +9433,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_user**
-> User update_user(authorization, user_id, user)
+> User update_user(user_id, user)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7850,18 +9448,26 @@ from onelogin.api import default_api
 from onelogin.model.status import Status
 from onelogin.model.user import User
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     user = User(
         id=1,
@@ -7904,12 +9510,13 @@ with onelogin.ApiClient() as api_client:
         password_algorithm="password_algorithm_example",
         salt="salt_example",
     ) # User | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     mappings = "async" # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.update_user(authorization, user_id, user)
+        api_response = api_instance.update_user(user_id, user)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_user: %s\n" % e)
@@ -7917,7 +9524,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.update_user(authorization, user_id, user, mappings=mappings, validate_policy=validate_policy)
+        api_response = api_instance.update_user(user_id, user, authorization=authorization, mappings=mappings, validate_policy=validate_policy)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->update_user: %s\n" % e)
@@ -7928,9 +9535,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **user** | [**User**](User.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **mappings** | **str**| Controls how mappings will be applied to the user on creation. Defaults to async. | [optional]
  **validate_policy** | **bool**| Will passwords validate against the User Policy? Defaults to true. | [optional]
 
@@ -7940,7 +9547,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -7961,12 +9568,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_verify_factor**
-> V1VerifyFactor200Response v1_verify_factor(authorization, v1_verify_factor_request)
+> V1VerifyFactor200Response v1_verify_factor(v1_verify_factor_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -7976,29 +9584,38 @@ from onelogin.model.v1_verify_factor_request import V1VerifyFactorRequest
 from onelogin.model.generate_token400_response import GenerateToken400Response
 from onelogin.model.v1_verify_factor200_response import V1VerifyFactor200Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     v1_verify_factor_request = V1VerifyFactorRequest(
         device_id="device_id_example",
         state_token="state_token_example",
         otp_token="otp_token_example",
         do_not_notify=True,
     ) # V1VerifyFactorRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
     custom_allowed_origin_header_1 = "Custom-Allowed-Origin-Header-1_example" # str | Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.v1_verify_factor(authorization, v1_verify_factor_request)
+        api_response = api_instance.v1_verify_factor(v1_verify_factor_request)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->v1_verify_factor: %s\n" % e)
@@ -8006,7 +9623,7 @@ with onelogin.ApiClient() as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        api_response = api_instance.v1_verify_factor(authorization, v1_verify_factor_request, custom_allowed_origin_header_1=custom_allowed_origin_header_1)
+        api_response = api_instance.v1_verify_factor(v1_verify_factor_request, authorization=authorization, custom_allowed_origin_header_1=custom_allowed_origin_header_1)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->v1_verify_factor: %s\n" % e)
@@ -8017,8 +9634,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **v1_verify_factor_request** | [**V1VerifyFactorRequest**](V1VerifyFactorRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
  **custom_allowed_origin_header_1** | **str**| Required for CORS requests only. Set to the Origin URI from which you are allowed to send a request using CORS. | [optional]
 
 ### Return type
@@ -8027,7 +9644,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -8046,12 +9663,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_enrollment**
-> [Registration] verify_enrollment(authorization, user_id, registration_id, verify_enrollment_request)
+> [Registration] verify_enrollment(user_id, registration_id, verify_enrollment_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -8061,27 +9679,44 @@ from onelogin.model.registration import Registration
 from onelogin.model.status import Status
 from onelogin.model.verify_enrollment_request import VerifyEnrollmentRequest
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     registration_id = 1 # int | Set to the uuid of the registration. This was included in the response as part of the initial request in Enroll Factor.
     verify_enrollment_request = VerifyEnrollmentRequest(
         otp=1,
     ) # VerifyEnrollmentRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.verify_enrollment(authorization, user_id, registration_id, verify_enrollment_request)
+        api_response = api_instance.verify_enrollment(user_id, registration_id, verify_enrollment_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->verify_enrollment: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.verify_enrollment(user_id, registration_id, verify_enrollment_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_enrollment: %s\n" % e)
@@ -8092,10 +9727,10 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **registration_id** | **int**| Set to the uuid of the registration. This was included in the response as part of the initial request in Enroll Factor. |
  **verify_enrollment_request** | [**VerifyEnrollmentRequest**](VerifyEnrollmentRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -8103,7 +9738,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -8121,12 +9756,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_enrollment_voice_protect**
-> [Registration] verify_enrollment_voice_protect(authorization, user_id, registration_id)
+> [Registration] verify_enrollment_voice_protect(user_id, registration_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -8135,24 +9771,41 @@ from onelogin.api import default_api
 from onelogin.model.registration import Registration
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     registration_id = 1 # int | Set to the uuid of the registration. This was included in the response as part of the initial request in Enroll Factor.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.verify_enrollment_voice_protect(authorization, user_id, registration_id)
+        api_response = api_instance.verify_enrollment_voice_protect(user_id, registration_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->verify_enrollment_voice_protect: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.verify_enrollment_voice_protect(user_id, registration_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_enrollment_voice_protect: %s\n" % e)
@@ -8163,9 +9816,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **registration_id** | **int**| Set to the uuid of the registration. This was included in the response as part of the initial request in Enroll Factor. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -8173,7 +9826,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -8191,12 +9844,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_factor**
-> GenerateToken400Response verify_factor(authorization, user_id, verification_id, verify_factor_request)
+> GenerateToken400Response verify_factor(user_id, verification_id, verify_factor_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -8206,28 +9860,45 @@ from onelogin.model.status import Status
 from onelogin.model.verify_factor_request import VerifyFactorRequest
 from onelogin.model.generate_token400_response import GenerateToken400Response
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     verification_id = 1 # int | The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.
     verify_factor_request = VerifyFactorRequest(
         otp="otp_example",
         device_id=1,
     ) # VerifyFactorRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.verify_factor(authorization, user_id, verification_id, verify_factor_request)
+        api_response = api_instance.verify_factor(user_id, verification_id, verify_factor_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->verify_factor: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.verify_factor(user_id, verification_id, verify_factor_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_factor: %s\n" % e)
@@ -8238,10 +9909,10 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **verification_id** | **int**| The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call. |
  **verify_factor_request** | [**VerifyFactorRequest**](VerifyFactorRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -8249,7 +9920,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -8268,12 +9939,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_factor_saml**
-> VerifyFactorSaml200Response verify_factor_saml(authorization, verify_factor_saml_request)
+> VerifyFactorSaml200Response verify_factor_saml(verify_factor_saml_request)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -8283,18 +9955,26 @@ from onelogin.model.verify_factor_saml_request import VerifyFactorSamlRequest
 from onelogin.model.verify_factor_saml200_response import VerifyFactorSaml200Response
 from onelogin.model.status import Status
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     verify_factor_saml_request = VerifyFactorSamlRequest(
         app_id="app_id_example",
         device_id="device_id_example",
@@ -8302,10 +9982,19 @@ with onelogin.ApiClient() as api_client:
         otp_token="otp_token_example",
         do_not_notify=True,
     ) # VerifyFactorSamlRequest | 
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.verify_factor_saml(authorization, verify_factor_saml_request)
+        api_response = api_instance.verify_factor_saml(verify_factor_saml_request)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->verify_factor_saml: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.verify_factor_saml(verify_factor_saml_request, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_factor_saml: %s\n" % e)
@@ -8316,8 +10005,8 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **verify_factor_saml_request** | [**VerifyFactorSamlRequest**](VerifyFactorSamlRequest.md)|  |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -8325,7 +10014,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -8345,12 +10034,13 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_factor_voice**
-> [VerifyFactorVoice200ResponseInner] verify_factor_voice(authorization, user_id, verification_id)
+> [VerifyFactorVoice200ResponseInner] verify_factor_voice(user_id, verification_id)
 
 
 
 ### Example
 
+* Bearer Authentication (bearer):
 
 ```python
 import time
@@ -8360,24 +10050,41 @@ from onelogin.model.status import Status
 from onelogin.model.generate_token400_response import GenerateToken400Response
 from onelogin.model.verify_factor_voice200_response_inner import VerifyFactorVoice200ResponseInner
 from pprint import pprint
-# Defining the host is optional and defaults to https://onelogininc.onelogin.com
+# Defining the host is optional and defaults to https://api.us.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
-    host = "https://onelogininc.onelogin.com"
+    host = "https://api.us.onelogin.com"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearer
+configuration = onelogin.Configuration(
+    access_token = 'YOUR_BEARER_TOKEN'
+)
 
 # Enter a context with an instance of the API client
-with onelogin.ApiClient() as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>'
     user_id = 1 # int | Set to the id of the user.
     verification_id = 1 # int | The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.
+    authorization = "Authorization_example" # str | Must be in the form of 'bearer <access_token>' (optional)
 
     # example passing only required values which don't have defaults set
     try:
-        api_response = api_instance.verify_factor_voice(authorization, user_id, verification_id)
+        api_response = api_instance.verify_factor_voice(user_id, verification_id)
+        pprint(api_response)
+    except onelogin.ApiException as e:
+        print("Exception when calling DefaultApi->verify_factor_voice: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        api_response = api_instance.verify_factor_voice(user_id, verification_id, authorization=authorization)
         pprint(api_response)
     except onelogin.ApiException as e:
         print("Exception when calling DefaultApi->verify_factor_voice: %s\n" % e)
@@ -8388,9 +10095,9 @@ with onelogin.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; |
  **user_id** | **int**| Set to the id of the user. |
  **verification_id** | **int**| The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call. |
+ **authorization** | **str**| Must be in the form of &#39;bearer &lt;access_token&gt;&#39; | [optional]
 
 ### Return type
 
@@ -8398,7 +10105,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
