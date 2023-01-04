@@ -5,7 +5,7 @@ Used for targeting custom rules based on a group of people, customers, accounts,
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
+**id** | **str** | A unique id that represents the source of the event. | [optional] 
 **name** | **str** | The name of the source | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
