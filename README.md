@@ -15,6 +15,11 @@ Python >=3.6
 ## Installation & Usage
 ### pip install
 
+To install the package directly from [pypi](https://pypi.org/project/onelogin/):
+```sh
+pip install onelogin
+```
+
 If the python package is hosted on a repository, you can install directly using:
 
 ```sh
