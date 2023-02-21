@@ -34,7 +34,7 @@ jobs:
         build
         --sdist
         --wheel
-        --outdir openapi_client/
+        --outdir dist/
         .
     - name: Publish distribution 📦 to Test PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
