@@ -34,10 +34,10 @@ jobs:
         build
         --sdist
         --wheel
-        --outdir openapi_client/
+        --outdir .
         .
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
-        packages_dir: openapi_client/
+        packages_dir: .
