@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.generate_mf_atoken_request import GenerateMFAtokenRequest
+from onelogin.models.generate_mf_atoken_request import GenerateMFAtokenRequest
 
 # TODO update the JSON string below
 json = "{}"

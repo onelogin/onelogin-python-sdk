@@ -1,4 +1,4 @@
-# openapi_client.RolesApi
+# onelogin.RolesApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -35,12 +35,12 @@ Add Role Admins
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -52,9 +52,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
     request_body = [56] # List[int] | 
 
@@ -109,12 +109,12 @@ Add Role Users
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -126,9 +126,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
     request_body = [56] # List[int] | 
 
@@ -184,12 +184,12 @@ Create Role
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -201,10 +201,10 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
-    list_roles200_response_inner = openapi_client.ListRoles200ResponseInner() # ListRoles200ResponseInner | 
+    api_instance = onelogin.RolesApi(api_client)
+    list_roles200_response_inner = onelogin.ListRoles200ResponseInner() # ListRoles200ResponseInner | 
 
     try:
         # Create Role
@@ -256,12 +256,12 @@ Delete Role
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -273,9 +273,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
 
     try:
@@ -328,12 +328,12 @@ Get Role
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -345,9 +345,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
 
     try:
@@ -401,12 +401,12 @@ Get Role Admins
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -418,9 +418,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
@@ -484,12 +484,12 @@ Get Role Apps
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -501,9 +501,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
@@ -565,12 +565,12 @@ Get Role By ID
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -582,9 +582,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 'role_id_example' # str | 
 
     try:
@@ -640,12 +640,12 @@ Get Role by Name
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -657,9 +657,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     name = 'name_example' # str |  (optional)
 
     try:
@@ -713,12 +713,12 @@ Get Role Users
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -730,9 +730,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
@@ -796,12 +796,12 @@ List Roles
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -813,9 +813,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
     cursor = 'cursor_example' # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -880,12 +880,12 @@ Remove Role Admins
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -897,11 +897,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
-    remove_role_users_request = openapi_client.RemoveRoleUsersRequest() # RemoveRoleUsersRequest | 
+    remove_role_users_request = onelogin.RemoveRoleUsersRequest() # RemoveRoleUsersRequest | 
 
     try:
         # Remove Role Admins
@@ -953,12 +953,12 @@ Remove Role Users
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -970,11 +970,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
-    remove_role_users_request = openapi_client.RemoveRoleUsersRequest() # RemoveRoleUsersRequest | 
+    remove_role_users_request = onelogin.RemoveRoleUsersRequest() # RemoveRoleUsersRequest | 
 
     try:
         # Remove Role Users
@@ -1026,12 +1026,12 @@ Set Role Apps
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -1043,9 +1043,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
     request_body = [56] # List[int] | 
 
@@ -1101,12 +1101,12 @@ Update Role
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -1118,11 +1118,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.RolesApi(api_client)
+    api_instance = onelogin.RolesApi(api_client)
     role_id = 56 # int | Set to the id of the role you want to return.
-    list_roles200_response_inner = openapi_client.ListRoles200ResponseInner() # ListRoles200ResponseInner | 
+    list_roles200_response_inner = onelogin.ListRoles200ResponseInner() # ListRoles200ResponseInner | 
 
     try:
         # Update Role

@@ -1,4 +1,4 @@
-# openapi_client.MultiFactorAuthenticationApi
+# onelogin.MultiFactorAuthenticationApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -30,12 +30,12 @@ Create a new verification process
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -47,12 +47,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    create_device_verification_request = openapi_client.CreateDeviceVerificationRequest() # CreateDeviceVerificationRequest |  (optional)
+    create_device_verification_request = onelogin.CreateDeviceVerificationRequest() # CreateDeviceVerificationRequest |  (optional)
 
     try:
         # Create Device Verification
@@ -106,12 +106,12 @@ Create a new registration process
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -123,12 +123,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    create_factor_registration_request = openapi_client.CreateFactorRegistrationRequest() # CreateFactorRegistrationRequest |  (optional)
+    create_factor_registration_request = onelogin.CreateFactorRegistrationRequest() # CreateFactorRegistrationRequest |  (optional)
 
     try:
         # Create Factor Registration
@@ -182,12 +182,12 @@ Delete a user\\'s authentication device
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -199,9 +199,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     device_id = 'device_id_example' # str | 
 
@@ -253,12 +253,12 @@ Create new MFA token on the user's account
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -270,12 +270,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    generate_otp_request = openapi_client.GenerateOTPRequest() # GenerateOTPRequest |  (optional)
+    generate_otp_request = onelogin.GenerateOTPRequest() # GenerateOTPRequest |  (optional)
 
     try:
         # Generate MFA token
@@ -330,12 +330,12 @@ Get a user\\'s available authentication factors
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -347,9 +347,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
 
     try:
@@ -402,12 +402,12 @@ Get a user authentication devices
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -419,9 +419,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
 
     try:
@@ -474,12 +474,12 @@ Get registration state by id
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -491,9 +491,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     registration_id = '<UUID>' # str | The id of a registration
 
@@ -548,12 +548,12 @@ Get verification state by id
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -565,9 +565,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     verification_id = '<UUID>' # str | The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.
 
@@ -623,12 +623,12 @@ Submit an otp for verification.
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -640,13 +640,13 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     registration_id = '<UUID>' # str | The id of a registration
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    verify_user_registration_request = openapi_client.VerifyUserRegistrationRequest() # VerifyUserRegistrationRequest |  (optional)
+    verify_user_registration_request = onelogin.VerifyUserRegistrationRequest() # VerifyUserRegistrationRequest |  (optional)
 
     try:
         # Verify User Registration
@@ -701,12 +701,12 @@ Submit an otp for verification.
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -718,13 +718,13 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.MultiFactorAuthenticationApi(api_client)
+    api_instance = onelogin.MultiFactorAuthenticationApi(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     verification_id = '<UUID>' # str | The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    verify_user_verification_request = openapi_client.VerifyUserVerificationRequest() # VerifyUserVerificationRequest |  (optional)
+    verify_user_verification_request = onelogin.VerifyUserVerificationRequest() # VerifyUserVerificationRequest |  (optional)
 
     try:
         # Verify User Verification

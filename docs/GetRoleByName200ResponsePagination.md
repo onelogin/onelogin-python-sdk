@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_role_by_name200_response_pagination import GetRoleByName200ResponsePagination
+from onelogin.models.get_role_by_name200_response_pagination import GetRoleByName200ResponsePagination
 
 # TODO update the JSON string below
 json = "{}"

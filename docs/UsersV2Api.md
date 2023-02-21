@@ -1,4 +1,4 @@
-# openapi_client.UsersV2Api
+# onelogin.UsersV2Api
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -25,23 +25,23 @@ Create User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV2Api(api_client)
+    api_instance = onelogin.UsersV2Api(api_client)
     mappings = 'mappings_example' # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
-    list_users200_response_inner = openapi_client.ListUsers200ResponseInner() # ListUsers200ResponseInner |  (optional)
+    list_users200_response_inner = onelogin.ListUsers200ResponseInner() # ListUsers200ResponseInner |  (optional)
 
     try:
         # Create User
@@ -97,12 +97,12 @@ Delete User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -114,9 +114,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV2Api(api_client)
+    api_instance = onelogin.UsersV2Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
 
     try:
@@ -168,12 +168,12 @@ Get User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -185,9 +185,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV2Api(api_client)
+    api_instance = onelogin.UsersV2Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
 
     try:
@@ -241,12 +241,12 @@ Get User Apps
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -258,9 +258,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV2Api(api_client)
+    api_instance = onelogin.UsersV2Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     ignore_visibility = False # bool | Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting. (optional) (default to False)
 
@@ -316,12 +316,12 @@ Get a list of users
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -333,9 +333,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV2Api(api_client)
+    api_instance = onelogin.UsersV2Api(api_client)
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
     cursor = 'cursor_example' # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -425,24 +425,24 @@ Update User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV2Api(api_client)
+    api_instance = onelogin.UsersV2Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     mappings = 'mappings_example' # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
-    list_users200_response_inner = openapi_client.ListUsers200ResponseInner() # ListUsers200ResponseInner |  (optional)
+    list_users200_response_inner = onelogin.ListUsers200ResponseInner() # ListUsers200ResponseInner |  (optional)
 
     try:
         # Update User

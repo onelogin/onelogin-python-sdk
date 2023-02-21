@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.verify_mfa_factor_request import VerifyMfaFactorRequest
+from onelogin.models.verify_mfa_factor_request import VerifyMfaFactorRequest
 
 # TODO update the JSON string below
 json = "{}"

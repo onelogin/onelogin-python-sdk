@@ -1,4 +1,4 @@
-# openapi_client.APIAuthorizationServerApi
+# onelogin.APIAuthorizationServerApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -25,12 +25,12 @@ Create Auth Server
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -42,11 +42,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthorizationServerApi(api_client)
+    api_instance = onelogin.APIAuthorizationServerApi(api_client)
     content_type = 'application/json' # str |  (default to 'application/json')
-    get_scopes200_response_inner = openapi_client.GetScopes200ResponseInner() # GetScopes200ResponseInner |  (optional)
+    get_scopes200_response_inner = onelogin.GetScopes200ResponseInner() # GetScopes200ResponseInner |  (optional)
 
     try:
         # Create Api Auth Server
@@ -100,12 +100,12 @@ Delete Authentication Server
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -117,9 +117,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthorizationServerApi(api_client)
+    api_instance = onelogin.APIAuthorizationServerApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
@@ -173,12 +173,12 @@ Get Authorization Server
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -190,9 +190,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthorizationServerApi(api_client)
+    api_instance = onelogin.APIAuthorizationServerApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
@@ -247,12 +247,12 @@ List Authorization Servers
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -264,9 +264,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthorizationServerApi(api_client)
+    api_instance = onelogin.APIAuthorizationServerApi(api_client)
 
     try:
         # List Api Auth Servers
@@ -315,12 +315,12 @@ Update Authorization Server
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -332,12 +332,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthorizationServerApi(api_client)
+    api_instance = onelogin.APIAuthorizationServerApi(api_client)
     content_type = 'application/json' # str |  (default to 'application/json')
     api_auth_id = 'api_auth_id_example' # str | 
-    get_scopes200_response_inner = openapi_client.GetScopes200ResponseInner() # GetScopes200ResponseInner |  (optional)
+    get_scopes200_response_inner = onelogin.GetScopes200ResponseInner() # GetScopes200ResponseInner |  (optional)
 
     try:
         # Update Api Auth Server

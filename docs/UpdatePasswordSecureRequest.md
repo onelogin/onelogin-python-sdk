@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.update_password_secure_request import UpdatePasswordSecureRequest
+from onelogin.models.update_password_secure_request import UpdatePasswordSecureRequest
 
 # TODO update the JSON string below
 json = "{}"

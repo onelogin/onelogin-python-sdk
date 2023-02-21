@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_email_settings200_response_one_of1 import GetEmailSettings200ResponseOneOf1
+from onelogin.models.get_email_settings200_response_one_of1 import GetEmailSettings200ResponseOneOf1
 
 # TODO update the JSON string below
 json = "{}"

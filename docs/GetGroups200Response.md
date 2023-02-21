@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_groups200_response import GetGroups200Response
+from onelogin.models.get_groups200_response import GetGroups200Response
 
 # TODO update the JSON string below
 json = "{}"

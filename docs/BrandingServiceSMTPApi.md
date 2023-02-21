@@ -1,4 +1,4 @@
-# openapi_client.BrandingServiceSMTPApi
+# onelogin.BrandingServiceSMTPApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -23,12 +23,12 @@ Reset Email Setting config
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -40,9 +40,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceSMTPApi(api_client)
+    api_instance = onelogin.BrandingServiceSMTPApi(api_client)
 
     try:
         # Delete Custom Email Settings
@@ -91,12 +91,12 @@ Get Email Settings Config
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -108,9 +108,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceSMTPApi(api_client)
+    api_instance = onelogin.BrandingServiceSMTPApi(api_client)
 
     try:
         # Get Email Settings
@@ -159,12 +159,12 @@ Update Email Settings Config
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -176,10 +176,10 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceSMTPApi(api_client)
-    get_email_settings200_response_one_of1 = openapi_client.GetEmailSettings200ResponseOneOf1() # GetEmailSettings200ResponseOneOf1 |  (optional)
+    api_instance = onelogin.BrandingServiceSMTPApi(api_client)
+    get_email_settings200_response_one_of1 = onelogin.GetEmailSettings200ResponseOneOf1() # GetEmailSettings200ResponseOneOf1 |  (optional)
 
     try:
         # Update Email Settings

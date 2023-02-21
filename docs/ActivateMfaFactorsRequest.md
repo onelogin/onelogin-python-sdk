@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.activate_mfa_factors_request import ActivateMfaFactorsRequest
+from onelogin.models.activate_mfa_factors_request import ActivateMfaFactorsRequest
 
 # TODO update the JSON string below
 json = "{}"

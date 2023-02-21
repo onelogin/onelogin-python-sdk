@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_scope200_response import CreateScope200Response
+from onelogin.models.create_scope200_response import CreateScope200Response
 
 # TODO update the JSON string below
 json = "{}"

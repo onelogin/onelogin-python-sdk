@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_app_request_one_of1_parameters_saml_username import CreateAppRequestOneOf1ParametersSamlUsername
+from onelogin.models.create_app_request_one_of1_parameters_saml_username import CreateAppRequestOneOf1ParametersSamlUsername
 
 # TODO update the JSON string below
 json = "{}"

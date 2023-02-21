@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_brand201_response_logo_urls import CreateBrand201ResponseLogoUrls
+from onelogin.models.create_brand201_response_logo_urls import CreateBrand201ResponseLogoUrls
 
 # TODO update the JSON string below
 json = "{}"

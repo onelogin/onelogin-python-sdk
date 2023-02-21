@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_event_by_id200_response_status import GetEventById200ResponseStatus
+from onelogin.models.get_event_by_id200_response_status import GetEventById200ResponseStatus
 
 # TODO update the JSON string below
 json = "{}"

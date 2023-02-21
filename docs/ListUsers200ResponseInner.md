@@ -44,7 +44,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.list_users200_response_inner import ListUsers200ResponseInner
+from onelogin.models.list_users200_response_inner import ListUsers200ResponseInner
 
 # TODO update the JSON string below
 json = "{}"

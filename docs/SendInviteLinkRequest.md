@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.send_invite_link_request import SendInviteLinkRequest
+from onelogin.models.send_invite_link_request import SendInviteLinkRequest
 
 # TODO update the JSON string below
 json = "{}"

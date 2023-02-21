@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.ver_factor_saml_request import VerFactorSamlRequest
+from onelogin.models.ver_factor_saml_request import VerFactorSamlRequest
 
 # TODO update the JSON string below
 json = "{}"

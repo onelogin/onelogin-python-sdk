@@ -1,4 +1,4 @@
-# openapi_client.APIAuthClientAppsApi
+# onelogin.APIAuthClientAppsApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -24,12 +24,12 @@ Add Client App
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -41,12 +41,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthClientAppsApi(api_client)
+    api_instance = onelogin.APIAuthClientAppsApi(api_client)
     content_type = 'application/json' # str | Set to `application/json` (default to 'application/json')
     api_auth_id = 'api_auth_id_example' # str | 
-    add_client_app_request = openapi_client.AddClientAppRequest() # AddClientAppRequest |  (optional)
+    add_client_app_request = onelogin.AddClientAppRequest() # AddClientAppRequest |  (optional)
 
     try:
         # Add Client App
@@ -102,12 +102,12 @@ Delete Client App
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -119,9 +119,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthClientAppsApi(api_client)
+    api_instance = onelogin.APIAuthClientAppsApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     client_app_id = 56 # int | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
@@ -180,12 +180,12 @@ List Client Apps
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -197,9 +197,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthClientAppsApi(api_client)
+    api_instance = onelogin.APIAuthClientAppsApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
@@ -255,12 +255,12 @@ Update Client App
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -272,13 +272,13 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthClientAppsApi(api_client)
+    api_instance = onelogin.APIAuthClientAppsApi(api_client)
     content_type = 'application/json' # str | Set to `application/json` (default to 'application/json')
     api_auth_id = 'api_auth_id_example' # str | 
     client_app_id = 56 # int | 
-    update_client_app_request = openapi_client.UpdateClientAppRequest() # UpdateClientAppRequest |  (optional)
+    update_client_app_request = onelogin.UpdateClientAppRequest() # UpdateClientAppRequest |  (optional)
 
     try:
         # Update Client App

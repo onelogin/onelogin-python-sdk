@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner
+from onelogin.models.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner
 
 # TODO update the JSON string below
 json = "{}"

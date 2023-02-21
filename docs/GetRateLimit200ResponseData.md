@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_rate_limit200_response_data import GetRateLimit200ResponseData
+from onelogin.models.get_rate_limit200_response_data import GetRateLimit200ResponseData
 
 # TODO update the JSON string below
 json = "{}"

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.remove_user_role_request_role_id_array_inner import RemoveUserRoleRequestRoleIdArrayInner
+from onelogin.models.remove_user_role_request_role_id_array_inner import RemoveUserRoleRequestRoleIdArrayInner
 
 # TODO update the JSON string below
 json = "{}"

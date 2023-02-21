@@ -1,4 +1,4 @@
-# openapi_client.BrandingServiceTemplatesApi
+# onelogin.BrandingServiceTemplatesApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -28,12 +28,12 @@ Create Message Template
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -45,9 +45,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceTemplatesApi(api_client)
+    api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
     locale = 'en' # str | The 2 character language locale for the template. e.g. en = English, es = Spanish
     create_message_template_request = {"type":"email_forgot_password","locale":"es","template":{"subject":"Password Reset","html":"<html><head></head><body><p>Please update your password by clicking <a href={{url}}>this link</a></p></body></html>","plain":"Please update your password by visiting this url: {{url}}"}} # CreateMessageTemplateRequest |  (optional)
@@ -105,12 +105,12 @@ Delete Message Template
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -122,9 +122,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceTemplatesApi(api_client)
+    api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
     template_id = 25 # int | Unique identifier for the template to return.
 
@@ -177,12 +177,12 @@ Get Master Template by Type
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -194,9 +194,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceTemplatesApi(api_client)
+    api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     template_type = 'email_template' # str | The message template type to return.
 
     try:
@@ -250,12 +250,12 @@ Get Message Template by ID
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -267,9 +267,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceTemplatesApi(api_client)
+    api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
     template_id = 25 # int | Unique identifier for the template to return.
 
@@ -325,12 +325,12 @@ Get Template by Type and Locale
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -342,9 +342,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceTemplatesApi(api_client)
+    api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
     template_type = 'email_template' # str | The message template type to return.
     locale = 'en' # str | The 2 character language locale for the template. e.g. en = English, es = Spanish
@@ -402,12 +402,12 @@ List Message Templates
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -419,9 +419,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceTemplatesApi(api_client)
+    api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
     locale = 'en' # str | The 2 character language locale for the template. e.g. en = English, es = Spanish
 
@@ -477,12 +477,12 @@ Update Message Template by ID
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -494,9 +494,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceTemplatesApi(api_client)
+    api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
     template_id = 25 # int | Unique identifier for the template to return.
 
@@ -552,12 +552,12 @@ Update Template by Type and Locale
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -569,9 +569,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BrandingServiceTemplatesApi(api_client)
+    api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
     template_type = 'email_template' # str | The message template type to return.
     locale = 'en' # str | The 2 character language locale for the template. e.g. en = English, es = Spanish

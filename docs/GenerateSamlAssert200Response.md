@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.generate_saml_assert200_response import GenerateSamlAssert200Response
+from onelogin.models.generate_saml_assert200_response import GenerateSamlAssert200Response
 
 # TODO update the JSON string below
 json = "{}"

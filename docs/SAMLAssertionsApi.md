@@ -1,4 +1,4 @@
-# openapi_client.SAMLAssertionsApi
+# onelogin.SAMLAssertionsApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -24,12 +24,12 @@ Generate SAML Assertion
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -41,11 +41,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.SAMLAssertionsApi(api_client)
+    api_instance = onelogin.SAMLAssertionsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    generate_saml_assert_request = openapi_client.GenerateSamlAssertRequest() # GenerateSamlAssertRequest |  (optional)
+    generate_saml_assert_request = onelogin.GenerateSamlAssertRequest() # GenerateSamlAssertRequest |  (optional)
 
     try:
         # Generate SAML Assertion
@@ -99,12 +99,12 @@ Generate SAML Assertion
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -116,11 +116,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.SAMLAssertionsApi(api_client)
+    api_instance = onelogin.SAMLAssertionsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    generate_saml_assert_request = openapi_client.GenerateSamlAssertRequest() # GenerateSamlAssertRequest |  (optional)
+    generate_saml_assert_request = onelogin.GenerateSamlAssertRequest() # GenerateSamlAssertRequest |  (optional)
 
     try:
         # Generate SAML Assertion
@@ -174,12 +174,12 @@ Verify Factor: SAML
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -191,11 +191,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.SAMLAssertionsApi(api_client)
+    api_instance = onelogin.SAMLAssertionsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    ver_factor_saml_request = openapi_client.VerFactorSamlRequest() # VerFactorSamlRequest |  (optional)
+    ver_factor_saml_request = onelogin.VerFactorSamlRequest() # VerFactorSamlRequest |  (optional)
 
     try:
         # Verify Factor SAML
@@ -250,12 +250,12 @@ Verify Factor: SAML
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -267,11 +267,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.SAMLAssertionsApi(api_client)
+    api_instance = onelogin.SAMLAssertionsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    ver_factor_saml_request = openapi_client.VerFactorSamlRequest() # VerFactorSamlRequest |  (optional)
+    ver_factor_saml_request = onelogin.VerFactorSamlRequest() # VerFactorSamlRequest |  (optional)
 
     try:
         # Verify Factor SAML

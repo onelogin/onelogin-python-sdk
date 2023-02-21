@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_app_request_one_of1 import CreateAppRequestOneOf1
+from onelogin.models.create_app_request_one_of1 import CreateAppRequestOneOf1
 
 # TODO update the JSON string below
 json = "{}"

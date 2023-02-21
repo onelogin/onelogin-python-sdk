@@ -1,4 +1,4 @@
-# openapi_client.VigilanceAIApi
+# onelogin.VigilanceAIApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -28,12 +28,12 @@ Create Vigilance AI (Risk Service) Rule
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -45,10 +45,10 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.VigilanceAIApi(api_client)
-    list_risk_rules200_response_inner = openapi_client.ListRiskRules200ResponseInner() # ListRiskRules200ResponseInner | 
+    api_instance = onelogin.VigilanceAIApi(api_client)
+    list_risk_rules200_response_inner = onelogin.ListRiskRules200ResponseInner() # ListRiskRules200ResponseInner | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
@@ -103,12 +103,12 @@ Delete Vigilance AI (Risk Service)
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -120,9 +120,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.VigilanceAIApi(api_client)
+    api_instance = onelogin.VigilanceAIApi(api_client)
     rule_id = 'rule_id_example' # str | 
 
     try:
@@ -173,12 +173,12 @@ Use this API to return a single rule that has been created in the Risk Sevice.
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -190,9 +190,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.VigilanceAIApi(api_client)
+    api_instance = onelogin.VigilanceAIApi(api_client)
     rule_id = 'rule_id_example' # str | 
 
     try:
@@ -245,12 +245,12 @@ Get Vigilance AI (Risk Service) Score
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -262,10 +262,10 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.VigilanceAIApi(api_client)
-    get_risk_score_request = openapi_client.GetRiskScoreRequest() # GetRiskScoreRequest | 
+    api_instance = onelogin.VigilanceAIApi(api_client)
+    get_risk_score_request = onelogin.GetRiskScoreRequest() # GetRiskScoreRequest | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
     before = 'before_example' # str | Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago. (optional)
     after = 'after_example' # str | Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago. (optional)
@@ -324,12 +324,12 @@ Get Vigilance AI (Risk Service) Score Summary
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -341,9 +341,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.VigilanceAIApi(api_client)
+    api_instance = onelogin.VigilanceAIApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
@@ -396,12 +396,12 @@ List Vigilance AI (Risk Service) Rules
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -413,9 +413,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.VigilanceAIApi(api_client)
+    api_instance = onelogin.VigilanceAIApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
@@ -468,12 +468,12 @@ Track Vigilance AI (Risk Service) Event
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -485,10 +485,10 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.VigilanceAIApi(api_client)
-    track_risk_event_request = openapi_client.TrackRiskEventRequest() # TrackRiskEventRequest | 
+    api_instance = onelogin.VigilanceAIApi(api_client)
+    track_risk_event_request = onelogin.TrackRiskEventRequest() # TrackRiskEventRequest | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
@@ -541,12 +541,12 @@ Update Vigilance AI (Risk Service) Rule
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -558,11 +558,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.VigilanceAIApi(api_client)
+    api_instance = onelogin.VigilanceAIApi(api_client)
     rule_id = 'rule_id_example' # str | 
-    update_risk_rule_request = openapi_client.UpdateRiskRuleRequest() # UpdateRiskRuleRequest |  (optional)
+    update_risk_rule_request = onelogin.UpdateRiskRuleRequest() # UpdateRiskRuleRequest |  (optional)
 
     try:
         # Update Rule

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.update_client_app_request import UpdateClientAppRequest
+from onelogin.models.update_client_app_request import UpdateClientAppRequest
 
 # TODO update the JSON string below
 json = "{}"

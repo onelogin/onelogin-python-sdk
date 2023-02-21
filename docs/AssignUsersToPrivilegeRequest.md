@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.assign_users_to_privilege_request import AssignUsersToPrivilegeRequest
+from onelogin.models.assign_users_to_privilege_request import AssignUsersToPrivilegeRequest
 
 # TODO update the JSON string below
 json = "{}"

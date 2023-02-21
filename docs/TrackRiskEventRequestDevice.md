@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.track_risk_event_request_device import TrackRiskEventRequestDevice
+from onelogin.models.track_risk_event_request_device import TrackRiskEventRequestDevice
 
 # TODO update the JSON string below
 json = "{}"

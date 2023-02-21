@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_risk_score_request import GetRiskScoreRequest
+from onelogin.models.get_risk_score_request import GetRiskScoreRequest
 
 # TODO update the JSON string below
 json = "{}"

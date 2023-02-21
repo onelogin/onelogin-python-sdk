@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_scopes401_response import GetScopes401Response
+from onelogin.models.get_scopes401_response import GetScopes401Response
 
 # TODO update the JSON string below
 json = "{}"

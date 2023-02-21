@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.list_roles200_response_inner import ListRoles200ResponseInner
+from onelogin.models.list_roles200_response_inner import ListRoles200ResponseInner
 
 # TODO update the JSON string below
 json = "{}"

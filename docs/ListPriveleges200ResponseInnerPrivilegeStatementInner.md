@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.list_priveleges200_response_inner_privilege_statement_inner import ListPriveleges200ResponseInnerPrivilegeStatementInner
+from onelogin.models.list_priveleges200_response_inner_privilege_statement_inner import ListPriveleges200ResponseInnerPrivilegeStatementInner
 
 # TODO update the JSON string below
 json = "{}"

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.list_brands200_response_inner import ListBrands200ResponseInner
+from onelogin.models.list_brands200_response_inner import ListBrands200ResponseInner
 
 # TODO update the JSON string below
 json = "{}"

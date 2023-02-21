@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_enrolled_factors200_response_data_otp_devices_inner import GetEnrolledFactors200ResponseDataOtpDevicesInner
+from onelogin.models.get_enrolled_factors200_response_data_otp_devices_inner import GetEnrolledFactors200ResponseDataOtpDevicesInner
 
 # TODO update the JSON string below
 json = "{}"

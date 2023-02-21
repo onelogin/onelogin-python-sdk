@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_device_verification201_response import CreateDeviceVerification201Response
+from onelogin.models.create_device_verification201_response import CreateDeviceVerification201Response
 
 # TODO update the JSON string below
 json = "{}"

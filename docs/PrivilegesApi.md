@@ -1,4 +1,4 @@
-# openapi_client.PrivilegesApi
+# onelogin.PrivilegesApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -31,12 +31,12 @@ Add roles to privilege
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -48,12 +48,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    add_privilege_to_role_request = openapi_client.AddPrivilegeToRoleRequest() # AddPrivilegeToRoleRequest |  (optional)
+    add_privilege_to_role_request = onelogin.AddPrivilegeToRoleRequest() # AddPrivilegeToRoleRequest |  (optional)
 
     try:
         # Assign a Privilege to Roles
@@ -108,12 +108,12 @@ Assign Users to Privilege
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -125,12 +125,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    assign_users_to_privilege_request = openapi_client.AssignUsersToPrivilegeRequest() # AssignUsersToPrivilegeRequest |  (optional)
+    assign_users_to_privilege_request = onelogin.AssignUsersToPrivilegeRequest() # AssignUsersToPrivilegeRequest |  (optional)
 
     try:
         # Assign Users to a Privilege
@@ -185,12 +185,12 @@ Create privilege
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -202,9 +202,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
     list_priveleges200_response_inner = {"name":"User Helpdesk","description":"Can administer helpdesk users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # ListPriveleges200ResponseInner |  (optional)
 
@@ -260,12 +260,12 @@ Delete
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -277,9 +277,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
@@ -333,12 +333,12 @@ Add roles to privilege
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -350,9 +350,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     role_id = 'role_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
@@ -408,12 +408,12 @@ Get Assigned Users
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -425,9 +425,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
@@ -483,12 +483,12 @@ Get a Privilige
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -500,9 +500,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
@@ -558,12 +558,12 @@ List roles for privilege
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -575,9 +575,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
@@ -633,12 +633,12 @@ List Privileges
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -650,9 +650,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
@@ -705,12 +705,12 @@ Remove a Privilege from Users
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -722,9 +722,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
@@ -780,12 +780,12 @@ Update privilege
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -797,9 +797,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PrivilegesApi(api_client)
+    api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
     list_priveleges200_response_inner = {"name":"User Administrator","description":"Can administer users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # ListPriveleges200ResponseInner |  (optional)

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.enroll_mfa_factor_request import EnrollMfaFactorRequest
+from onelogin.models.enroll_mfa_factor_request import EnrollMfaFactorRequest
 
 # TODO update the JSON string below
 json = "{}"

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.generate_saml_assert_request import GenerateSamlAssertRequest
+from onelogin.models.generate_saml_assert_request import GenerateSamlAssertRequest
 
 # TODO update the JSON string below
 json = "{}"

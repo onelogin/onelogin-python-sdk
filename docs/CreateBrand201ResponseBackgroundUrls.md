@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_brand201_response_background_urls import CreateBrand201ResponseBackgroundUrls
+from onelogin.models.create_brand201_response_background_urls import CreateBrand201ResponseBackgroundUrls
 
 # TODO update the JSON string below
 json = "{}"

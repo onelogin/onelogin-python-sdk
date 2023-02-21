@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_authclaims200_response_inner import GetAuthclaims200ResponseInner
+from onelogin.models.get_authclaims200_response_inner import GetAuthclaims200ResponseInner
 
 # TODO update the JSON string below
 json = "{}"

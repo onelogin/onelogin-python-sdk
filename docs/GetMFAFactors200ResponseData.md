@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_mfa_factors200_response_data import GetMFAFactors200ResponseData
+from onelogin.models.get_mfa_factors200_response_data import GetMFAFactors200ResponseData
 
 # TODO update the JSON string below
 json = "{}"

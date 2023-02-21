@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_auth_factors200_response import GetAuthFactors200Response
+from onelogin.models.get_auth_factors200_response import GetAuthFactors200Response
 
 # TODO update the JSON string below
 json = "{}"

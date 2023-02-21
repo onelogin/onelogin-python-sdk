@@ -53,7 +53,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.get_events200_response_data_inner import GetEvents200ResponseDataInner
+from onelogin.models.get_events200_response_data_inner import GetEvents200ResponseDataInner
 
 # TODO update the JSON string below
 json = "{}"

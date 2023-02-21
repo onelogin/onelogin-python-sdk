@@ -1,4 +1,4 @@
-# openapi_client.APIAuthScopesApi
+# onelogin.APIAuthScopesApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -24,12 +24,12 @@ Create API Auth Server Scope
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -41,12 +41,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthScopesApi(api_client)
+    api_instance = onelogin.APIAuthScopesApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    create_scope_request = openapi_client.CreateScopeRequest() # CreateScopeRequest |  (optional)
+    create_scope_request = onelogin.CreateScopeRequest() # CreateScopeRequest |  (optional)
 
     try:
         # Create Api Auth Server Scope
@@ -102,12 +102,12 @@ Delete Scope
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -119,9 +119,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthScopesApi(api_client)
+    api_instance = onelogin.APIAuthScopesApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     scope_id = 56 # int | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
@@ -177,12 +177,12 @@ List Authorization Scopes
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -194,9 +194,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthScopesApi(api_client)
+    api_instance = onelogin.APIAuthScopesApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
@@ -251,12 +251,12 @@ Update Scope
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -268,13 +268,13 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.APIAuthScopesApi(api_client)
+    api_instance = onelogin.APIAuthScopesApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     scope_id = 56 # int | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    create_scope_request = openapi_client.CreateScopeRequest() # CreateScopeRequest |  (optional)
+    create_scope_request = onelogin.CreateScopeRequest() # CreateScopeRequest |  (optional)
 
     try:
         # Update Api Auth Server Scope

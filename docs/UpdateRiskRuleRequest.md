@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.update_risk_rule_request import UpdateRiskRuleRequest
+from onelogin.models.update_risk_rule_request import UpdateRiskRuleRequest
 
 # TODO update the JSON string below
 json = "{}"

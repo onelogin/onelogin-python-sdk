@@ -1,4 +1,4 @@
-# openapi_client.UsersV1Api
+# onelogin.UsersV1Api
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -35,12 +35,12 @@ Add Roles for a User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -52,12 +52,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    add_roles_to_user_request = openapi_client.AddRolesToUserRequest() # AddRolesToUserRequest |  (optional)
+    add_roles_to_user_request = onelogin.AddRolesToUserRequest() # AddRolesToUserRequest |  (optional)
 
     try:
         # Add Roles for a User
@@ -114,12 +114,12 @@ Create a User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -131,10 +131,10 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
-    list_users200_response_inner = openapi_client.ListUsers200ResponseInner() # ListUsers200ResponseInner | 
+    api_instance = onelogin.UsersV1Api(api_client)
+    list_users200_response_inner = onelogin.ListUsers200ResponseInner() # ListUsers200ResponseInner | 
     mappings = 'mappings_example' # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
 
@@ -192,12 +192,12 @@ Delete A User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -209,9 +209,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
 
     try:
@@ -263,12 +263,12 @@ Get Custom Attributes
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -280,9 +280,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
 
     try:
         # Get Custom Attributes
@@ -332,12 +332,12 @@ Get Apps for User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -349,9 +349,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     ignore_visibility = False # bool | Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting. (optional) (default to False)
 
@@ -407,12 +407,12 @@ Get User By ID
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -424,9 +424,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
 
     try:
@@ -480,12 +480,12 @@ Get User Roles
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -497,9 +497,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
 
     try:
@@ -555,12 +555,12 @@ List Users
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -572,9 +572,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
     cursor = 'cursor_example' # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -665,12 +665,12 @@ Lock User Account
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -682,12 +682,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    lock_account_user_request = openapi_client.LockAccountUserRequest() # LockAccountUserRequest |  (optional)
+    lock_account_user_request = onelogin.LockAccountUserRequest() # LockAccountUserRequest |  (optional)
 
     try:
         # Lock User Account
@@ -744,12 +744,12 @@ Log Out User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -761,9 +761,9 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     body = None # object |  (optional)
 
@@ -821,12 +821,12 @@ Remove Roles for a User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -838,12 +838,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    remove_user_role_request = openapi_client.RemoveUserRoleRequest() # RemoveUserRoleRequest |  (optional)
+    remove_user_role_request = onelogin.RemoveUserRoleRequest() # RemoveUserRoleRequest |  (optional)
 
     try:
         # Remove Roles for a User
@@ -900,12 +900,12 @@ Set User State
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -917,12 +917,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    set_user_state_request = openapi_client.SetUserStateRequest() # SetUserStateRequest |  (optional)
+    set_user_state_request = onelogin.SetUserStateRequest() # SetUserStateRequest |  (optional)
 
     try:
         # Set User State
@@ -979,12 +979,12 @@ Update User password using their ID. This is done in cleartext and is insecure.
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -996,12 +996,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    update_password_insecure_request = openapi_client.UpdatePasswordInsecureRequest() # UpdatePasswordInsecureRequest |  (optional)
+    update_password_insecure_request = onelogin.UpdatePasswordInsecureRequest() # UpdatePasswordInsecureRequest |  (optional)
 
     try:
         # Set Password Using ID in Cleartext
@@ -1058,12 +1058,12 @@ Update User Password Using ID and SHA-256 with salt.
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -1075,12 +1075,12 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    update_password_secure_request = openapi_client.UpdatePasswordSecureRequest() # UpdatePasswordSecureRequest |  (optional)
+    update_password_secure_request = onelogin.UpdatePasswordSecureRequest() # UpdatePasswordSecureRequest |  (optional)
 
     try:
         # Set Password Using ID and SHA-256 and Salt
@@ -1137,12 +1137,12 @@ Update a User
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -1154,11 +1154,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.UsersV1Api(api_client)
+    api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    list_users200_response_inner = openapi_client.ListUsers200ResponseInner() # ListUsers200ResponseInner | 
+    list_users200_response_inner = onelogin.ListUsers200ResponseInner() # ListUsers200ResponseInner | 
     mappings = 'mappings_example' # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
 

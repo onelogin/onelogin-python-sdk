@@ -1,4 +1,4 @@
-# openapi_client.InviteLinksApi
+# onelogin.InviteLinksApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
 
@@ -22,12 +22,12 @@ Generate Invite Link
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -39,11 +39,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.InviteLinksApi(api_client)
+    api_instance = onelogin.InviteLinksApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    get_invite_link_request = openapi_client.GetInviteLinkRequest() # GetInviteLinkRequest |  (optional)
+    get_invite_link_request = onelogin.GetInviteLinkRequest() # GetInviteLinkRequest |  (optional)
 
     try:
         # Generate Invite Link
@@ -97,12 +97,12 @@ Send Invite Link
 from __future__ import print_function
 import time
 import os
-import openapi_client
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = onelogin.Configuration(
     host = "https://your-api-subdomain.onelogin.com"
 )
 
@@ -114,11 +114,11 @@ configuration = openapi_client.Configuration(
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient(configuration) as api_client:
+with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.InviteLinksApi(api_client)
+    api_instance = onelogin.InviteLinksApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    send_invite_link_request = openapi_client.SendInviteLinkRequest() # SendInviteLinkRequest |  (optional)
+    send_invite_link_request = onelogin.SendInviteLinkRequest() # SendInviteLinkRequest |  (optional)
 
     try:
         # Send  Invite Link

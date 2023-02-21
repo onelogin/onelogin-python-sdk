@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.list_message_templates200_response_inner import ListMessageTemplates200ResponseInner
+from onelogin.models.list_message_templates200_response_inner import ListMessageTemplates200ResponseInner
 
 # TODO update the JSON string below
 json = "{}"

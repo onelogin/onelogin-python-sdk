@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.create_auth_claim_request import CreateAuthClaimRequest
+from onelogin.models.create_auth_claim_request import CreateAuthClaimRequest
 
 # TODO update the JSON string below
 json = "{}"

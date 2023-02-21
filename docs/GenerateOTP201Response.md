@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.generate_otp201_response import GenerateOTP201Response
+from onelogin.models.generate_otp201_response import GenerateOTP201Response
 
 # TODO update the JSON string below
 json = "{}"

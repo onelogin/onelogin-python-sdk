@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from openapi_client.models.list_risk_rules200_response_inner_source import ListRiskRules200ResponseInnerSource
+from onelogin.models.list_risk_rules200_response_inner_source import ListRiskRules200ResponseInnerSource
 
 # TODO update the JSON string below
 json = "{}"
