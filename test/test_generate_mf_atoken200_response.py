@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.generate_mf_atoken200_response import GenerateMFAtoken200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.generate_mf_atoken200_response import GenerateMFAtoken200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGenerateMFAtoken200Response(unittest.TestCase):
     """GenerateMFAtoken200Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestGenerateMFAtoken200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GenerateMFAtoken200Response`
         """
-        model = openapi_client.models.generate_mf_atoken200_response.GenerateMFAtoken200Response()  # noqa: E501
+        model = onelogin.models.generate_mf_atoken200_response.GenerateMFAtoken200Response()  # noqa: E501
         if include_optional :
             return GenerateMFAtoken200Response(
                 mfa_token = '55647655', 

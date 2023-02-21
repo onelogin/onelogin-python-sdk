@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_app_request_one_of import CreateAppRequestOneOf  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_app_request_one_of import CreateAppRequestOneOf  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateAppRequestOneOf(unittest.TestCase):
     """CreateAppRequestOneOf unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateAppRequestOneOf(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateAppRequestOneOf`
         """
-        model = openapi_client.models.create_app_request_one_of.CreateAppRequestOneOf()  # noqa: E501
+        model = onelogin.models.create_app_request_one_of.CreateAppRequestOneOf()  # noqa: E501
         if include_optional :
             return CreateAppRequestOneOf(
                 connector_id = 56, 
@@ -43,7 +43,7 @@ class TestCreateAppRequestOneOf(unittest.TestCase):
                 description = '', 
                 visible = True, 
                 policy_id = 56, 
-                configuration = openapi_client.models.create_app_request_one_of_configuration.createApp_request_oneOf_configuration(
+                configuration = onelogin.models.create_app_request_one_of_configuration.createApp_request_oneOf_configuration(
                     login_url = '', 
                     redirect_uri = '', 
                     access_token_expiration_minutes = 56, 
@@ -58,7 +58,7 @@ class TestCreateAppRequestOneOf(unittest.TestCase):
                 description = '',
                 visible = True,
                 policy_id = 56,
-                configuration = openapi_client.models.create_app_request_one_of_configuration.createApp_request_oneOf_configuration(
+                configuration = onelogin.models.create_app_request_one_of_configuration.createApp_request_oneOf_configuration(
                     login_url = '', 
                     redirect_uri = '', 
                     access_token_expiration_minutes = 56, 

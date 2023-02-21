@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.list_mappings200_response_inner_conditions_inner import ListMappings200ResponseInnerConditionsInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.list_mappings200_response_inner_conditions_inner import ListMappings200ResponseInnerConditionsInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestListMappings200ResponseInnerConditionsInner(unittest.TestCase):
     """ListMappings200ResponseInnerConditionsInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestListMappings200ResponseInnerConditionsInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `ListMappings200ResponseInnerConditionsInner`
         """
-        model = openapi_client.models.list_mappings200_response_inner_conditions_inner.ListMappings200ResponseInnerConditionsInner()  # noqa: E501
+        model = onelogin.models.list_mappings200_response_inner_conditions_inner.ListMappings200ResponseInnerConditionsInner()  # noqa: E501
         if include_optional :
             return ListMappings200ResponseInnerConditionsInner(
                 source = 'last_login', 

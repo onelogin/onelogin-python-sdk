@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_custom_attributes200_response import GetCustomAttributes200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_custom_attributes200_response import GetCustomAttributes200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetCustomAttributes200Response(unittest.TestCase):
     """GetCustomAttributes200Response unit test stubs"""
@@ -35,10 +35,10 @@ class TestGetCustomAttributes200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetCustomAttributes200Response`
         """
-        model = openapi_client.models.get_custom_attributes200_response.GetCustomAttributes200Response()  # noqa: E501
+        model = onelogin.models.get_custom_attributes200_response.GetCustomAttributes200Response()  # noqa: E501
         if include_optional :
             return GetCustomAttributes200Response(
-                status = openapi_client.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.generate_token_400_response.generateToken_400_response(
                     error = False, 
                     code = 200, 
                     type = 'Success', 

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_mfa_factors200_response import GetMFAFactors200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_mfa_factors200_response import GetMFAFactors200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetMFAFactors200Response(unittest.TestCase):
     """GetMFAFactors200Response unit test stubs"""
@@ -35,17 +35,17 @@ class TestGetMFAFactors200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetMFAFactors200Response`
         """
-        model = openapi_client.models.get_mfa_factors200_response.GetMFAFactors200Response()  # noqa: E501
+        model = onelogin.models.get_mfa_factors200_response.GetMFAFactors200Response()  # noqa: E501
         if include_optional :
             return GetMFAFactors200Response(
-                status = openapi_client.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.generate_token_400_response.generateToken_400_response(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
                     message = 'Success', ), 
-                data = openapi_client.models.get_mfa_factors_200_response_data.getMFAFactors_200_response_data(
+                data = onelogin.models.get_mfa_factors_200_response_data.getMFAFactors_200_response_data(
                     auth_factors = [
-                        openapi_client.models.get_mfa_factors_200_response_data_auth_factors_inner.getMFAFactors_200_response_data_auth_factors_inner(
+                        onelogin.models.get_mfa_factors_200_response_data_auth_factors_inner.getMFAFactors_200_response_data_auth_factors_inner(
                             name = 'Onelogin SMS', 
                             factor_id = 16282, )
                         ], )

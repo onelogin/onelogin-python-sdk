@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_scopes200_response_inner import GetScopes200ResponseInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_scopes200_response_inner import GetScopes200ResponseInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetScopes200ResponseInner(unittest.TestCase):
     """GetScopes200ResponseInner unit test stubs"""
@@ -35,13 +35,13 @@ class TestGetScopes200ResponseInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetScopes200ResponseInner`
         """
-        model = openapi_client.models.get_scopes200_response_inner.GetScopes200ResponseInner()  # noqa: E501
+        model = onelogin.models.get_scopes200_response_inner.GetScopes200ResponseInner()  # noqa: E501
         if include_optional :
             return GetScopes200ResponseInner(
                 id = 1022697, 
                 name = 'Contacts API', 
                 description = 'API manages contacts', 
-                configuration = openapi_client.models.get_scopes_200_response_inner_configuration.getScopes_200_response_inner_configuration(
+                configuration = onelogin.models.get_scopes_200_response_inner_configuration.getScopes_200_response_inner_configuration(
                     audiences = [
                         ''
                         ], 
@@ -53,7 +53,7 @@ class TestGetScopes200ResponseInner(unittest.TestCase):
             return GetScopes200ResponseInner(
                 name = 'Contacts API',
                 description = 'API manages contacts',
-                configuration = openapi_client.models.get_scopes_200_response_inner_configuration.getScopes_200_response_inner_configuration(
+                configuration = onelogin.models.get_scopes_200_response_inner_configuration.getScopes_200_response_inner_configuration(
                     audiences = [
                         ''
                         ], 

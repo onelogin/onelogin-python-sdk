@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_message_template_request_template_one_of1_all_of import CreateMessageTemplateRequestTemplateOneOf1AllOf  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_message_template_request_template_one_of1_all_of import CreateMessageTemplateRequestTemplateOneOf1AllOf  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateMessageTemplateRequestTemplateOneOf1AllOf(unittest.TestCase):
     """CreateMessageTemplateRequestTemplateOneOf1AllOf unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateMessageTemplateRequestTemplateOneOf1AllOf(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateMessageTemplateRequestTemplateOneOf1AllOf`
         """
-        model = openapi_client.models.create_message_template_request_template_one_of1_all_of.CreateMessageTemplateRequestTemplateOneOf1AllOf()  # noqa: E501
+        model = onelogin.models.create_message_template_request_template_one_of1_all_of.CreateMessageTemplateRequestTemplateOneOf1AllOf()  # noqa: E501
         if include_optional :
             return CreateMessageTemplateRequestTemplateOneOf1AllOf(
                 message = 'Here is the code: {{otp_code}}'

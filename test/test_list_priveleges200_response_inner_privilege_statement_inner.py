@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.list_priveleges200_response_inner_privilege_statement_inner import ListPriveleges200ResponseInnerPrivilegeStatementInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.list_priveleges200_response_inner_privilege_statement_inner import ListPriveleges200ResponseInnerPrivilegeStatementInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestListPriveleges200ResponseInnerPrivilegeStatementInner(unittest.TestCase):
     """ListPriveleges200ResponseInnerPrivilegeStatementInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestListPriveleges200ResponseInnerPrivilegeStatementInner(unittest.TestCas
             optional params are included """
         # uncomment below to create an instance of `ListPriveleges200ResponseInnerPrivilegeStatementInner`
         """
-        model = openapi_client.models.list_priveleges200_response_inner_privilege_statement_inner.ListPriveleges200ResponseInnerPrivilegeStatementInner()  # noqa: E501
+        model = onelogin.models.list_priveleges200_response_inner_privilege_statement_inner.ListPriveleges200ResponseInnerPrivilegeStatementInner()  # noqa: E501
         if include_optional :
             return ListPriveleges200ResponseInnerPrivilegeStatementInner(
                 effect = 'Allow', 

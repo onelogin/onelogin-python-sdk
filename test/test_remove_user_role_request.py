@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.remove_user_role_request import RemoveUserRoleRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.remove_user_role_request import RemoveUserRoleRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestRemoveUserRoleRequest(unittest.TestCase):
     """RemoveUserRoleRequest unit test stubs"""
@@ -35,18 +35,18 @@ class TestRemoveUserRoleRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `RemoveUserRoleRequest`
         """
-        model = openapi_client.models.remove_user_role_request.RemoveUserRoleRequest()  # noqa: E501
+        model = onelogin.models.remove_user_role_request.RemoveUserRoleRequest()  # noqa: E501
         if include_optional :
             return RemoveUserRoleRequest(
                 role_id_array = [
-                    openapi_client.models.remove_user_role_request_role_id_array_inner.removeUserRole_request_role_id_array_inner(
+                    onelogin.models.remove_user_role_request_role_id_array_inner.removeUserRole_request_role_id_array_inner(
                         role_id = 56, )
                     ]
             )
         else :
             return RemoveUserRoleRequest(
                 role_id_array = [
-                    openapi_client.models.remove_user_role_request_role_id_array_inner.removeUserRole_request_role_id_array_inner(
+                    onelogin.models.remove_user_role_request_role_id_array_inner.removeUserRole_request_role_id_array_inner(
                         role_id = 56, )
                     ],
         )

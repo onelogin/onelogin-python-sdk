@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.api.branding_service_templates_api import BrandingServiceTemplatesApi  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.api.branding_service_templates_api import BrandingServiceTemplatesApi  # noqa: E501
+from onelogin.rest import ApiException
 
 
 class TestBrandingServiceTemplatesApi(unittest.TestCase):
     """BrandingServiceTemplatesApi unit test stubs"""
 
     def setUp(self):
-        self.api = openapi_client.api.branding_service_templates_api.BrandingServiceTemplatesApi()  # noqa: E501
+        self.api = onelogin.api.branding_service_templates_api.BrandingServiceTemplatesApi()  # noqa: E501
 
     def tearDown(self):
         pass

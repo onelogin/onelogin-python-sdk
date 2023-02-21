@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.api.roles_api import RolesApi  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.api.roles_api import RolesApi  # noqa: E501
+from onelogin.rest import ApiException
 
 
 class TestRolesApi(unittest.TestCase):
     """RolesApi unit test stubs"""
 
     def setUp(self):
-        self.api = openapi_client.api.roles_api.RolesApi()  # noqa: E501
+        self.api = onelogin.api.roles_api.RolesApi()  # noqa: E501
 
     def tearDown(self):
         pass

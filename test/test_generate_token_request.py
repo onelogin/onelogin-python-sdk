@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.generate_token_request import GenerateTokenRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.generate_token_request import GenerateTokenRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGenerateTokenRequest(unittest.TestCase):
     """GenerateTokenRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestGenerateTokenRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GenerateTokenRequest`
         """
-        model = openapi_client.models.generate_token_request.GenerateTokenRequest()  # noqa: E501
+        model = onelogin.models.generate_token_request.GenerateTokenRequest()  # noqa: E501
         if include_optional :
             return GenerateTokenRequest(
                 grant_type = 'client_credentials'

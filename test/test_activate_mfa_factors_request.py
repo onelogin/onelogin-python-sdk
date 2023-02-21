@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.activate_mfa_factors_request import ActivateMfaFactorsRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.activate_mfa_factors_request import ActivateMfaFactorsRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestActivateMfaFactorsRequest(unittest.TestCase):
     """ActivateMfaFactorsRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestActivateMfaFactorsRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `ActivateMfaFactorsRequest`
         """
-        model = openapi_client.models.activate_mfa_factors_request.ActivateMfaFactorsRequest()  # noqa: E501
+        model = onelogin.models.activate_mfa_factors_request.ActivateMfaFactorsRequest()  # noqa: E501
         if include_optional :
             return ActivateMfaFactorsRequest(
                 state_token_expires_in = 300, 

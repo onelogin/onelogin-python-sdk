@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.update_password_secure_request import UpdatePasswordSecureRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.update_password_secure_request import UpdatePasswordSecureRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestUpdatePasswordSecureRequest(unittest.TestCase):
     """UpdatePasswordSecureRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestUpdatePasswordSecureRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `UpdatePasswordSecureRequest`
         """
-        model = openapi_client.models.update_password_secure_request.UpdatePasswordSecureRequest()  # noqa: E501
+        model = onelogin.models.update_password_secure_request.UpdatePasswordSecureRequest()  # noqa: E501
         if include_optional :
             return UpdatePasswordSecureRequest(
                 password = 'xxxxx637aead4030a653f29dae62f1542d67484342c00627a65066e05c5f0', 

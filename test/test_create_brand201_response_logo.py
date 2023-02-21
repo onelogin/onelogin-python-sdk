@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_brand201_response_logo import CreateBrand201ResponseLogo  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_brand201_response_logo import CreateBrand201ResponseLogo  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateBrand201ResponseLogo(unittest.TestCase):
     """CreateBrand201ResponseLogo unit test stubs"""
@@ -35,10 +35,10 @@ class TestCreateBrand201ResponseLogo(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateBrand201ResponseLogo`
         """
-        model = openapi_client.models.create_brand201_response_logo.CreateBrand201ResponseLogo()  # noqa: E501
+        model = onelogin.models.create_brand201_response_logo.CreateBrand201ResponseLogo()  # noqa: E501
         if include_optional :
             return CreateBrand201ResponseLogo(
-                urls = openapi_client.models.create_brand_201_response_logo_urls.createBrand_201_response_logo_urls(
+                urls = onelogin.models.create_brand_201_response_logo_urls.createBrand_201_response_logo_urls(
                     original = '', 
                     login = '', 
                     navigation = '', ), 
@@ -48,7 +48,7 @@ class TestCreateBrand201ResponseLogo(unittest.TestCase):
             )
         else :
             return CreateBrand201ResponseLogo(
-                urls = openapi_client.models.create_brand_201_response_logo_urls.createBrand_201_response_logo_urls(
+                urls = onelogin.models.create_brand_201_response_logo_urls.createBrand_201_response_logo_urls(
                     original = '', 
                     login = '', 
                     navigation = '', ),

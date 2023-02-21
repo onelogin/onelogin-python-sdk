@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_roles201_response_inner import CreateRoles201ResponseInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_roles201_response_inner import CreateRoles201ResponseInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateRoles201ResponseInner(unittest.TestCase):
     """CreateRoles201ResponseInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateRoles201ResponseInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateRoles201ResponseInner`
         """
-        model = openapi_client.models.create_roles201_response_inner.CreateRoles201ResponseInner()  # noqa: E501
+        model = onelogin.models.create_roles201_response_inner.CreateRoles201ResponseInner()  # noqa: E501
         if include_optional :
             return CreateRoles201ResponseInner(
                 id = 56

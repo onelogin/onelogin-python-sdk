@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_risk_scores200_response_scores import GetRiskScores200ResponseScores  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_risk_scores200_response_scores import GetRiskScores200ResponseScores  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetRiskScores200ResponseScores(unittest.TestCase):
     """GetRiskScores200ResponseScores unit test stubs"""
@@ -35,7 +35,7 @@ class TestGetRiskScores200ResponseScores(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetRiskScores200ResponseScores`
         """
-        model = openapi_client.models.get_risk_scores200_response_scores.GetRiskScores200ResponseScores()  # noqa: E501
+        model = onelogin.models.get_risk_scores200_response_scores.GetRiskScores200ResponseScores()  # noqa: E501
         if include_optional :
             return GetRiskScores200ResponseScores(
                 minimal = 56, 

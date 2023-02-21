@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.generate_token400_response import GenerateToken400Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.generate_token400_response import GenerateToken400Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGenerateToken400Response(unittest.TestCase):
     """GenerateToken400Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestGenerateToken400Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GenerateToken400Response`
         """
-        model = openapi_client.models.generate_token400_response.GenerateToken400Response()  # noqa: E501
+        model = onelogin.models.generate_token400_response.GenerateToken400Response()  # noqa: E501
         if include_optional :
             return GenerateToken400Response(
                 error = False, 

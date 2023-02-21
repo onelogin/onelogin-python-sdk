@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.ver_factor_saml_request import VerFactorSamlRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.ver_factor_saml_request import VerFactorSamlRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestVerFactorSamlRequest(unittest.TestCase):
     """VerFactorSamlRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestVerFactorSamlRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `VerFactorSamlRequest`
         """
-        model = openapi_client.models.ver_factor_saml_request.VerFactorSamlRequest()  # noqa: E501
+        model = onelogin.models.ver_factor_saml_request.VerFactorSamlRequest()  # noqa: E501
         if include_optional :
             return VerFactorSamlRequest(
                 app_id = '1657651', 

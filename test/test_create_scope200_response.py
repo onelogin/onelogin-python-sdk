@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_scope200_response import CreateScope200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_scope200_response import CreateScope200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateScope200Response(unittest.TestCase):
     """CreateScope200Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateScope200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateScope200Response`
         """
-        model = openapi_client.models.create_scope200_response.CreateScope200Response()  # noqa: E501
+        model = onelogin.models.create_scope200_response.CreateScope200Response()  # noqa: E501
         if include_optional :
             return CreateScope200Response(
                 id = 323005

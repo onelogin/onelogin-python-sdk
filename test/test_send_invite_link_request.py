@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.send_invite_link_request import SendInviteLinkRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.send_invite_link_request import SendInviteLinkRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestSendInviteLinkRequest(unittest.TestCase):
     """SendInviteLinkRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestSendInviteLinkRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `SendInviteLinkRequest`
         """
-        model = openapi_client.models.send_invite_link_request.SendInviteLinkRequest()  # noqa: E501
+        model = onelogin.models.send_invite_link_request.SendInviteLinkRequest()  # noqa: E501
         if include_optional :
             return SendInviteLinkRequest(
                 email = 'jennifer.hasenfus@mycompany.com', 

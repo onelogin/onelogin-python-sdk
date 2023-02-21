@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_app_request_one_of1_configuration import CreateAppRequestOneOf1Configuration  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_app_request_one_of1_configuration import CreateAppRequestOneOf1Configuration  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateAppRequestOneOf1Configuration(unittest.TestCase):
     """CreateAppRequestOneOf1Configuration unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateAppRequestOneOf1Configuration(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateAppRequestOneOf1Configuration`
         """
-        model = openapi_client.models.create_app_request_one_of1_configuration.CreateAppRequestOneOf1Configuration()  # noqa: E501
+        model = onelogin.models.create_app_request_one_of1_configuration.CreateAppRequestOneOf1Configuration()  # noqa: E501
         if include_optional :
             return CreateAppRequestOneOf1Configuration(
                 signature_algorithm = '', 

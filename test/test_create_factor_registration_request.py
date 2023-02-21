@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_factor_registration_request import CreateFactorRegistrationRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_factor_registration_request import CreateFactorRegistrationRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateFactorRegistrationRequest(unittest.TestCase):
     """CreateFactorRegistrationRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateFactorRegistrationRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateFactorRegistrationRequest`
         """
-        model = openapi_client.models.create_factor_registration_request.CreateFactorRegistrationRequest()  # noqa: E501
+        model = onelogin.models.create_factor_registration_request.CreateFactorRegistrationRequest()  # noqa: E501
         if include_optional :
             return CreateFactorRegistrationRequest(
                 factor_id = 58959, 

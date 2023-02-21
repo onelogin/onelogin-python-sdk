@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.set_user_state_request import SetUserStateRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.set_user_state_request import SetUserStateRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestSetUserStateRequest(unittest.TestCase):
     """SetUserStateRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestSetUserStateRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `SetUserStateRequest`
         """
-        model = openapi_client.models.set_user_state_request.SetUserStateRequest()  # noqa: E501
+        model = onelogin.models.set_user_state_request.SetUserStateRequest()  # noqa: E501
         if include_optional :
             return SetUserStateRequest(
                 state = 1

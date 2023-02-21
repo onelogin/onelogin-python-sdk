@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.lock_account_user_request import LockAccountUserRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.lock_account_user_request import LockAccountUserRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestLockAccountUserRequest(unittest.TestCase):
     """LockAccountUserRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestLockAccountUserRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `LockAccountUserRequest`
         """
-        model = openapi_client.models.lock_account_user_request.LockAccountUserRequest()  # noqa: E501
+        model = onelogin.models.lock_account_user_request.LockAccountUserRequest()  # noqa: E501
         if include_optional :
             return LockAccountUserRequest(
                 locked_until = 15

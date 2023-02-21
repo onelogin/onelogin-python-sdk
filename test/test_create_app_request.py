@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_app_request import CreateAppRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_app_request import CreateAppRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateAppRequest(unittest.TestCase):
     """CreateAppRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateAppRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateAppRequest`
         """
-        model = openapi_client.models.create_app_request.CreateAppRequest()  # noqa: E501
+        model = onelogin.models.create_app_request.CreateAppRequest()  # noqa: E501
         if include_optional :
             return CreateAppRequest(
                 connector_id = 56, 
@@ -43,11 +43,11 @@ class TestCreateAppRequest(unittest.TestCase):
                 description = '', 
                 visible = True, 
                 policy_id = 56, 
-                configuration = openapi_client.models.create_app_request_one_of_1_configuration.createApp_request_oneOf_1_configuration(
+                configuration = onelogin.models.create_app_request_one_of_1_configuration.createApp_request_oneOf_1_configuration(
                     signature_algorithm = '', 
                     certificate_id = 56, ), 
-                parameters = openapi_client.models.create_app_request_one_of_1_parameters.createApp_request_oneOf_1_parameters(
-                    saml_username = openapi_client.models.create_app_request_one_of_1_parameters_saml_username.createApp_request_oneOf_1_parameters_saml_username(
+                parameters = onelogin.models.create_app_request_one_of_1_parameters.createApp_request_oneOf_1_parameters(
+                    saml_username = onelogin.models.create_app_request_one_of_1_parameters_saml_username.createApp_request_oneOf_1_parameters_saml_username(
                         user_attribute_mappings = '', ), )
             )
         else :
@@ -57,11 +57,11 @@ class TestCreateAppRequest(unittest.TestCase):
                 description = '',
                 visible = True,
                 policy_id = 56,
-                configuration = openapi_client.models.create_app_request_one_of_1_configuration.createApp_request_oneOf_1_configuration(
+                configuration = onelogin.models.create_app_request_one_of_1_configuration.createApp_request_oneOf_1_configuration(
                     signature_algorithm = '', 
                     certificate_id = 56, ),
-                parameters = openapi_client.models.create_app_request_one_of_1_parameters.createApp_request_oneOf_1_parameters(
-                    saml_username = openapi_client.models.create_app_request_one_of_1_parameters_saml_username.createApp_request_oneOf_1_parameters_saml_username(
+                parameters = onelogin.models.create_app_request_one_of_1_parameters.createApp_request_oneOf_1_parameters(
+                    saml_username = onelogin.models.create_app_request_one_of_1_parameters_saml_username.createApp_request_oneOf_1_parameters_saml_username(
                         user_attribute_mappings = '', ), ),
         )
         """

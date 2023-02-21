@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.list_app_rules200_response_inner import ListAppRules200ResponseInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.list_app_rules200_response_inner import ListAppRules200ResponseInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestListAppRules200ResponseInner(unittest.TestCase):
     """ListAppRules200ResponseInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestListAppRules200ResponseInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `ListAppRules200ResponseInner`
         """
-        model = openapi_client.models.list_app_rules200_response_inner.ListAppRules200ResponseInner()  # noqa: E501
+        model = onelogin.models.list_app_rules200_response_inner.ListAppRules200ResponseInner()  # noqa: E501
         if include_optional :
             return ListAppRules200ResponseInner(
                 id = 196670, 
@@ -44,13 +44,13 @@ class TestListAppRules200ResponseInner(unittest.TestCase):
                 enabled = True, 
                 position = 1, 
                 conditions = [
-                    openapi_client.models.list_mappings_200_response_inner_conditions_inner.listMappings_200_response_inner_conditions_inner(
+                    onelogin.models.list_mappings_200_response_inner_conditions_inner.listMappings_200_response_inner_conditions_inner(
                         source = 'last_login', 
                         operator = '>', 
                         value = '90', )
                     ], 
                 actions = [
-                    openapi_client.models.list_mappings_200_response_inner_actions_inner.listMappings_200_response_inner_actions_inner(
+                    onelogin.models.list_mappings_200_response_inner_actions_inner.listMappings_200_response_inner_actions_inner(
                         action = '', 
                         value = [
                             '2'

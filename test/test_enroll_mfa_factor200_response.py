@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.enroll_mfa_factor200_response import EnrollMfaFactor200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.enroll_mfa_factor200_response import EnrollMfaFactor200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestEnrollMfaFactor200Response(unittest.TestCase):
     """EnrollMfaFactor200Response unit test stubs"""
@@ -35,16 +35,16 @@ class TestEnrollMfaFactor200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `EnrollMfaFactor200Response`
         """
-        model = openapi_client.models.enroll_mfa_factor200_response.EnrollMfaFactor200Response()  # noqa: E501
+        model = onelogin.models.enroll_mfa_factor200_response.EnrollMfaFactor200Response()  # noqa: E501
         if include_optional :
             return EnrollMfaFactor200Response(
-                status = openapi_client.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.generate_token_400_response.generateToken_400_response(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
                     message = 'Success', ), 
                 data = [
-                    openapi_client.models.get_enrolled_factors_200_response_data_otp_devices_inner.getEnrolledFactors_200_response_data_otp_devices_inner(
+                    onelogin.models.get_enrolled_factors_200_response_data_otp_devices_inner.getEnrolledFactors_200_response_data_otp_devices_inner(
                         active = True, 
                         default = False, 
                         state_token = 'f2402de2b446abd86ea5aa1f79b3fa72b4befacd', 

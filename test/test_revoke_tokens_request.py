@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.revoke_tokens_request import RevokeTokensRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.revoke_tokens_request import RevokeTokensRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestRevokeTokensRequest(unittest.TestCase):
     """RevokeTokensRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestRevokeTokensRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `RevokeTokensRequest`
         """
-        model = openapi_client.models.revoke_tokens_request.RevokeTokensRequest()  # noqa: E501
+        model = onelogin.models.revoke_tokens_request.RevokeTokensRequest()  # noqa: E501
         if include_optional :
             return RevokeTokensRequest(
                 access_token = 'xx508xx63817x752xx74004x30705xx92x58349x5x78f5xx34x8x614xxxx1451'

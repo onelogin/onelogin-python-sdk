@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_enrolled_factors200_response_data_otp_devices_inner import GetEnrolledFactors200ResponseDataOtpDevicesInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_enrolled_factors200_response_data_otp_devices_inner import GetEnrolledFactors200ResponseDataOtpDevicesInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetEnrolledFactors200ResponseDataOtpDevicesInner(unittest.TestCase):
     """GetEnrolledFactors200ResponseDataOtpDevicesInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestGetEnrolledFactors200ResponseDataOtpDevicesInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetEnrolledFactors200ResponseDataOtpDevicesInner`
         """
-        model = openapi_client.models.get_enrolled_factors200_response_data_otp_devices_inner.GetEnrolledFactors200ResponseDataOtpDevicesInner()  # noqa: E501
+        model = onelogin.models.get_enrolled_factors200_response_data_otp_devices_inner.GetEnrolledFactors200ResponseDataOtpDevicesInner()  # noqa: E501
         if include_optional :
             return GetEnrolledFactors200ResponseDataOtpDevicesInner(
                 active = True, 

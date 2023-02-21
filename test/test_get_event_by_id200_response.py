@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_event_by_id200_response import GetEventById200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_event_by_id200_response import GetEventById200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetEventById200Response(unittest.TestCase):
     """GetEventById200Response unit test stubs"""
@@ -35,11 +35,11 @@ class TestGetEventById200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetEventById200Response`
         """
-        model = openapi_client.models.get_event_by_id200_response.GetEventById200Response()  # noqa: E501
+        model = onelogin.models.get_event_by_id200_response.GetEventById200Response()  # noqa: E501
         if include_optional :
             return GetEventById200Response(
                 status = {"error":false,"code":200,"type":"success","message":"success"}, 
-                data = openapi_client.models.get_events_200_response_data_inner.getEvents_200_response_data_inner(
+                data = onelogin.models.get_events_200_response_data_inner.getEvents_200_response_data_inner(
                     account_id = 56, 
                     actor_system = '', 
                     actor_user_id = 56, 

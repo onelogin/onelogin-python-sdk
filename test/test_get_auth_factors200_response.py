@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_auth_factors200_response import GetAuthFactors200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_auth_factors200_response import GetAuthFactors200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetAuthFactors200Response(unittest.TestCase):
     """GetAuthFactors200Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestGetAuthFactors200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetAuthFactors200Response`
         """
-        model = openapi_client.models.get_auth_factors200_response.GetAuthFactors200Response()  # noqa: E501
+        model = onelogin.models.get_auth_factors200_response.GetAuthFactors200Response()  # noqa: E501
         if include_optional :
             return GetAuthFactors200Response(
                 factor_id = 598524, 

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.remove_user_role_request_role_id_array_inner import RemoveUserRoleRequestRoleIdArrayInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.remove_user_role_request_role_id_array_inner import RemoveUserRoleRequestRoleIdArrayInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestRemoveUserRoleRequestRoleIdArrayInner(unittest.TestCase):
     """RemoveUserRoleRequestRoleIdArrayInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestRemoveUserRoleRequestRoleIdArrayInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `RemoveUserRoleRequestRoleIdArrayInner`
         """
-        model = openapi_client.models.remove_user_role_request_role_id_array_inner.RemoveUserRoleRequestRoleIdArrayInner()  # noqa: E501
+        model = onelogin.models.remove_user_role_request_role_id_array_inner.RemoveUserRoleRequestRoleIdArrayInner()  # noqa: E501
         if include_optional :
             return RemoveUserRoleRequestRoleIdArrayInner(
                 role_id = 56

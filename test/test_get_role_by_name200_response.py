@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_role_by_name200_response import GetRoleByName200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_role_by_name200_response import GetRoleByName200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetRoleByName200Response(unittest.TestCase):
     """GetRoleByName200Response unit test stubs"""
@@ -35,15 +35,15 @@ class TestGetRoleByName200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetRoleByName200Response`
         """
-        model = openapi_client.models.get_role_by_name200_response.GetRoleByName200Response()  # noqa: E501
+        model = onelogin.models.get_role_by_name200_response.GetRoleByName200Response()  # noqa: E501
         if include_optional :
             return GetRoleByName200Response(
-                status = openapi_client.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.generate_token_400_response.generateToken_400_response(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
                     message = 'Success', ), 
-                pagination = openapi_client.models.get_role_by_name_200_response_pagination.getRoleByName_200_response_pagination(
+                pagination = onelogin.models.get_role_by_name_200_response_pagination.getRoleByName_200_response_pagination(
                     after_cursor = 'xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 
                     before_cursor = '""', 
                     next_link = 'https://{subdomain}.onelogin.com/api/1/events?after_cursor=xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 

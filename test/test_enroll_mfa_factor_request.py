@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.enroll_mfa_factor_request import EnrollMfaFactorRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.enroll_mfa_factor_request import EnrollMfaFactorRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestEnrollMfaFactorRequest(unittest.TestCase):
     """EnrollMfaFactorRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestEnrollMfaFactorRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `EnrollMfaFactorRequest`
         """
-        model = openapi_client.models.enroll_mfa_factor_request.EnrollMfaFactorRequest()  # noqa: E501
+        model = onelogin.models.enroll_mfa_factor_request.EnrollMfaFactorRequest()  # noqa: E501
         if include_optional :
             return EnrollMfaFactorRequest(
                 factor_id = 16282, 

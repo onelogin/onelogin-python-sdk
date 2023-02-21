@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.generate_saml_assert200_response import GenerateSamlAssert200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.generate_saml_assert200_response import GenerateSamlAssert200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGenerateSamlAssert200Response(unittest.TestCase):
     """GenerateSamlAssert200Response unit test stubs"""
@@ -35,10 +35,10 @@ class TestGenerateSamlAssert200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GenerateSamlAssert200Response`
         """
-        model = openapi_client.models.generate_saml_assert200_response.GenerateSamlAssert200Response()  # noqa: E501
+        model = onelogin.models.generate_saml_assert200_response.GenerateSamlAssert200Response()  # noqa: E501
         if include_optional :
             return GenerateSamlAssert200Response(
-                status = openapi_client.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.generate_token_400_response.generateToken_400_response(
                     error = False, 
                     code = 200, 
                     type = 'Success', 

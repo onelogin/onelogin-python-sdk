@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.add_client_app_request import AddClientAppRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.add_client_app_request import AddClientAppRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestAddClientAppRequest(unittest.TestCase):
     """AddClientAppRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestAddClientAppRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `AddClientAppRequest`
         """
-        model = openapi_client.models.add_client_app_request.AddClientAppRequest()  # noqa: E501
+        model = onelogin.models.add_client_app_request.AddClientAppRequest()  # noqa: E501
         if include_optional :
             return AddClientAppRequest(
                 app_id = 1026152, 

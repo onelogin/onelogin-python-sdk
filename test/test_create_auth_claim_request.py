@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_auth_claim_request import CreateAuthClaimRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_auth_claim_request import CreateAuthClaimRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateAuthClaimRequest(unittest.TestCase):
     """CreateAuthClaimRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateAuthClaimRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateAuthClaimRequest`
         """
-        model = openapi_client.models.create_auth_claim_request.CreateAuthClaimRequest()  # noqa: E501
+        model = onelogin.models.create_auth_claim_request.CreateAuthClaimRequest()  # noqa: E501
         if include_optional :
             return CreateAuthClaimRequest(
                 name = 'email_address', 

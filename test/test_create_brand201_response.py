@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_brand201_response import CreateBrand201Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_brand201_response import CreateBrand201Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateBrand201Response(unittest.TestCase):
     """CreateBrand201Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateBrand201Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateBrand201Response`
         """
-        model = openapi_client.models.create_brand201_response.CreateBrand201Response()  # noqa: E501
+        model = onelogin.models.create_brand201_response.CreateBrand201Response()  # noqa: E501
         if include_optional :
             return CreateBrand201Response(
                 id = 56, 
@@ -51,16 +51,16 @@ class TestCreateBrand201Response(unittest.TestCase):
                 login_instruction = 'To login, enter your ACME Username or Email. Reach out to help.desk@acme.org if you have trouble logging in.', 
                 login_instruction_title = 'ACME Login Instructions', 
                 hide_onelogin_footer = True, 
-                background = openapi_client.models.create_brand_201_response_background.createBrand_201_response_background(
-                    urls = openapi_client.models.create_brand_201_response_background_urls.createBrand_201_response_background_urls(
+                background = onelogin.models.create_brand_201_response_background.createBrand_201_response_background(
+                    urls = onelogin.models.create_brand_201_response_background_urls.createBrand_201_response_background_urls(
                         original = '', 
                         login = '', 
                         branding = '', ), 
                     file_size = 56, 
                     updated_at = '', 
                     content_type = '', ), 
-                logo = openapi_client.models.create_brand_201_response_logo.createBrand_201_response_logo(
-                    urls = openapi_client.models.create_brand_201_response_logo_urls.createBrand_201_response_logo_urls(
+                logo = onelogin.models.create_brand_201_response_logo.createBrand_201_response_logo(
+                    urls = onelogin.models.create_brand_201_response_logo_urls.createBrand_201_response_logo_urls(
                         original = '', 
                         login = '', 
                         navigation = '', ), 
@@ -83,16 +83,16 @@ class TestCreateBrand201Response(unittest.TestCase):
                 login_instruction = 'To login, enter your ACME Username or Email. Reach out to help.desk@acme.org if you have trouble logging in.',
                 login_instruction_title = 'ACME Login Instructions',
                 hide_onelogin_footer = True,
-                background = openapi_client.models.create_brand_201_response_background.createBrand_201_response_background(
-                    urls = openapi_client.models.create_brand_201_response_background_urls.createBrand_201_response_background_urls(
+                background = onelogin.models.create_brand_201_response_background.createBrand_201_response_background(
+                    urls = onelogin.models.create_brand_201_response_background_urls.createBrand_201_response_background_urls(
                         original = '', 
                         login = '', 
                         branding = '', ), 
                     file_size = 56, 
                     updated_at = '', 
                     content_type = '', ),
-                logo = openapi_client.models.create_brand_201_response_logo.createBrand_201_response_logo(
-                    urls = openapi_client.models.create_brand_201_response_logo_urls.createBrand_201_response_logo_urls(
+                logo = onelogin.models.create_brand_201_response_logo.createBrand_201_response_logo(
+                    urls = onelogin.models.create_brand_201_response_logo_urls.createBrand_201_response_logo_urls(
                         original = '', 
                         login = '', 
                         navigation = '', ), 

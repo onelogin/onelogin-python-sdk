@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.list_client_apps200_response import ListClientApps200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.list_client_apps200_response import ListClientApps200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestListClientApps200Response(unittest.TestCase):
     """ListClientApps200Response unit test stubs"""
@@ -35,11 +35,11 @@ class TestListClientApps200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `ListClientApps200Response`
         """
-        model = openapi_client.models.list_client_apps200_response.ListClientApps200Response()  # noqa: E501
+        model = onelogin.models.list_client_apps200_response.ListClientApps200Response()  # noqa: E501
         if include_optional :
             return ListClientApps200Response(
                 scopes = [
-                    openapi_client.models.list_client_apps_200_response_scopes_inner.listClientApps_200_response_scopes_inner(
+                    onelogin.models.list_client_apps_200_response_scopes_inner.listClientApps_200_response_scopes_inner(
                         id = 25, 
                         value = 'read:contacts', 
                         description = 'Read some contacts', )

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.update_privilege200_response import UpdatePrivilege200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.update_privilege200_response import UpdatePrivilege200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestUpdatePrivilege200Response(unittest.TestCase):
     """UpdatePrivilege200Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestUpdatePrivilege200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `UpdatePrivilege200Response`
         """
-        model = openapi_client.models.update_privilege200_response.UpdatePrivilege200Response()  # noqa: E501
+        model = onelogin.models.update_privilege200_response.UpdatePrivilege200Response()  # noqa: E501
         if include_optional :
             return UpdatePrivilege200Response(
                 id = ''

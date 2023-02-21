@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_event_types200_response import GetEventTypes200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_event_types200_response import GetEventTypes200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetEventTypes200Response(unittest.TestCase):
     """GetEventTypes200Response unit test stubs"""
@@ -35,16 +35,16 @@ class TestGetEventTypes200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetEventTypes200Response`
         """
-        model = openapi_client.models.get_event_types200_response.GetEventTypes200Response()  # noqa: E501
+        model = onelogin.models.get_event_types200_response.GetEventTypes200Response()  # noqa: E501
         if include_optional :
             return GetEventTypes200Response(
-                status = openapi_client.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.generate_token_400_response.generateToken_400_response(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
                     message = 'Success', ), 
                 data = [
-                    openapi_client.models.get_event_types_200_response_data_inner.getEventTypes_200_response_data_inner(
+                    onelogin.models.get_event_types_200_response_data_inner.getEventTypes_200_response_data_inner(
                         name = 'APP_REMOVED_FROM_ROLE', 
                         description = 'App %app% removed from role %role%', 
                         id = 2, )

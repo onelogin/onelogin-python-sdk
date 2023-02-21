@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_rate_limit200_response_data import GetRateLimit200ResponseData  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_rate_limit200_response_data import GetRateLimit200ResponseData  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetRateLimit200ResponseData(unittest.TestCase):
     """GetRateLimit200ResponseData unit test stubs"""
@@ -35,7 +35,7 @@ class TestGetRateLimit200ResponseData(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetRateLimit200ResponseData`
         """
-        model = openapi_client.models.get_rate_limit200_response_data.GetRateLimit200ResponseData()  # noqa: E501
+        model = onelogin.models.get_rate_limit200_response_data.GetRateLimit200ResponseData()  # noqa: E501
         if include_optional :
             return GetRateLimit200ResponseData(
                 x_rate_limit_limit = 5000, 

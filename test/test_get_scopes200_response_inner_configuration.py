@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_scopes200_response_inner_configuration import GetScopes200ResponseInnerConfiguration  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_scopes200_response_inner_configuration import GetScopes200ResponseInnerConfiguration  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetScopes200ResponseInnerConfiguration(unittest.TestCase):
     """GetScopes200ResponseInnerConfiguration unit test stubs"""
@@ -35,7 +35,7 @@ class TestGetScopes200ResponseInnerConfiguration(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetScopes200ResponseInnerConfiguration`
         """
-        model = openapi_client.models.get_scopes200_response_inner_configuration.GetScopes200ResponseInnerConfiguration()  # noqa: E501
+        model = onelogin.models.get_scopes200_response_inner_configuration.GetScopes200ResponseInnerConfiguration()  # noqa: E501
         if include_optional :
             return GetScopes200ResponseInnerConfiguration(
                 audiences = [

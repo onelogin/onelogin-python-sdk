@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_message_template_request_template_one_of_all_of import CreateMessageTemplateRequestTemplateOneOfAllOf  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_message_template_request_template_one_of_all_of import CreateMessageTemplateRequestTemplateOneOfAllOf  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateMessageTemplateRequestTemplateOneOfAllOf(unittest.TestCase):
     """CreateMessageTemplateRequestTemplateOneOfAllOf unit test stubs"""
@@ -35,7 +35,7 @@ class TestCreateMessageTemplateRequestTemplateOneOfAllOf(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateMessageTemplateRequestTemplateOneOfAllOf`
         """
-        model = openapi_client.models.create_message_template_request_template_one_of_all_of.CreateMessageTemplateRequestTemplateOneOfAllOf()  # noqa: E501
+        model = onelogin.models.create_message_template_request_template_one_of_all_of.CreateMessageTemplateRequestTemplateOneOfAllOf()  # noqa: E501
         if include_optional :
             return CreateMessageTemplateRequestTemplateOneOfAllOf(
                 subject = 'Email MFA App Verification Code', 

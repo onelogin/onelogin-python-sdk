@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestListConditionOperators200ResponseInner(unittest.TestCase):
     """ListConditionOperators200ResponseInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestListConditionOperators200ResponseInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `ListConditionOperators200ResponseInner`
         """
-        model = openapi_client.models.list_condition_operators200_response_inner.ListConditionOperators200ResponseInner()  # noqa: E501
+        model = onelogin.models.list_condition_operators200_response_inner.ListConditionOperators200ResponseInner()  # noqa: E501
         if include_optional :
             return ListConditionOperators200ResponseInner(
                 name = 'Administrators', 

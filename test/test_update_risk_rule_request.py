@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.update_risk_rule_request import UpdateRiskRuleRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.update_risk_rule_request import UpdateRiskRuleRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestUpdateRiskRuleRequest(unittest.TestCase):
     """UpdateRiskRuleRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestUpdateRiskRuleRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `UpdateRiskRuleRequest`
         """
-        model = openapi_client.models.update_risk_rule_request.UpdateRiskRuleRequest()  # noqa: E501
+        model = onelogin.models.update_risk_rule_request.UpdateRiskRuleRequest()  # noqa: E501
         if include_optional :
             return UpdateRiskRuleRequest(
                 id = ''

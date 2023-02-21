@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.ver_factor_saml200_response import VerFactorSaml200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.ver_factor_saml200_response import VerFactorSaml200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestVerFactorSaml200Response(unittest.TestCase):
     """VerFactorSaml200Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestVerFactorSaml200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `VerFactorSaml200Response`
         """
-        model = openapi_client.models.ver_factor_saml200_response.VerFactorSaml200Response()  # noqa: E501
+        model = onelogin.models.ver_factor_saml200_response.VerFactorSaml200Response()  # noqa: E501
         if include_optional :
             return VerFactorSaml200Response(
                 data = 'PHNhbWxwOlJlc3BvbnNlIHhtbG5zOnNhbWw9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphc3NlcnRpb24iIHhtbG5zOnNhbWxwPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6cHJvdG9jb2wiIElEPSJSZjE5Y2EyMTI0ZGMxNzJmNzhmMjI3OTk3YzMwOTBkODVkNzFjYWMzOCIgVmVyc2lvbj0iMi4wIiBJc3N1ZUluc3RhbnQ9IjIwMjAtM', 

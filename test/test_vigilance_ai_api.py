@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.api.vigilance_ai_api import VigilanceAIApi  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.api.vigilance_ai_api import VigilanceAIApi  # noqa: E501
+from onelogin.rest import ApiException
 
 
 class TestVigilanceAIApi(unittest.TestCase):
     """VigilanceAIApi unit test stubs"""
 
     def setUp(self):
-        self.api = openapi_client.api.vigilance_ai_api.VigilanceAIApi()  # noqa: E501
+        self.api = onelogin.api.vigilance_ai_api.VigilanceAIApi()  # noqa: E501
 
     def tearDown(self):
         pass

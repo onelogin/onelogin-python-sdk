@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_mfa_factors200_response_data import GetMFAFactors200ResponseData  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_mfa_factors200_response_data import GetMFAFactors200ResponseData  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetMFAFactors200ResponseData(unittest.TestCase):
     """GetMFAFactors200ResponseData unit test stubs"""
@@ -35,11 +35,11 @@ class TestGetMFAFactors200ResponseData(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetMFAFactors200ResponseData`
         """
-        model = openapi_client.models.get_mfa_factors200_response_data.GetMFAFactors200ResponseData()  # noqa: E501
+        model = onelogin.models.get_mfa_factors200_response_data.GetMFAFactors200ResponseData()  # noqa: E501
         if include_optional :
             return GetMFAFactors200ResponseData(
                 auth_factors = [
-                    openapi_client.models.get_mfa_factors_200_response_data_auth_factors_inner.getMFAFactors_200_response_data_auth_factors_inner(
+                    onelogin.models.get_mfa_factors_200_response_data_auth_factors_inner.getMFAFactors_200_response_data_auth_factors_inner(
                         name = 'Onelogin SMS', 
                         factor_id = 16282, )
                     ]

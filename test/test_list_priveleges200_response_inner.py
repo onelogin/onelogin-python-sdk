@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.list_priveleges200_response_inner import ListPriveleges200ResponseInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.list_priveleges200_response_inner import ListPriveleges200ResponseInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestListPriveleges200ResponseInner(unittest.TestCase):
     """ListPriveleges200ResponseInner unit test stubs"""
@@ -35,16 +35,16 @@ class TestListPriveleges200ResponseInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `ListPriveleges200ResponseInner`
         """
-        model = openapi_client.models.list_priveleges200_response_inner.ListPriveleges200ResponseInner()  # noqa: E501
+        model = onelogin.models.list_priveleges200_response_inner.ListPriveleges200ResponseInner()  # noqa: E501
         if include_optional :
             return ListPriveleges200ResponseInner(
                 id = '2c963197-bee2-4607-abc0-4786f1bfa55a', 
                 name = 'User Administrator', 
                 description = 'Can administer users', 
-                privilege = openapi_client.models.list_priveleges_200_response_inner_privilege.listPriveleges_200_response_inner_privilege(
+                privilege = onelogin.models.list_priveleges_200_response_inner_privilege.listPriveleges_200_response_inner_privilege(
                     version = '2018-05-18', 
                     statement = [
-                        openapi_client.models.list_priveleges_200_response_inner_privilege_statement_inner.listPriveleges_200_response_inner_privilege_Statement_inner(
+                        onelogin.models.list_priveleges_200_response_inner_privilege_statement_inner.listPriveleges_200_response_inner_privilege_Statement_inner(
                             effect = 'Allow', 
                             action = ["Users:Delete","Users:ResetPassword","Users:Unlock","Users:Get"], 
                             scope = [
@@ -55,10 +55,10 @@ class TestListPriveleges200ResponseInner(unittest.TestCase):
         else :
             return ListPriveleges200ResponseInner(
                 name = 'User Administrator',
-                privilege = openapi_client.models.list_priveleges_200_response_inner_privilege.listPriveleges_200_response_inner_privilege(
+                privilege = onelogin.models.list_priveleges_200_response_inner_privilege.listPriveleges_200_response_inner_privilege(
                     version = '2018-05-18', 
                     statement = [
-                        openapi_client.models.list_priveleges_200_response_inner_privilege_statement_inner.listPriveleges_200_response_inner_privilege_Statement_inner(
+                        onelogin.models.list_priveleges_200_response_inner_privilege_statement_inner.listPriveleges_200_response_inner_privilege_Statement_inner(
                             effect = 'Allow', 
                             action = ["Users:Delete","Users:ResetPassword","Users:Unlock","Users:Get"], 
                             scope = [

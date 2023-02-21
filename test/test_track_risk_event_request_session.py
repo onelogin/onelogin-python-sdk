@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.track_risk_event_request_session import TrackRiskEventRequestSession  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.track_risk_event_request_session import TrackRiskEventRequestSession  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestTrackRiskEventRequestSession(unittest.TestCase):
     """TrackRiskEventRequestSession unit test stubs"""
@@ -35,7 +35,7 @@ class TestTrackRiskEventRequestSession(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `TrackRiskEventRequestSession`
         """
-        model = openapi_client.models.track_risk_event_request_session.TrackRiskEventRequestSession()  # noqa: E501
+        model = onelogin.models.track_risk_event_request_session.TrackRiskEventRequestSession()  # noqa: E501
         if include_optional :
             return TrackRiskEventRequestSession(
                 id = ''

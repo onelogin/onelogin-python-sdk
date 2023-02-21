@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_user_apps200_response_inner import GetUserApps200ResponseInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_user_apps200_response_inner import GetUserApps200ResponseInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetUserApps200ResponseInner(unittest.TestCase):
     """GetUserApps200ResponseInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestGetUserApps200ResponseInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetUserApps200ResponseInner`
         """
-        model = openapi_client.models.get_user_apps200_response_inner.GetUserApps200ResponseInner()  # noqa: E501
+        model = onelogin.models.get_user_apps200_response_inner.GetUserApps200ResponseInner()  # noqa: E501
         if include_optional :
             return GetUserApps200ResponseInner(
                 id = 56, 

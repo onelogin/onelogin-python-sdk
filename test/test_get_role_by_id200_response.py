@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_role_by_id200_response import GetRoleById200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_role_by_id200_response import GetRoleById200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetRoleById200Response(unittest.TestCase):
     """GetRoleById200Response unit test stubs"""
@@ -35,16 +35,16 @@ class TestGetRoleById200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetRoleById200Response`
         """
-        model = openapi_client.models.get_role_by_id200_response.GetRoleById200Response()  # noqa: E501
+        model = onelogin.models.get_role_by_id200_response.GetRoleById200Response()  # noqa: E501
         if include_optional :
             return GetRoleById200Response(
-                status = openapi_client.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.generate_token_400_response.generateToken_400_response(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
                     message = 'Success', ), 
                 data = [
-                    openapi_client.models.get_role_by_id_200_response_data_inner.getRoleById_200_response_data_inner(
+                    onelogin.models.get_role_by_id_200_response_data_inner.getRoleById_200_response_data_inner(
                         id = 123456, 
                         name = 'Employee', )
                     ]

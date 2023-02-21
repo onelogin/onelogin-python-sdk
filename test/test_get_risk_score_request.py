@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_risk_score_request import GetRiskScoreRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_risk_score_request import GetRiskScoreRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetRiskScoreRequest(unittest.TestCase):
     """GetRiskScoreRequest unit test stubs"""
@@ -35,21 +35,21 @@ class TestGetRiskScoreRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetRiskScoreRequest`
         """
-        model = openapi_client.models.get_risk_score_request.GetRiskScoreRequest()  # noqa: E501
+        model = onelogin.models.get_risk_score_request.GetRiskScoreRequest()  # noqa: E501
         if include_optional :
             return GetRiskScoreRequest(
                 ip = '', 
                 user_agent = '', 
-                user = openapi_client.models.track_risk_event_request_user.trackRiskEvent_request_user(
+                user = onelogin.models.track_risk_event_request_user.trackRiskEvent_request_user(
                     id = '', 
                     name = '', 
                     authenticated = True, ), 
-                source = openapi_client.models.list_risk_rules_200_response_inner_source.listRiskRules_200_response_inner_source(
+                source = onelogin.models.list_risk_rules_200_response_inner_source.listRiskRules_200_response_inner_source(
                     id = '', 
                     name = '', ), 
-                session = openapi_client.models.track_risk_event_request_session.trackRiskEvent_request_session(
+                session = onelogin.models.track_risk_event_request_session.trackRiskEvent_request_session(
                     id = '', ), 
-                device = openapi_client.models.track_risk_event_request_device.trackRiskEvent_request_device(
+                device = onelogin.models.track_risk_event_request_device.trackRiskEvent_request_device(
                     id = '', ), 
                 fp = ''
             )
@@ -57,7 +57,7 @@ class TestGetRiskScoreRequest(unittest.TestCase):
             return GetRiskScoreRequest(
                 ip = '',
                 user_agent = '',
-                user = openapi_client.models.track_risk_event_request_user.trackRiskEvent_request_user(
+                user = onelogin.models.track_risk_event_request_user.trackRiskEvent_request_user(
                     id = '', 
                     name = '', 
                     authenticated = True, ),

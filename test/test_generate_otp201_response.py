@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.generate_otp201_response import GenerateOTP201Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.generate_otp201_response import GenerateOTP201Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGenerateOTP201Response(unittest.TestCase):
     """GenerateOTP201Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestGenerateOTP201Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GenerateOTP201Response`
         """
-        model = openapi_client.models.generate_otp201_response.GenerateOTP201Response()  # noqa: E501
+        model = onelogin.models.generate_otp201_response.GenerateOTP201Response()  # noqa: E501
         if include_optional :
             return GenerateOTP201Response(
                 mfa_token = 'UIOWE787979', 

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.add_roles_to_user_request import AddRolesToUserRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.add_roles_to_user_request import AddRolesToUserRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestAddRolesToUserRequest(unittest.TestCase):
     """AddRolesToUserRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestAddRolesToUserRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `AddRolesToUserRequest`
         """
-        model = openapi_client.models.add_roles_to_user_request.AddRolesToUserRequest()  # noqa: E501
+        model = onelogin.models.add_roles_to_user_request.AddRolesToUserRequest()  # noqa: E501
         if include_optional :
             return AddRolesToUserRequest(
                 role_id_array = [

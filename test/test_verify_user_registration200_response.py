@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.verify_user_registration200_response import VerifyUserRegistration200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.verify_user_registration200_response import VerifyUserRegistration200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestVerifyUserRegistration200Response(unittest.TestCase):
     """VerifyUserRegistration200Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestVerifyUserRegistration200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `VerifyUserRegistration200Response`
         """
-        model = openapi_client.models.verify_user_registration200_response.VerifyUserRegistration200Response()  # noqa: E501
+        model = onelogin.models.verify_user_registration200_response.VerifyUserRegistration200Response()  # noqa: E501
         if include_optional :
             return VerifyUserRegistration200Response(
                 id = '44aa6883-5048-4cd5-8cb2-64d47784230c', 

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.add_privilege_to_role201_response import AddPrivilegeToRole201Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.add_privilege_to_role201_response import AddPrivilegeToRole201Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestAddPrivilegeToRole201Response(unittest.TestCase):
     """AddPrivilegeToRole201Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestAddPrivilegeToRole201Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `AddPrivilegeToRole201Response`
         """
-        model = openapi_client.models.add_privilege_to_role201_response.AddPrivilegeToRole201Response()  # noqa: E501
+        model = onelogin.models.add_privilege_to_role201_response.AddPrivilegeToRole201Response()  # noqa: E501
         if include_optional :
             return AddPrivilegeToRole201Response(
                 success = True

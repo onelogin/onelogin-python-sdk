@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.list_apps200_response import ListApps200Response  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.list_apps200_response import ListApps200Response  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestListApps200Response(unittest.TestCase):
     """ListApps200Response unit test stubs"""
@@ -35,7 +35,7 @@ class TestListApps200Response(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `ListApps200Response`
         """
-        model = openapi_client.models.list_apps200_response.ListApps200Response()  # noqa: E501
+        model = onelogin.models.list_apps200_response.ListApps200Response()  # noqa: E501
         if include_optional :
             return ListApps200Response(
                 id = 1061937, 
@@ -55,7 +55,7 @@ class TestListApps200Response(unittest.TestCase):
                     56
                     ], 
                 allow_assumed_signin = True, 
-                provisioning = openapi_client.models.list_apps_200_response_provisioning.listApps_200_response_provisioning(
+                provisioning = onelogin.models.list_apps_200_response_provisioning.listApps_200_response_provisioning(
                     enabled = True, )
             )
         else :

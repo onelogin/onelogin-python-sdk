@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.api.saml_assertions_api import SAMLAssertionsApi  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.api.saml_assertions_api import SAMLAssertionsApi  # noqa: E501
+from onelogin.rest import ApiException
 
 
 class TestSAMLAssertionsApi(unittest.TestCase):
     """SAMLAssertionsApi unit test stubs"""
 
     def setUp(self):
-        self.api = openapi_client.api.saml_assertions_api.SAMLAssertionsApi()  # noqa: E501
+        self.api = onelogin.api.saml_assertions_api.SAMLAssertionsApi()  # noqa: E501
 
     def tearDown(self):
         pass

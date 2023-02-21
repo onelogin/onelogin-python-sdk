@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.api.multi_factor_authentication_api import MultiFactorAuthenticationApi  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.api.multi_factor_authentication_api import MultiFactorAuthenticationApi  # noqa: E501
+from onelogin.rest import ApiException
 
 
 class TestMultiFactorAuthenticationApi(unittest.TestCase):
     """MultiFactorAuthenticationApi unit test stubs"""
 
     def setUp(self):
-        self.api = openapi_client.api.multi_factor_authentication_api.MultiFactorAuthenticationApi()  # noqa: E501
+        self.api = onelogin.api.multi_factor_authentication_api.MultiFactorAuthenticationApi()  # noqa: E501
 
     def tearDown(self):
         pass

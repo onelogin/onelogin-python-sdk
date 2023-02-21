@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.create_brand201_response_background import CreateBrand201ResponseBackground  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.create_brand201_response_background import CreateBrand201ResponseBackground  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestCreateBrand201ResponseBackground(unittest.TestCase):
     """CreateBrand201ResponseBackground unit test stubs"""
@@ -35,10 +35,10 @@ class TestCreateBrand201ResponseBackground(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `CreateBrand201ResponseBackground`
         """
-        model = openapi_client.models.create_brand201_response_background.CreateBrand201ResponseBackground()  # noqa: E501
+        model = onelogin.models.create_brand201_response_background.CreateBrand201ResponseBackground()  # noqa: E501
         if include_optional :
             return CreateBrand201ResponseBackground(
-                urls = openapi_client.models.create_brand_201_response_background_urls.createBrand_201_response_background_urls(
+                urls = onelogin.models.create_brand_201_response_background_urls.createBrand_201_response_background_urls(
                     original = '', 
                     login = '', 
                     branding = '', ), 
@@ -48,7 +48,7 @@ class TestCreateBrand201ResponseBackground(unittest.TestCase):
             )
         else :
             return CreateBrand201ResponseBackground(
-                urls = openapi_client.models.create_brand_201_response_background_urls.createBrand_201_response_background_urls(
+                urls = onelogin.models.create_brand_201_response_background_urls.createBrand_201_response_background_urls(
                     original = '', 
                     login = '', 
                     branding = '', ),

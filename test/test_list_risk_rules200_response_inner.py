@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.list_risk_rules200_response_inner import ListRiskRules200ResponseInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.list_risk_rules200_response_inner import ListRiskRules200ResponseInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestListRiskRules200ResponseInner(unittest.TestCase):
     """ListRiskRules200ResponseInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestListRiskRules200ResponseInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `ListRiskRules200ResponseInner`
         """
-        model = openapi_client.models.list_risk_rules200_response_inner.ListRiskRules200ResponseInner()  # noqa: E501
+        model = onelogin.models.list_risk_rules200_response_inner.ListRiskRules200ResponseInner()  # noqa: E501
         if include_optional :
             return ListRiskRules200ResponseInner(
                 id = '', 
@@ -46,7 +46,7 @@ class TestListRiskRules200ResponseInner(unittest.TestCase):
                 filters = [
                     ''
                     ], 
-                source = openapi_client.models.list_risk_rules_200_response_inner_source.listRiskRules_200_response_inner_source(
+                source = onelogin.models.list_risk_rules_200_response_inner_source.listRiskRules_200_response_inner_source(
                     id = '', 
                     name = '', )
             )

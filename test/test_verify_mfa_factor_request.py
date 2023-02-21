@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.verify_mfa_factor_request import VerifyMfaFactorRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.verify_mfa_factor_request import VerifyMfaFactorRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestVerifyMfaFactorRequest(unittest.TestCase):
     """VerifyMfaFactorRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestVerifyMfaFactorRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `VerifyMfaFactorRequest`
         """
-        model = openapi_client.models.verify_mfa_factor_request.VerifyMfaFactorRequest()  # noqa: E501
+        model = onelogin.models.verify_mfa_factor_request.VerifyMfaFactorRequest()  # noqa: E501
         if include_optional :
             return VerifyMfaFactorRequest(
                 state_token = '98e008497066bc2763c52342996e06358aab2e32', 

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.get_authentication_devices200_response_inner import GetAuthenticationDevices200ResponseInner  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.get_authentication_devices200_response_inner import GetAuthenticationDevices200ResponseInner  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestGetAuthenticationDevices200ResponseInner(unittest.TestCase):
     """GetAuthenticationDevices200ResponseInner unit test stubs"""
@@ -35,7 +35,7 @@ class TestGetAuthenticationDevices200ResponseInner(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `GetAuthenticationDevices200ResponseInner`
         """
-        model = openapi_client.models.get_authentication_devices200_response_inner.GetAuthenticationDevices200ResponseInner()  # noqa: E501
+        model = onelogin.models.get_authentication_devices200_response_inner.GetAuthenticationDevices200ResponseInner()  # noqa: E501
         if include_optional :
             return GetAuthenticationDevices200ResponseInner(
                 device_id = '3920373', 

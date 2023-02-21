@@ -15,9 +15,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.remove_role_users_request import RemoveRoleUsersRequest  # noqa: E501
-from openapi_client.rest import ApiException
+import onelogin
+from onelogin.models.remove_role_users_request import RemoveRoleUsersRequest  # noqa: E501
+from onelogin.rest import ApiException
 
 class TestRemoveRoleUsersRequest(unittest.TestCase):
     """RemoveRoleUsersRequest unit test stubs"""
@@ -35,7 +35,7 @@ class TestRemoveRoleUsersRequest(unittest.TestCase):
             optional params are included """
         # uncomment below to create an instance of `RemoveRoleUsersRequest`
         """
-        model = openapi_client.models.remove_role_users_request.RemoveRoleUsersRequest()  # noqa: E501
+        model = onelogin.models.remove_role_users_request.RemoveRoleUsersRequest()  # noqa: E501
         if include_optional :
             return RemoveRoleUsersRequest(
                 user_id = [
