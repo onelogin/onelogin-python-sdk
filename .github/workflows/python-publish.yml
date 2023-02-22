@@ -9,6 +9,7 @@
 name: Upload Python Package
 
 on:
+  release:
   workflow_dispatch:
 
 permissions:
