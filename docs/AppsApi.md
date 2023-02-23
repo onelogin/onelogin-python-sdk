@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **create_app**
-> ListApps200Response create_app(content_type=content_type, create_app_request=create_app_request)
+> ListApps200ResponseInner create_app(content_type=content_type, create_app_request=create_app_request)
 
 Create App
 
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListApps200Response**](ListApps200Response.md)
+[**ListApps200ResponseInner**](ListApps200ResponseInner.md)
 
 ### Authorization
 
@@ -239,7 +239,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_app**
-> ListApps200Response get_app(app_id)
+> ListApps200ResponseInner get_app(app_id)
 
 Get App
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListApps200Response**](ListApps200Response.md)
+[**ListApps200ResponseInner**](ListApps200ResponseInner.md)
 
 ### Authorization
 
@@ -384,7 +384,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_apps**
-> ListApps200Response list_apps()
+> List[ListApps200ResponseInner] list_apps()
 
 List Apps
 
@@ -432,7 +432,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ListApps200Response**](ListApps200Response.md)
+[**List[ListApps200ResponseInner]**](ListApps200ResponseInner.md)
 
 ### Authorization
 
@@ -522,7 +522,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_app**
-> ListApps200Response update_app(app_id, content_type=content_type, list_apps200_response=list_apps200_response)
+> ListApps200ResponseInner update_app(app_id, content_type=content_type, list_apps200_response_inner=list_apps200_response_inner)
 
 Update App
 
@@ -557,11 +557,11 @@ with onelogin.ApiClient(configuration) as api_client:
     api_instance = onelogin.AppsApi(api_client)
     app_id = 56 # int | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    list_apps200_response = onelogin.ListApps200Response() # ListApps200Response |  (optional)
+    list_apps200_response_inner = onelogin.ListApps200ResponseInner() # ListApps200ResponseInner |  (optional)
 
     try:
         # Update App
-        api_response = api_instance.update_app(app_id, content_type=content_type, list_apps200_response=list_apps200_response)
+        api_response = api_instance.update_app(app_id, content_type=content_type, list_apps200_response_inner=list_apps200_response_inner)
         print("The response of AppsApi->update_app:\n")
         pprint(api_response)
     except Exception as e:
@@ -574,11 +574,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
  **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **list_apps200_response** | [**ListApps200Response**](ListApps200Response.md)|  | [optional] 
+ **list_apps200_response_inner** | [**ListApps200ResponseInner**](ListApps200ResponseInner.md)|  | [optional] 
 
 ### Return type
 
-[**ListApps200Response**](ListApps200Response.md)
+[**ListApps200ResponseInner**](ListApps200ResponseInner.md)
 
 ### Authorization
 

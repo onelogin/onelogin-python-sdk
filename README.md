@@ -18,9 +18,9 @@ Python 3.7+
 If the python package is hosted on a repository, you can install directly using:
 
 ```sh
-pip install git+https://github.com/onelogin/onelogin-python-sdk.git
+pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
 ```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/onelogin/onelogin-python-sdk.git`)
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
 
 Then import the package:
 ```python
@@ -337,8 +337,8 @@ Class | Method | HTTP request | Description
  - [GetUserVerification200Response](docs/GetUserVerification200Response.md)
  - [ListActions200ResponseInner](docs/ListActions200ResponseInner.md)
  - [ListAppRules200ResponseInner](docs/ListAppRules200ResponseInner.md)
- - [ListApps200Response](docs/ListApps200Response.md)
- - [ListApps200ResponseProvisioning](docs/ListApps200ResponseProvisioning.md)
+ - [ListApps200ResponseInner](docs/ListApps200ResponseInner.md)
+ - [ListApps200ResponseInnerProvisioning](docs/ListApps200ResponseInnerProvisioning.md)
  - [ListBrands200ResponseInner](docs/ListBrands200ResponseInner.md)
  - [ListClientApps200Response](docs/ListClientApps200Response.md)
  - [ListClientApps200ResponseScopesInner](docs/ListClientApps200ResponseScopesInner.md)

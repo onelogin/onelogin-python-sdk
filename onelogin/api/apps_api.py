@@ -22,7 +22,7 @@ from pydantic import StrictInt, StrictStr
 from typing import List, Optional
 
 from onelogin.models.create_app_request import CreateAppRequest
-from onelogin.models.list_apps200_response import ListApps200Response
+from onelogin.models.list_apps200_response_inner import ListApps200ResponseInner
 from onelogin.models.list_connectors200_response import ListConnectors200Response
 from onelogin.models.list_users200_response_inner import ListUsers200ResponseInner
 
@@ -46,7 +46,7 @@ class AppsApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_app(self, content_type : Optional[StrictStr] = None, create_app_request : Optional[CreateAppRequest] = None, **kwargs) -> ListApps200Response:  # noqa: E501
+    def create_app(self, content_type : Optional[StrictStr] = None, create_app_request : Optional[CreateAppRequest] = None, **kwargs) -> ListApps200ResponseInner:  # noqa: E501
         """Create App  # noqa: E501
 
         Create App  # noqa: E501
@@ -73,7 +73,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListApps200Response
+        :rtype: ListApps200ResponseInner
         """
         kwargs['_return_http_data_only'] = True
         return self.create_app_with_http_info(content_type, create_app_request, **kwargs)  # noqa: E501
@@ -114,7 +114,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListApps200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(ListApps200ResponseInner, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -182,7 +182,7 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListApps200Response",
+            '200': "ListApps200ResponseInner",
             '401': "GenerateToken400Response",
             '422': "GenerateToken400Response",
         }
@@ -508,7 +508,7 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_app(self, app_id : StrictInt, **kwargs) -> ListApps200Response:  # noqa: E501
+    def get_app(self, app_id : StrictInt, **kwargs) -> ListApps200ResponseInner:  # noqa: E501
         """Get App  # noqa: E501
 
         Get App  # noqa: E501
@@ -533,7 +533,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListApps200Response
+        :rtype: ListApps200ResponseInner
         """
         kwargs['_return_http_data_only'] = True
         return self.get_app_with_http_info(app_id, **kwargs)  # noqa: E501
@@ -572,7 +572,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListApps200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(ListApps200ResponseInner, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -630,7 +630,7 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListApps200Response",
+            '200': "ListApps200ResponseInner",
             '401': "GetScopes401Response",
             '404': "GetScopes401Response",
         }
@@ -797,7 +797,7 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_apps(self, **kwargs) -> ListApps200Response:  # noqa: E501
+    def list_apps(self, **kwargs) -> List[ListApps200ResponseInner]:  # noqa: E501
         """List Apps  # noqa: E501
 
         List Apps  # noqa: E501
@@ -820,7 +820,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListApps200Response
+        :rtype: List[ListApps200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
         return self.list_apps_with_http_info(**kwargs)  # noqa: E501
@@ -857,7 +857,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListApps200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[ListApps200ResponseInner], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -912,7 +912,7 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListApps200Response",
+            '200': "List[ListApps200ResponseInner]",
             '401': "GetScopes401Response",
             '422': "GetScopes401Response",
         }
@@ -1073,22 +1073,22 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_app(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, list_apps200_response : Optional[ListApps200Response] = None, **kwargs) -> ListApps200Response:  # noqa: E501
+    def update_app(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, list_apps200_response_inner : Optional[ListApps200ResponseInner] = None, **kwargs) -> ListApps200ResponseInner:  # noqa: E501
         """Update App  # noqa: E501
 
         Update App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_app(app_id, content_type, list_apps200_response, async_req=True)
+        >>> thread = api.update_app(app_id, content_type, list_apps200_response_inner, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
         :param content_type:
         :type content_type: str
-        :param list_apps200_response:
-        :type list_apps200_response: ListApps200Response
+        :param list_apps200_response_inner:
+        :type list_apps200_response_inner: ListApps200ResponseInner
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1102,28 +1102,28 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListApps200Response
+        :rtype: ListApps200ResponseInner
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_app_with_http_info(app_id, content_type, list_apps200_response, **kwargs)  # noqa: E501
+        return self.update_app_with_http_info(app_id, content_type, list_apps200_response_inner, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_app_with_http_info(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, list_apps200_response : Optional[ListApps200Response] = None, **kwargs):  # noqa: E501
+    def update_app_with_http_info(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, list_apps200_response_inner : Optional[ListApps200ResponseInner] = None, **kwargs):  # noqa: E501
         """Update App  # noqa: E501
 
         Update App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_app_with_http_info(app_id, content_type, list_apps200_response, async_req=True)
+        >>> thread = api.update_app_with_http_info(app_id, content_type, list_apps200_response_inner, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
         :param content_type:
         :type content_type: str
-        :param list_apps200_response:
-        :type list_apps200_response: ListApps200Response
+        :param list_apps200_response_inner:
+        :type list_apps200_response_inner: ListApps200ResponseInner
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1145,7 +1145,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListApps200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(ListApps200ResponseInner, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1153,7 +1153,7 @@ class AppsApi(object):
         _all_params = [
             'app_id',
             'content_type',
-            'list_apps200_response'
+            'list_apps200_response_inner'
         ]
         _all_params.extend(
             [
@@ -1198,8 +1198,8 @@ class AppsApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_apps200_response']:
-            _body_params = _params['list_apps200_response']
+        if _params['list_apps200_response_inner']:
+            _body_params = _params['list_apps200_response_inner']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -1216,7 +1216,7 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListApps200Response",
+            '200': "ListApps200ResponseInner",
             '401': "GetScopes401Response",
             '404': "GetScopes401Response",
         }

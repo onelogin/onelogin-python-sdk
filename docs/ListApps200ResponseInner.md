@@ -1,4 +1,4 @@
-# ListApps200Response
+# ListApps200ResponseInner
 
 
 ## Properties
@@ -19,24 +19,24 @@ Name | Type | Description | Notes
 **updated_at** | **str** | The date the app was last updated. | [optional] 
 **role_ids** | **List[int]** | A list of OneLogin Role IDs of the user | [optional] 
 **allow_assumed_signin** | **bool** | Indicates whether or not administrators can access the app as a user that they have assumed control over. | [optional] 
-**provisioning** | [**ListApps200ResponseProvisioning**](ListApps200ResponseProvisioning.md) |  | [optional] 
+**provisioning** | [**ListApps200ResponseInnerProvisioning**](ListApps200ResponseInnerProvisioning.md) |  | [optional] 
 
 ## Example
 
 ```python
-from onelogin.models.list_apps200_response import ListApps200Response
+from onelogin.models.list_apps200_response_inner import ListApps200ResponseInner
 
 # TODO update the JSON string below
 json = "{}"
-# create an instance of ListApps200Response from a JSON string
-list_apps200_response_instance = ListApps200Response.from_json(json)
+# create an instance of ListApps200ResponseInner from a JSON string
+list_apps200_response_inner_instance = ListApps200ResponseInner.from_json(json)
 # print the JSON string representation of the object
-print ListApps200Response.to_json()
+print ListApps200ResponseInner.to_json()
 
 # convert the object into a dict
-list_apps200_response_dict = list_apps200_response_instance.to_dict()
-# create an instance of ListApps200Response from a dict
-list_apps200_response_form_dict = list_apps200_response.from_dict(list_apps200_response_dict)
+list_apps200_response_inner_dict = list_apps200_response_inner_instance.to_dict()
+# create an instance of ListApps200ResponseInner from a dict
+list_apps200_response_inner_form_dict = list_apps200_response_inner.from_dict(list_apps200_response_inner_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
