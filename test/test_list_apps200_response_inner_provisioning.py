@@ -16,11 +16,11 @@ import unittest
 import datetime
 
 import onelogin
-from onelogin.models.list_apps200_response_provisioning import ListApps200ResponseProvisioning  # noqa: E501
+from onelogin.models.list_apps200_response_inner_provisioning import ListApps200ResponseInnerProvisioning  # noqa: E501
 from onelogin.rest import ApiException
 
-class TestListApps200ResponseProvisioning(unittest.TestCase):
-    """ListApps200ResponseProvisioning unit test stubs"""
+class TestListApps200ResponseInnerProvisioning(unittest.TestCase):
+    """ListApps200ResponseInnerProvisioning unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,24 +29,24 @@ class TestListApps200ResponseProvisioning(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test ListApps200ResponseProvisioning
+        """Test ListApps200ResponseInnerProvisioning
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ListApps200ResponseProvisioning`
+        # uncomment below to create an instance of `ListApps200ResponseInnerProvisioning`
         """
-        model = onelogin.models.list_apps200_response_provisioning.ListApps200ResponseProvisioning()  # noqa: E501
+        model = onelogin.models.list_apps200_response_inner_provisioning.ListApps200ResponseInnerProvisioning()  # noqa: E501
         if include_optional :
-            return ListApps200ResponseProvisioning(
+            return ListApps200ResponseInnerProvisioning(
                 enabled = True
             )
         else :
-            return ListApps200ResponseProvisioning(
+            return ListApps200ResponseInnerProvisioning(
         )
         """
 
-    def testListApps200ResponseProvisioning(self):
-        """Test ListApps200ResponseProvisioning"""
+    def testListApps200ResponseInnerProvisioning(self):
+        """Test ListApps200ResponseInnerProvisioning"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

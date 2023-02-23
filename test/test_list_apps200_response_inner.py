@@ -16,11 +16,11 @@ import unittest
 import datetime
 
 import onelogin
-from onelogin.models.list_apps200_response import ListApps200Response  # noqa: E501
+from onelogin.models.list_apps200_response_inner import ListApps200ResponseInner  # noqa: E501
 from onelogin.rest import ApiException
 
-class TestListApps200Response(unittest.TestCase):
-    """ListApps200Response unit test stubs"""
+class TestListApps200ResponseInner(unittest.TestCase):
+    """ListApps200ResponseInner unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,15 +29,15 @@ class TestListApps200Response(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test ListApps200Response
+        """Test ListApps200ResponseInner
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ListApps200Response`
+        # uncomment below to create an instance of `ListApps200ResponseInner`
         """
-        model = onelogin.models.list_apps200_response.ListApps200Response()  # noqa: E501
+        model = onelogin.models.list_apps200_response_inner.ListApps200ResponseInner()  # noqa: E501
         if include_optional :
-            return ListApps200Response(
+            return ListApps200ResponseInner(
                 id = 1061937, 
                 connector_id = 50534, 
                 name = 'Amazon Web Services Multi-Role', 
@@ -55,16 +55,16 @@ class TestListApps200Response(unittest.TestCase):
                     56
                     ], 
                 allow_assumed_signin = True, 
-                provisioning = onelogin.models.list_apps_200_response_provisioning.listApps_200_response_provisioning(
+                provisioning = onelogin.models.list_apps_200_response_inner_provisioning.listApps_200_response_inner_provisioning(
                     enabled = True, )
             )
         else :
-            return ListApps200Response(
+            return ListApps200ResponseInner(
         )
         """
 
-    def testListApps200Response(self):
-        """Test ListApps200Response"""
+    def testListApps200ResponseInner(self):
+        """Test ListApps200ResponseInner"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
