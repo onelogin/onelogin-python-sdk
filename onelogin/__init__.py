@@ -14,7 +14,7 @@
 
 from __future__ import absolute_import
 
-__version__ = "3.1.1"
+__version__ = "3.1.2"
 
 # import apis into sdk package
 from onelogin.api.api_auth_claims_api import APIAuthClaimsApi
