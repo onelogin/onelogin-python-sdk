@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **create_auth_claim**
-> int create_auth_claim(content_type, api_auth_id, create_auth_claim_request=create_auth_claim_request)
+> int create_auth_claim(api_auth_id, content_type=content_type, auth_claim=auth_claim)
 
 Create Api Auth Server Claim
 
@@ -44,13 +44,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.APIAuthClaimsApi(api_client)
-    content_type = 'application/json' # str |  (default to 'application/json')
     api_auth_id = 'api_auth_id_example' # str | 
-    create_auth_claim_request = onelogin.CreateAuthClaimRequest() # CreateAuthClaimRequest |  (optional)
+    content_type = 'application/json' # str |  (optional) (default to 'application/json')
+    auth_claim = onelogin.AuthClaim() # AuthClaim |  (optional)
 
     try:
         # Create Api Auth Server Claim
-        api_response = api_instance.create_auth_claim(content_type, api_auth_id, create_auth_claim_request=create_auth_claim_request)
+        api_response = api_instance.create_auth_claim(api_auth_id, content_type=content_type, auth_claim=auth_claim)
         print("The response of APIAuthClaimsApi->create_auth_claim:\n")
         pprint(api_response)
     except Exception as e:
@@ -61,9 +61,9 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [default to &#39;application/json&#39;]
  **api_auth_id** | **str**|  | 
- **create_auth_claim_request** | [**CreateAuthClaimRequest**](CreateAuthClaimRequest.md)|  | [optional] 
+ **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
+ **auth_claim** | [**AuthClaim**](AuthClaim.md)|  | [optional] 
 
 ### Return type
 
@@ -164,7 +164,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_authclaims**
-> List[GetAuthclaims200ResponseInner] get_authclaims(api_auth_id, content_type=content_type)
+> List[TokenClaim] get_authclaims(api_auth_id, content_type=content_type)
 
 Get Api Auth Server claims
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[GetAuthclaims200ResponseInner]**](GetAuthclaims200ResponseInner.md)
+[**List[TokenClaim]**](TokenClaim.md)
 
 ### Authorization
 
@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_claim**
-> CreateScope200Response update_claim(content_type, api_auth_id, claim_id, create_auth_claim_request=create_auth_claim_request)
+> AuthId update_claim(api_auth_id, claim_id, content_type=content_type, auth_claim=auth_claim)
 
 Update Api Auth Server Claim
 
@@ -272,14 +272,14 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.APIAuthClaimsApi(api_client)
-    content_type = 'application/json' # str |  (default to 'application/json')
     api_auth_id = 'api_auth_id_example' # str | 
     claim_id = 56 # int | 
-    create_auth_claim_request = onelogin.CreateAuthClaimRequest() # CreateAuthClaimRequest |  (optional)
+    content_type = 'application/json' # str |  (optional) (default to 'application/json')
+    auth_claim = onelogin.AuthClaim() # AuthClaim |  (optional)
 
     try:
         # Update Api Auth Server Claim
-        api_response = api_instance.update_claim(content_type, api_auth_id, claim_id, create_auth_claim_request=create_auth_claim_request)
+        api_response = api_instance.update_claim(api_auth_id, claim_id, content_type=content_type, auth_claim=auth_claim)
         print("The response of APIAuthClaimsApi->update_claim:\n")
         pprint(api_response)
     except Exception as e:
@@ -290,14 +290,14 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [default to &#39;application/json&#39;]
  **api_auth_id** | **str**|  | 
  **claim_id** | **int**|  | 
- **create_auth_claim_request** | [**CreateAuthClaimRequest**](CreateAuthClaimRequest.md)|  | [optional] 
+ **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
+ **auth_claim** | [**AuthClaim**](AuthClaim.md)|  | [optional] 
 
 ### Return type
 
-[**CreateScope200Response**](CreateScope200Response.md)
+[**AuthId**](AuthId.md)
 
 ### Authorization
 

@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | [**GenerateToken400Response**](GenerateToken400Response.md) |  | [optional] 
+**status** | [**Error**](Error.md) |  | [optional] 
 **data** | [**List[GetEventTypes200ResponseDataInner]**](GetEventTypes200ResponseDataInner.md) |  | [optional] 
 
 ## Example

@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **add_privilege_to_role**
-> AddPrivilegeToRole201Response add_privilege_to_role(privilege_id, content_type=content_type, add_privilege_to_role_request=add_privilege_to_role_request)
+> AddPrivilegeToRole201Response add_privilege_to_role(privilege_id, add_privilege_to_role_request=add_privilege_to_role_request)
 
 Assign a Privilege to Roles
 
@@ -52,12 +52,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     add_privilege_to_role_request = onelogin.AddPrivilegeToRoleRequest() # AddPrivilegeToRoleRequest |  (optional)
 
     try:
         # Assign a Privilege to Roles
-        api_response = api_instance.add_privilege_to_role(privilege_id, content_type=content_type, add_privilege_to_role_request=add_privilege_to_role_request)
+        api_response = api_instance.add_privilege_to_role(privilege_id, add_privilege_to_role_request=add_privilege_to_role_request)
         print("The response of PrivilegesApi->add_privilege_to_role:\n")
         pprint(api_response)
     except Exception as e:
@@ -69,7 +68,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **add_privilege_to_role_request** | [**AddPrivilegeToRoleRequest**](AddPrivilegeToRoleRequest.md)|  | [optional] 
 
 ### Return type
@@ -95,7 +93,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assign_users_to_privilege**
-> AddPrivilegeToRole201Response assign_users_to_privilege(privilege_id, content_type=content_type, assign_users_to_privilege_request=assign_users_to_privilege_request)
+> AddPrivilegeToRole201Response assign_users_to_privilege(privilege_id, assign_users_to_privilege_request=assign_users_to_privilege_request)
 
 Assign Users to a Privilege
 
@@ -129,12 +127,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     assign_users_to_privilege_request = onelogin.AssignUsersToPrivilegeRequest() # AssignUsersToPrivilegeRequest |  (optional)
 
     try:
         # Assign Users to a Privilege
-        api_response = api_instance.assign_users_to_privilege(privilege_id, content_type=content_type, assign_users_to_privilege_request=assign_users_to_privilege_request)
+        api_response = api_instance.assign_users_to_privilege(privilege_id, assign_users_to_privilege_request=assign_users_to_privilege_request)
         print("The response of PrivilegesApi->assign_users_to_privilege:\n")
         pprint(api_response)
     except Exception as e:
@@ -146,7 +143,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **assign_users_to_privilege_request** | [**AssignUsersToPrivilegeRequest**](AssignUsersToPrivilegeRequest.md)|  | [optional] 
 
 ### Return type
@@ -172,7 +168,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_privilege**
-> CreatePrivilege200Response create_privilege(content_type=content_type, list_priveleges200_response_inner=list_priveleges200_response_inner)
+> CreatePrivilege200Response create_privilege(privilege=privilege)
 
 Create a Privilege
 
@@ -205,12 +201,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    list_priveleges200_response_inner = {"name":"User Helpdesk","description":"Can administer helpdesk users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # ListPriveleges200ResponseInner |  (optional)
+    privilege = {"name":"User Helpdesk","description":"Can administer helpdesk users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # Privilege |  (optional)
 
     try:
         # Create a Privilege
-        api_response = api_instance.create_privilege(content_type=content_type, list_priveleges200_response_inner=list_priveleges200_response_inner)
+        api_response = api_instance.create_privilege(privilege=privilege)
         print("The response of PrivilegesApi->create_privilege:\n")
         pprint(api_response)
     except Exception as e:
@@ -221,8 +216,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **list_priveleges200_response_inner** | [**ListPriveleges200ResponseInner**](ListPriveleges200ResponseInner.md)|  | [optional] 
+ **privilege** | [**Privilege**](Privilege.md)|  | [optional] 
 
 ### Return type
 
@@ -247,7 +241,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_privilege**
-> delete_privilege(privilege_id, content_type=content_type)
+> delete_privilege(privilege_id)
 
 Delete a Privilege
 
@@ -281,11 +275,10 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # Delete a Privilege
-        api_instance.delete_privilege(privilege_id, content_type=content_type)
+        api_instance.delete_privilege(privilege_id)
     except Exception as e:
         print("Exception when calling PrivilegesApi->delete_privilege: %s\n" % e)
 ```
@@ -295,7 +288,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
 
 ### Return type
 
@@ -320,7 +312,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_role_from_privilege**
-> delete_role_from_privilege(privilege_id, role_id, content_type=content_type)
+> delete_role_from_privilege(privilege_id, role_id)
 
 Remove a Privilege from a Role
 
@@ -354,12 +346,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
-    role_id = 'role_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
 
     try:
         # Remove a Privilege from a Role
-        api_instance.delete_role_from_privilege(privilege_id, role_id, content_type=content_type)
+        api_instance.delete_role_from_privilege(privilege_id, role_id)
     except Exception as e:
         print("Exception when calling PrivilegesApi->delete_role_from_privilege: %s\n" % e)
 ```
@@ -369,8 +360,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
- **role_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
+ **role_id** | **str**| Set to the id of the role you want to return. | 
 
 ### Return type
 
@@ -395,7 +385,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_assigned_user**
-> GetAssignedUser200Response get_assigned_user(privilege_id, content_type=content_type)
+> GetAssignedUser200Response get_assigned_user(privilege_id)
 
 Get Users assigned to a Privilege
 
@@ -429,11 +419,10 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # Get Users assigned to a Privilege
-        api_response = api_instance.get_assigned_user(privilege_id, content_type=content_type)
+        api_response = api_instance.get_assigned_user(privilege_id)
         print("The response of PrivilegesApi->get_assigned_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -445,7 +434,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
 
 ### Return type
 
@@ -470,7 +458,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_privilege**
-> ListPriveleges200ResponseInner get_privilege(privilege_id, content_type=content_type)
+> Privilege get_privilege(privilege_id)
 
 Get a Privilege
 
@@ -504,11 +492,10 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # Get a Privilege
-        api_response = api_instance.get_privilege(privilege_id, content_type=content_type)
+        api_response = api_instance.get_privilege(privilege_id)
         print("The response of PrivilegesApi->get_privilege:\n")
         pprint(api_response)
     except Exception as e:
@@ -520,11 +507,10 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
 
 ### Return type
 
-[**ListPriveleges200ResponseInner**](ListPriveleges200ResponseInner.md)
+[**Privilege**](Privilege.md)
 
 ### Authorization
 
@@ -545,7 +531,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_privelege_roles**
-> ListPrivelegeRoles200Response list_privelege_roles(privilege_id, content_type=content_type)
+> ListPrivelegeRoles200Response list_privelege_roles(privilege_id)
 
 Get Roles assigned to Privilege
 
@@ -579,11 +565,10 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # Get Roles assigned to Privilege
-        api_response = api_instance.list_privelege_roles(privilege_id, content_type=content_type)
+        api_response = api_instance.list_privelege_roles(privilege_id)
         print("The response of PrivilegesApi->list_privelege_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -595,7 +580,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
 
 ### Return type
 
@@ -620,7 +604,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_priveleges**
-> List[ListPriveleges200ResponseInner] list_priveleges(content_type=content_type)
+> List[Privilege] list_priveleges()
 
 List Privileges
 
@@ -653,11 +637,10 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # List Privileges
-        api_response = api_instance.list_priveleges(content_type=content_type)
+        api_response = api_instance.list_priveleges()
         print("The response of PrivilegesApi->list_priveleges:\n")
         pprint(api_response)
     except Exception as e:
@@ -665,14 +648,11 @@ with onelogin.ApiClient(configuration) as api_client:
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**List[ListPriveleges200ResponseInner]**](ListPriveleges200ResponseInner.md)
+[**List[Privilege]**](Privilege.md)
 
 ### Authorization
 
@@ -692,7 +672,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_user_from_privilege**
-> remove_user_from_privilege(privilege_id, user_id, content_type=content_type)
+> remove_user_from_privilege(privilege_id, user_id)
 
 Remove a Privilege from Users
 
@@ -727,11 +707,10 @@ with onelogin.ApiClient(configuration) as api_client:
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # Remove a Privilege from Users
-        api_instance.remove_user_from_privilege(privilege_id, user_id, content_type=content_type)
+        api_instance.remove_user_from_privilege(privilege_id, user_id)
     except Exception as e:
         print("Exception when calling PrivilegesApi->remove_user_from_privilege: %s\n" % e)
 ```
@@ -742,7 +721,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
 
 ### Return type
 
@@ -767,7 +745,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_privilege**
-> UpdatePrivilege200Response update_privilege(privilege_id, content_type=content_type, list_priveleges200_response_inner=list_priveleges200_response_inner)
+> UpdatePrivilege200Response update_privilege(privilege_id, privilege=privilege)
 
 Update a Privilege
 
@@ -801,12 +779,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.PrivilegesApi(api_client)
     privilege_id = 'privilege_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    list_priveleges200_response_inner = {"name":"User Administrator","description":"Can administer users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # ListPriveleges200ResponseInner |  (optional)
+    privilege = {"name":"User Administrator","description":"Can administer users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # Privilege |  (optional)
 
     try:
         # Update a Privilege
-        api_response = api_instance.update_privilege(privilege_id, content_type=content_type, list_priveleges200_response_inner=list_priveleges200_response_inner)
+        api_response = api_instance.update_privilege(privilege_id, privilege=privilege)
         print("The response of PrivilegesApi->update_privilege:\n")
         pprint(api_response)
     except Exception as e:
@@ -818,8 +795,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **privilege_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **list_priveleges200_response_inner** | [**ListPriveleges200ResponseInner**](ListPriveleges200ResponseInner.md)|  | [optional] 
+ **privilege** | [**Privilege**](Privilege.md)|  | [optional] 
 
 ### Return type
 

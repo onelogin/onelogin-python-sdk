@@ -38,7 +38,7 @@ class TestGenerateSamlAssert200Response(unittest.TestCase):
         model = onelogin.models.generate_saml_assert200_response.GenerateSamlAssert200Response()  # noqa: E501
         if include_optional :
             return GenerateSamlAssert200Response(
-                status = onelogin.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.error.Error(
                     error = False, 
                     code = 200, 
                     type = 'Success', 

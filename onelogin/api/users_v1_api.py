@@ -22,16 +22,16 @@ from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import Dict, List, Optional
 
 from onelogin.models.add_roles_to_user_request import AddRolesToUserRequest
-from onelogin.models.generate_token400_response import GenerateToken400Response
+from onelogin.models.error import Error
 from onelogin.models.get_custom_attributes200_response import GetCustomAttributes200Response
 from onelogin.models.get_user_apps200_response_inner import GetUserApps200ResponseInner
 from onelogin.models.get_user_roles200_response import GetUserRoles200Response
-from onelogin.models.list_users200_response_inner import ListUsers200ResponseInner
 from onelogin.models.lock_account_user_request import LockAccountUserRequest
 from onelogin.models.remove_user_role_request import RemoveUserRoleRequest
 from onelogin.models.set_user_state_request import SetUserStateRequest
 from onelogin.models.update_password_insecure_request import UpdatePasswordInsecureRequest
 from onelogin.models.update_password_secure_request import UpdatePasswordSecureRequest
+from onelogin.models.user import User
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -53,20 +53,18 @@ class UsersV1Api(object):
         self.api_client = api_client
 
     @validate_arguments
-    def add_roles_to_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, add_roles_to_user_request : Optional[AddRolesToUserRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def add_roles_to_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], add_roles_to_user_request : Optional[AddRolesToUserRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Add Roles for a User  # noqa: E501
 
         Add Roles for a User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.add_roles_to_user(user_id, content_type, add_roles_to_user_request, async_req=True)
+        >>> thread = api.add_roles_to_user(user_id, add_roles_to_user_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param add_roles_to_user_request:
         :type add_roles_to_user_request: AddRolesToUserRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -82,26 +80,24 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
-        return self.add_roles_to_user_with_http_info(user_id, content_type, add_roles_to_user_request, **kwargs)  # noqa: E501
+        return self.add_roles_to_user_with_http_info(user_id, add_roles_to_user_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_roles_to_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, add_roles_to_user_request : Optional[AddRolesToUserRequest] = None, **kwargs):  # noqa: E501
+    def add_roles_to_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], add_roles_to_user_request : Optional[AddRolesToUserRequest] = None, **kwargs):  # noqa: E501
         """Add Roles for a User  # noqa: E501
 
         Add Roles for a User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.add_roles_to_user_with_http_info(user_id, content_type, add_roles_to_user_request, async_req=True)
+        >>> thread = api.add_roles_to_user_with_http_info(user_id, add_roles_to_user_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param add_roles_to_user_request:
         :type add_roles_to_user_request: AddRolesToUserRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -125,14 +121,13 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'user_id',
-            'content_type',
             'add_roles_to_user_request'
         ]
         _all_params.extend(
@@ -169,8 +164,6 @@ class UsersV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -196,11 +189,11 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -221,22 +214,22 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def create_user(self, list_users200_response_inner : ListUsers200ResponseInner, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, **kwargs) -> ListUsers200ResponseInner:  # noqa: E501
+    def create_user(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> User:  # noqa: E501
         """Create a User  # noqa: E501
 
         Create a User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_user(list_users200_response_inner, mappings, validate_policy, async_req=True)
+        >>> thread = api.create_user(mappings, validate_policy, user, async_req=True)
         >>> result = thread.get()
 
-        :param list_users200_response_inner: (required)
-        :type list_users200_response_inner: ListUsers200ResponseInner
         :param mappings: Controls how mappings will be applied to the user on creation. Defaults to async.
         :type mappings: str
         :param validate_policy: Will passwords validate against the User Policy? Defaults to true.
         :type validate_policy: bool
+        :param user:
+        :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -250,28 +243,28 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListUsers200ResponseInner
+        :rtype: User
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_user_with_http_info(list_users200_response_inner, mappings, validate_policy, **kwargs)  # noqa: E501
+        return self.create_user_with_http_info(mappings, validate_policy, user, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_user_with_http_info(self, list_users200_response_inner : ListUsers200ResponseInner, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, **kwargs):  # noqa: E501
+    def create_user_with_http_info(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs):  # noqa: E501
         """Create a User  # noqa: E501
 
         Create a User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_user_with_http_info(list_users200_response_inner, mappings, validate_policy, async_req=True)
+        >>> thread = api.create_user_with_http_info(mappings, validate_policy, user, async_req=True)
         >>> result = thread.get()
 
-        :param list_users200_response_inner: (required)
-        :type list_users200_response_inner: ListUsers200ResponseInner
         :param mappings: Controls how mappings will be applied to the user on creation. Defaults to async.
         :type mappings: str
         :param validate_policy: Will passwords validate against the User Policy? Defaults to true.
         :type validate_policy: bool
+        :param user:
+        :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -293,15 +286,15 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListUsers200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(User, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
-            'list_users200_response_inner',
             'mappings',
-            'validate_policy'
+            'validate_policy',
+            'user'
         ]
         _all_params.extend(
             [
@@ -346,8 +339,8 @@ class UsersV1Api(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_users200_response_inner']:
-            _body_params = _params['list_users200_response_inner']
+        if _params['user']:
+            _body_params = _params['user']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -364,10 +357,10 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '201': "ListUsers200ResponseInner",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '201': "User",
+            '400': "Error",
+            '401': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(
@@ -645,8 +638,8 @@ class UsersV1Api(object):
 
         _response_types_map = {
             '200': "GetCustomAttributes200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -797,8 +790,8 @@ class UsersV1Api(object):
 
         _response_types_map = {
             '200': "List[GetUserApps200ResponseInner]",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -819,7 +812,7 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_user_by_id(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ListUsers200ResponseInner:  # noqa: E501
+    def get_user_by_id(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> User:  # noqa: E501
         """Get User by ID  # noqa: E501
 
         Get User By ID  # noqa: E501
@@ -844,7 +837,7 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListUsers200ResponseInner
+        :rtype: User
         """
         kwargs['_return_http_data_only'] = True
         return self.get_user_by_id_with_http_info(user_id, **kwargs)  # noqa: E501
@@ -883,7 +876,7 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListUsers200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(User, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -941,9 +934,9 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListUsers200ResponseInner",
-            '400': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "User",
+            '400': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -1087,10 +1080,10 @@ class UsersV1Api(object):
 
         _response_types_map = {
             '200': "GetUserRoles200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -1111,7 +1104,7 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_users(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="A comma separated list user attributes to return.")] = None, **kwargs) -> List[ListUsers200ResponseInner]:  # noqa: E501
+    def list_users(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs) -> List[User]:  # noqa: E501
         """List Users  # noqa: E501
 
         List Users  # noqa: E501
@@ -1157,7 +1150,7 @@ class UsersV1Api(object):
         :type user_ids: str
         :param custom_attributes_attribute_name: The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.
         :type custom_attributes_attribute_name: str
-        :param fields: A comma separated list user attributes to return.
+        :param fields: Optional. Comma delimited list of fields to return.
         :type fields: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1172,13 +1165,13 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListUsers200ResponseInner]
+        :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
         return self.list_users_with_http_info(limit, page, cursor, created_since, created_until, updated_since, updated_until, last_login_since, last_login_until, firstname, lastname, email, username, samaccountname, directory_id, external_id, user_ids, custom_attributes_attribute_name, fields, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_users_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="A comma separated list user attributes to return.")] = None, **kwargs):  # noqa: E501
+    def list_users_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs):  # noqa: E501
         """List Users  # noqa: E501
 
         List Users  # noqa: E501
@@ -1224,7 +1217,7 @@ class UsersV1Api(object):
         :type user_ids: str
         :param custom_attributes_attribute_name: The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.
         :type custom_attributes_attribute_name: str
-        :param fields: A comma separated list user attributes to return.
+        :param fields: Optional. Comma delimited list of fields to return.
         :type fields: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1247,7 +1240,7 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListUsers200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[User], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1359,10 +1352,10 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListUsers200ResponseInner]",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '200': "List[User]",
+            '400': "Error",
+            '401': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(
@@ -1383,20 +1376,18 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def lock_account_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, lock_account_user_request : Optional[LockAccountUserRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def lock_account_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], lock_account_user_request : Optional[LockAccountUserRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Lock User Account  # noqa: E501
 
         Lock User Account  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.lock_account_user(user_id, content_type, lock_account_user_request, async_req=True)
+        >>> thread = api.lock_account_user(user_id, lock_account_user_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param lock_account_user_request:
         :type lock_account_user_request: LockAccountUserRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1412,26 +1403,24 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
-        return self.lock_account_user_with_http_info(user_id, content_type, lock_account_user_request, **kwargs)  # noqa: E501
+        return self.lock_account_user_with_http_info(user_id, lock_account_user_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def lock_account_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, lock_account_user_request : Optional[LockAccountUserRequest] = None, **kwargs):  # noqa: E501
+    def lock_account_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], lock_account_user_request : Optional[LockAccountUserRequest] = None, **kwargs):  # noqa: E501
         """Lock User Account  # noqa: E501
 
         Lock User Account  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.lock_account_user_with_http_info(user_id, content_type, lock_account_user_request, async_req=True)
+        >>> thread = api.lock_account_user_with_http_info(user_id, lock_account_user_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param lock_account_user_request:
         :type lock_account_user_request: LockAccountUserRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1455,14 +1444,13 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'user_id',
-            'content_type',
             'lock_account_user_request'
         ]
         _all_params.extend(
@@ -1499,8 +1487,6 @@ class UsersV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1526,11 +1512,11 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -1551,7 +1537,7 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def log_out_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], body : Optional[Dict[str, StrictStr]] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def log_out_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], body : Optional[Dict[str, StrictStr]] = None, **kwargs) -> Error:  # noqa: E501
         """Log User Out  # noqa: E501
 
         Log Out User  # noqa: E501
@@ -1578,7 +1564,7 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
         return self.log_out_user_with_http_info(user_id, body, **kwargs)  # noqa: E501
@@ -1619,7 +1605,7 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1687,11 +1673,11 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -1712,20 +1698,18 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def remove_user_role(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, remove_user_role_request : Optional[RemoveUserRoleRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def remove_user_role(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], remove_user_role_request : Optional[RemoveUserRoleRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Remove Roles for a User  # noqa: E501
 
         Remove Roles for a User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.remove_user_role(user_id, content_type, remove_user_role_request, async_req=True)
+        >>> thread = api.remove_user_role(user_id, remove_user_role_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param remove_user_role_request:
         :type remove_user_role_request: RemoveUserRoleRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1741,26 +1725,24 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
-        return self.remove_user_role_with_http_info(user_id, content_type, remove_user_role_request, **kwargs)  # noqa: E501
+        return self.remove_user_role_with_http_info(user_id, remove_user_role_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def remove_user_role_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, remove_user_role_request : Optional[RemoveUserRoleRequest] = None, **kwargs):  # noqa: E501
+    def remove_user_role_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], remove_user_role_request : Optional[RemoveUserRoleRequest] = None, **kwargs):  # noqa: E501
         """Remove Roles for a User  # noqa: E501
 
         Remove Roles for a User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.remove_user_role_with_http_info(user_id, content_type, remove_user_role_request, async_req=True)
+        >>> thread = api.remove_user_role_with_http_info(user_id, remove_user_role_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param remove_user_role_request:
         :type remove_user_role_request: RemoveUserRoleRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1784,14 +1766,13 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'user_id',
-            'content_type',
             'remove_user_role_request'
         ]
         _all_params.extend(
@@ -1828,8 +1809,6 @@ class UsersV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1855,11 +1834,11 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -1880,20 +1859,18 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def set_user_state(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, set_user_state_request : Optional[SetUserStateRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def set_user_state(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], set_user_state_request : Optional[SetUserStateRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Set User State  # noqa: E501
 
         Set User State  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.set_user_state(user_id, content_type, set_user_state_request, async_req=True)
+        >>> thread = api.set_user_state(user_id, set_user_state_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param set_user_state_request:
         :type set_user_state_request: SetUserStateRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1909,26 +1886,24 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
-        return self.set_user_state_with_http_info(user_id, content_type, set_user_state_request, **kwargs)  # noqa: E501
+        return self.set_user_state_with_http_info(user_id, set_user_state_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def set_user_state_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, set_user_state_request : Optional[SetUserStateRequest] = None, **kwargs):  # noqa: E501
+    def set_user_state_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], set_user_state_request : Optional[SetUserStateRequest] = None, **kwargs):  # noqa: E501
         """Set User State  # noqa: E501
 
         Set User State  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.set_user_state_with_http_info(user_id, content_type, set_user_state_request, async_req=True)
+        >>> thread = api.set_user_state_with_http_info(user_id, set_user_state_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param set_user_state_request:
         :type set_user_state_request: SetUserStateRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1952,14 +1927,13 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'user_id',
-            'content_type',
             'set_user_state_request'
         ]
         _all_params.extend(
@@ -1996,8 +1970,6 @@ class UsersV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -2023,11 +1995,11 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -2048,20 +2020,18 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_password_insecure(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, update_password_insecure_request : Optional[UpdatePasswordInsecureRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def update_password_insecure(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], update_password_insecure_request : Optional[UpdatePasswordInsecureRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Set Password Using ID in Cleartext  # noqa: E501
 
         Update User password using their ID. This is done in cleartext and is insecure.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_password_insecure(user_id, content_type, update_password_insecure_request, async_req=True)
+        >>> thread = api.update_password_insecure(user_id, update_password_insecure_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param update_password_insecure_request:
         :type update_password_insecure_request: UpdatePasswordInsecureRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -2077,26 +2047,24 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_password_insecure_with_http_info(user_id, content_type, update_password_insecure_request, **kwargs)  # noqa: E501
+        return self.update_password_insecure_with_http_info(user_id, update_password_insecure_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_password_insecure_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, update_password_insecure_request : Optional[UpdatePasswordInsecureRequest] = None, **kwargs):  # noqa: E501
+    def update_password_insecure_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], update_password_insecure_request : Optional[UpdatePasswordInsecureRequest] = None, **kwargs):  # noqa: E501
         """Set Password Using ID in Cleartext  # noqa: E501
 
         Update User password using their ID. This is done in cleartext and is insecure.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_password_insecure_with_http_info(user_id, content_type, update_password_insecure_request, async_req=True)
+        >>> thread = api.update_password_insecure_with_http_info(user_id, update_password_insecure_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param update_password_insecure_request:
         :type update_password_insecure_request: UpdatePasswordInsecureRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -2120,14 +2088,13 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'user_id',
-            'content_type',
             'update_password_insecure_request'
         ]
         _all_params.extend(
@@ -2164,8 +2131,6 @@ class UsersV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -2191,11 +2156,11 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -2216,20 +2181,18 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_password_secure(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, update_password_secure_request : Optional[UpdatePasswordSecureRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def update_password_secure(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], update_password_secure_request : Optional[UpdatePasswordSecureRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Set Password Using ID and SHA-256 and Salt  # noqa: E501
 
         Update User Password Using ID and SHA-256 with salt.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_password_secure(user_id, content_type, update_password_secure_request, async_req=True)
+        >>> thread = api.update_password_secure(user_id, update_password_secure_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param update_password_secure_request:
         :type update_password_secure_request: UpdatePasswordSecureRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -2245,26 +2208,24 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_password_secure_with_http_info(user_id, content_type, update_password_secure_request, **kwargs)  # noqa: E501
+        return self.update_password_secure_with_http_info(user_id, update_password_secure_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_password_secure_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, update_password_secure_request : Optional[UpdatePasswordSecureRequest] = None, **kwargs):  # noqa: E501
+    def update_password_secure_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], update_password_secure_request : Optional[UpdatePasswordSecureRequest] = None, **kwargs):  # noqa: E501
         """Set Password Using ID and SHA-256 and Salt  # noqa: E501
 
         Update User Password Using ID and SHA-256 with salt.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_password_secure_with_http_info(user_id, content_type, update_password_secure_request, async_req=True)
+        >>> thread = api.update_password_secure_with_http_info(user_id, update_password_secure_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param update_password_secure_request:
         :type update_password_secure_request: UpdatePasswordSecureRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -2288,14 +2249,13 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'user_id',
-            'content_type',
             'update_password_secure_request'
         ]
         _all_params.extend(
@@ -2332,8 +2292,6 @@ class UsersV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -2359,11 +2317,11 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -2384,20 +2342,20 @@ class UsersV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], list_users200_response_inner : ListUsers200ResponseInner, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, **kwargs) -> ListUsers200ResponseInner:  # noqa: E501
+    def update_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], user : User, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, **kwargs) -> User:  # noqa: E501
         """Update a User  # noqa: E501
 
         Update a User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_user(user_id, list_users200_response_inner, mappings, validate_policy, async_req=True)
+        >>> thread = api.update_user(user_id, user, mappings, validate_policy, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param list_users200_response_inner: (required)
-        :type list_users200_response_inner: ListUsers200ResponseInner
+        :param user: (required)
+        :type user: User
         :param mappings: Controls how mappings will be applied to the user on creation. Defaults to async.
         :type mappings: str
         :param validate_policy: Will passwords validate against the User Policy? Defaults to true.
@@ -2415,26 +2373,26 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListUsers200ResponseInner
+        :rtype: User
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_user_with_http_info(user_id, list_users200_response_inner, mappings, validate_policy, **kwargs)  # noqa: E501
+        return self.update_user_with_http_info(user_id, user, mappings, validate_policy, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], list_users200_response_inner : ListUsers200ResponseInner, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, **kwargs):  # noqa: E501
+    def update_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], user : User, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, **kwargs):  # noqa: E501
         """Update a User  # noqa: E501
 
         Update a User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_user_with_http_info(user_id, list_users200_response_inner, mappings, validate_policy, async_req=True)
+        >>> thread = api.update_user_with_http_info(user_id, user, mappings, validate_policy, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param list_users200_response_inner: (required)
-        :type list_users200_response_inner: ListUsers200ResponseInner
+        :param user: (required)
+        :type user: User
         :param mappings: Controls how mappings will be applied to the user on creation. Defaults to async.
         :type mappings: str
         :param validate_policy: Will passwords validate against the User Policy? Defaults to true.
@@ -2460,14 +2418,14 @@ class UsersV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListUsers200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(User, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'user_id',
-            'list_users200_response_inner',
+            'user',
             'mappings',
             'validate_policy'
         ]
@@ -2516,8 +2474,8 @@ class UsersV1Api(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_users200_response_inner']:
-            _body_params = _params['list_users200_response_inner']
+        if _params['user']:
+            _body_params = _params['user']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -2534,11 +2492,11 @@ class UsersV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListUsers200ResponseInner",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '200': "User",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(

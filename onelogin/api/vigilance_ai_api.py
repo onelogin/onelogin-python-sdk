@@ -24,7 +24,7 @@ from typing import List, Optional
 from onelogin.models.get_risk_score200_response import GetRiskScore200Response
 from onelogin.models.get_risk_score_request import GetRiskScoreRequest
 from onelogin.models.get_risk_scores200_response import GetRiskScores200Response
-from onelogin.models.list_risk_rules200_response_inner import ListRiskRules200ResponseInner
+from onelogin.models.risk_rule import RiskRule
 from onelogin.models.track_risk_event_request import TrackRiskEventRequest
 from onelogin.models.update_risk_rule_request import UpdateRiskRuleRequest
 
@@ -48,20 +48,18 @@ class VigilanceAIApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_risk_rule(self, list_risk_rules200_response_inner : ListRiskRules200ResponseInner, content_type : Optional[StrictStr] = None, **kwargs) -> ListRiskRules200ResponseInner:  # noqa: E501
+    def create_risk_rule(self, risk_rule : Optional[RiskRule] = None, **kwargs) -> RiskRule:  # noqa: E501
         """Create Rule  # noqa: E501
 
         Create Vigilance AI (Risk Service) Rule  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_risk_rule(list_risk_rules200_response_inner, content_type, async_req=True)
+        >>> thread = api.create_risk_rule(risk_rule, async_req=True)
         >>> result = thread.get()
 
-        :param list_risk_rules200_response_inner: (required)
-        :type list_risk_rules200_response_inner: ListRiskRules200ResponseInner
-        :param content_type:
-        :type content_type: str
+        :param risk_rule:
+        :type risk_rule: RiskRule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -75,26 +73,24 @@ class VigilanceAIApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListRiskRules200ResponseInner
+        :rtype: RiskRule
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_risk_rule_with_http_info(list_risk_rules200_response_inner, content_type, **kwargs)  # noqa: E501
+        return self.create_risk_rule_with_http_info(risk_rule, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_risk_rule_with_http_info(self, list_risk_rules200_response_inner : ListRiskRules200ResponseInner, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def create_risk_rule_with_http_info(self, risk_rule : Optional[RiskRule] = None, **kwargs):  # noqa: E501
         """Create Rule  # noqa: E501
 
         Create Vigilance AI (Risk Service) Rule  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_risk_rule_with_http_info(list_risk_rules200_response_inner, content_type, async_req=True)
+        >>> thread = api.create_risk_rule_with_http_info(risk_rule, async_req=True)
         >>> result = thread.get()
 
-        :param list_risk_rules200_response_inner: (required)
-        :type list_risk_rules200_response_inner: ListRiskRules200ResponseInner
-        :param content_type:
-        :type content_type: str
+        :param risk_rule:
+        :type risk_rule: RiskRule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -116,14 +112,13 @@ class VigilanceAIApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListRiskRules200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(RiskRule, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
-            'list_risk_rules200_response_inner',
-            'content_type'
+            'risk_rule'
         ]
         _all_params.extend(
             [
@@ -157,8 +152,6 @@ class VigilanceAIApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -166,8 +159,8 @@ class VigilanceAIApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_risk_rules200_response_inner']:
-            _body_params = _params['list_risk_rules200_response_inner']
+        if _params['risk_rule']:
+            _body_params = _params['risk_rule']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -184,9 +177,9 @@ class VigilanceAIApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '201': "ListRiskRules200ResponseInner",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '201': "RiskRule",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -348,7 +341,7 @@ class VigilanceAIApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_risk_rule(self, rule_id : StrictStr, **kwargs) -> ListRiskRules200ResponseInner:  # noqa: E501
+    def get_risk_rule(self, rule_id : StrictStr, **kwargs) -> RiskRule:  # noqa: E501
         """get Risk Rule  # noqa: E501
 
         Use this API to return a single rule that has been created in the Risk Sevice.  # noqa: E501
@@ -373,7 +366,7 @@ class VigilanceAIApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListRiskRules200ResponseInner
+        :rtype: RiskRule
         """
         kwargs['_return_http_data_only'] = True
         return self.get_risk_rule_with_http_info(rule_id, **kwargs)  # noqa: E501
@@ -412,7 +405,7 @@ class VigilanceAIApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListRiskRules200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(RiskRule, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -470,8 +463,8 @@ class VigilanceAIApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListRiskRules200ResponseInner",
-            '401': "GenerateToken400Response",
+            '200': "RiskRule",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -492,20 +485,18 @@ class VigilanceAIApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_risk_score(self, get_risk_score_request : GetRiskScoreRequest, content_type : Optional[StrictStr] = None, before : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.")] = None, after : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.")] = None, **kwargs) -> GetRiskScore200Response:  # noqa: E501
+    def get_risk_score(self, get_risk_score_request : GetRiskScoreRequest, before : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.")] = None, after : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.")] = None, **kwargs) -> GetRiskScore200Response:  # noqa: E501
         """Get a Risk Score  # noqa: E501
 
         Get Vigilance AI (Risk Service) Score  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_risk_score(get_risk_score_request, content_type, before, after, async_req=True)
+        >>> thread = api.get_risk_score(get_risk_score_request, before, after, async_req=True)
         >>> result = thread.get()
 
         :param get_risk_score_request: (required)
         :type get_risk_score_request: GetRiskScoreRequest
-        :param content_type:
-        :type content_type: str
         :param before: Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.
         :type before: str
         :param after: Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.
@@ -526,23 +517,21 @@ class VigilanceAIApi(object):
         :rtype: GetRiskScore200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.get_risk_score_with_http_info(get_risk_score_request, content_type, before, after, **kwargs)  # noqa: E501
+        return self.get_risk_score_with_http_info(get_risk_score_request, before, after, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_risk_score_with_http_info(self, get_risk_score_request : GetRiskScoreRequest, content_type : Optional[StrictStr] = None, before : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.")] = None, after : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.")] = None, **kwargs):  # noqa: E501
+    def get_risk_score_with_http_info(self, get_risk_score_request : GetRiskScoreRequest, before : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.")] = None, after : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.")] = None, **kwargs):  # noqa: E501
         """Get a Risk Score  # noqa: E501
 
         Get Vigilance AI (Risk Service) Score  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_risk_score_with_http_info(get_risk_score_request, content_type, before, after, async_req=True)
+        >>> thread = api.get_risk_score_with_http_info(get_risk_score_request, before, after, async_req=True)
         >>> result = thread.get()
 
         :param get_risk_score_request: (required)
         :type get_risk_score_request: GetRiskScoreRequest
-        :param content_type:
-        :type content_type: str
         :param before: Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.
         :type before: str
         :param after: Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.
@@ -575,7 +564,6 @@ class VigilanceAIApi(object):
 
         _all_params = [
             'get_risk_score_request',
-            'content_type',
             'before',
             'after'
         ]
@@ -615,8 +603,6 @@ class VigilanceAIApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -643,8 +629,8 @@ class VigilanceAIApi(object):
 
         _response_types_map = {
             '200': "GetRiskScore200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -665,18 +651,16 @@ class VigilanceAIApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_risk_scores(self, content_type : Optional[StrictStr] = None, **kwargs) -> GetRiskScores200Response:  # noqa: E501
+    def get_risk_scores(self, **kwargs) -> GetRiskScores200Response:  # noqa: E501
         """Get Score Summary  # noqa: E501
 
         Get Vigilance AI (Risk Service) Score Summary  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_risk_scores(content_type, async_req=True)
+        >>> thread = api.get_risk_scores(async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -693,21 +677,19 @@ class VigilanceAIApi(object):
         :rtype: GetRiskScores200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.get_risk_scores_with_http_info(content_type, **kwargs)  # noqa: E501
+        return self.get_risk_scores_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_risk_scores_with_http_info(self, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def get_risk_scores_with_http_info(self, **kwargs):  # noqa: E501
         """Get Score Summary  # noqa: E501
 
         Get Vigilance AI (Risk Service) Score Summary  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_risk_scores_with_http_info(content_type, async_req=True)
+        >>> thread = api.get_risk_scores_with_http_info(async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -735,7 +717,6 @@ class VigilanceAIApi(object):
         _params = locals()
 
         _all_params = [
-            'content_type'
         ]
         _all_params.extend(
             [
@@ -769,8 +750,6 @@ class VigilanceAIApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -788,7 +767,7 @@ class VigilanceAIApi(object):
 
         _response_types_map = {
             '200': "GetRiskScores200Response",
-            '401': "GenerateToken400Response",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -809,18 +788,16 @@ class VigilanceAIApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_risk_rules(self, content_type : Optional[StrictStr] = None, **kwargs) -> List[ListRiskRules200ResponseInner]:  # noqa: E501
+    def list_risk_rules(self, **kwargs) -> List[RiskRule]:  # noqa: E501
         """List Rules  # noqa: E501
 
         List Vigilance AI (Risk Service) Rules  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_risk_rules(content_type, async_req=True)
+        >>> thread = api.list_risk_rules(async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -834,24 +811,22 @@ class VigilanceAIApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListRiskRules200ResponseInner]
+        :rtype: List[RiskRule]
         """
         kwargs['_return_http_data_only'] = True
-        return self.list_risk_rules_with_http_info(content_type, **kwargs)  # noqa: E501
+        return self.list_risk_rules_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_risk_rules_with_http_info(self, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def list_risk_rules_with_http_info(self, **kwargs):  # noqa: E501
         """List Rules  # noqa: E501
 
         List Vigilance AI (Risk Service) Rules  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_risk_rules_with_http_info(content_type, async_req=True)
+        >>> thread = api.list_risk_rules_with_http_info(async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -873,13 +848,12 @@ class VigilanceAIApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListRiskRules200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[RiskRule], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
-            'content_type'
         ]
         _all_params.extend(
             [
@@ -913,8 +887,6 @@ class VigilanceAIApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -931,8 +903,8 @@ class VigilanceAIApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListRiskRules200ResponseInner]",
-            '401': "GenerateToken400Response",
+            '200': "List[RiskRule]",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -953,20 +925,18 @@ class VigilanceAIApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def track_risk_event(self, track_risk_event_request : TrackRiskEventRequest, content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
+    def track_risk_event(self, track_risk_event_request : TrackRiskEventRequest, **kwargs) -> None:  # noqa: E501
         """Track an Event  # noqa: E501
 
         Track Vigilance AI (Risk Service) Event  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.track_risk_event(track_risk_event_request, content_type, async_req=True)
+        >>> thread = api.track_risk_event(track_risk_event_request, async_req=True)
         >>> result = thread.get()
 
         :param track_risk_event_request: (required)
         :type track_risk_event_request: TrackRiskEventRequest
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -983,23 +953,21 @@ class VigilanceAIApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.track_risk_event_with_http_info(track_risk_event_request, content_type, **kwargs)  # noqa: E501
+        return self.track_risk_event_with_http_info(track_risk_event_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def track_risk_event_with_http_info(self, track_risk_event_request : TrackRiskEventRequest, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def track_risk_event_with_http_info(self, track_risk_event_request : TrackRiskEventRequest, **kwargs):  # noqa: E501
         """Track an Event  # noqa: E501
 
         Track Vigilance AI (Risk Service) Event  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.track_risk_event_with_http_info(track_risk_event_request, content_type, async_req=True)
+        >>> thread = api.track_risk_event_with_http_info(track_risk_event_request, async_req=True)
         >>> result = thread.get()
 
         :param track_risk_event_request: (required)
         :type track_risk_event_request: TrackRiskEventRequest
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1027,8 +995,7 @@ class VigilanceAIApi(object):
         _params = locals()
 
         _all_params = [
-            'track_risk_event_request',
-            'content_type'
+            'track_risk_event_request'
         ]
         _all_params.extend(
             [
@@ -1062,8 +1029,6 @@ class VigilanceAIApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1108,7 +1073,7 @@ class VigilanceAIApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_risk_rule(self, rule_id : StrictStr, update_risk_rule_request : Optional[UpdateRiskRuleRequest] = None, **kwargs) -> ListRiskRules200ResponseInner:  # noqa: E501
+    def update_risk_rule(self, rule_id : StrictStr, update_risk_rule_request : Optional[UpdateRiskRuleRequest] = None, **kwargs) -> RiskRule:  # noqa: E501
         """Update Rule  # noqa: E501
 
         Update Vigilance AI (Risk Service) Rule  # noqa: E501
@@ -1135,7 +1100,7 @@ class VigilanceAIApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListRiskRules200ResponseInner
+        :rtype: RiskRule
         """
         kwargs['_return_http_data_only'] = True
         return self.update_risk_rule_with_http_info(rule_id, update_risk_rule_request, **kwargs)  # noqa: E501
@@ -1176,7 +1141,7 @@ class VigilanceAIApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListRiskRules200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(RiskRule, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1244,9 +1209,9 @@ class VigilanceAIApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListRiskRules200ResponseInner",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '200': "RiskRule",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(

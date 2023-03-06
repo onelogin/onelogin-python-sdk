@@ -168,9 +168,9 @@ class EventsApi(object):
 
         _response_types_map = {
             '200': "GetEventById200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -334,24 +334,24 @@ class EventsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_events(self, id : StrictInt, event_type_id : Optional[List[StrictInt]] = None, client_id : Optional[StrictInt] = None, directory_id : Optional[StrictInt] = None, created_at : Optional[StrictStr] = None, resolution : Optional[StrictStr] = None, since : Optional[StrictStr] = None, until : Optional[StrictStr] = None, user_id : Annotated[Optional[StrictInt], Field(description="Set to the id of the user that you want to return.")] = None, **kwargs) -> GetEvents200Response:  # noqa: E501
+    def get_events(self, event_type_id : Optional[List[StrictInt]] = None, client_id : Optional[StrictInt] = None, directory_id : Optional[StrictInt] = None, id : Optional[StrictInt] = None, created_at : Optional[StrictStr] = None, resolution : Optional[StrictStr] = None, since : Optional[StrictStr] = None, until : Optional[StrictStr] = None, user_id : Annotated[Optional[StrictInt], Field(description="Set to the id of the user that you want to return.")] = None, **kwargs) -> GetEvents200Response:  # noqa: E501
         """Get Events  # noqa: E501
 
         Get Events  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_events(id, event_type_id, client_id, directory_id, created_at, resolution, since, until, user_id, async_req=True)
+        >>> thread = api.get_events(event_type_id, client_id, directory_id, id, created_at, resolution, since, until, user_id, async_req=True)
         >>> result = thread.get()
 
-        :param id: (required)
-        :type id: int
         :param event_type_id:
         :type event_type_id: List[int]
         :param client_id:
         :type client_id: int
         :param directory_id:
         :type directory_id: int
+        :param id:
+        :type id: int
         :param created_at:
         :type created_at: str
         :param resolution:
@@ -378,27 +378,27 @@ class EventsApi(object):
         :rtype: GetEvents200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.get_events_with_http_info(id, event_type_id, client_id, directory_id, created_at, resolution, since, until, user_id, **kwargs)  # noqa: E501
+        return self.get_events_with_http_info(event_type_id, client_id, directory_id, id, created_at, resolution, since, until, user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_events_with_http_info(self, id : StrictInt, event_type_id : Optional[List[StrictInt]] = None, client_id : Optional[StrictInt] = None, directory_id : Optional[StrictInt] = None, created_at : Optional[StrictStr] = None, resolution : Optional[StrictStr] = None, since : Optional[StrictStr] = None, until : Optional[StrictStr] = None, user_id : Annotated[Optional[StrictInt], Field(description="Set to the id of the user that you want to return.")] = None, **kwargs):  # noqa: E501
+    def get_events_with_http_info(self, event_type_id : Optional[List[StrictInt]] = None, client_id : Optional[StrictInt] = None, directory_id : Optional[StrictInt] = None, id : Optional[StrictInt] = None, created_at : Optional[StrictStr] = None, resolution : Optional[StrictStr] = None, since : Optional[StrictStr] = None, until : Optional[StrictStr] = None, user_id : Annotated[Optional[StrictInt], Field(description="Set to the id of the user that you want to return.")] = None, **kwargs):  # noqa: E501
         """Get Events  # noqa: E501
 
         Get Events  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_events_with_http_info(id, event_type_id, client_id, directory_id, created_at, resolution, since, until, user_id, async_req=True)
+        >>> thread = api.get_events_with_http_info(event_type_id, client_id, directory_id, id, created_at, resolution, since, until, user_id, async_req=True)
         >>> result = thread.get()
 
-        :param id: (required)
-        :type id: int
         :param event_type_id:
         :type event_type_id: List[int]
         :param client_id:
         :type client_id: int
         :param directory_id:
         :type directory_id: int
+        :param id:
+        :type id: int
         :param created_at:
         :type created_at: str
         :param resolution:
@@ -436,10 +436,10 @@ class EventsApi(object):
         _params = locals()
 
         _all_params = [
-            'id',
             'event_type_id',
             'client_id',
             'directory_id',
+            'id',
             'created_at',
             'resolution',
             'since',
@@ -514,8 +514,8 @@ class EventsApi(object):
 
         _response_types_map = {
             '200': "GetEvents200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(

@@ -19,9 +19,9 @@ from typing_extensions import Annotated
 
 from typing import Optional
 
+from onelogin.models.alt_err import AltErr
+from onelogin.models.email_config import EmailConfig
 from onelogin.models.get_email_settings200_response import GetEmailSettings200Response
-from onelogin.models.get_email_settings200_response_one_of1 import GetEmailSettings200ResponseOneOf1
-from onelogin.models.get_scopes401_response import GetScopes401Response
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -43,7 +43,7 @@ class BrandingServiceSMTPApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def delete_email_settings(self, **kwargs) -> GetScopes401Response:  # noqa: E501
+    def delete_email_settings(self, **kwargs) -> AltErr:  # noqa: E501
         """Delete Custom Email Settings  # noqa: E501
 
         Reset Email Setting config  # noqa: E501
@@ -66,7 +66,7 @@ class BrandingServiceSMTPApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GetScopes401Response
+        :rtype: AltErr
         """
         kwargs['_return_http_data_only'] = True
         return self.delete_email_settings_with_http_info(**kwargs)  # noqa: E501
@@ -103,7 +103,7 @@ class BrandingServiceSMTPApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GetScopes401Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(AltErr, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -158,8 +158,8 @@ class BrandingServiceSMTPApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GetScopes401Response",
-            '401': "GetScopes401Response",
+            '200': "AltErr",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -296,7 +296,7 @@ class BrandingServiceSMTPApi(object):
 
         _response_types_map = {
             '200': "GetEmailSettings200Response",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -317,18 +317,18 @@ class BrandingServiceSMTPApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_email_settings(self, get_email_settings200_response_one_of1 : Optional[GetEmailSettings200ResponseOneOf1] = None, **kwargs) -> GetScopes401Response:  # noqa: E501
+    def update_email_settings(self, email_config : Optional[EmailConfig] = None, **kwargs) -> AltErr:  # noqa: E501
         """Update Email Settings  # noqa: E501
 
         Update Email Settings Config  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_email_settings(get_email_settings200_response_one_of1, async_req=True)
+        >>> thread = api.update_email_settings(email_config, async_req=True)
         >>> result = thread.get()
 
-        :param get_email_settings200_response_one_of1:
-        :type get_email_settings200_response_one_of1: GetEmailSettings200ResponseOneOf1
+        :param email_config:
+        :type email_config: EmailConfig
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -342,24 +342,24 @@ class BrandingServiceSMTPApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GetScopes401Response
+        :rtype: AltErr
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_email_settings_with_http_info(get_email_settings200_response_one_of1, **kwargs)  # noqa: E501
+        return self.update_email_settings_with_http_info(email_config, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_email_settings_with_http_info(self, get_email_settings200_response_one_of1 : Optional[GetEmailSettings200ResponseOneOf1] = None, **kwargs):  # noqa: E501
+    def update_email_settings_with_http_info(self, email_config : Optional[EmailConfig] = None, **kwargs):  # noqa: E501
         """Update Email Settings  # noqa: E501
 
         Update Email Settings Config  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_email_settings_with_http_info(get_email_settings200_response_one_of1, async_req=True)
+        >>> thread = api.update_email_settings_with_http_info(email_config, async_req=True)
         >>> result = thread.get()
 
-        :param get_email_settings200_response_one_of1:
-        :type get_email_settings200_response_one_of1: GetEmailSettings200ResponseOneOf1
+        :param email_config:
+        :type email_config: EmailConfig
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -381,13 +381,13 @@ class BrandingServiceSMTPApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GetScopes401Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(AltErr, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
-            'get_email_settings200_response_one_of1'
+            'email_config'
         ]
         _all_params.extend(
             [
@@ -428,8 +428,8 @@ class BrandingServiceSMTPApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['get_email_settings200_response_one_of1']:
-            _body_params = _params['get_email_settings200_response_one_of1']
+        if _params['email_config']:
+            _body_params = _params['email_config']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -446,9 +446,9 @@ class BrandingServiceSMTPApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GetScopes401Response",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '200': "AltErr",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(

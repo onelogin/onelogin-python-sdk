@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ip** | **str** | The IP address of the User&#39;s request. | 
 **user_agent** | **str** | The user agent of the User&#39;s request. | 
-**user** | [**TrackRiskEventRequestUser**](TrackRiskEventRequestUser.md) |  | 
-**source** | [**ListRiskRules200ResponseInnerSource**](ListRiskRules200ResponseInnerSource.md) |  | [optional] 
-**session** | [**TrackRiskEventRequestSession**](TrackRiskEventRequestSession.md) |  | [optional] 
-**device** | [**TrackRiskEventRequestDevice**](TrackRiskEventRequestDevice.md) |  | [optional] 
+**user** | [**RiskUser**](RiskUser.md) |  | 
+**source** | [**Source**](Source.md) |  | [optional] 
+**session** | [**Session**](Session.md) |  | [optional] 
+**device** | [**RiskDevice**](RiskDevice.md) |  | [optional] 
 **fp** | **str** | Set to the value of the __tdli_fp cookie. | [optional] 
 
 ## Example

@@ -17,13 +17,13 @@ import re  # noqa: F401
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import StrictInt, StrictStr
 
 from typing import Optional
 
 from onelogin.models.add_client_app201_response import AddClientApp201Response
 from onelogin.models.add_client_app_request import AddClientAppRequest
-from onelogin.models.list_client_apps200_response import ListClientApps200Response
+from onelogin.models.client_app_full import ClientAppFull
 from onelogin.models.update_client_app_request import UpdateClientAppRequest
 
 from onelogin.api_client import ApiClient
@@ -46,20 +46,20 @@ class APIAuthClientAppsApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def add_client_app(self, content_type : Annotated[StrictStr, Field(..., description="Set to `application/json`")], api_auth_id : StrictStr, add_client_app_request : Optional[AddClientAppRequest] = None, **kwargs) -> AddClientApp201Response:  # noqa: E501
+    def add_client_app(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, add_client_app_request : Optional[AddClientAppRequest] = None, **kwargs) -> AddClientApp201Response:  # noqa: E501
         """Add Client App  # noqa: E501
 
         Add Client App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.add_client_app(content_type, api_auth_id, add_client_app_request, async_req=True)
+        >>> thread = api.add_client_app(api_auth_id, content_type, add_client_app_request, async_req=True)
         >>> result = thread.get()
 
-        :param content_type: Set to `application/json` (required)
-        :type content_type: str
         :param api_auth_id: (required)
         :type api_auth_id: str
+        :param content_type:
+        :type content_type: str
         :param add_client_app_request:
         :type add_client_app_request: AddClientAppRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -78,23 +78,23 @@ class APIAuthClientAppsApi(object):
         :rtype: AddClientApp201Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.add_client_app_with_http_info(content_type, api_auth_id, add_client_app_request, **kwargs)  # noqa: E501
+        return self.add_client_app_with_http_info(api_auth_id, content_type, add_client_app_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_client_app_with_http_info(self, content_type : Annotated[StrictStr, Field(..., description="Set to `application/json`")], api_auth_id : StrictStr, add_client_app_request : Optional[AddClientAppRequest] = None, **kwargs):  # noqa: E501
+    def add_client_app_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, add_client_app_request : Optional[AddClientAppRequest] = None, **kwargs):  # noqa: E501
         """Add Client App  # noqa: E501
 
         Add Client App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.add_client_app_with_http_info(content_type, api_auth_id, add_client_app_request, async_req=True)
+        >>> thread = api.add_client_app_with_http_info(api_auth_id, content_type, add_client_app_request, async_req=True)
         >>> result = thread.get()
 
-        :param content_type: Set to `application/json` (required)
-        :type content_type: str
         :param api_auth_id: (required)
         :type api_auth_id: str
+        :param content_type:
+        :type content_type: str
         :param add_client_app_request:
         :type add_client_app_request: AddClientAppRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -124,8 +124,8 @@ class APIAuthClientAppsApi(object):
         _params = locals()
 
         _all_params = [
-            'content_type',
             'api_auth_id',
+            'content_type',
             'add_client_app_request'
         ]
         _all_params.extend(
@@ -190,9 +190,9 @@ class APIAuthClientAppsApi(object):
 
         _response_types_map = {
             '201': "AddClientApp201Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '404': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -350,9 +350,9 @@ class APIAuthClientAppsApi(object):
 
         _response_types_map = {
             '200': "AddClientApp201Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '404': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -373,7 +373,7 @@ class APIAuthClientAppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_client_apps(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ListClientApps200Response:  # noqa: E501
+    def list_client_apps(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ClientAppFull:  # noqa: E501
         """List Clients Apps  # noqa: E501
 
         List Client Apps  # noqa: E501
@@ -400,7 +400,7 @@ class APIAuthClientAppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListClientApps200Response
+        :rtype: ClientAppFull
         """
         kwargs['_return_http_data_only'] = True
         return self.list_client_apps_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
@@ -441,7 +441,7 @@ class APIAuthClientAppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListClientApps200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(ClientAppFull, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -502,9 +502,9 @@ class APIAuthClientAppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListClientApps200Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "ClientAppFull",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -525,22 +525,22 @@ class APIAuthClientAppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_client_app(self, content_type : Annotated[StrictStr, Field(..., description="Set to `application/json`")], api_auth_id : StrictStr, client_app_id : StrictInt, update_client_app_request : Optional[UpdateClientAppRequest] = None, **kwargs) -> AddClientApp201Response:  # noqa: E501
+    def update_client_app(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, update_client_app_request : Optional[UpdateClientAppRequest] = None, **kwargs) -> AddClientApp201Response:  # noqa: E501
         """Update Client App  # noqa: E501
 
         Update Client App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_client_app(content_type, api_auth_id, client_app_id, update_client_app_request, async_req=True)
+        >>> thread = api.update_client_app(api_auth_id, client_app_id, content_type, update_client_app_request, async_req=True)
         >>> result = thread.get()
 
-        :param content_type: Set to `application/json` (required)
-        :type content_type: str
         :param api_auth_id: (required)
         :type api_auth_id: str
         :param client_app_id: (required)
         :type client_app_id: int
+        :param content_type:
+        :type content_type: str
         :param update_client_app_request:
         :type update_client_app_request: UpdateClientAppRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -559,25 +559,25 @@ class APIAuthClientAppsApi(object):
         :rtype: AddClientApp201Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_client_app_with_http_info(content_type, api_auth_id, client_app_id, update_client_app_request, **kwargs)  # noqa: E501
+        return self.update_client_app_with_http_info(api_auth_id, client_app_id, content_type, update_client_app_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_client_app_with_http_info(self, content_type : Annotated[StrictStr, Field(..., description="Set to `application/json`")], api_auth_id : StrictStr, client_app_id : StrictInt, update_client_app_request : Optional[UpdateClientAppRequest] = None, **kwargs):  # noqa: E501
+    def update_client_app_with_http_info(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, update_client_app_request : Optional[UpdateClientAppRequest] = None, **kwargs):  # noqa: E501
         """Update Client App  # noqa: E501
 
         Update Client App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_client_app_with_http_info(content_type, api_auth_id, client_app_id, update_client_app_request, async_req=True)
+        >>> thread = api.update_client_app_with_http_info(api_auth_id, client_app_id, content_type, update_client_app_request, async_req=True)
         >>> result = thread.get()
 
-        :param content_type: Set to `application/json` (required)
-        :type content_type: str
         :param api_auth_id: (required)
         :type api_auth_id: str
         :param client_app_id: (required)
         :type client_app_id: int
+        :param content_type:
+        :type content_type: str
         :param update_client_app_request:
         :type update_client_app_request: UpdateClientAppRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -607,9 +607,9 @@ class APIAuthClientAppsApi(object):
         _params = locals()
 
         _all_params = [
-            'content_type',
             'api_auth_id',
             'client_app_id',
+            'content_type',
             'update_client_app_request'
         ]
         _all_params.extend(
@@ -676,9 +676,9 @@ class APIAuthClientAppsApi(object):
 
         _response_types_map = {
             '200': "AddClientApp201Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '404': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(

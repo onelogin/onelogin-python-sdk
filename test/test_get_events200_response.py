@@ -38,7 +38,7 @@ class TestGetEvents200Response(unittest.TestCase):
         model = onelogin.models.get_events200_response.GetEvents200Response()  # noqa: E501
         if include_optional :
             return GetEvents200Response(
-                status = onelogin.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.error.Error(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
@@ -47,9 +47,9 @@ class TestGetEvents200Response(unittest.TestCase):
                     before_cursor = 'null', 
                     after_cursor = 'xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 
                     previous_link = 'null', 
-                    next_link = 'https://{subdomain}.onelogin.com/api/1/events?after_cursor=xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', ), 
+                    next_link = 'https://your-api-subdomain.onelogin.com/api/1/events?after_cursor=xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', ), 
                 data = [
-                    onelogin.models.get_events_200_response_data_inner.getEvents_200_response_data_inner(
+                    onelogin.models.event.event(
                         account_id = 56, 
                         actor_system = '', 
                         actor_user_id = 56, 

@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **create_mapping**
-> List[ListMappings200ResponseInner] create_mapping(content_type=content_type, list_mappings200_response_inner=list_mappings200_response_inner)
+> List[Mapping] create_mapping(content_type=content_type, mapping=mapping)
 
 Create Mapping
 
@@ -52,11 +52,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UserMappingsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    list_mappings200_response_inner = onelogin.ListMappings200ResponseInner() # ListMappings200ResponseInner |  (optional)
+    mapping = onelogin.Mapping() # Mapping |  (optional)
 
     try:
         # Create Mapping
-        api_response = api_instance.create_mapping(content_type=content_type, list_mappings200_response_inner=list_mappings200_response_inner)
+        api_response = api_instance.create_mapping(content_type=content_type, mapping=mapping)
         print("The response of UserMappingsApi->create_mapping:\n")
         pprint(api_response)
     except Exception as e:
@@ -68,11 +68,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **list_mappings200_response_inner** | [**ListMappings200ResponseInner**](ListMappings200ResponseInner.md)|  | [optional] 
+ **mapping** | [**Mapping**](Mapping.md)|  | [optional] 
 
 ### Return type
 
-[**List[ListMappings200ResponseInner]**](ListMappings200ResponseInner.md)
+[**List[Mapping]**](Mapping.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_mapping**
-> ListMappings200ResponseInner get_mapping(mapping_id)
+> Mapping get_mapping(mapping_id)
 
 Get Mapping
 
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListMappings200ResponseInner**](ListMappings200ResponseInner.md)
+[**Mapping**](Mapping.md)
 
 ### Authorization
 
@@ -521,7 +521,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_mappings**
-> List[ListMappings200ResponseInner] list_mappings(enabled=enabled, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type)
+> List[Mapping] list_mappings(enabled=enabled, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type)
 
 List Mappings
 
@@ -581,7 +581,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListMappings200ResponseInner]**](ListMappings200ResponseInner.md)
+[**List[Mapping]**](Mapping.md)
 
 ### Authorization
 
@@ -669,7 +669,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **sort_mappings**
-> List[int] sort_mappings(content_type=content_type, request_body=request_body)
+> List[int] sort_mappings(request_body=request_body)
 
 Bulk Sort
 
@@ -702,12 +702,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UserMappingsApi(api_client)
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     request_body = [56] # List[int] |  (optional)
 
     try:
         # Bulk Sort
-        api_response = api_instance.sort_mappings(content_type=content_type, request_body=request_body)
+        api_response = api_instance.sort_mappings(request_body=request_body)
         print("The response of UserMappingsApi->sort_mappings:\n")
         pprint(api_response)
     except Exception as e:
@@ -718,7 +717,6 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **request_body** | [**List[int]**](int.md)|  | [optional] 
 
 ### Return type

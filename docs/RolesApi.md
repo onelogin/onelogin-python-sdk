@@ -55,7 +55,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
     request_body = [56] # List[int] | 
 
     try:
@@ -71,7 +71,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
  **request_body** | [**List[int]**](int.md)|  | 
 
 ### Return type
@@ -129,7 +129,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
     request_body = [56] # List[int] | 
 
     try:
@@ -145,7 +145,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
  **request_body** | [**List[int]**](int.md)|  | 
 
 ### Return type
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_roles**
-> List[CreateRoles201ResponseInner] create_roles(list_roles200_response_inner)
+> List[CreateRoles201ResponseInner] create_roles(role=role)
 
 Create Role
 
@@ -204,11 +204,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    list_roles200_response_inner = onelogin.ListRoles200ResponseInner() # ListRoles200ResponseInner | 
+    role = onelogin.Role() # Role |  (optional)
 
     try:
         # Create Role
-        api_response = api_instance.create_roles(list_roles200_response_inner)
+        api_response = api_instance.create_roles(role=role)
         print("The response of RolesApi->create_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -219,7 +219,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **list_roles200_response_inner** | [**ListRoles200ResponseInner**](ListRoles200ResponseInner.md)|  | 
+ **role** | [**Role**](Role.md)|  | [optional] 
 
 ### Return type
 
@@ -276,7 +276,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
 
     try:
         # Delete Role by ID
@@ -289,7 +289,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
 
 ### Return type
 
@@ -315,7 +315,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_role**
-> ListRoles200ResponseInner get_role(role_id)
+> Role get_role(role_id)
 
 Get Role by ID
 
@@ -348,7 +348,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
 
     try:
         # Get Role by ID
@@ -363,11 +363,11 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
 
 ### Return type
 
-[**ListRoles200ResponseInner**](ListRoles200ResponseInner.md)
+[**Role**](Role.md)
 
 ### Authorization
 
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_role_admins**
-> List[ListUsers200ResponseInner] get_role_admins(role_id, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
+> List[User] get_role_admins(role_id, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
 
 Get Role Admins
 
@@ -421,7 +421,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
     cursor = 'cursor_example' # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -441,7 +441,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
  **limit** | **int**| How many items to return at one time (max 100) | [optional] 
  **page** | **int**| The page number of results to return. | [optional] 
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional] 
@@ -450,7 +450,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListUsers200ResponseInner]**](ListUsers200ResponseInner.md)
+[**List[User]**](User.md)
 
 ### Authorization
 
@@ -464,7 +464,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  * Current-Page - The index number of the current page being returned. <br>  * Page-Items - The number of items returned in the response. <br>  * Total-Count - The total number of items across all pages. <br>  * Total-Pages - The total number of pages to return all results. <br>  * Link - A set of urls which contains premade links for first, next <br>  * Before-Cursor - A string that can be used to request the page of results that preceed the current page using the same set of search filters and pagination options. <br>  * After-Cursor - A string that can be used to request the page of results that follows the current page using the same set of search filters and pagination options. <br>  |
+**200** | OK |  * Current-Page -  <br>  * Page-Items -  <br>  * Total-Count -  <br>  * Total-Pages -  <br>  * Link -  <br>  * Before-Cursor -  <br>  * After-Cursor -  <br>  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
 
@@ -504,7 +504,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
     cursor = 'cursor_example' # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -523,7 +523,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
  **limit** | **int**| How many items to return at one time (max 100) | [optional] 
  **page** | **int**| The page number of results to return. | [optional] 
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional] 
@@ -545,7 +545,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  * Current-Page - The index number of the current page being returned. <br>  * Page-Items - The number of items returned in the response. <br>  * Total-Count - The total number of items across all pages. <br>  * Total-Pages - The total number of pages to return all results. <br>  * Link - A set of urls which contains premade links for first, next <br>  * Before-Cursor - A string that can be used to request the page of results that preceed the current page using the same set of search filters and pagination options. <br>  * After-Cursor - A string that can be used to request the page of results that follows the current page using the same set of search filters and pagination options. <br>  |
+**200** | OK |  * Current-Page -  <br>  * Page-Items -  <br>  * Total-Count -  <br>  * Total-Pages -  <br>  * Link -  <br>  * Before-Cursor -  <br>  * After-Cursor -  <br>  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
 
@@ -585,7 +585,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 'role_id_example' # str | 
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
 
     try:
         # Get Role by ID
@@ -600,7 +600,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **str**|  | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
 
 ### Return type
 
@@ -700,7 +700,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_role_users**
-> List[ListUsers200ResponseInner] get_role_users(role_id, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
+> List[User] get_role_users(role_id, limit=limit, page=page, cursor=cursor, name=name, include_unassigned=include_unassigned)
 
 Get Role Users
 
@@ -733,7 +733,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
     cursor = 'cursor_example' # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
@@ -753,7 +753,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
  **limit** | **int**| How many items to return at one time (max 100) | [optional] 
  **page** | **int**| The page number of results to return. | [optional] 
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional] 
@@ -762,7 +762,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListUsers200ResponseInner]**](ListUsers200ResponseInner.md)
+[**List[User]**](User.md)
 
 ### Authorization
 
@@ -776,14 +776,14 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  * Current-Page - The index number of the current page being returned. <br>  * Page-Items - The number of items returned in the response. <br>  * Total-Count - The total number of items across all pages. <br>  * Total-Pages - The total number of pages to return all results. <br>  * Link - A set of urls which contains premade links for first, next <br>  * Before-Cursor - A string that can be used to request the page of results that preceed the current page using the same set of search filters and pagination options. <br>  * After-Cursor - A string that can be used to request the page of results that follows the current page using the same set of search filters and pagination options. <br>  |
+**200** | OK |  * Current-Page -  <br>  * Page-Items -  <br>  * Total-Count -  <br>  * Total-Pages -  <br>  * Link -  <br>  * Before-Cursor -  <br>  * After-Cursor -  <br>  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_roles**
-> List[ListRoles200ResponseInner] list_roles(limit=limit, page=page, cursor=cursor, name=name, app_id=app_id, app_name=app_name, fields=fields)
+> List[Role] list_roles(app_id, limit=limit, page=page, cursor=cursor, role_name=role_name, app_name=app_name, fields=fields)
 
 List Roles
 
@@ -816,17 +816,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
+    app_id = 56 # int | 
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
     cursor = 'cursor_example' # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
-    name = 'name_example' # str | Optional. Filters by role name. (optional)
-    app_id = 56 # int | Optional. Returns roles that contain this app ID. (optional)
+    role_name = 'role_name_example' # str | Optional. Filters by role name. (optional)
     app_name = 'app_name_example' # str | Optional. Returns roles that contain this app name. (optional)
     fields = 'fields_example' # str | Optional. Comma delimited list of fields to return. (optional)
 
     try:
         # List Roles
-        api_response = api_instance.list_roles(limit=limit, page=page, cursor=cursor, name=name, app_id=app_id, app_name=app_name, fields=fields)
+        api_response = api_instance.list_roles(app_id, limit=limit, page=page, cursor=cursor, role_name=role_name, app_name=app_name, fields=fields)
         print("The response of RolesApi->list_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -837,17 +837,17 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **app_id** | **int**|  | 
  **limit** | **int**| How many items to return at one time (max 100) | [optional] 
  **page** | **int**| The page number of results to return. | [optional] 
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional] 
- **name** | **str**| Optional. Filters by role name. | [optional] 
- **app_id** | **int**| Optional. Returns roles that contain this app ID. | [optional] 
+ **role_name** | **str**| Optional. Filters by role name. | [optional] 
  **app_name** | **str**| Optional. Returns roles that contain this app name. | [optional] 
  **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional] 
 
 ### Return type
 
-[**List[ListRoles200ResponseInner]**](ListRoles200ResponseInner.md)
+[**List[Role]**](Role.md)
 
 ### Authorization
 
@@ -861,7 +861,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  * Current-Page - The index number of the current page being returned. <br>  * Page-Items - The number of items returned in the response. <br>  * Total-Count - The total number of items across all pages. <br>  * Total-Pages - The total number of pages to return all results. <br>  * Link - A set of urls which contains premade links for first, next <br>  * Before-Cursor - A string that can be used to request the page of results that preceed the current page using the same set of search filters and pagination options. <br>  * After-Cursor - A string that can be used to request the page of results that follows the current page using the same set of search filters and pagination options. <br>  |
+**200** | OK |  * Current-Page -  <br>  * Page-Items -  <br>  * Total-Count -  <br>  * Total-Pages -  <br>  * Link -  <br>  * Before-Cursor -  <br>  * After-Cursor -  <br>  |
 **401** | Unauthorized |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -900,7 +900,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
     remove_role_users_request = onelogin.RemoveRoleUsersRequest() # RemoveRoleUsersRequest | 
 
     try:
@@ -914,7 +914,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
  **remove_role_users_request** | [**RemoveRoleUsersRequest**](RemoveRoleUsersRequest.md)|  | 
 
 ### Return type
@@ -973,7 +973,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
     remove_role_users_request = onelogin.RemoveRoleUsersRequest() # RemoveRoleUsersRequest | 
 
     try:
@@ -987,7 +987,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
  **remove_role_users_request** | [**RemoveRoleUsersRequest**](RemoveRoleUsersRequest.md)|  | 
 
 ### Return type
@@ -1046,7 +1046,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
     request_body = [56] # List[int] | 
 
     try:
@@ -1062,7 +1062,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
  **request_body** | [**List[int]**](int.md)|  | 
 
 ### Return type
@@ -1088,7 +1088,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_role**
-> CreateRoles201ResponseInner update_role(role_id, list_roles200_response_inner)
+> UpdateRole200Response update_role(role_id, role=role)
 
 Update Role
 
@@ -1121,12 +1121,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    role_id = 56 # int | Set to the id of the role you want to return.
-    list_roles200_response_inner = onelogin.ListRoles200ResponseInner() # ListRoles200ResponseInner | 
+    role_id = 'role_id_example' # str | Set to the id of the role you want to return.
+    role = onelogin.Role() # Role |  (optional)
 
     try:
         # Update Role
-        api_response = api_instance.update_role(role_id, list_roles200_response_inner)
+        api_response = api_instance.update_role(role_id, role=role)
         print("The response of RolesApi->update_role:\n")
         pprint(api_response)
     except Exception as e:
@@ -1137,12 +1137,12 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **role_id** | **int**| Set to the id of the role you want to return. | 
- **list_roles200_response_inner** | [**ListRoles200ResponseInner**](ListRoles200ResponseInner.md)|  | 
+ **role_id** | **str**| Set to the id of the role you want to return. | 
+ **role** | [**Role**](Role.md)|  | [optional] 
 
 ### Return type
 
-[**CreateRoles201ResponseInner**](CreateRoles201ResponseInner.md)
+[**UpdateRole200Response**](UpdateRole200Response.md)
 
 ### Authorization
 

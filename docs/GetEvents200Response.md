@@ -4,9 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | [**GenerateToken400Response**](GenerateToken400Response.md) |  | [optional] 
+**status** | [**Error**](Error.md) |  | [optional] 
 **pagination** | [**GetEvents200ResponsePagination**](GetEvents200ResponsePagination.md) |  | [optional] 
-**data** | [**List[GetEvents200ResponseDataInner]**](GetEvents200ResponseDataInner.md) |  | [optional] 
+**data** | [**List[Event]**](Event.md) |  | [optional] 
 
 ## Example
 

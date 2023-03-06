@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | [**GenerateToken400Response**](GenerateToken400Response.md) |  | [optional] 
-**data** | [**List[GetEnrolledFactors200ResponseDataOtpDevicesInner]**](GetEnrolledFactors200ResponseDataOtpDevicesInner.md) |  | [optional] 
+**status** | [**Error**](Error.md) |  | [optional] 
+**data** | [**List[EnrollMfaFactor200ResponseDataInner]**](EnrollMfaFactor200ResponseDataInner.md) |  | [optional] 
 
 ## Example
 

@@ -148,7 +148,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_events**
-> GetEvents200Response get_events(id, event_type_id=event_type_id, client_id=client_id, directory_id=directory_id, created_at=created_at, resolution=resolution, since=since, until=until, user_id=user_id)
+> GetEvents200Response get_events(event_type_id=event_type_id, client_id=client_id, directory_id=directory_id, id=id, created_at=created_at, resolution=resolution, since=since, until=until, user_id=user_id)
 
 Get Events
 
@@ -181,10 +181,10 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.EventsApi(api_client)
-    id = 56 # int | 
     event_type_id = [56] # List[int] |  (optional)
     client_id = 56 # int |  (optional)
     directory_id = 56 # int |  (optional)
+    id = 56 # int |  (optional)
     created_at = 'created_at_example' # str |  (optional)
     resolution = 'resolution_example' # str |  (optional)
     since = 'since_example' # str |  (optional)
@@ -193,7 +193,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
     try:
         # Get Events
-        api_response = api_instance.get_events(id, event_type_id=event_type_id, client_id=client_id, directory_id=directory_id, created_at=created_at, resolution=resolution, since=since, until=until, user_id=user_id)
+        api_response = api_instance.get_events(event_type_id=event_type_id, client_id=client_id, directory_id=directory_id, id=id, created_at=created_at, resolution=resolution, since=since, until=until, user_id=user_id)
         print("The response of EventsApi->get_events:\n")
         pprint(api_response)
     except Exception as e:
@@ -204,10 +204,10 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int**|  | 
  **event_type_id** | [**List[int]**](int.md)|  | [optional] 
  **client_id** | **int**|  | [optional] 
  **directory_id** | **int**|  | [optional] 
+ **id** | **int**|  | [optional] 
  **created_at** | **str**|  | [optional] 
  **resolution** | **str**|  | [optional] 
  **since** | **str**|  | [optional] 

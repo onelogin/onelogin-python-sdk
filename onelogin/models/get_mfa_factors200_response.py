@@ -19,7 +19,7 @@ import json
 
 from typing import Optional
 from pydantic import BaseModel
-from onelogin.models.generate_token400_response import GenerateToken400Response
+from onelogin.models.error import Error
 from onelogin.models.get_mfa_factors200_response_data import GetMFAFactors200ResponseData
 
 class GetMFAFactors200Response(BaseModel):
@@ -28,7 +28,7 @@ class GetMFAFactors200Response(BaseModel):
 
     Do not edit the class manually.
     """
-    status: Optional[GenerateToken400Response] = None
+    status: Optional[Error] = None
     data: Optional[GetMFAFactors200ResponseData] = None
     __properties = ["status", "data"]
 
@@ -73,7 +73,7 @@ class GetMFAFactors200Response(BaseModel):
             return GetMFAFactors200Response.parse_obj(obj)
 
         _obj = GetMFAFactors200Response.parse_obj({
-            "status": GenerateToken400Response.from_dict(obj.get("status")) if obj.get("status") is not None else None,
+            "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "data": GetMFAFactors200ResponseData.from_dict(obj.get("data")) if obj.get("data") is not None else None
         })
         return _obj

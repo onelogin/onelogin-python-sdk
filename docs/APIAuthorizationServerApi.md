@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **create_auth_server**
-> int create_auth_server(content_type, get_scopes200_response_inner=get_scopes200_response_inner)
+> int create_auth_server(content_type=content_type, auth_server=auth_server)
 
 Create Api Auth Server
 
@@ -45,12 +45,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.APIAuthorizationServerApi(api_client)
-    content_type = 'application/json' # str |  (default to 'application/json')
-    get_scopes200_response_inner = onelogin.GetScopes200ResponseInner() # GetScopes200ResponseInner |  (optional)
+    content_type = 'application/json' # str |  (optional) (default to 'application/json')
+    auth_server = onelogin.AuthServer() # AuthServer |  (optional)
 
     try:
         # Create Api Auth Server
-        api_response = api_instance.create_auth_server(content_type, get_scopes200_response_inner=get_scopes200_response_inner)
+        api_response = api_instance.create_auth_server(content_type=content_type, auth_server=auth_server)
         print("The response of APIAuthorizationServerApi->create_auth_server:\n")
         pprint(api_response)
     except Exception as e:
@@ -61,8 +61,8 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [default to &#39;application/json&#39;]
- **get_scopes200_response_inner** | [**GetScopes200ResponseInner**](GetScopes200ResponseInner.md)|  | [optional] 
+ **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
+ **auth_server** | [**AuthServer**](AuthServer.md)|  | [optional] 
 
 ### Return type
 
@@ -160,7 +160,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_auth_server**
-> GetScopes200ResponseInner get_auth_server(api_auth_id, content_type=content_type)
+> AuthServer get_auth_server(api_auth_id, content_type=content_type)
 
 Get Api Auth Server
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetScopes200ResponseInner**](GetScopes200ResponseInner.md)
+[**AuthServer**](AuthServer.md)
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_auth_servers**
-> List[GetScopes200ResponseInner] list_auth_servers()
+> List[AuthServer] list_auth_servers()
 
 List Api Auth Servers
 
@@ -282,7 +282,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List[GetScopes200ResponseInner]**](GetScopes200ResponseInner.md)
+[**List[AuthServer]**](AuthServer.md)
 
 ### Authorization
 
@@ -302,7 +302,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_auth_server**
-> int update_auth_server(content_type, api_auth_id, get_scopes200_response_inner=get_scopes200_response_inner)
+> int update_auth_server(api_auth_id, content_type=content_type, auth_server=auth_server)
 
 Update Api Auth Server
 
@@ -335,13 +335,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.APIAuthorizationServerApi(api_client)
-    content_type = 'application/json' # str |  (default to 'application/json')
     api_auth_id = 'api_auth_id_example' # str | 
-    get_scopes200_response_inner = onelogin.GetScopes200ResponseInner() # GetScopes200ResponseInner |  (optional)
+    content_type = 'application/json' # str |  (optional) (default to 'application/json')
+    auth_server = onelogin.AuthServer() # AuthServer |  (optional)
 
     try:
         # Update Api Auth Server
-        api_response = api_instance.update_auth_server(content_type, api_auth_id, get_scopes200_response_inner=get_scopes200_response_inner)
+        api_response = api_instance.update_auth_server(api_auth_id, content_type=content_type, auth_server=auth_server)
         print("The response of APIAuthorizationServerApi->update_auth_server:\n")
         pprint(api_response)
     except Exception as e:
@@ -352,9 +352,9 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [default to &#39;application/json&#39;]
  **api_auth_id** | **str**|  | 
- **get_scopes200_response_inner** | [**GetScopes200ResponseInner**](GetScopes200ResponseInner.md)|  | [optional] 
+ **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
+ **auth_server** | [**AuthServer**](AuthServer.md)|  | [optional] 
 
 ### Return type
 

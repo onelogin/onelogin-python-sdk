@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **get_invite_link**
-> GetInviteLink200Response get_invite_link(content_type=content_type, get_invite_link_request=get_invite_link_request)
+> GetInviteLink200Response get_invite_link(get_invite_link_request=get_invite_link_request)
 
 Generate Invite Link
 
@@ -42,12 +42,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.InviteLinksApi(api_client)
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     get_invite_link_request = onelogin.GetInviteLinkRequest() # GetInviteLinkRequest |  (optional)
 
     try:
         # Generate Invite Link
-        api_response = api_instance.get_invite_link(content_type=content_type, get_invite_link_request=get_invite_link_request)
+        api_response = api_instance.get_invite_link(get_invite_link_request=get_invite_link_request)
         print("The response of InviteLinksApi->get_invite_link:\n")
         pprint(api_response)
     except Exception as e:
@@ -58,7 +57,6 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **get_invite_link_request** | [**GetInviteLinkRequest**](GetInviteLinkRequest.md)|  | [optional] 
 
 ### Return type
@@ -84,7 +82,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **send_invite_link**
-> SendInviteLink200Response send_invite_link(content_type=content_type, send_invite_link_request=send_invite_link_request)
+> SendInviteLink200Response send_invite_link(send_invite_link_request=send_invite_link_request)
 
 Send  Invite Link
 
@@ -117,12 +115,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.InviteLinksApi(api_client)
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     send_invite_link_request = onelogin.SendInviteLinkRequest() # SendInviteLinkRequest |  (optional)
 
     try:
         # Send  Invite Link
-        api_response = api_instance.send_invite_link(content_type=content_type, send_invite_link_request=send_invite_link_request)
+        api_response = api_instance.send_invite_link(send_invite_link_request=send_invite_link_request)
         print("The response of InviteLinksApi->send_invite_link:\n")
         pprint(api_response)
     except Exception as e:
@@ -133,7 +130,6 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **send_invite_link_request** | [**SendInviteLinkRequest**](SendInviteLinkRequest.md)|  | [optional] 
 
 ### Return type

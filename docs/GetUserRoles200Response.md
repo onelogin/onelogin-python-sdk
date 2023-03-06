@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | [**GenerateToken400Response**](GenerateToken400Response.md) |  | [optional] 
+**status** | [**Error**](Error.md) |  | [optional] 
 **data** | **List[int]** | List of Role IDs that are assigned to the User | [optional] 
 
 ## Example

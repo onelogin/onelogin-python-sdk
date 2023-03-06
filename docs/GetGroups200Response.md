@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | [**GenerateToken400Response**](GenerateToken400Response.md) |  | [optional] 
-**data** | [**List[GetGroups200ResponseDataInner]**](GetGroups200ResponseDataInner.md) |  | [optional] 
+**status** | [**Error**](Error.md) |  | [optional] 
+**data** | [**List[Group]**](Group.md) |  | [optional] 
 
 ## Example
 

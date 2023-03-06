@@ -28,9 +28,9 @@ class GetAssignedUser200Response(BaseModel):
     """
     total: Optional[StrictInt] = None
     users: Optional[List[StrictInt]] = None
-    before_cursor: Optional[StrictInt] = Field(None, alias="beforeCursor")
+    before_cursor: Optional[StrictStr] = Field(None, alias="beforeCursor")
     previous_link: Optional[StrictStr] = Field(None, alias="previousLink")
-    after_cursor: Optional[StrictInt] = Field(None, alias="afterCursor")
+    after_cursor: Optional[StrictStr] = Field(None, alias="afterCursor")
     next_link: Optional[StrictStr] = Field(None, alias="nextLink")
     __properties = ["total", "users", "beforeCursor", "previousLink", "afterCursor", "nextLink"]
 
@@ -57,22 +57,6 @@ class GetAssignedUser200Response(BaseModel):
                           exclude={
                           },
                           exclude_none=True)
-        # set to None if before_cursor (nullable) is None
-        if self.before_cursor is None:
-            _dict['beforeCursor'] = None
-
-        # set to None if previous_link (nullable) is None
-        if self.previous_link is None:
-            _dict['previousLink'] = None
-
-        # set to None if after_cursor (nullable) is None
-        if self.after_cursor is None:
-            _dict['afterCursor'] = None
-
-        # set to None if next_link (nullable) is None
-        if self.next_link is None:
-            _dict['nextLink'] = None
-
         return _dict
 
     @classmethod

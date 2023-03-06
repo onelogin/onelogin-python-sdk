@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **create_app_rule**
-> int create_app_rule(app_id, list_app_rules200_response_inner, content_type=content_type)
+> int create_app_rule(app_id, rule=rule)
 
 
 
@@ -52,11 +52,10 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.AppRulesApi(api_client)
     app_id = 56 # int | 
-    list_app_rules200_response_inner = onelogin.ListAppRules200ResponseInner() # ListAppRules200ResponseInner | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
+    rule = onelogin.Rule() # Rule |  (optional)
 
     try:
-        api_response = api_instance.create_app_rule(app_id, list_app_rules200_response_inner, content_type=content_type)
+        api_response = api_instance.create_app_rule(app_id, rule=rule)
         print("The response of AppRulesApi->create_app_rule:\n")
         pprint(api_response)
     except Exception as e:
@@ -68,8 +67,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
- **list_app_rules200_response_inner** | [**ListAppRules200ResponseInner**](ListAppRules200ResponseInner.md)|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
+ **rule** | [**Rule**](Rule.md)|  | [optional] 
 
 ### Return type
 
@@ -167,7 +165,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_app_rule**
-> ListAppRules200ResponseInner get_app_rule(app_id, rule_id)
+> Rule get_app_rule(app_id, rule_id)
 
 Get Rule
 
@@ -221,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListAppRules200ResponseInner**](ListAppRules200ResponseInner.md)
+[**Rule**](Rule.md)
 
 ### Authorization
 
@@ -388,7 +386,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_app_rules**
-> List[ListAppRules200ResponseInner] list_app_rules(app_id, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type, enabled=enabled)
+> List[Rule] list_app_rules(app_id, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type, enabled=enabled)
 
 List Rules
 
@@ -450,7 +448,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListAppRules200ResponseInner]**](ListAppRules200ResponseInner.md)
+[**List[Rule]**](Rule.md)
 
 ### Authorization
 
@@ -690,7 +688,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **sort_app_rules**
-> List[int] sort_app_rules(app_id, content_type=content_type, request_body=request_body)
+> List[int] sort_app_rules(app_id, request_body=request_body)
 
 Bulk Sort
 
@@ -724,12 +722,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.AppRulesApi(api_client)
     app_id = 56 # int | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     request_body = [56] # List[int] |  (optional)
 
     try:
         # Bulk Sort
-        api_response = api_instance.sort_app_rules(app_id, content_type=content_type, request_body=request_body)
+        api_response = api_instance.sort_app_rules(app_id, request_body=request_body)
         print("The response of AppRulesApi->sort_app_rules:\n")
         pprint(api_response)
     except Exception as e:
@@ -741,7 +738,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **request_body** | [**List[int]**](int.md)|  | [optional] 
 
 ### Return type
@@ -767,7 +763,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_app_rule**
-> int update_app_rule(app_id, rule_id, list_app_rules200_response_inner, content_type=content_type)
+> int update_app_rule(app_id, rule_id, rule=rule)
 
 Update Rule
 
@@ -802,12 +798,11 @@ with onelogin.ApiClient(configuration) as api_client:
     api_instance = onelogin.AppRulesApi(api_client)
     app_id = 56 # int | 
     rule_id = 'rule_id_example' # str | 
-    list_app_rules200_response_inner = onelogin.ListAppRules200ResponseInner() # ListAppRules200ResponseInner | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
+    rule = onelogin.Rule() # Rule |  (optional)
 
     try:
         # Update Rule
-        api_response = api_instance.update_app_rule(app_id, rule_id, list_app_rules200_response_inner, content_type=content_type)
+        api_response = api_instance.update_app_rule(app_id, rule_id, rule=rule)
         print("The response of AppRulesApi->update_app_rule:\n")
         pprint(api_response)
     except Exception as e:
@@ -820,8 +815,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
  **rule_id** | **str**|  | 
- **list_app_rules200_response_inner** | [**ListAppRules200ResponseInner**](ListAppRules200ResponseInner.md)|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
+ **rule** | [**Rule**](Rule.md)|  | [optional] 
 
 ### Return type
 

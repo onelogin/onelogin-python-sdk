@@ -164,9 +164,9 @@ class GroupsApi(object):
 
         _response_types_map = {
             '200': "GetGroups200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -303,8 +303,8 @@ class GroupsApi(object):
 
         _response_types_map = {
             '200': "GetGroups200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(

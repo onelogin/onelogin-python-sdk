@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **verb** | **str** | Verbs are used to distinguish between different types of events. | 
 **ip** | **str** | The IP address of the User&#39;s request. | 
 **user_agent** | **str** | The user agent of the User&#39;s request. | 
-**user** | [**TrackRiskEventRequestUser**](TrackRiskEventRequestUser.md) |  | 
-**source** | [**ListRiskRules200ResponseInnerSource**](ListRiskRules200ResponseInnerSource.md) |  | [optional] 
-**session** | [**TrackRiskEventRequestSession**](TrackRiskEventRequestSession.md) |  | [optional] 
-**device** | [**TrackRiskEventRequestDevice**](TrackRiskEventRequestDevice.md) |  | [optional] 
+**user** | [**RiskUser**](RiskUser.md) |  | 
+**source** | [**Source**](Source.md) |  | [optional] 
+**session** | [**Session**](Session.md) |  | [optional] 
+**device** | [**RiskDevice**](RiskDevice.md) |  | [optional] 
 **fp** | **str** | Set to the value of the __tdli_fp cookie. | [optional] 
 **published** | **str** | Date and time of the event in IS08601 format. Useful for preloading old events. Defaults to date time this API request is received. | [optional] 
 

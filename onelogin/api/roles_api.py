@@ -25,9 +25,10 @@ from onelogin.models.create_roles201_response_inner import CreateRoles201Respons
 from onelogin.models.get_role_apps200_response_inner import GetRoleApps200ResponseInner
 from onelogin.models.get_role_by_id200_response import GetRoleById200Response
 from onelogin.models.get_role_by_name200_response import GetRoleByName200Response
-from onelogin.models.list_roles200_response_inner import ListRoles200ResponseInner
-from onelogin.models.list_users200_response_inner import ListUsers200ResponseInner
 from onelogin.models.remove_role_users_request import RemoveRoleUsersRequest
+from onelogin.models.role import Role
+from onelogin.models.update_role200_response import UpdateRole200Response
+from onelogin.models.user import User
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -49,7 +50,7 @@ class RolesApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def add_role_admins(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs) -> List[CreateRoles201ResponseInner]:  # noqa: E501
+    def add_role_admins(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs) -> List[CreateRoles201ResponseInner]:  # noqa: E501
         """Add Role Admins  # noqa: E501
 
         Add Role Admins  # noqa: E501
@@ -60,7 +61,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param request_body: (required)
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -82,7 +83,7 @@ class RolesApi(object):
         return self.add_role_admins_with_http_info(role_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_role_admins_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs):  # noqa: E501
+    def add_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs):  # noqa: E501
         """Add Role Admins  # noqa: E501
 
         Add Role Admins  # noqa: E501
@@ -93,7 +94,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param request_body: (required)
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -186,7 +187,7 @@ class RolesApi(object):
 
         _response_types_map = {
             '200': "List[CreateRoles201ResponseInner]",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -207,7 +208,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def add_role_users(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs) -> List[CreateRoles201ResponseInner]:  # noqa: E501
+    def add_role_users(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs) -> List[CreateRoles201ResponseInner]:  # noqa: E501
         """Add Role Users  # noqa: E501
 
         Add Role Users  # noqa: E501
@@ -218,7 +219,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param request_body: (required)
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -240,7 +241,7 @@ class RolesApi(object):
         return self.add_role_users_with_http_info(role_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_role_users_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs):  # noqa: E501
+    def add_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs):  # noqa: E501
         """Add Role Users  # noqa: E501
 
         Add Role Users  # noqa: E501
@@ -251,7 +252,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param request_body: (required)
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -344,8 +345,8 @@ class RolesApi(object):
 
         _response_types_map = {
             '200': "List[CreateRoles201ResponseInner]",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -366,18 +367,18 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def create_roles(self, list_roles200_response_inner : ListRoles200ResponseInner, **kwargs) -> List[CreateRoles201ResponseInner]:  # noqa: E501
+    def create_roles(self, role : Optional[Role] = None, **kwargs) -> List[CreateRoles201ResponseInner]:  # noqa: E501
         """Create Role  # noqa: E501
 
         Create Role  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_roles(list_roles200_response_inner, async_req=True)
+        >>> thread = api.create_roles(role, async_req=True)
         >>> result = thread.get()
 
-        :param list_roles200_response_inner: (required)
-        :type list_roles200_response_inner: ListRoles200ResponseInner
+        :param role:
+        :type role: Role
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -394,21 +395,21 @@ class RolesApi(object):
         :rtype: List[CreateRoles201ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_roles_with_http_info(list_roles200_response_inner, **kwargs)  # noqa: E501
+        return self.create_roles_with_http_info(role, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_roles_with_http_info(self, list_roles200_response_inner : ListRoles200ResponseInner, **kwargs):  # noqa: E501
+    def create_roles_with_http_info(self, role : Optional[Role] = None, **kwargs):  # noqa: E501
         """Create Role  # noqa: E501
 
         Create Role  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_roles_with_http_info(list_roles200_response_inner, async_req=True)
+        >>> thread = api.create_roles_with_http_info(role, async_req=True)
         >>> result = thread.get()
 
-        :param list_roles200_response_inner: (required)
-        :type list_roles200_response_inner: ListRoles200ResponseInner
+        :param role:
+        :type role: Role
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -436,7 +437,7 @@ class RolesApi(object):
         _params = locals()
 
         _all_params = [
-            'list_roles200_response_inner'
+            'role'
         ]
         _all_params.extend(
             [
@@ -477,8 +478,8 @@ class RolesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_roles200_response_inner']:
-            _body_params = _params['list_roles200_response_inner']
+        if _params['role']:
+            _body_params = _params['role']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -496,7 +497,7 @@ class RolesApi(object):
 
         _response_types_map = {
             '201': "List[CreateRoles201ResponseInner]",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -517,7 +518,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def delete_role(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> None:  # noqa: E501
+    def delete_role(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> None:  # noqa: E501
         """Delete Role by ID  # noqa: E501
 
         Delete Role  # noqa: E501
@@ -528,7 +529,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -548,7 +549,7 @@ class RolesApi(object):
         return self.delete_role_with_http_info(role_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_role_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
+    def delete_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
         """Delete Role by ID  # noqa: E501
 
         Delete Role  # noqa: E501
@@ -559,7 +560,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -658,7 +659,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_role(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> ListRoles200ResponseInner:  # noqa: E501
+    def get_role(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> Role:  # noqa: E501
         """Get Role by ID  # noqa: E501
 
         Get Role  # noqa: E501
@@ -669,7 +670,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -683,13 +684,13 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListRoles200ResponseInner
+        :rtype: Role
         """
         kwargs['_return_http_data_only'] = True
         return self.get_role_with_http_info(role_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
+    def get_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
         """Get Role by ID  # noqa: E501
 
         Get Role  # noqa: E501
@@ -700,7 +701,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -722,7 +723,7 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListRoles200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Role, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -780,9 +781,9 @@ class RolesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListRoles200ResponseInner",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "Role",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -803,7 +804,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_role_admins(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs) -> List[ListUsers200ResponseInner]:  # noqa: E501
+    def get_role_admins(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs) -> List[User]:  # noqa: E501
         """Get Role Admins  # noqa: E501
 
         Get Role Admins  # noqa: E501
@@ -814,7 +815,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param limit: How many items to return at one time (max 100)
         :type limit: int
         :param page: The page number of results to return.
@@ -838,13 +839,13 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListUsers200ResponseInner]
+        :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
         return self.get_role_admins_with_http_info(role_id, limit, page, cursor, name, include_unassigned, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_admins_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs):  # noqa: E501
+    def get_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs):  # noqa: E501
         """Get Role Admins  # noqa: E501
 
         Get Role Admins  # noqa: E501
@@ -855,7 +856,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param limit: How many items to return at one time (max 100)
         :type limit: int
         :param page: The page number of results to return.
@@ -887,7 +888,7 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListUsers200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[User], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -960,9 +961,9 @@ class RolesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListUsers200ResponseInner]",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "List[User]",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -983,7 +984,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_role_apps(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, assigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to true. Returns all apps not yet assigned to the role.")] = None, **kwargs) -> List[GetRoleApps200ResponseInner]:  # noqa: E501
+    def get_role_apps(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, assigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to true. Returns all apps not yet assigned to the role.")] = None, **kwargs) -> List[GetRoleApps200ResponseInner]:  # noqa: E501
         """Get all Apps assigned to Role  # noqa: E501
 
         Get Role Apps  # noqa: E501
@@ -994,7 +995,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param limit: How many items to return at one time (max 100)
         :type limit: int
         :param page: The page number of results to return.
@@ -1022,7 +1023,7 @@ class RolesApi(object):
         return self.get_role_apps_with_http_info(role_id, limit, page, cursor, assigned, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_apps_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, assigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to true. Returns all apps not yet assigned to the role.")] = None, **kwargs):  # noqa: E501
+    def get_role_apps_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, assigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to true. Returns all apps not yet assigned to the role.")] = None, **kwargs):  # noqa: E501
         """Get all Apps assigned to Role  # noqa: E501
 
         Get Role Apps  # noqa: E501
@@ -1033,7 +1034,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param limit: How many items to return at one time (max 100)
         :type limit: int
         :param page: The page number of results to return.
@@ -1134,8 +1135,8 @@ class RolesApi(object):
 
         _response_types_map = {
             '200': "List[GetRoleApps200ResponseInner]",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1156,7 +1157,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_role_by_id(self, role_id : StrictStr, **kwargs) -> GetRoleById200Response:  # noqa: E501
+    def get_role_by_id(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> GetRoleById200Response:  # noqa: E501
         """Get Role by ID  # noqa: E501
 
         Get Role By ID  # noqa: E501
@@ -1166,7 +1167,7 @@ class RolesApi(object):
         >>> thread = api.get_role_by_id(role_id, async_req=True)
         >>> result = thread.get()
 
-        :param role_id: (required)
+        :param role_id: Set to the id of the role you want to return. (required)
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1187,7 +1188,7 @@ class RolesApi(object):
         return self.get_role_by_id_with_http_info(role_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_by_id_with_http_info(self, role_id : StrictStr, **kwargs):  # noqa: E501
+    def get_role_by_id_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
         """Get Role by ID  # noqa: E501
 
         Get Role By ID  # noqa: E501
@@ -1197,7 +1198,7 @@ class RolesApi(object):
         >>> thread = api.get_role_by_id_with_http_info(role_id, async_req=True)
         >>> result = thread.get()
 
-        :param role_id: (required)
+        :param role_id: Set to the id of the role you want to return. (required)
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1279,10 +1280,10 @@ class RolesApi(object):
 
         _response_types_map = {
             '200': "GetRoleById200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '403': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -1426,8 +1427,8 @@ class RolesApi(object):
 
         _response_types_map = {
             '200': "GetRoleByName200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -1448,7 +1449,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_role_users(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs) -> List[ListUsers200ResponseInner]:  # noqa: E501
+    def get_role_users(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs) -> List[User]:  # noqa: E501
         """Get Role Users  # noqa: E501
 
         Get Role Users  # noqa: E501
@@ -1459,7 +1460,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param limit: How many items to return at one time (max 100)
         :type limit: int
         :param page: The page number of results to return.
@@ -1483,13 +1484,13 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListUsers200ResponseInner]
+        :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
         return self.get_role_users_with_http_info(role_id, limit, page, cursor, name, include_unassigned, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_users_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs):  # noqa: E501
+    def get_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs):  # noqa: E501
         """Get Role Users  # noqa: E501
 
         Get Role Users  # noqa: E501
@@ -1500,7 +1501,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param limit: How many items to return at one time (max 100)
         :type limit: int
         :param page: The page number of results to return.
@@ -1532,7 +1533,7 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListUsers200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[User], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1605,9 +1606,9 @@ class RolesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListUsers200ResponseInner]",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "List[User]",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1628,26 +1629,26 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_roles(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Optional. Filters by role name.")] = None, app_id : Annotated[Optional[StrictInt], Field(description="Optional. Returns roles that contain this app ID.")] = None, app_name : Annotated[Optional[StrictStr], Field(description="Optional. Returns roles that contain this app name.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs) -> List[ListRoles200ResponseInner]:  # noqa: E501
+    def list_roles(self, app_id : StrictInt, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, role_name : Annotated[Optional[StrictStr], Field(description="Optional. Filters by role name.")] = None, app_name : Annotated[Optional[StrictStr], Field(description="Optional. Returns roles that contain this app name.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs) -> List[Role]:  # noqa: E501
         """List Roles  # noqa: E501
 
         List Roles  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_roles(limit, page, cursor, name, app_id, app_name, fields, async_req=True)
+        >>> thread = api.list_roles(app_id, limit, page, cursor, role_name, app_name, fields, async_req=True)
         >>> result = thread.get()
 
+        :param app_id: (required)
+        :type app_id: int
         :param limit: How many items to return at one time (max 100)
         :type limit: int
         :param page: The page number of results to return.
         :type page: int
         :param cursor: Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.
         :type cursor: str
-        :param name: Optional. Filters by role name.
-        :type name: str
-        :param app_id: Optional. Returns roles that contain this app ID.
-        :type app_id: int
+        :param role_name: Optional. Filters by role name.
+        :type role_name: str
         :param app_name: Optional. Returns roles that contain this app name.
         :type app_name: str
         :param fields: Optional. Comma delimited list of fields to return.
@@ -1665,32 +1666,32 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListRoles200ResponseInner]
+        :rtype: List[Role]
         """
         kwargs['_return_http_data_only'] = True
-        return self.list_roles_with_http_info(limit, page, cursor, name, app_id, app_name, fields, **kwargs)  # noqa: E501
+        return self.list_roles_with_http_info(app_id, limit, page, cursor, role_name, app_name, fields, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_roles_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Optional. Filters by role name.")] = None, app_id : Annotated[Optional[StrictInt], Field(description="Optional. Returns roles that contain this app ID.")] = None, app_name : Annotated[Optional[StrictStr], Field(description="Optional. Returns roles that contain this app name.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs):  # noqa: E501
+    def list_roles_with_http_info(self, app_id : StrictInt, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, role_name : Annotated[Optional[StrictStr], Field(description="Optional. Filters by role name.")] = None, app_name : Annotated[Optional[StrictStr], Field(description="Optional. Returns roles that contain this app name.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs):  # noqa: E501
         """List Roles  # noqa: E501
 
         List Roles  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_roles_with_http_info(limit, page, cursor, name, app_id, app_name, fields, async_req=True)
+        >>> thread = api.list_roles_with_http_info(app_id, limit, page, cursor, role_name, app_name, fields, async_req=True)
         >>> result = thread.get()
 
+        :param app_id: (required)
+        :type app_id: int
         :param limit: How many items to return at one time (max 100)
         :type limit: int
         :param page: The page number of results to return.
         :type page: int
         :param cursor: Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.
         :type cursor: str
-        :param name: Optional. Filters by role name.
-        :type name: str
-        :param app_id: Optional. Returns roles that contain this app ID.
-        :type app_id: int
+        :param role_name: Optional. Filters by role name.
+        :type role_name: str
         :param app_name: Optional. Returns roles that contain this app name.
         :type app_name: str
         :param fields: Optional. Comma delimited list of fields to return.
@@ -1716,17 +1717,17 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListRoles200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[Role], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
+            'app_id',
             'limit',
             'page',
             'cursor',
-            'name',
-            'app_id',
+            'role_name',
             'app_name',
             'fields'
         ]
@@ -1765,8 +1766,8 @@ class RolesApi(object):
             _query_params.append(('page', _params['page']))
         if _params.get('cursor') is not None:  # noqa: E501
             _query_params.append(('cursor', _params['cursor']))
-        if _params.get('name') is not None:  # noqa: E501
-            _query_params.append(('name', _params['name']))
+        if _params.get('role_name') is not None:  # noqa: E501
+            _query_params.append(('role_name', _params['role_name']))
         if _params.get('app_id') is not None:  # noqa: E501
             _query_params.append(('app_id', _params['app_id']))
         if _params.get('app_name') is not None:  # noqa: E501
@@ -1792,8 +1793,8 @@ class RolesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListRoles200ResponseInner]",
-            '401': "GetScopes401Response",
+            '200': "List[Role]",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1814,7 +1815,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def remove_role_admins(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> None:  # noqa: E501
+    def remove_role_admins(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> None:  # noqa: E501
         """Remove Role Admins  # noqa: E501
 
         Remove Role Admins  # noqa: E501
@@ -1825,7 +1826,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param remove_role_users_request: (required)
         :type remove_role_users_request: RemoveRoleUsersRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1847,7 +1848,7 @@ class RolesApi(object):
         return self.remove_role_admins_with_http_info(role_id, remove_role_users_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def remove_role_admins_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs):  # noqa: E501
+    def remove_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs):  # noqa: E501
         """Remove Role Admins  # noqa: E501
 
         Remove Role Admins  # noqa: E501
@@ -1858,7 +1859,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param remove_role_users_request: (required)
         :type remove_role_users_request: RemoveRoleUsersRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1969,7 +1970,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def remove_role_users(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> None:  # noqa: E501
+    def remove_role_users(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> None:  # noqa: E501
         """Remove Role Users  # noqa: E501
 
         Remove Role Users  # noqa: E501
@@ -1980,7 +1981,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param remove_role_users_request: (required)
         :type remove_role_users_request: RemoveRoleUsersRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -2002,7 +2003,7 @@ class RolesApi(object):
         return self.remove_role_users_with_http_info(role_id, remove_role_users_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def remove_role_users_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs):  # noqa: E501
+    def remove_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs):  # noqa: E501
         """Remove Role Users  # noqa: E501
 
         Remove Role Users  # noqa: E501
@@ -2013,7 +2014,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param remove_role_users_request: (required)
         :type remove_role_users_request: RemoveRoleUsersRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -2124,7 +2125,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def set_role_apps(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs) -> List[CreateRoles201ResponseInner]:  # noqa: E501
+    def set_role_apps(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs) -> List[CreateRoles201ResponseInner]:  # noqa: E501
         """Set Role Apps  # noqa: E501
 
         Set Role Apps  # noqa: E501
@@ -2135,7 +2136,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param request_body: (required)
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -2157,7 +2158,7 @@ class RolesApi(object):
         return self.set_role_apps_with_http_info(role_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def set_role_apps_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs):  # noqa: E501
+    def set_role_apps_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : List[StrictInt], **kwargs):  # noqa: E501
         """Set Role Apps  # noqa: E501
 
         Set Role Apps  # noqa: E501
@@ -2168,7 +2169,7 @@ class RolesApi(object):
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
+        :type role_id: str
         :param request_body: (required)
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -2261,8 +2262,8 @@ class RolesApi(object):
 
         _response_types_map = {
             '200': "List[CreateRoles201ResponseInner]",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -2283,20 +2284,20 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_role(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], list_roles200_response_inner : ListRoles200ResponseInner, **kwargs) -> CreateRoles201ResponseInner:  # noqa: E501
+    def update_role(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], role : Optional[Role] = None, **kwargs) -> UpdateRole200Response:  # noqa: E501
         """Update Role  # noqa: E501
 
         Update Role  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_role(role_id, list_roles200_response_inner, async_req=True)
+        >>> thread = api.update_role(role_id, role, async_req=True)
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
-        :param list_roles200_response_inner: (required)
-        :type list_roles200_response_inner: ListRoles200ResponseInner
+        :type role_id: str
+        :param role:
+        :type role: Role
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -2310,26 +2311,26 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateRoles201ResponseInner
+        :rtype: UpdateRole200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_role_with_http_info(role_id, list_roles200_response_inner, **kwargs)  # noqa: E501
+        return self.update_role_with_http_info(role_id, role, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_role_with_http_info(self, role_id : Annotated[StrictInt, Field(..., description="Set to the id of the role you want to return.")], list_roles200_response_inner : ListRoles200ResponseInner, **kwargs):  # noqa: E501
+    def update_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], role : Optional[Role] = None, **kwargs):  # noqa: E501
         """Update Role  # noqa: E501
 
         Update Role  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_role_with_http_info(role_id, list_roles200_response_inner, async_req=True)
+        >>> thread = api.update_role_with_http_info(role_id, role, async_req=True)
         >>> result = thread.get()
 
         :param role_id: Set to the id of the role you want to return. (required)
-        :type role_id: int
-        :param list_roles200_response_inner: (required)
-        :type list_roles200_response_inner: ListRoles200ResponseInner
+        :type role_id: str
+        :param role:
+        :type role: Role
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -2351,14 +2352,14 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateRoles201ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(UpdateRole200Response, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'role_id',
-            'list_roles200_response_inner'
+            'role'
         ]
         _all_params.extend(
             [
@@ -2401,8 +2402,8 @@ class RolesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_roles200_response_inner']:
-            _body_params = _params['list_roles200_response_inner']
+        if _params['role']:
+            _body_params = _params['role']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -2419,9 +2420,9 @@ class RolesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateRoles201ResponseInner",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '200': "UpdateRole200Response",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(

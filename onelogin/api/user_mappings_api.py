@@ -25,8 +25,8 @@ from onelogin.models.list_mapping_action_values200_response_inner import ListMap
 from onelogin.models.list_mapping_conditions200_response import ListMappingConditions200Response
 from onelogin.models.list_mapping_conditions_operators200_response_inner import ListMappingConditionsOperators200ResponseInner
 from onelogin.models.list_mapping_contion_values200_response_inner import ListMappingContionValues200ResponseInner
-from onelogin.models.list_mappings200_response_inner import ListMappings200ResponseInner
 from onelogin.models.list_mappings_actions200_response_inner import ListMappingsActions200ResponseInner
+from onelogin.models.mapping import Mapping
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -48,20 +48,20 @@ class UserMappingsApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_mapping(self, content_type : Optional[StrictStr] = None, list_mappings200_response_inner : Optional[ListMappings200ResponseInner] = None, **kwargs) -> List[ListMappings200ResponseInner]:  # noqa: E501
+    def create_mapping(self, content_type : Optional[StrictStr] = None, mapping : Optional[Mapping] = None, **kwargs) -> List[Mapping]:  # noqa: E501
         """Create Mapping  # noqa: E501
 
         Create User Mapping  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_mapping(content_type, list_mappings200_response_inner, async_req=True)
+        >>> thread = api.create_mapping(content_type, mapping, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param list_mappings200_response_inner:
-        :type list_mappings200_response_inner: ListMappings200ResponseInner
+        :param mapping:
+        :type mapping: Mapping
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -75,26 +75,26 @@ class UserMappingsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListMappings200ResponseInner]
+        :rtype: List[Mapping]
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_mapping_with_http_info(content_type, list_mappings200_response_inner, **kwargs)  # noqa: E501
+        return self.create_mapping_with_http_info(content_type, mapping, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_mapping_with_http_info(self, content_type : Optional[StrictStr] = None, list_mappings200_response_inner : Optional[ListMappings200ResponseInner] = None, **kwargs):  # noqa: E501
+    def create_mapping_with_http_info(self, content_type : Optional[StrictStr] = None, mapping : Optional[Mapping] = None, **kwargs):  # noqa: E501
         """Create Mapping  # noqa: E501
 
         Create User Mapping  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_mapping_with_http_info(content_type, list_mappings200_response_inner, async_req=True)
+        >>> thread = api.create_mapping_with_http_info(content_type, mapping, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param list_mappings200_response_inner:
-        :type list_mappings200_response_inner: ListMappings200ResponseInner
+        :param mapping:
+        :type mapping: Mapping
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -116,14 +116,14 @@ class UserMappingsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListMappings200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[Mapping], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'content_type',
-            'list_mappings200_response_inner'
+            'mapping'
         ]
         _all_params.extend(
             [
@@ -166,8 +166,8 @@ class UserMappingsApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_mappings200_response_inner']:
-            _body_params = _params['list_mappings200_response_inner']
+        if _params['mapping']:
+            _body_params = _params['mapping']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -184,9 +184,9 @@ class UserMappingsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '201': "List[ListMappings200ResponseInner]",
-            '401': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '201': "List[Mapping]",
+            '401': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(
@@ -348,7 +348,7 @@ class UserMappingsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_mapping(self, mapping_id : Annotated[StrictInt, Field(..., description="The id of the user mapping to locate.")], **kwargs) -> ListMappings200ResponseInner:  # noqa: E501
+    def get_mapping(self, mapping_id : Annotated[StrictInt, Field(..., description="The id of the user mapping to locate.")], **kwargs) -> Mapping:  # noqa: E501
         """Get Mapping  # noqa: E501
 
         Get User Mapping  # noqa: E501
@@ -373,7 +373,7 @@ class UserMappingsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListMappings200ResponseInner
+        :rtype: Mapping
         """
         kwargs['_return_http_data_only'] = True
         return self.get_mapping_with_http_info(mapping_id, **kwargs)  # noqa: E501
@@ -412,7 +412,7 @@ class UserMappingsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListMappings200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Mapping, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -470,9 +470,9 @@ class UserMappingsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListMappings200ResponseInner",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Mapping",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -616,7 +616,7 @@ class UserMappingsApi(object):
 
         _response_types_map = {
             '200': "List[ListMappingActionValues200ResponseInner]",
-            '401': "GenerateToken400Response",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -753,7 +753,7 @@ class UserMappingsApi(object):
 
         _response_types_map = {
             '200': "ListMappingConditions200Response",
-            '401': "GenerateToken400Response",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -897,7 +897,7 @@ class UserMappingsApi(object):
 
         _response_types_map = {
             '200': "List[ListMappingConditionsOperators200ResponseInner]",
-            '401': "GenerateToken400Response",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -1041,7 +1041,7 @@ class UserMappingsApi(object):
 
         _response_types_map = {
             '200': "List[ListMappingContionValues200ResponseInner]",
-            '401': "GenerateToken400Response",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -1062,7 +1062,7 @@ class UserMappingsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_mappings(self, enabled : Annotated[Optional[StrictBool], Field(description="Defaults to true. When set to `false` will return all disabled mappings.")] = None, has_condition : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_condition_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_action : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Actions. Values formatted as :, where name is the Action to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_action=set_licenses:123456 Multiple filters. has_action=set_groups:123456,set_usertype:* Wildcard for actions. has_action=*:123456 Wildcard for action values. has_action=set_userprincipalname:*")] = None, has_action_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their action types. Allowed values are: builtin - actions that involve standard attributes custom - actions that involve custom attributes none - no actions are defined For example: Find Rules with no actions has_action_type=none")] = None, **kwargs) -> List[ListMappings200ResponseInner]:  # noqa: E501
+    def list_mappings(self, enabled : Annotated[Optional[StrictBool], Field(description="Defaults to true. When set to `false` will return all disabled mappings.")] = None, has_condition : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_condition_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_action : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Actions. Values formatted as :, where name is the Action to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_action=set_licenses:123456 Multiple filters. has_action=set_groups:123456,set_usertype:* Wildcard for actions. has_action=*:123456 Wildcard for action values. has_action=set_userprincipalname:*")] = None, has_action_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their action types. Allowed values are: builtin - actions that involve standard attributes custom - actions that involve custom attributes none - no actions are defined For example: Find Rules with no actions has_action_type=none")] = None, **kwargs) -> List[Mapping]:  # noqa: E501
         """List Mappings  # noqa: E501
 
         List Mappings  # noqa: E501
@@ -1095,7 +1095,7 @@ class UserMappingsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListMappings200ResponseInner]
+        :rtype: List[Mapping]
         """
         kwargs['_return_http_data_only'] = True
         return self.list_mappings_with_http_info(enabled, has_condition, has_condition_type, has_action, has_action_type, **kwargs)  # noqa: E501
@@ -1142,7 +1142,7 @@ class UserMappingsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListMappings200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[Mapping], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1212,8 +1212,8 @@ class UserMappingsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListMappings200ResponseInner]",
-            '401': "GenerateToken400Response",
+            '200': "List[Mapping]",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -1350,7 +1350,7 @@ class UserMappingsApi(object):
 
         _response_types_map = {
             '200': "List[ListMappingsActions200ResponseInner]",
-            '401': "GenerateToken400Response",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -1371,18 +1371,16 @@ class UserMappingsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def sort_mappings(self, content_type : Optional[StrictStr] = None, request_body : Optional[List[StrictInt]] = None, **kwargs) -> List[int]:  # noqa: E501
+    def sort_mappings(self, request_body : Optional[List[StrictInt]] = None, **kwargs) -> List[int]:  # noqa: E501
         """Bulk Sort  # noqa: E501
 
         Bulk Sort User Mappings  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.sort_mappings(content_type, request_body, async_req=True)
+        >>> thread = api.sort_mappings(request_body, async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param request_body:
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -1401,21 +1399,19 @@ class UserMappingsApi(object):
         :rtype: List[int]
         """
         kwargs['_return_http_data_only'] = True
-        return self.sort_mappings_with_http_info(content_type, request_body, **kwargs)  # noqa: E501
+        return self.sort_mappings_with_http_info(request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def sort_mappings_with_http_info(self, content_type : Optional[StrictStr] = None, request_body : Optional[List[StrictInt]] = None, **kwargs):  # noqa: E501
+    def sort_mappings_with_http_info(self, request_body : Optional[List[StrictInt]] = None, **kwargs):  # noqa: E501
         """Bulk Sort  # noqa: E501
 
         Bulk Sort User Mappings  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.sort_mappings_with_http_info(content_type, request_body, async_req=True)
+        >>> thread = api.sort_mappings_with_http_info(request_body, async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param request_body:
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -1445,7 +1441,6 @@ class UserMappingsApi(object):
         _params = locals()
 
         _all_params = [
-            'content_type',
             'request_body'
         ]
         _all_params.extend(
@@ -1480,8 +1475,6 @@ class UserMappingsApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1508,8 +1501,8 @@ class UserMappingsApi(object):
 
         _response_types_map = {
             '200': "List[int]",
-            '401': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '401': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(
@@ -1674,8 +1667,8 @@ class UserMappingsApi(object):
 
         _response_types_map = {
             '200': "int",
-            '401': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '401': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(

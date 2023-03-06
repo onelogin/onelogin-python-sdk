@@ -40,7 +40,7 @@ class TestGetRoleByName200ResponsePagination(unittest.TestCase):
             return GetRoleByName200ResponsePagination(
                 after_cursor = 'xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 
                 before_cursor = '""', 
-                next_link = 'https://{subdomain}.onelogin.com/api/1/events?after_cursor=xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 
+                next_link = 'https://your-api-subdomain.onelogin.com/api/1/events?after_cursor=xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 
                 previous_link = '""'
             )
         else :

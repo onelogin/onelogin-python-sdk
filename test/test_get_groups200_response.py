@@ -38,13 +38,13 @@ class TestGetGroups200Response(unittest.TestCase):
         model = onelogin.models.get_groups200_response.GetGroups200Response()  # noqa: E501
         if include_optional :
             return GetGroups200Response(
-                status = onelogin.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.error.Error(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
                     message = 'Success', ), 
                 data = [
-                    onelogin.models.get_groups_200_response_data_inner.getGroups_200_response_data_inner(
+                    onelogin.models.group.group(
                         id = 425741, 
                         name = 'group.security.policy.default', 
                         reference = 'null', )

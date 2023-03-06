@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **activate_mfa_factors**
-> GetEnrolledFactors200Response activate_mfa_factors(user_id, device_id, content_type=content_type, activate_mfa_factors_request=activate_mfa_factors_request)
+> GetEnrolledFactors200Response activate_mfa_factors(user_id, device_id, activate_mfa_factors_request=activate_mfa_factors_request)
 
 Activate a Factor
 
@@ -49,12 +49,11 @@ with onelogin.ApiClient(configuration) as api_client:
     api_instance = onelogin.MultiFactorAuthenticationV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     device_id = 'device_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     activate_mfa_factors_request = onelogin.ActivateMfaFactorsRequest() # ActivateMfaFactorsRequest |  (optional)
 
     try:
         # Activate a Factor
-        api_response = api_instance.activate_mfa_factors(user_id, device_id, content_type=content_type, activate_mfa_factors_request=activate_mfa_factors_request)
+        api_response = api_instance.activate_mfa_factors(user_id, device_id, activate_mfa_factors_request=activate_mfa_factors_request)
         print("The response of MultiFactorAuthenticationV1Api->activate_mfa_factors:\n")
         pprint(api_response)
     except Exception as e:
@@ -67,7 +66,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
  **device_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **activate_mfa_factors_request** | [**ActivateMfaFactorsRequest**](ActivateMfaFactorsRequest.md)|  | [optional] 
 
 ### Return type
@@ -93,7 +91,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **enroll_mfa_factor**
-> EnrollMfaFactor200Response enroll_mfa_factor(user_id, content_type=content_type, enroll_mfa_factor_request=enroll_mfa_factor_request)
+> EnrollMfaFactor200Response enroll_mfa_factor(user_id, enroll_mfa_factor_request=enroll_mfa_factor_request)
 
 Enroll a Factor
 
@@ -127,12 +125,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.MultiFactorAuthenticationV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     enroll_mfa_factor_request = onelogin.EnrollMfaFactorRequest() # EnrollMfaFactorRequest |  (optional)
 
     try:
         # Enroll a Factor
-        api_response = api_instance.enroll_mfa_factor(user_id, content_type=content_type, enroll_mfa_factor_request=enroll_mfa_factor_request)
+        api_response = api_instance.enroll_mfa_factor(user_id, enroll_mfa_factor_request=enroll_mfa_factor_request)
         print("The response of MultiFactorAuthenticationV1Api->enroll_mfa_factor:\n")
         pprint(api_response)
     except Exception as e:
@@ -144,7 +141,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **enroll_mfa_factor_request** | [**EnrollMfaFactorRequest**](EnrollMfaFactorRequest.md)|  | [optional] 
 
 ### Return type
@@ -170,7 +166,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_mf_atoken**
-> GenerateMFAtoken200Response generate_mf_atoken(user_id, content_type=content_type, generate_mf_atoken_request=generate_mf_atoken_request)
+> GenerateMFAtoken200Response generate_mf_atoken(user_id, generate_mf_atoken_request=generate_mf_atoken_request)
 
 Generate Temp MFA Token
 
@@ -204,12 +200,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.MultiFactorAuthenticationV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     generate_mf_atoken_request = onelogin.GenerateMFAtokenRequest() # GenerateMFAtokenRequest |  (optional)
 
     try:
         # Generate Temp MFA Token
-        api_response = api_instance.generate_mf_atoken(user_id, content_type=content_type, generate_mf_atoken_request=generate_mf_atoken_request)
+        api_response = api_instance.generate_mf_atoken(user_id, generate_mf_atoken_request=generate_mf_atoken_request)
         print("The response of MultiFactorAuthenticationV1Api->generate_mf_atoken:\n")
         pprint(api_response)
     except Exception as e:
@@ -221,7 +216,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **generate_mf_atoken_request** | [**GenerateMFAtokenRequest**](GenerateMFAtokenRequest.md)|  | [optional] 
 
 ### Return type
@@ -465,7 +459,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **verify_mfa_factor**
-> GenerateToken400Response verify_mfa_factor(user_id, device_id, content_type=content_type, verify_mfa_factor_request=verify_mfa_factor_request)
+> Error verify_mfa_factor(user_id, device_id, verify_mfa_factor_request=verify_mfa_factor_request)
 
 Verify a Factor
 
@@ -500,12 +494,11 @@ with onelogin.ApiClient(configuration) as api_client:
     api_instance = onelogin.MultiFactorAuthenticationV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
     device_id = 'device_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     verify_mfa_factor_request = onelogin.VerifyMfaFactorRequest() # VerifyMfaFactorRequest |  (optional)
 
     try:
         # Verify a Factor
-        api_response = api_instance.verify_mfa_factor(user_id, device_id, content_type=content_type, verify_mfa_factor_request=verify_mfa_factor_request)
+        api_response = api_instance.verify_mfa_factor(user_id, device_id, verify_mfa_factor_request=verify_mfa_factor_request)
         print("The response of MultiFactorAuthenticationV1Api->verify_mfa_factor:\n")
         pprint(api_response)
     except Exception as e:
@@ -518,12 +511,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
  **device_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **verify_mfa_factor_request** | [**VerifyMfaFactorRequest**](VerifyMfaFactorRequest.md)|  | [optional] 
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 

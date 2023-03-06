@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **create_brand**
-> CreateBrand201Response create_brand(create_brand_request=create_brand_request)
+> Brand create_brand(request_brand=request_brand)
 
 Create Brand
 
@@ -46,11 +46,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.BrandingServiceApi(api_client)
-    create_brand_request = onelogin.CreateBrandRequest() # CreateBrandRequest |  (optional)
+    request_brand = onelogin.RequestBrand() # RequestBrand |  (optional)
 
     try:
         # Create Brand
-        api_response = api_instance.create_brand(create_brand_request=create_brand_request)
+        api_response = api_instance.create_brand(request_brand=request_brand)
         print("The response of BrandingServiceApi->create_brand:\n")
         pprint(api_response)
     except Exception as e:
@@ -61,11 +61,11 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_brand_request** | [**CreateBrandRequest**](CreateBrandRequest.md)|  | [optional] 
+ **request_brand** | [**RequestBrand**](RequestBrand.md)|  | [optional] 
 
 ### Return type
 
-[**CreateBrand201Response**](CreateBrand201Response.md)
+[**Brand**](Brand.md)
 
 ### Authorization
 
@@ -157,7 +157,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_brand**
-> CreateBrand201Response get_brand(brand_id)
+> Brand get_brand(brand_id)
 
 Get Brand
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateBrand201Response**](CreateBrand201Response.md)
+[**Brand**](Brand.md)
 
 ### Authorization
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_brand_apps**
-> List[GetBrandApps200ResponseInner] get_brand_apps(brand_id)
+> List[BrandApp] get_brand_apps(brand_id)
 
 Get Brand Apps
 
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[GetBrandApps200ResponseInner]**](GetBrandApps200ResponseInner.md)
+[**List[BrandApp]**](BrandApp.md)
 
 ### Authorization
 
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_brands**
-> List[ListBrands200ResponseInner] list_brands()
+> List[BrandReq] list_brands()
 
 List Account Brands
 
@@ -351,7 +351,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List[ListBrands200ResponseInner]**](ListBrands200ResponseInner.md)
+[**List[BrandReq]**](BrandReq.md)
 
 ### Authorization
 
@@ -370,7 +370,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_brand**
-> CreateBrand201Response update_brand(brand_id, create_brand_request=create_brand_request)
+> Brand update_brand(brand_id, request_brand=request_brand)
 
 Update Brand
 
@@ -404,11 +404,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.BrandingServiceApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
-    create_brand_request = onelogin.CreateBrandRequest() # CreateBrandRequest |  (optional)
+    request_brand = onelogin.RequestBrand() # RequestBrand |  (optional)
 
     try:
         # Update Brand
-        api_response = api_instance.update_brand(brand_id, create_brand_request=create_brand_request)
+        api_response = api_instance.update_brand(brand_id, request_brand=request_brand)
         print("The response of BrandingServiceApi->update_brand:\n")
         pprint(api_response)
     except Exception as e:
@@ -420,11 +420,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand_id** | **int**| Unique identifier for the branding object. | 
- **create_brand_request** | [**CreateBrandRequest**](CreateBrandRequest.md)|  | [optional] 
+ **request_brand** | [**RequestBrand**](RequestBrand.md)|  | [optional] 
 
 ### Return type
 
-[**CreateBrand201Response**](CreateBrand201Response.md)
+[**Brand**](Brand.md)
 
 ### Authorization
 

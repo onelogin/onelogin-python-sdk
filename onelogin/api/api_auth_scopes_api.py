@@ -21,9 +21,9 @@ from pydantic import StrictInt, StrictStr
 
 from typing import List, Optional
 
-from onelogin.models.create_scope200_response import CreateScope200Response
-from onelogin.models.create_scope_request import CreateScopeRequest
-from onelogin.models.get_scopes200_response_inner import GetScopes200ResponseInner
+from onelogin.models.auth_id import AuthId
+from onelogin.models.auth_scope import AuthScope
+from onelogin.models.auth_server import AuthServer
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -45,22 +45,22 @@ class APIAuthScopesApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_scope(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, create_scope_request : Optional[CreateScopeRequest] = None, **kwargs) -> CreateScope200Response:  # noqa: E501
+    def create_scope(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs) -> AuthId:  # noqa: E501
         """Create Api Auth Server Scope  # noqa: E501
 
         Create API Auth Server Scope  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_scope(api_auth_id, content_type, create_scope_request, async_req=True)
+        >>> thread = api.create_scope(api_auth_id, content_type, auth_scope, async_req=True)
         >>> result = thread.get()
 
         :param api_auth_id: (required)
         :type api_auth_id: str
         :param content_type:
         :type content_type: str
-        :param create_scope_request:
-        :type create_scope_request: CreateScopeRequest
+        :param auth_scope:
+        :type auth_scope: AuthScope
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -74,28 +74,28 @@ class APIAuthScopesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateScope200Response
+        :rtype: AuthId
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_scope_with_http_info(api_auth_id, content_type, create_scope_request, **kwargs)  # noqa: E501
+        return self.create_scope_with_http_info(api_auth_id, content_type, auth_scope, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_scope_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, create_scope_request : Optional[CreateScopeRequest] = None, **kwargs):  # noqa: E501
+    def create_scope_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs):  # noqa: E501
         """Create Api Auth Server Scope  # noqa: E501
 
         Create API Auth Server Scope  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_scope_with_http_info(api_auth_id, content_type, create_scope_request, async_req=True)
+        >>> thread = api.create_scope_with_http_info(api_auth_id, content_type, auth_scope, async_req=True)
         >>> result = thread.get()
 
         :param api_auth_id: (required)
         :type api_auth_id: str
         :param content_type:
         :type content_type: str
-        :param create_scope_request:
-        :type create_scope_request: CreateScopeRequest
+        :param auth_scope:
+        :type auth_scope: AuthScope
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -117,7 +117,7 @@ class APIAuthScopesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateScope200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(AuthId, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -125,7 +125,7 @@ class APIAuthScopesApi(object):
         _all_params = [
             'api_auth_id',
             'content_type',
-            'create_scope_request'
+            'auth_scope'
         ]
         _all_params.extend(
             [
@@ -170,8 +170,8 @@ class APIAuthScopesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['create_scope_request']:
-            _body_params = _params['create_scope_request']
+        if _params['auth_scope']:
+            _body_params = _params['auth_scope']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -188,10 +188,10 @@ class APIAuthScopesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateScope200Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '200': "AuthId",
+            '401': "AltErr",
+            '404': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -367,7 +367,7 @@ class APIAuthScopesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_scopes(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> List[GetScopes200ResponseInner]:  # noqa: E501
+    def get_scopes(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> List[AuthServer]:  # noqa: E501
         """Get Api Auth Server Scopes  # noqa: E501
 
         List Authorization Scopes  # noqa: E501
@@ -394,7 +394,7 @@ class APIAuthScopesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[GetScopes200ResponseInner]
+        :rtype: List[AuthServer]
         """
         kwargs['_return_http_data_only'] = True
         return self.get_scopes_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
@@ -435,7 +435,7 @@ class APIAuthScopesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[GetScopes200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[AuthServer], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -496,8 +496,8 @@ class APIAuthScopesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[GetScopes200ResponseInner]",
-            '401': "GetScopes401Response",
+            '200': "List[AuthServer]",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -518,14 +518,14 @@ class APIAuthScopesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_scope(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, create_scope_request : Optional[CreateScopeRequest] = None, **kwargs) -> CreateScope200Response:  # noqa: E501
+    def update_scope(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs) -> AuthId:  # noqa: E501
         """Update Api Auth Server Scope  # noqa: E501
 
         Update Scope  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_scope(api_auth_id, scope_id, content_type, create_scope_request, async_req=True)
+        >>> thread = api.update_scope(api_auth_id, scope_id, content_type, auth_scope, async_req=True)
         >>> result = thread.get()
 
         :param api_auth_id: (required)
@@ -534,8 +534,8 @@ class APIAuthScopesApi(object):
         :type scope_id: int
         :param content_type:
         :type content_type: str
-        :param create_scope_request:
-        :type create_scope_request: CreateScopeRequest
+        :param auth_scope:
+        :type auth_scope: AuthScope
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -549,20 +549,20 @@ class APIAuthScopesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateScope200Response
+        :rtype: AuthId
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_scope_with_http_info(api_auth_id, scope_id, content_type, create_scope_request, **kwargs)  # noqa: E501
+        return self.update_scope_with_http_info(api_auth_id, scope_id, content_type, auth_scope, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_scope_with_http_info(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, create_scope_request : Optional[CreateScopeRequest] = None, **kwargs):  # noqa: E501
+    def update_scope_with_http_info(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs):  # noqa: E501
         """Update Api Auth Server Scope  # noqa: E501
 
         Update Scope  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_scope_with_http_info(api_auth_id, scope_id, content_type, create_scope_request, async_req=True)
+        >>> thread = api.update_scope_with_http_info(api_auth_id, scope_id, content_type, auth_scope, async_req=True)
         >>> result = thread.get()
 
         :param api_auth_id: (required)
@@ -571,8 +571,8 @@ class APIAuthScopesApi(object):
         :type scope_id: int
         :param content_type:
         :type content_type: str
-        :param create_scope_request:
-        :type create_scope_request: CreateScopeRequest
+        :param auth_scope:
+        :type auth_scope: AuthScope
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -594,7 +594,7 @@ class APIAuthScopesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateScope200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(AuthId, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -603,7 +603,7 @@ class APIAuthScopesApi(object):
             'api_auth_id',
             'scope_id',
             'content_type',
-            'create_scope_request'
+            'auth_scope'
         ]
         _all_params.extend(
             [
@@ -650,8 +650,8 @@ class APIAuthScopesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['create_scope_request']:
-            _body_params = _params['create_scope_request']
+        if _params['auth_scope']:
+            _body_params = _params['auth_scope']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -668,10 +668,10 @@ class APIAuthScopesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateScope200Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '200': "AuthId",
+            '401': "AltErr",
+            '404': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(

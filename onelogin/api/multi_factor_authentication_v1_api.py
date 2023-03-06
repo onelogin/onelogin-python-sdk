@@ -24,9 +24,9 @@ from typing import Optional
 from onelogin.models.activate_mfa_factors_request import ActivateMfaFactorsRequest
 from onelogin.models.enroll_mfa_factor200_response import EnrollMfaFactor200Response
 from onelogin.models.enroll_mfa_factor_request import EnrollMfaFactorRequest
+from onelogin.models.error import Error
 from onelogin.models.generate_mf_atoken200_response import GenerateMFAtoken200Response
 from onelogin.models.generate_mf_atoken_request import GenerateMFAtokenRequest
-from onelogin.models.generate_token400_response import GenerateToken400Response
 from onelogin.models.get_enrolled_factors200_response import GetEnrolledFactors200Response
 from onelogin.models.get_mfa_factors200_response import GetMFAFactors200Response
 from onelogin.models.verify_mfa_factor_request import VerifyMfaFactorRequest
@@ -51,22 +51,20 @@ class MultiFactorAuthenticationV1Api(object):
         self.api_client = api_client
 
     @validate_arguments
-    def activate_mfa_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, content_type : Optional[StrictStr] = None, activate_mfa_factors_request : Optional[ActivateMfaFactorsRequest] = None, **kwargs) -> GetEnrolledFactors200Response:  # noqa: E501
+    def activate_mfa_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, activate_mfa_factors_request : Optional[ActivateMfaFactorsRequest] = None, **kwargs) -> GetEnrolledFactors200Response:  # noqa: E501
         """Activate a Factor  # noqa: E501
 
         Activate a Factor  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.activate_mfa_factors(user_id, device_id, content_type, activate_mfa_factors_request, async_req=True)
+        >>> thread = api.activate_mfa_factors(user_id, device_id, activate_mfa_factors_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
         :param device_id: (required)
         :type device_id: str
-        :param content_type:
-        :type content_type: str
         :param activate_mfa_factors_request:
         :type activate_mfa_factors_request: ActivateMfaFactorsRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -85,25 +83,23 @@ class MultiFactorAuthenticationV1Api(object):
         :rtype: GetEnrolledFactors200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.activate_mfa_factors_with_http_info(user_id, device_id, content_type, activate_mfa_factors_request, **kwargs)  # noqa: E501
+        return self.activate_mfa_factors_with_http_info(user_id, device_id, activate_mfa_factors_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def activate_mfa_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, content_type : Optional[StrictStr] = None, activate_mfa_factors_request : Optional[ActivateMfaFactorsRequest] = None, **kwargs):  # noqa: E501
+    def activate_mfa_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, activate_mfa_factors_request : Optional[ActivateMfaFactorsRequest] = None, **kwargs):  # noqa: E501
         """Activate a Factor  # noqa: E501
 
         Activate a Factor  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.activate_mfa_factors_with_http_info(user_id, device_id, content_type, activate_mfa_factors_request, async_req=True)
+        >>> thread = api.activate_mfa_factors_with_http_info(user_id, device_id, activate_mfa_factors_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
         :param device_id: (required)
         :type device_id: str
-        :param content_type:
-        :type content_type: str
         :param activate_mfa_factors_request:
         :type activate_mfa_factors_request: ActivateMfaFactorsRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -135,7 +131,6 @@ class MultiFactorAuthenticationV1Api(object):
         _all_params = [
             'user_id',
             'device_id',
-            'content_type',
             'activate_mfa_factors_request'
         ]
         _all_params.extend(
@@ -174,8 +169,6 @@ class MultiFactorAuthenticationV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -202,8 +195,8 @@ class MultiFactorAuthenticationV1Api(object):
 
         _response_types_map = {
             '200': "GetEnrolledFactors200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -224,20 +217,18 @@ class MultiFactorAuthenticationV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def enroll_mfa_factor(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, enroll_mfa_factor_request : Optional[EnrollMfaFactorRequest] = None, **kwargs) -> EnrollMfaFactor200Response:  # noqa: E501
+    def enroll_mfa_factor(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], enroll_mfa_factor_request : Optional[EnrollMfaFactorRequest] = None, **kwargs) -> EnrollMfaFactor200Response:  # noqa: E501
         """Enroll a Factor  # noqa: E501
 
          Enroll an Authentication Factor  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.enroll_mfa_factor(user_id, content_type, enroll_mfa_factor_request, async_req=True)
+        >>> thread = api.enroll_mfa_factor(user_id, enroll_mfa_factor_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param enroll_mfa_factor_request:
         :type enroll_mfa_factor_request: EnrollMfaFactorRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -256,23 +247,21 @@ class MultiFactorAuthenticationV1Api(object):
         :rtype: EnrollMfaFactor200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.enroll_mfa_factor_with_http_info(user_id, content_type, enroll_mfa_factor_request, **kwargs)  # noqa: E501
+        return self.enroll_mfa_factor_with_http_info(user_id, enroll_mfa_factor_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def enroll_mfa_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, enroll_mfa_factor_request : Optional[EnrollMfaFactorRequest] = None, **kwargs):  # noqa: E501
+    def enroll_mfa_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], enroll_mfa_factor_request : Optional[EnrollMfaFactorRequest] = None, **kwargs):  # noqa: E501
         """Enroll a Factor  # noqa: E501
 
          Enroll an Authentication Factor  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.enroll_mfa_factor_with_http_info(user_id, content_type, enroll_mfa_factor_request, async_req=True)
+        >>> thread = api.enroll_mfa_factor_with_http_info(user_id, enroll_mfa_factor_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param enroll_mfa_factor_request:
         :type enroll_mfa_factor_request: EnrollMfaFactorRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -303,7 +292,6 @@ class MultiFactorAuthenticationV1Api(object):
 
         _all_params = [
             'user_id',
-            'content_type',
             'enroll_mfa_factor_request'
         ]
         _all_params.extend(
@@ -340,8 +328,6 @@ class MultiFactorAuthenticationV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -368,8 +354,8 @@ class MultiFactorAuthenticationV1Api(object):
 
         _response_types_map = {
             '200': "EnrollMfaFactor200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -390,20 +376,18 @@ class MultiFactorAuthenticationV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def generate_mf_atoken(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, generate_mf_atoken_request : Optional[GenerateMFAtokenRequest] = None, **kwargs) -> GenerateMFAtoken200Response:  # noqa: E501
+    def generate_mf_atoken(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], generate_mf_atoken_request : Optional[GenerateMFAtokenRequest] = None, **kwargs) -> GenerateMFAtoken200Response:  # noqa: E501
         """Generate Temp MFA Token  # noqa: E501
 
         Generate MFA Token  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.generate_mf_atoken(user_id, content_type, generate_mf_atoken_request, async_req=True)
+        >>> thread = api.generate_mf_atoken(user_id, generate_mf_atoken_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param generate_mf_atoken_request:
         :type generate_mf_atoken_request: GenerateMFAtokenRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -422,23 +406,21 @@ class MultiFactorAuthenticationV1Api(object):
         :rtype: GenerateMFAtoken200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.generate_mf_atoken_with_http_info(user_id, content_type, generate_mf_atoken_request, **kwargs)  # noqa: E501
+        return self.generate_mf_atoken_with_http_info(user_id, generate_mf_atoken_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def generate_mf_atoken_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, generate_mf_atoken_request : Optional[GenerateMFAtokenRequest] = None, **kwargs):  # noqa: E501
+    def generate_mf_atoken_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], generate_mf_atoken_request : Optional[GenerateMFAtokenRequest] = None, **kwargs):  # noqa: E501
         """Generate Temp MFA Token  # noqa: E501
 
         Generate MFA Token  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.generate_mf_atoken_with_http_info(user_id, content_type, generate_mf_atoken_request, async_req=True)
+        >>> thread = api.generate_mf_atoken_with_http_info(user_id, generate_mf_atoken_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param generate_mf_atoken_request:
         :type generate_mf_atoken_request: GenerateMFAtokenRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -469,7 +451,6 @@ class MultiFactorAuthenticationV1Api(object):
 
         _all_params = [
             'user_id',
-            'content_type',
             'generate_mf_atoken_request'
         ]
         _all_params.extend(
@@ -506,8 +487,6 @@ class MultiFactorAuthenticationV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -677,8 +656,8 @@ class MultiFactorAuthenticationV1Api(object):
 
         _response_types_map = {
             '200': "GetEnrolledFactors200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -822,9 +801,9 @@ class MultiFactorAuthenticationV1Api(object):
 
         _response_types_map = {
             '200': "GetMFAFactors200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -993,22 +972,20 @@ class MultiFactorAuthenticationV1Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def verify_mfa_factor(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, content_type : Optional[StrictStr] = None, verify_mfa_factor_request : Optional[VerifyMfaFactorRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def verify_mfa_factor(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, verify_mfa_factor_request : Optional[VerifyMfaFactorRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Verify a Factor  # noqa: E501
 
         Verify a Factor  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.verify_mfa_factor(user_id, device_id, content_type, verify_mfa_factor_request, async_req=True)
+        >>> thread = api.verify_mfa_factor(user_id, device_id, verify_mfa_factor_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
         :param device_id: (required)
         :type device_id: str
-        :param content_type:
-        :type content_type: str
         :param verify_mfa_factor_request:
         :type verify_mfa_factor_request: VerifyMfaFactorRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1024,28 +1001,26 @@ class MultiFactorAuthenticationV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
-        return self.verify_mfa_factor_with_http_info(user_id, device_id, content_type, verify_mfa_factor_request, **kwargs)  # noqa: E501
+        return self.verify_mfa_factor_with_http_info(user_id, device_id, verify_mfa_factor_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def verify_mfa_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, content_type : Optional[StrictStr] = None, verify_mfa_factor_request : Optional[VerifyMfaFactorRequest] = None, **kwargs):  # noqa: E501
+    def verify_mfa_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, verify_mfa_factor_request : Optional[VerifyMfaFactorRequest] = None, **kwargs):  # noqa: E501
         """Verify a Factor  # noqa: E501
 
         Verify a Factor  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.verify_mfa_factor_with_http_info(user_id, device_id, content_type, verify_mfa_factor_request, async_req=True)
+        >>> thread = api.verify_mfa_factor_with_http_info(user_id, device_id, verify_mfa_factor_request, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
         :param device_id: (required)
         :type device_id: str
-        :param content_type:
-        :type content_type: str
         :param verify_mfa_factor_request:
         :type verify_mfa_factor_request: VerifyMfaFactorRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -1069,7 +1044,7 @@ class MultiFactorAuthenticationV1Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1077,7 +1052,6 @@ class MultiFactorAuthenticationV1Api(object):
         _all_params = [
             'user_id',
             'device_id',
-            'content_type',
             'verify_mfa_factor_request'
         ]
         _all_params.extend(
@@ -1116,8 +1090,6 @@ class MultiFactorAuthenticationV1Api(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1143,9 +1115,9 @@ class MultiFactorAuthenticationV1Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(

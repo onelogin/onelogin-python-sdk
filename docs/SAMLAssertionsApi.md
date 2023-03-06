@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **generate_saml_assert**
-> GenerateSamlAssert200Response generate_saml_assert(content_type=content_type, generate_saml_assert_request=generate_saml_assert_request)
+> GenerateSamlAssert200Response generate_saml_assert(content_type=content_type, saml_assert=saml_assert)
 
 Generate SAML Assertion
 
@@ -45,11 +45,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.SAMLAssertionsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    generate_saml_assert_request = onelogin.GenerateSamlAssertRequest() # GenerateSamlAssertRequest |  (optional)
+    saml_assert = onelogin.SamlAssert() # SamlAssert |  (optional)
 
     try:
         # Generate SAML Assertion
-        api_response = api_instance.generate_saml_assert(content_type=content_type, generate_saml_assert_request=generate_saml_assert_request)
+        api_response = api_instance.generate_saml_assert(content_type=content_type, saml_assert=saml_assert)
         print("The response of SAMLAssertionsApi->generate_saml_assert:\n")
         pprint(api_response)
     except Exception as e:
@@ -61,7 +61,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **generate_saml_assert_request** | [**GenerateSamlAssertRequest**](GenerateSamlAssertRequest.md)|  | [optional] 
+ **saml_assert** | [**SamlAssert**](SamlAssert.md)|  | [optional] 
 
 ### Return type
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **generate_saml_assert2**
-> GenerateSamlAssert200Response generate_saml_assert2(content_type=content_type, generate_saml_assert_request=generate_saml_assert_request)
+> GenerateSamlAssert200Response generate_saml_assert2(content_type=content_type, saml_assert=saml_assert)
 
 Generate SAML Assertion
 
@@ -120,11 +120,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.SAMLAssertionsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    generate_saml_assert_request = onelogin.GenerateSamlAssertRequest() # GenerateSamlAssertRequest |  (optional)
+    saml_assert = onelogin.SamlAssert() # SamlAssert |  (optional)
 
     try:
         # Generate SAML Assertion
-        api_response = api_instance.generate_saml_assert2(content_type=content_type, generate_saml_assert_request=generate_saml_assert_request)
+        api_response = api_instance.generate_saml_assert2(content_type=content_type, saml_assert=saml_assert)
         print("The response of SAMLAssertionsApi->generate_saml_assert2:\n")
         pprint(api_response)
     except Exception as e:
@@ -136,7 +136,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **generate_saml_assert_request** | [**GenerateSamlAssertRequest**](GenerateSamlAssertRequest.md)|  | [optional] 
+ **saml_assert** | [**SamlAssert**](SamlAssert.md)|  | [optional] 
 
 ### Return type
 
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ver_factor_saml**
-> VerFactorSaml200Response ver_factor_saml(content_type=content_type, ver_factor_saml_request=ver_factor_saml_request)
+> VerFactorSaml200Response ver_factor_saml(content_type=content_type, saml_factor=saml_factor)
 
 Verify Factor SAML
 
@@ -195,11 +195,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.SAMLAssertionsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    ver_factor_saml_request = onelogin.VerFactorSamlRequest() # VerFactorSamlRequest |  (optional)
+    saml_factor = onelogin.SamlFactor() # SamlFactor |  (optional)
 
     try:
         # Verify Factor SAML
-        api_response = api_instance.ver_factor_saml(content_type=content_type, ver_factor_saml_request=ver_factor_saml_request)
+        api_response = api_instance.ver_factor_saml(content_type=content_type, saml_factor=saml_factor)
         print("The response of SAMLAssertionsApi->ver_factor_saml:\n")
         pprint(api_response)
     except Exception as e:
@@ -211,7 +211,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **ver_factor_saml_request** | [**VerFactorSamlRequest**](VerFactorSamlRequest.md)|  | [optional] 
+ **saml_factor** | [**SamlFactor**](SamlFactor.md)|  | [optional] 
 
 ### Return type
 
@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ver_factor_saml2**
-> VerFactorSaml200Response ver_factor_saml2(content_type=content_type, ver_factor_saml_request=ver_factor_saml_request)
+> VerFactorSaml200Response ver_factor_saml2(content_type=content_type, saml_factor=saml_factor)
 
 Verify Factor SAML
 
@@ -271,11 +271,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.SAMLAssertionsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    ver_factor_saml_request = onelogin.VerFactorSamlRequest() # VerFactorSamlRequest |  (optional)
+    saml_factor = onelogin.SamlFactor() # SamlFactor |  (optional)
 
     try:
         # Verify Factor SAML
-        api_response = api_instance.ver_factor_saml2(content_type=content_type, ver_factor_saml_request=ver_factor_saml_request)
+        api_response = api_instance.ver_factor_saml2(content_type=content_type, saml_factor=saml_factor)
         print("The response of SAMLAssertionsApi->ver_factor_saml2:\n")
         pprint(api_response)
     except Exception as e:
@@ -287,7 +287,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **ver_factor_saml_request** | [**VerFactorSamlRequest**](VerFactorSamlRequest.md)|  | [optional] 
+ **saml_factor** | [**SamlFactor**](SamlFactor.md)|  | [optional] 
 
 ### Return type
 

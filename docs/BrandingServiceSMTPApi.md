@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **delete_email_settings**
-> GetScopes401Response delete_email_settings()
+> AltErr delete_email_settings()
 
 Delete Custom Email Settings
 
@@ -58,7 +58,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**GetScopes401Response**](GetScopes401Response.md)
+[**AltErr**](AltErr.md)
 
 ### Authorization
 
@@ -146,7 +146,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_email_settings**
-> GetScopes401Response update_email_settings(get_email_settings200_response_one_of1=get_email_settings200_response_one_of1)
+> AltErr update_email_settings(email_config=email_config)
 
 Update Email Settings
 
@@ -179,11 +179,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.BrandingServiceSMTPApi(api_client)
-    get_email_settings200_response_one_of1 = onelogin.GetEmailSettings200ResponseOneOf1() # GetEmailSettings200ResponseOneOf1 |  (optional)
+    email_config = onelogin.EmailConfig() # EmailConfig |  (optional)
 
     try:
         # Update Email Settings
-        api_response = api_instance.update_email_settings(get_email_settings200_response_one_of1=get_email_settings200_response_one_of1)
+        api_response = api_instance.update_email_settings(email_config=email_config)
         print("The response of BrandingServiceSMTPApi->update_email_settings:\n")
         pprint(api_response)
     except Exception as e:
@@ -194,11 +194,11 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **get_email_settings200_response_one_of1** | [**GetEmailSettings200ResponseOneOf1**](GetEmailSettings200ResponseOneOf1.md)|  | [optional] 
+ **email_config** | [**EmailConfig**](EmailConfig.md)|  | [optional] 
 
 ### Return type
 
-[**GetScopes401Response**](GetScopes401Response.md)
+[**AltErr**](AltErr.md)
 
 ### Authorization
 

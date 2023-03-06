@@ -40,16 +40,16 @@ class TestGetRiskScoreRequest(unittest.TestCase):
             return GetRiskScoreRequest(
                 ip = '', 
                 user_agent = '', 
-                user = onelogin.models.track_risk_event_request_user.trackRiskEvent_request_user(
+                user = onelogin.models.risk_user.risk_user(
                     id = '', 
                     name = '', 
                     authenticated = True, ), 
-                source = onelogin.models.list_risk_rules_200_response_inner_source.listRiskRules_200_response_inner_source(
+                source = onelogin.models.source.source(
                     id = '', 
                     name = '', ), 
-                session = onelogin.models.track_risk_event_request_session.trackRiskEvent_request_session(
+                session = onelogin.models.session.session(
                     id = '', ), 
-                device = onelogin.models.track_risk_event_request_device.trackRiskEvent_request_device(
+                device = onelogin.models.risk_device.risk_device(
                     id = '', ), 
                 fp = ''
             )
@@ -57,7 +57,7 @@ class TestGetRiskScoreRequest(unittest.TestCase):
             return GetRiskScoreRequest(
                 ip = '',
                 user_agent = '',
-                user = onelogin.models.track_risk_event_request_user.trackRiskEvent_request_user(
+                user = onelogin.models.risk_user.risk_user(
                     id = '', 
                     name = '', 
                     authenticated = True, ),

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **create_message_template**
-> CreateMessageTemplateRequest create_message_template(brand_id, locale, create_message_template_request=create_message_template_request)
+> MessageTemplate create_message_template(brand_id, locale=locale, message_template=message_template)
 
 Create Message Template
 
@@ -49,12 +49,12 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
-    locale = 'en' # str | The 2 character language locale for the template. e.g. en = English, es = Spanish
-    create_message_template_request = {"type":"email_forgot_password","locale":"es","template":{"subject":"Password Reset","html":"<html><head></head><body><p>Please update your password by clicking <a href={{url}}>this link</a></p></body></html>","plain":"Please update your password by visiting this url: {{url}}"}} # CreateMessageTemplateRequest |  (optional)
+    locale = 'en' # str | The 2 character language locale for the template. e.g. en = English, es = Spanish (optional)
+    message_template = {"type":"email_forgot_password","locale":"es","template":{"subject":"Password Reset","html":"<html><head></head><body><p>Please update your password by clicking <a href={{url}}>this link</a></p></body></html>","plain":"Please update your password by visiting this url: {{url}}"}} # MessageTemplate |  (optional)
 
     try:
         # Create Message Template
-        api_response = api_instance.create_message_template(brand_id, locale, create_message_template_request=create_message_template_request)
+        api_response = api_instance.create_message_template(brand_id, locale=locale, message_template=message_template)
         print("The response of BrandingServiceTemplatesApi->create_message_template:\n")
         pprint(api_response)
     except Exception as e:
@@ -66,12 +66,12 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand_id** | **int**| Unique identifier for the branding object. | 
- **locale** | **str**| The 2 character language locale for the template. e.g. en &#x3D; English, es &#x3D; Spanish | 
- **create_message_template_request** | [**CreateMessageTemplateRequest**](CreateMessageTemplateRequest.md)|  | [optional] 
+ **locale** | **str**| The 2 character language locale for the template. e.g. en &#x3D; English, es &#x3D; Spanish | [optional] 
+ **message_template** | [**MessageTemplate**](MessageTemplate.md)|  | [optional] 
 
 ### Return type
 
-[**CreateMessageTemplateRequest**](CreateMessageTemplateRequest.md)
+[**MessageTemplate**](MessageTemplate.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_master_by_type**
-> CreateMessageTemplateRequest get_master_by_type(template_type)
+> MessageTemplate get_master_by_type(template_type)
 
 Get Master Template by Type
 
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateMessageTemplateRequest**](CreateMessageTemplateRequest.md)
+[**MessageTemplate**](MessageTemplate.md)
 
 ### Authorization
 
@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_message_template_by_id**
-> CreateMessageTemplateRequest get_message_template_by_id(brand_id, template_id)
+> MessageTemplate get_message_template_by_id(brand_id, template_id)
 
 Get Message Template
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateMessageTemplateRequest**](CreateMessageTemplateRequest.md)
+[**MessageTemplate**](MessageTemplate.md)
 
 ### Authorization
 
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_template_by_locale**
-> CreateMessageTemplateRequest get_template_by_locale(brand_id, template_type, locale)
+> MessageTemplate get_template_by_locale(brand_id, template_type, locale)
 
 Get Template by Type & Locale
 
@@ -368,7 +368,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateMessageTemplateRequest**](CreateMessageTemplateRequest.md)
+[**MessageTemplate**](MessageTemplate.md)
 
 ### Authorization
 
@@ -389,7 +389,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_message_templates**
-> List[ListMessageTemplates200ResponseInner] list_message_templates(brand_id, locale)
+> List[ListMessageTemplates200ResponseInner] list_message_templates(brand_id, locale=locale)
 
 List Message Templates
 
@@ -423,11 +423,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.BrandingServiceTemplatesApi(api_client)
     brand_id = 9 # int | Unique identifier for the branding object.
-    locale = 'en' # str | The 2 character language locale for the template. e.g. en = English, es = Spanish
+    locale = 'en' # str | The 2 character language locale for the template. e.g. en = English, es = Spanish (optional)
 
     try:
         # List Message Templates
-        api_response = api_instance.list_message_templates(brand_id, locale)
+        api_response = api_instance.list_message_templates(brand_id, locale=locale)
         print("The response of BrandingServiceTemplatesApi->list_message_templates:\n")
         pprint(api_response)
     except Exception as e:
@@ -439,7 +439,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand_id** | **int**| Unique identifier for the branding object. | 
- **locale** | **str**| The 2 character language locale for the template. e.g. en &#x3D; English, es &#x3D; Spanish | 
+ **locale** | **str**| The 2 character language locale for the template. e.g. en &#x3D; English, es &#x3D; Spanish | [optional] 
 
 ### Return type
 
@@ -464,7 +464,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_message_template_by_id**
-> CreateMessageTemplateRequest update_message_template_by_id(brand_id, template_id)
+> MessageTemplate update_message_template_by_id(brand_id, template_id)
 
 Update Message Template
 
@@ -518,7 +518,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateMessageTemplateRequest**](CreateMessageTemplateRequest.md)
+[**MessageTemplate**](MessageTemplate.md)
 
 ### Authorization
 
@@ -539,7 +539,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_template_by_locale**
-> CreateMessageTemplateRequest update_template_by_locale(brand_id, template_type, locale)
+> MessageTemplate update_template_by_locale(brand_id, template_type, locale)
 
 Update Template by Type & Locale
 
@@ -595,7 +595,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateMessageTemplateRequest**](CreateMessageTemplateRequest.md)
+[**MessageTemplate**](MessageTemplate.md)
 
 ### Authorization
 

@@ -17,8 +17,6 @@ import re  # noqa: F401
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
 
-from pydantic import StrictStr
-
 from typing import Optional
 
 from onelogin.models.get_invite_link200_response import GetInviteLink200Response
@@ -46,18 +44,16 @@ class InviteLinksApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def get_invite_link(self, content_type : Optional[StrictStr] = None, get_invite_link_request : Optional[GetInviteLinkRequest] = None, **kwargs) -> GetInviteLink200Response:  # noqa: E501
+    def get_invite_link(self, get_invite_link_request : Optional[GetInviteLinkRequest] = None, **kwargs) -> GetInviteLink200Response:  # noqa: E501
         """Generate Invite Link  # noqa: E501
 
         Generate Invite Link  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_invite_link(content_type, get_invite_link_request, async_req=True)
+        >>> thread = api.get_invite_link(get_invite_link_request, async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param get_invite_link_request:
         :type get_invite_link_request: GetInviteLinkRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -76,21 +72,19 @@ class InviteLinksApi(object):
         :rtype: GetInviteLink200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.get_invite_link_with_http_info(content_type, get_invite_link_request, **kwargs)  # noqa: E501
+        return self.get_invite_link_with_http_info(get_invite_link_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_invite_link_with_http_info(self, content_type : Optional[StrictStr] = None, get_invite_link_request : Optional[GetInviteLinkRequest] = None, **kwargs):  # noqa: E501
+    def get_invite_link_with_http_info(self, get_invite_link_request : Optional[GetInviteLinkRequest] = None, **kwargs):  # noqa: E501
         """Generate Invite Link  # noqa: E501
 
         Generate Invite Link  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_invite_link_with_http_info(content_type, get_invite_link_request, async_req=True)
+        >>> thread = api.get_invite_link_with_http_info(get_invite_link_request, async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param get_invite_link_request:
         :type get_invite_link_request: GetInviteLinkRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -120,7 +114,6 @@ class InviteLinksApi(object):
         _params = locals()
 
         _all_params = [
-            'content_type',
             'get_invite_link_request'
         ]
         _all_params.extend(
@@ -155,8 +148,6 @@ class InviteLinksApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -183,8 +174,8 @@ class InviteLinksApi(object):
 
         _response_types_map = {
             '200': "GetInviteLink200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -205,18 +196,16 @@ class InviteLinksApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def send_invite_link(self, content_type : Optional[StrictStr] = None, send_invite_link_request : Optional[SendInviteLinkRequest] = None, **kwargs) -> SendInviteLink200Response:  # noqa: E501
+    def send_invite_link(self, send_invite_link_request : Optional[SendInviteLinkRequest] = None, **kwargs) -> SendInviteLink200Response:  # noqa: E501
         """Send  Invite Link  # noqa: E501
 
         Send Invite Link  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.send_invite_link(content_type, send_invite_link_request, async_req=True)
+        >>> thread = api.send_invite_link(send_invite_link_request, async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param send_invite_link_request:
         :type send_invite_link_request: SendInviteLinkRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -235,21 +224,19 @@ class InviteLinksApi(object):
         :rtype: SendInviteLink200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.send_invite_link_with_http_info(content_type, send_invite_link_request, **kwargs)  # noqa: E501
+        return self.send_invite_link_with_http_info(send_invite_link_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def send_invite_link_with_http_info(self, content_type : Optional[StrictStr] = None, send_invite_link_request : Optional[SendInviteLinkRequest] = None, **kwargs):  # noqa: E501
+    def send_invite_link_with_http_info(self, send_invite_link_request : Optional[SendInviteLinkRequest] = None, **kwargs):  # noqa: E501
         """Send  Invite Link  # noqa: E501
 
         Send Invite Link  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.send_invite_link_with_http_info(content_type, send_invite_link_request, async_req=True)
+        >>> thread = api.send_invite_link_with_http_info(send_invite_link_request, async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param send_invite_link_request:
         :type send_invite_link_request: SendInviteLinkRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -279,7 +266,6 @@ class InviteLinksApi(object):
         _params = locals()
 
         _all_params = [
-            'content_type',
             'send_invite_link_request'
         ]
         _all_params.extend(
@@ -314,8 +300,6 @@ class InviteLinksApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -342,8 +326,8 @@ class InviteLinksApi(object):
 
         _response_types_map = {
             '200': "SendInviteLink200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(

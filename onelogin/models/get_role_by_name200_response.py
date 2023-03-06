@@ -19,7 +19,7 @@ import json
 
 from typing import List, Optional
 from pydantic import BaseModel
-from onelogin.models.generate_token400_response import GenerateToken400Response
+from onelogin.models.error import Error
 from onelogin.models.get_role_by_name200_response_data_inner import GetRoleByName200ResponseDataInner
 from onelogin.models.get_role_by_name200_response_pagination import GetRoleByName200ResponsePagination
 
@@ -29,7 +29,7 @@ class GetRoleByName200Response(BaseModel):
 
     Do not edit the class manually.
     """
-    status: Optional[GenerateToken400Response] = None
+    status: Optional[Error] = None
     pagination: Optional[GetRoleByName200ResponsePagination] = None
     data: Optional[List[GetRoleByName200ResponseDataInner]] = None
     __properties = ["status", "pagination", "data"]
@@ -82,7 +82,7 @@ class GetRoleByName200Response(BaseModel):
             return GetRoleByName200Response.parse_obj(obj)
 
         _obj = GetRoleByName200Response.parse_obj({
-            "status": GenerateToken400Response.from_dict(obj.get("status")) if obj.get("status") is not None else None,
+            "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "pagination": GetRoleByName200ResponsePagination.from_dict(obj.get("pagination")) if obj.get("pagination") is not None else None,
             "data": [GetRoleByName200ResponseDataInner.from_dict(_item) for _item in obj.get("data")] if obj.get("data") is not None else None
         })

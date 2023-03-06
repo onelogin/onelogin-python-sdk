@@ -38,16 +38,26 @@ class TestGetMFAFactors200Response(unittest.TestCase):
         model = onelogin.models.get_mfa_factors200_response.GetMFAFactors200Response()  # noqa: E501
         if include_optional :
             return GetMFAFactors200Response(
-                status = onelogin.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.error.Error(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
                     message = 'Success', ), 
                 data = onelogin.models.get_mfa_factors_200_response_data.getMFAFactors_200_response_data(
                     auth_factors = [
-                        onelogin.models.get_mfa_factors_200_response_data_auth_factors_inner.getMFAFactors_200_response_data_auth_factors_inner(
-                            name = 'Onelogin SMS', 
-                            factor_id = 16282, )
+                        onelogin.models.auth_factor.auth_factor(
+                            factor_id = 16282, 
+                            display_name = 'Rich's Phone', 
+                            number = '+1xxxxxxxxxx', 
+                            verified = True, 
+                            type_display_name = 'OneLogin SMS', 
+                            active = True, 
+                            user_display_name = 'Rich's Phone', 
+                            default = True, 
+                            phone_number = '+1xxxxxxxxx', 
+                            auth_factor_name = 'OneLogin SMS', 
+                            id = 525509, 
+                            needs_trigger = True, )
                         ], )
             )
         else :

@@ -21,8 +21,8 @@ from pydantic import Field, StrictInt, StrictStr, constr, validator
 
 from typing import List, Optional
 
-from onelogin.models.create_message_template_request import CreateMessageTemplateRequest
 from onelogin.models.list_message_templates200_response_inner import ListMessageTemplates200ResponseInner
+from onelogin.models.message_template import MessageTemplate
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -44,22 +44,22 @@ class BrandingServiceTemplatesApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_message_template(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], create_message_template_request : Optional[CreateMessageTemplateRequest] = None, **kwargs) -> CreateMessageTemplateRequest:  # noqa: E501
+    def create_message_template(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, message_template : Optional[MessageTemplate] = None, **kwargs) -> MessageTemplate:  # noqa: E501
         """Create Message Template  # noqa: E501
 
         Create Message Template  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_message_template(brand_id, locale, create_message_template_request, async_req=True)
+        >>> thread = api.create_message_template(brand_id, locale, message_template, async_req=True)
         >>> result = thread.get()
 
         :param brand_id: Unique identifier for the branding object. (required)
         :type brand_id: int
-        :param locale: The 2 character language locale for the template. e.g. en = English, es = Spanish (required)
+        :param locale: The 2 character language locale for the template. e.g. en = English, es = Spanish
         :type locale: str
-        :param create_message_template_request:
-        :type create_message_template_request: CreateMessageTemplateRequest
+        :param message_template:
+        :type message_template: MessageTemplate
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -73,28 +73,28 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateMessageTemplateRequest
+        :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_message_template_with_http_info(brand_id, locale, create_message_template_request, **kwargs)  # noqa: E501
+        return self.create_message_template_with_http_info(brand_id, locale, message_template, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_message_template_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], create_message_template_request : Optional[CreateMessageTemplateRequest] = None, **kwargs):  # noqa: E501
+    def create_message_template_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, message_template : Optional[MessageTemplate] = None, **kwargs):  # noqa: E501
         """Create Message Template  # noqa: E501
 
         Create Message Template  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_message_template_with_http_info(brand_id, locale, create_message_template_request, async_req=True)
+        >>> thread = api.create_message_template_with_http_info(brand_id, locale, message_template, async_req=True)
         >>> result = thread.get()
 
         :param brand_id: Unique identifier for the branding object. (required)
         :type brand_id: int
-        :param locale: The 2 character language locale for the template. e.g. en = English, es = Spanish (required)
+        :param locale: The 2 character language locale for the template. e.g. en = English, es = Spanish
         :type locale: str
-        :param create_message_template_request:
-        :type create_message_template_request: CreateMessageTemplateRequest
+        :param message_template:
+        :type message_template: MessageTemplate
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -116,7 +116,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateMessageTemplateRequest, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(MessageTemplate, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -124,7 +124,7 @@ class BrandingServiceTemplatesApi(object):
         _all_params = [
             'brand_id',
             'locale',
-            'create_message_template_request'
+            'message_template'
         ]
         _all_params.extend(
             [
@@ -169,8 +169,8 @@ class BrandingServiceTemplatesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['create_message_template_request']:
-            _body_params = _params['create_message_template_request']
+        if _params['message_template']:
+            _body_params = _params['message_template']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -187,9 +187,9 @@ class BrandingServiceTemplatesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateMessageTemplateRequest",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '200': "MessageTemplate",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -358,7 +358,7 @@ class BrandingServiceTemplatesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_master_by_type(self, template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], **kwargs) -> CreateMessageTemplateRequest:  # noqa: E501
+    def get_master_by_type(self, template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Get Master Template by Type  # noqa: E501
 
         Get Master Template by Type  # noqa: E501
@@ -383,7 +383,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateMessageTemplateRequest
+        :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
         return self.get_master_by_type_with_http_info(template_type, **kwargs)  # noqa: E501
@@ -422,7 +422,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateMessageTemplateRequest, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(MessageTemplate, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -480,9 +480,9 @@ class BrandingServiceTemplatesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateMessageTemplateRequest",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "MessageTemplate",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -503,7 +503,7 @@ class BrandingServiceTemplatesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_message_template_by_id(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> CreateMessageTemplateRequest:  # noqa: E501
+    def get_message_template_by_id(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Get Message Template  # noqa: E501
 
         Get Message Template by ID  # noqa: E501
@@ -530,7 +530,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateMessageTemplateRequest
+        :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
         return self.get_message_template_by_id_with_http_info(brand_id, template_id, **kwargs)  # noqa: E501
@@ -571,7 +571,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateMessageTemplateRequest, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(MessageTemplate, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -632,9 +632,9 @@ class BrandingServiceTemplatesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateMessageTemplateRequest",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "MessageTemplate",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -655,7 +655,7 @@ class BrandingServiceTemplatesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_template_by_locale(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> CreateMessageTemplateRequest:  # noqa: E501
+    def get_template_by_locale(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Get Template by Type & Locale  # noqa: E501
 
         Get Template by Type and Locale  # noqa: E501
@@ -684,7 +684,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateMessageTemplateRequest
+        :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
         return self.get_template_by_locale_with_http_info(brand_id, template_type, locale, **kwargs)  # noqa: E501
@@ -727,7 +727,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateMessageTemplateRequest, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(MessageTemplate, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -791,9 +791,9 @@ class BrandingServiceTemplatesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateMessageTemplateRequest",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "MessageTemplate",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -814,7 +814,7 @@ class BrandingServiceTemplatesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_message_templates(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> List[ListMessageTemplates200ResponseInner]:  # noqa: E501
+    def list_message_templates(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, **kwargs) -> List[ListMessageTemplates200ResponseInner]:  # noqa: E501
         """List Message Templates  # noqa: E501
 
         List Message Templates  # noqa: E501
@@ -826,7 +826,7 @@ class BrandingServiceTemplatesApi(object):
 
         :param brand_id: Unique identifier for the branding object. (required)
         :type brand_id: int
-        :param locale: The 2 character language locale for the template. e.g. en = English, es = Spanish (required)
+        :param locale: The 2 character language locale for the template. e.g. en = English, es = Spanish
         :type locale: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -847,7 +847,7 @@ class BrandingServiceTemplatesApi(object):
         return self.list_message_templates_with_http_info(brand_id, locale, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_message_templates_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs):  # noqa: E501
+    def list_message_templates_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, **kwargs):  # noqa: E501
         """List Message Templates  # noqa: E501
 
         List Message Templates  # noqa: E501
@@ -859,7 +859,7 @@ class BrandingServiceTemplatesApi(object):
 
         :param brand_id: Unique identifier for the branding object. (required)
         :type brand_id: int
-        :param locale: The 2 character language locale for the template. e.g. en = English, es = Spanish (required)
+        :param locale: The 2 character language locale for the template. e.g. en = English, es = Spanish
         :type locale: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -944,8 +944,8 @@ class BrandingServiceTemplatesApi(object):
 
         _response_types_map = {
             '200': "List[ListMessageTemplates200ResponseInner]",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -966,7 +966,7 @@ class BrandingServiceTemplatesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_message_template_by_id(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> CreateMessageTemplateRequest:  # noqa: E501
+    def update_message_template_by_id(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Update Message Template  # noqa: E501
 
         Update Message Template by ID  # noqa: E501
@@ -993,7 +993,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateMessageTemplateRequest
+        :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
         return self.update_message_template_by_id_with_http_info(brand_id, template_id, **kwargs)  # noqa: E501
@@ -1034,7 +1034,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateMessageTemplateRequest, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(MessageTemplate, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1095,9 +1095,9 @@ class BrandingServiceTemplatesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateMessageTemplateRequest",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '200': "MessageTemplate",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1118,7 +1118,7 @@ class BrandingServiceTemplatesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_template_by_locale(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> CreateMessageTemplateRequest:  # noqa: E501
+    def update_template_by_locale(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Update Template by Type & Locale  # noqa: E501
 
         Update Template by Type and Locale  # noqa: E501
@@ -1147,7 +1147,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateMessageTemplateRequest
+        :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
         return self.update_template_by_locale_with_http_info(brand_id, template_type, locale, **kwargs)  # noqa: E501
@@ -1190,7 +1190,7 @@ class BrandingServiceTemplatesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateMessageTemplateRequest, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(MessageTemplate, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1254,9 +1254,9 @@ class BrandingServiceTemplatesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateMessageTemplateRequest",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "MessageTemplate",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(

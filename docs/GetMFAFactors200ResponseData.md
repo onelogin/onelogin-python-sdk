@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**auth_factors** | [**List[GetMFAFactors200ResponseDataAuthFactorsInner]**](GetMFAFactors200ResponseDataAuthFactorsInner.md) |  | [optional] 
+**auth_factors** | [**List[AuthFactor]**](AuthFactor.md) |  | [optional] 
 
 ## Example
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **add_client_app**
-> AddClientApp201Response add_client_app(content_type, api_auth_id, add_client_app_request=add_client_app_request)
+> AddClientApp201Response add_client_app(api_auth_id, content_type=content_type, add_client_app_request=add_client_app_request)
 
 Add Client App
 
@@ -44,13 +44,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.APIAuthClientAppsApi(api_client)
-    content_type = 'application/json' # str | Set to `application/json` (default to 'application/json')
     api_auth_id = 'api_auth_id_example' # str | 
+    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     add_client_app_request = onelogin.AddClientAppRequest() # AddClientAppRequest |  (optional)
 
     try:
         # Add Client App
-        api_response = api_instance.add_client_app(content_type, api_auth_id, add_client_app_request=add_client_app_request)
+        api_response = api_instance.add_client_app(api_auth_id, content_type=content_type, add_client_app_request=add_client_app_request)
         print("The response of APIAuthClientAppsApi->add_client_app:\n")
         pprint(api_response)
     except Exception as e:
@@ -61,8 +61,8 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**| Set to &#x60;application/json&#x60; | [default to &#39;application/json&#39;]
  **api_auth_id** | **str**|  | 
+ **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **add_client_app_request** | [**AddClientAppRequest**](AddClientAppRequest.md)|  | [optional] 
 
 ### Return type
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_client_apps**
-> ListClientApps200Response list_client_apps(api_auth_id, content_type=content_type)
+> ClientAppFull list_client_apps(api_auth_id, content_type=content_type)
 
 List Clients Apps
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListClientApps200Response**](ListClientApps200Response.md)
+[**ClientAppFull**](ClientAppFull.md)
 
 ### Authorization
 
@@ -242,7 +242,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_client_app**
-> AddClientApp201Response update_client_app(content_type, api_auth_id, client_app_id, update_client_app_request=update_client_app_request)
+> AddClientApp201Response update_client_app(api_auth_id, client_app_id, content_type=content_type, update_client_app_request=update_client_app_request)
 
 Update Client App
 
@@ -275,14 +275,14 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.APIAuthClientAppsApi(api_client)
-    content_type = 'application/json' # str | Set to `application/json` (default to 'application/json')
     api_auth_id = 'api_auth_id_example' # str | 
     client_app_id = 56 # int | 
+    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     update_client_app_request = onelogin.UpdateClientAppRequest() # UpdateClientAppRequest |  (optional)
 
     try:
         # Update Client App
-        api_response = api_instance.update_client_app(content_type, api_auth_id, client_app_id, update_client_app_request=update_client_app_request)
+        api_response = api_instance.update_client_app(api_auth_id, client_app_id, content_type=content_type, update_client_app_request=update_client_app_request)
         print("The response of APIAuthClientAppsApi->update_client_app:\n")
         pprint(api_response)
     except Exception as e:
@@ -293,9 +293,9 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**| Set to &#x60;application/json&#x60; | [default to &#39;application/json&#39;]
  **api_auth_id** | **str**|  | 
  **client_app_id** | **int**|  | 
+ **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **update_client_app_request** | [**UpdateClientAppRequest**](UpdateClientAppRequest.md)|  | [optional] 
 
 ### Return type

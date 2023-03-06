@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **create_app**
-> ListApps200ResponseInner create_app(content_type=content_type, create_app_request=create_app_request)
+> CreateApp200Response create_app(content_type=content_type, create_app_request=create_app_request)
 
 Create App
 
@@ -49,7 +49,7 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.AppsApi(api_client)
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    create_app_request = {"connector_id":50534,"name":"Amazon Web Services (AWS) Multi Role","description":"","visible":true,"policy_id":165278,"configuration":{"signature_algorithm":"SHA-1","certificate_id":170216},"parameters":{"saml_username":{"user_attribute_mappings":"email"}}} # CreateAppRequest |  (optional)
+    create_app_request = onelogin.CreateAppRequest() # CreateAppRequest |  (optional)
 
     try:
         # Create App
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListApps200ResponseInner**](ListApps200ResponseInner.md)
+[**CreateApp200Response**](CreateApp200Response.md)
 
 ### Authorization
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_app**
-> delete_app(app_id, content_type=content_type)
+> delete_app(app_id)
 
 Delete App
 
@@ -124,11 +124,10 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.AppsApi(api_client)
     app_id = 56 # int | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # Delete App
-        api_instance.delete_app(app_id, content_type=content_type)
+        api_instance.delete_app(app_id)
     except Exception as e:
         print("Exception when calling AppsApi->delete_app: %s\n" % e)
 ```
@@ -138,7 +137,6 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
 
 ### Return type
 
@@ -163,7 +161,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_app_parameter**
-> delete_app_parameter(app_id, parameter_id, content_type=content_type)
+> delete_app_parameter(app_id, parameter_id)
 
 Delete Parameter from App
 
@@ -198,11 +196,10 @@ with onelogin.ApiClient(configuration) as api_client:
     api_instance = onelogin.AppsApi(api_client)
     app_id = 56 # int | 
     parameter_id = 'parameter_id_example' # str | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # Delete Parameter from App
-        api_instance.delete_app_parameter(app_id, parameter_id, content_type=content_type)
+        api_instance.delete_app_parameter(app_id, parameter_id)
     except Exception as e:
         print("Exception when calling AppsApi->delete_app_parameter: %s\n" % e)
 ```
@@ -213,7 +210,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
  **parameter_id** | **str**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
 
 ### Return type
 
@@ -239,7 +235,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_app**
-> ListApps200ResponseInner get_app(app_id)
+> GenericApp get_app(app_id)
 
 Get App
 
@@ -291,7 +287,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListApps200ResponseInner**](ListApps200ResponseInner.md)
+[**GenericApp**](GenericApp.md)
 
 ### Authorization
 
@@ -312,7 +308,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_app_users**
-> List[ListUsers200ResponseInner] get_app_users(app_id)
+> List[User] get_app_users(app_id)
 
 Get App Users
 
@@ -364,7 +360,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListUsers200ResponseInner]**](ListUsers200ResponseInner.md)
+[**List[User]**](User.md)
 
 ### Authorization
 
@@ -384,7 +380,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_apps**
-> List[ListApps200ResponseInner] list_apps()
+> List[GenericApp] list_apps()
 
 List Apps
 
@@ -432,7 +428,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List[ListApps200ResponseInner]**](ListApps200ResponseInner.md)
+[**List[GenericApp]**](GenericApp.md)
 
 ### Authorization
 
@@ -453,7 +449,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_connectors**
-> ListConnectors200Response list_connectors()
+> Connector list_connectors(name=name)
 
 List Connectors
 
@@ -486,10 +482,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.AppsApi(api_client)
+    name = 'name_example' # str |  (optional)
 
     try:
         # List Connectors
-        api_response = api_instance.list_connectors()
+        api_response = api_instance.list_connectors(name=name)
         print("The response of AppsApi->list_connectors:\n")
         pprint(api_response)
     except Exception as e:
@@ -497,11 +494,14 @@ with onelogin.ApiClient(configuration) as api_client:
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **name** | **str**|  | [optional] 
 
 ### Return type
 
-[**ListConnectors200Response**](ListConnectors200Response.md)
+[**Connector**](Connector.md)
 
 ### Authorization
 
@@ -522,7 +522,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_app**
-> ListApps200ResponseInner update_app(app_id, content_type=content_type, list_apps200_response_inner=list_apps200_response_inner)
+> GenericApp update_app(app_id, generic_app=generic_app)
 
 Update App
 
@@ -556,12 +556,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.AppsApi(api_client)
     app_id = 56 # int | 
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    list_apps200_response_inner = onelogin.ListApps200ResponseInner() # ListApps200ResponseInner |  (optional)
+    generic_app = {"id":1061937,"connector_id":50534,"auth_method":2,"auth_method_description":"SAML2.0","name":"Amazon Web Services (AWS) Multi Role","description":"","updated_at":"2020-01-14T21:21:06Z","created_at":"2020-01-14T21:21:06Z","visible":true} # GenericApp |  (optional)
 
     try:
         # Update App
-        api_response = api_instance.update_app(app_id, content_type=content_type, list_apps200_response_inner=list_apps200_response_inner)
+        api_response = api_instance.update_app(app_id, generic_app=generic_app)
         print("The response of AppsApi->update_app:\n")
         pprint(api_response)
     except Exception as e:
@@ -573,12 +572,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **list_apps200_response_inner** | [**ListApps200ResponseInner**](ListApps200ResponseInner.md)|  | [optional] 
+ **generic_app** | [**GenericApp**](GenericApp.md)|  | [optional] 
 
 ### Return type
 
-[**ListApps200ResponseInner**](ListApps200ResponseInner.md)
+[**GenericApp**](GenericApp.md)
 
 ### Authorization
 

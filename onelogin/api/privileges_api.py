@@ -27,7 +27,7 @@ from onelogin.models.assign_users_to_privilege_request import AssignUsersToPrivi
 from onelogin.models.create_privilege200_response import CreatePrivilege200Response
 from onelogin.models.get_assigned_user200_response import GetAssignedUser200Response
 from onelogin.models.list_privelege_roles200_response import ListPrivelegeRoles200Response
-from onelogin.models.list_priveleges200_response_inner import ListPriveleges200ResponseInner
+from onelogin.models.privilege import Privilege
 from onelogin.models.update_privilege200_response import UpdatePrivilege200Response
 
 from onelogin.api_client import ApiClient
@@ -50,20 +50,18 @@ class PrivilegesApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def add_privilege_to_role(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, add_privilege_to_role_request : Optional[AddPrivilegeToRoleRequest] = None, **kwargs) -> AddPrivilegeToRole201Response:  # noqa: E501
+    def add_privilege_to_role(self, privilege_id : StrictStr, add_privilege_to_role_request : Optional[AddPrivilegeToRoleRequest] = None, **kwargs) -> AddPrivilegeToRole201Response:  # noqa: E501
         """Assign a Privilege to Roles  # noqa: E501
 
         Add roles to privilege   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.add_privilege_to_role(privilege_id, content_type, add_privilege_to_role_request, async_req=True)
+        >>> thread = api.add_privilege_to_role(privilege_id, add_privilege_to_role_request, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param add_privilege_to_role_request:
         :type add_privilege_to_role_request: AddPrivilegeToRoleRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -82,23 +80,21 @@ class PrivilegesApi(object):
         :rtype: AddPrivilegeToRole201Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.add_privilege_to_role_with_http_info(privilege_id, content_type, add_privilege_to_role_request, **kwargs)  # noqa: E501
+        return self.add_privilege_to_role_with_http_info(privilege_id, add_privilege_to_role_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_privilege_to_role_with_http_info(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, add_privilege_to_role_request : Optional[AddPrivilegeToRoleRequest] = None, **kwargs):  # noqa: E501
+    def add_privilege_to_role_with_http_info(self, privilege_id : StrictStr, add_privilege_to_role_request : Optional[AddPrivilegeToRoleRequest] = None, **kwargs):  # noqa: E501
         """Assign a Privilege to Roles  # noqa: E501
 
         Add roles to privilege   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.add_privilege_to_role_with_http_info(privilege_id, content_type, add_privilege_to_role_request, async_req=True)
+        >>> thread = api.add_privilege_to_role_with_http_info(privilege_id, add_privilege_to_role_request, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param add_privilege_to_role_request:
         :type add_privilege_to_role_request: AddPrivilegeToRoleRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -129,7 +125,6 @@ class PrivilegesApi(object):
 
         _all_params = [
             'privilege_id',
-            'content_type',
             'add_privilege_to_role_request'
         ]
         _all_params.extend(
@@ -166,8 +161,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -194,8 +187,8 @@ class PrivilegesApi(object):
 
         _response_types_map = {
             '201': "AddPrivilegeToRole201Response",
-            '400': "GetScopes401Response",
-            '401': "GetScopes401Response",
+            '400': "AltErr",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -216,20 +209,18 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def assign_users_to_privilege(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, assign_users_to_privilege_request : Optional[AssignUsersToPrivilegeRequest] = None, **kwargs) -> AddPrivilegeToRole201Response:  # noqa: E501
+    def assign_users_to_privilege(self, privilege_id : StrictStr, assign_users_to_privilege_request : Optional[AssignUsersToPrivilegeRequest] = None, **kwargs) -> AddPrivilegeToRole201Response:  # noqa: E501
         """Assign Users to a Privilege  # noqa: E501
 
         Assign Users to Privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.assign_users_to_privilege(privilege_id, content_type, assign_users_to_privilege_request, async_req=True)
+        >>> thread = api.assign_users_to_privilege(privilege_id, assign_users_to_privilege_request, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param assign_users_to_privilege_request:
         :type assign_users_to_privilege_request: AssignUsersToPrivilegeRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -248,23 +239,21 @@ class PrivilegesApi(object):
         :rtype: AddPrivilegeToRole201Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.assign_users_to_privilege_with_http_info(privilege_id, content_type, assign_users_to_privilege_request, **kwargs)  # noqa: E501
+        return self.assign_users_to_privilege_with_http_info(privilege_id, assign_users_to_privilege_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def assign_users_to_privilege_with_http_info(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, assign_users_to_privilege_request : Optional[AssignUsersToPrivilegeRequest] = None, **kwargs):  # noqa: E501
+    def assign_users_to_privilege_with_http_info(self, privilege_id : StrictStr, assign_users_to_privilege_request : Optional[AssignUsersToPrivilegeRequest] = None, **kwargs):  # noqa: E501
         """Assign Users to a Privilege  # noqa: E501
 
         Assign Users to Privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.assign_users_to_privilege_with_http_info(privilege_id, content_type, assign_users_to_privilege_request, async_req=True)
+        >>> thread = api.assign_users_to_privilege_with_http_info(privilege_id, assign_users_to_privilege_request, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param assign_users_to_privilege_request:
         :type assign_users_to_privilege_request: AssignUsersToPrivilegeRequest
         :param async_req: Whether to execute the request asynchronously.
@@ -295,7 +284,6 @@ class PrivilegesApi(object):
 
         _all_params = [
             'privilege_id',
-            'content_type',
             'assign_users_to_privilege_request'
         ]
         _all_params.extend(
@@ -332,8 +320,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -360,8 +346,8 @@ class PrivilegesApi(object):
 
         _response_types_map = {
             '200': "AddPrivilegeToRole201Response",
-            '400': "GetScopes401Response",
-            '401': "GetScopes401Response",
+            '400': "AltErr",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -382,20 +368,18 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def create_privilege(self, content_type : Optional[StrictStr] = None, list_priveleges200_response_inner : Optional[ListPriveleges200ResponseInner] = None, **kwargs) -> CreatePrivilege200Response:  # noqa: E501
+    def create_privilege(self, privilege : Optional[Privilege] = None, **kwargs) -> CreatePrivilege200Response:  # noqa: E501
         """Create a Privilege  # noqa: E501
 
         Create privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_privilege(content_type, list_priveleges200_response_inner, async_req=True)
+        >>> thread = api.create_privilege(privilege, async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
-        :param list_priveleges200_response_inner:
-        :type list_priveleges200_response_inner: ListPriveleges200ResponseInner
+        :param privilege:
+        :type privilege: Privilege
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -412,23 +396,21 @@ class PrivilegesApi(object):
         :rtype: CreatePrivilege200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_privilege_with_http_info(content_type, list_priveleges200_response_inner, **kwargs)  # noqa: E501
+        return self.create_privilege_with_http_info(privilege, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_privilege_with_http_info(self, content_type : Optional[StrictStr] = None, list_priveleges200_response_inner : Optional[ListPriveleges200ResponseInner] = None, **kwargs):  # noqa: E501
+    def create_privilege_with_http_info(self, privilege : Optional[Privilege] = None, **kwargs):  # noqa: E501
         """Create a Privilege  # noqa: E501
 
         Create privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_privilege_with_http_info(content_type, list_priveleges200_response_inner, async_req=True)
+        >>> thread = api.create_privilege_with_http_info(privilege, async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
-        :param list_priveleges200_response_inner:
-        :type list_priveleges200_response_inner: ListPriveleges200ResponseInner
+        :param privilege:
+        :type privilege: Privilege
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -456,8 +438,7 @@ class PrivilegesApi(object):
         _params = locals()
 
         _all_params = [
-            'content_type',
-            'list_priveleges200_response_inner'
+            'privilege'
         ]
         _all_params.extend(
             [
@@ -491,8 +472,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -500,8 +479,8 @@ class PrivilegesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_priveleges200_response_inner']:
-            _body_params = _params['list_priveleges200_response_inner']
+        if _params['privilege']:
+            _body_params = _params['privilege']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -519,8 +498,8 @@ class PrivilegesApi(object):
 
         _response_types_map = {
             '200': "CreatePrivilege200Response",
-            '400': "GetScopes401Response",
-            '401': "GetScopes401Response",
+            '400': "AltErr",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -541,20 +520,18 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def delete_privilege(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
+    def delete_privilege(self, privilege_id : StrictStr, **kwargs) -> None:  # noqa: E501
         """Delete a Privilege  # noqa: E501
 
         Delete  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_privilege(privilege_id, content_type, async_req=True)
+        >>> thread = api.delete_privilege(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -571,23 +548,21 @@ class PrivilegesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.delete_privilege_with_http_info(privilege_id, content_type, **kwargs)  # noqa: E501
+        return self.delete_privilege_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_privilege_with_http_info(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def delete_privilege_with_http_info(self, privilege_id : StrictStr, **kwargs):  # noqa: E501
         """Delete a Privilege  # noqa: E501
 
         Delete  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_privilege_with_http_info(privilege_id, content_type, async_req=True)
+        >>> thread = api.delete_privilege_with_http_info(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -615,8 +590,7 @@ class PrivilegesApi(object):
         _params = locals()
 
         _all_params = [
-            'privilege_id',
-            'content_type'
+            'privilege_id'
         ]
         _all_params.extend(
             [
@@ -652,8 +626,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -689,22 +661,20 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def delete_role_from_privilege(self, privilege_id : StrictStr, role_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
+    def delete_role_from_privilege(self, privilege_id : StrictStr, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> None:  # noqa: E501
         """Remove a Privilege from a Role  # noqa: E501
 
         Add roles to privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_role_from_privilege(privilege_id, role_id, content_type, async_req=True)
+        >>> thread = api.delete_role_from_privilege(privilege_id, role_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param role_id: (required)
+        :param role_id: Set to the id of the role you want to return. (required)
         :type role_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -721,25 +691,23 @@ class PrivilegesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.delete_role_from_privilege_with_http_info(privilege_id, role_id, content_type, **kwargs)  # noqa: E501
+        return self.delete_role_from_privilege_with_http_info(privilege_id, role_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_role_from_privilege_with_http_info(self, privilege_id : StrictStr, role_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def delete_role_from_privilege_with_http_info(self, privilege_id : StrictStr, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
         """Remove a Privilege from a Role  # noqa: E501
 
         Add roles to privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_role_from_privilege_with_http_info(privilege_id, role_id, content_type, async_req=True)
+        >>> thread = api.delete_role_from_privilege_with_http_info(privilege_id, role_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param role_id: (required)
+        :param role_id: Set to the id of the role you want to return. (required)
         :type role_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -768,8 +736,7 @@ class PrivilegesApi(object):
 
         _all_params = [
             'privilege_id',
-            'role_id',
-            'content_type'
+            'role_id'
         ]
         _all_params.extend(
             [
@@ -807,8 +774,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -844,20 +809,18 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_assigned_user(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> GetAssignedUser200Response:  # noqa: E501
+    def get_assigned_user(self, privilege_id : StrictStr, **kwargs) -> GetAssignedUser200Response:  # noqa: E501
         """Get Users assigned to a Privilege  # noqa: E501
 
         Get Assigned Users  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_assigned_user(privilege_id, content_type, async_req=True)
+        >>> thread = api.get_assigned_user(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -874,23 +837,21 @@ class PrivilegesApi(object):
         :rtype: GetAssignedUser200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.get_assigned_user_with_http_info(privilege_id, content_type, **kwargs)  # noqa: E501
+        return self.get_assigned_user_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_assigned_user_with_http_info(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def get_assigned_user_with_http_info(self, privilege_id : StrictStr, **kwargs):  # noqa: E501
         """Get Users assigned to a Privilege  # noqa: E501
 
         Get Assigned Users  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_assigned_user_with_http_info(privilege_id, content_type, async_req=True)
+        >>> thread = api.get_assigned_user_with_http_info(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -918,8 +879,7 @@ class PrivilegesApi(object):
         _params = locals()
 
         _all_params = [
-            'privilege_id',
-            'content_type'
+            'privilege_id'
         ]
         _all_params.extend(
             [
@@ -955,8 +915,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -974,8 +932,8 @@ class PrivilegesApi(object):
 
         _response_types_map = {
             '200': "GetAssignedUser200Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -996,20 +954,18 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_privilege(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ListPriveleges200ResponseInner:  # noqa: E501
+    def get_privilege(self, privilege_id : StrictStr, **kwargs) -> Privilege:  # noqa: E501
         """Get a Privilege  # noqa: E501
 
         Get a Privilige  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_privilege(privilege_id, content_type, async_req=True)
+        >>> thread = api.get_privilege(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1023,26 +979,24 @@ class PrivilegesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListPriveleges200ResponseInner
+        :rtype: Privilege
         """
         kwargs['_return_http_data_only'] = True
-        return self.get_privilege_with_http_info(privilege_id, content_type, **kwargs)  # noqa: E501
+        return self.get_privilege_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_privilege_with_http_info(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def get_privilege_with_http_info(self, privilege_id : StrictStr, **kwargs):  # noqa: E501
         """Get a Privilege  # noqa: E501
 
         Get a Privilige  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_privilege_with_http_info(privilege_id, content_type, async_req=True)
+        >>> thread = api.get_privilege_with_http_info(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1064,14 +1018,13 @@ class PrivilegesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListPriveleges200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Privilege, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
-            'privilege_id',
-            'content_type'
+            'privilege_id'
         ]
         _all_params.extend(
             [
@@ -1107,8 +1060,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1125,9 +1076,9 @@ class PrivilegesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListPriveleges200ResponseInner",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "Privilege",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1148,20 +1099,18 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_privelege_roles(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ListPrivelegeRoles200Response:  # noqa: E501
+    def list_privelege_roles(self, privilege_id : StrictStr, **kwargs) -> ListPrivelegeRoles200Response:  # noqa: E501
         """Get Roles assigned to Privilege  # noqa: E501
 
         List roles for privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_privelege_roles(privilege_id, content_type, async_req=True)
+        >>> thread = api.list_privelege_roles(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1178,23 +1127,21 @@ class PrivilegesApi(object):
         :rtype: ListPrivelegeRoles200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.list_privelege_roles_with_http_info(privilege_id, content_type, **kwargs)  # noqa: E501
+        return self.list_privelege_roles_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_privelege_roles_with_http_info(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def list_privelege_roles_with_http_info(self, privilege_id : StrictStr, **kwargs):  # noqa: E501
         """Get Roles assigned to Privilege  # noqa: E501
 
         List roles for privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_privelege_roles_with_http_info(privilege_id, content_type, async_req=True)
+        >>> thread = api.list_privelege_roles_with_http_info(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1222,8 +1169,7 @@ class PrivilegesApi(object):
         _params = locals()
 
         _all_params = [
-            'privilege_id',
-            'content_type'
+            'privilege_id'
         ]
         _all_params.extend(
             [
@@ -1259,8 +1205,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1278,8 +1222,8 @@ class PrivilegesApi(object):
 
         _response_types_map = {
             '200': "ListPrivelegeRoles200Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1300,18 +1244,16 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_priveleges(self, content_type : Optional[StrictStr] = None, **kwargs) -> List[ListPriveleges200ResponseInner]:  # noqa: E501
+    def list_priveleges(self, **kwargs) -> List[Privilege]:  # noqa: E501
         """List Privileges  # noqa: E501
 
         List Privileges  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_priveleges(content_type, async_req=True)
+        >>> thread = api.list_priveleges(async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1325,24 +1267,22 @@ class PrivilegesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListPriveleges200ResponseInner]
+        :rtype: List[Privilege]
         """
         kwargs['_return_http_data_only'] = True
-        return self.list_priveleges_with_http_info(content_type, **kwargs)  # noqa: E501
+        return self.list_priveleges_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_priveleges_with_http_info(self, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def list_priveleges_with_http_info(self, **kwargs):  # noqa: E501
         """List Privileges  # noqa: E501
 
         List Privileges  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_priveleges_with_http_info(content_type, async_req=True)
+        >>> thread = api.list_priveleges_with_http_info(async_req=True)
         >>> result = thread.get()
 
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1364,13 +1304,12 @@ class PrivilegesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListPriveleges200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[Privilege], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
-            'content_type'
         ]
         _all_params.extend(
             [
@@ -1404,8 +1343,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1422,8 +1359,8 @@ class PrivilegesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListPriveleges200ResponseInner]",
-            '401': "GetScopes401Response",
+            '200': "List[Privilege]",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1444,22 +1381,20 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def remove_user_from_privilege(self, privilege_id : StrictStr, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
+    def remove_user_from_privilege(self, privilege_id : StrictStr, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> None:  # noqa: E501
         """Remove a Privilege from Users  # noqa: E501
 
         Remove a Privilege from Users  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.remove_user_from_privilege(privilege_id, user_id, content_type, async_req=True)
+        >>> thread = api.remove_user_from_privilege(privilege_id, user_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1476,25 +1411,23 @@ class PrivilegesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.remove_user_from_privilege_with_http_info(privilege_id, user_id, content_type, **kwargs)  # noqa: E501
+        return self.remove_user_from_privilege_with_http_info(privilege_id, user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def remove_user_from_privilege_with_http_info(self, privilege_id : StrictStr, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def remove_user_from_privilege_with_http_info(self, privilege_id : StrictStr, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs):  # noqa: E501
         """Remove a Privilege from Users  # noqa: E501
 
         Remove a Privilege from Users  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.remove_user_from_privilege_with_http_info(privilege_id, user_id, content_type, async_req=True)
+        >>> thread = api.remove_user_from_privilege_with_http_info(privilege_id, user_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
         :param user_id: Set to the id of the user that you want to return. (required)
         :type user_id: int
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1523,8 +1456,7 @@ class PrivilegesApi(object):
 
         _all_params = [
             'privilege_id',
-            'user_id',
-            'content_type'
+            'user_id'
         ]
         _all_params.extend(
             [
@@ -1562,8 +1494,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1599,22 +1529,20 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_privilege(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, list_priveleges200_response_inner : Optional[ListPriveleges200ResponseInner] = None, **kwargs) -> UpdatePrivilege200Response:  # noqa: E501
+    def update_privilege(self, privilege_id : StrictStr, privilege : Optional[Privilege] = None, **kwargs) -> UpdatePrivilege200Response:  # noqa: E501
         """Update a Privilege  # noqa: E501
 
         Update privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_privilege(privilege_id, content_type, list_priveleges200_response_inner, async_req=True)
+        >>> thread = api.update_privilege(privilege_id, privilege, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
-        :param list_priveleges200_response_inner:
-        :type list_priveleges200_response_inner: ListPriveleges200ResponseInner
+        :param privilege:
+        :type privilege: Privilege
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1631,25 +1559,23 @@ class PrivilegesApi(object):
         :rtype: UpdatePrivilege200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_privilege_with_http_info(privilege_id, content_type, list_priveleges200_response_inner, **kwargs)  # noqa: E501
+        return self.update_privilege_with_http_info(privilege_id, privilege, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_privilege_with_http_info(self, privilege_id : StrictStr, content_type : Optional[StrictStr] = None, list_priveleges200_response_inner : Optional[ListPriveleges200ResponseInner] = None, **kwargs):  # noqa: E501
+    def update_privilege_with_http_info(self, privilege_id : StrictStr, privilege : Optional[Privilege] = None, **kwargs):  # noqa: E501
         """Update a Privilege  # noqa: E501
 
         Update privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_privilege_with_http_info(privilege_id, content_type, list_priveleges200_response_inner, async_req=True)
+        >>> thread = api.update_privilege_with_http_info(privilege_id, privilege, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
-        :param content_type:
-        :type content_type: str
-        :param list_priveleges200_response_inner:
-        :type list_priveleges200_response_inner: ListPriveleges200ResponseInner
+        :param privilege:
+        :type privilege: Privilege
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1678,8 +1604,7 @@ class PrivilegesApi(object):
 
         _all_params = [
             'privilege_id',
-            'content_type',
-            'list_priveleges200_response_inner'
+            'privilege'
         ]
         _all_params.extend(
             [
@@ -1715,8 +1640,6 @@ class PrivilegesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1724,8 +1647,8 @@ class PrivilegesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_priveleges200_response_inner']:
-            _body_params = _params['list_priveleges200_response_inner']
+        if _params['privilege']:
+            _body_params = _params['privilege']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -1743,8 +1666,8 @@ class PrivilegesApi(object):
 
         _response_types_map = {
             '200': "UpdatePrivilege200Response",
-            '400': "GetScopes401Response",
-            '401': "GetScopes401Response",
+            '400': "AltErr",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(

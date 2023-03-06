@@ -21,10 +21,10 @@ from pydantic import Field, StrictInt
 
 from typing import List, Optional
 
-from onelogin.models.create_brand201_response import CreateBrand201Response
-from onelogin.models.create_brand_request import CreateBrandRequest
-from onelogin.models.get_brand_apps200_response_inner import GetBrandApps200ResponseInner
-from onelogin.models.list_brands200_response_inner import ListBrands200ResponseInner
+from onelogin.models.brand import Brand
+from onelogin.models.brand_app import BrandApp
+from onelogin.models.brand_req import BrandReq
+from onelogin.models.request_brand import RequestBrand
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -46,18 +46,18 @@ class BrandingServiceApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_brand(self, create_brand_request : Optional[CreateBrandRequest] = None, **kwargs) -> CreateBrand201Response:  # noqa: E501
+    def create_brand(self, request_brand : Optional[RequestBrand] = None, **kwargs) -> Brand:  # noqa: E501
         """Create Brand  # noqa: E501
 
         Create a new Account Brand  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_brand(create_brand_request, async_req=True)
+        >>> thread = api.create_brand(request_brand, async_req=True)
         >>> result = thread.get()
 
-        :param create_brand_request:
-        :type create_brand_request: CreateBrandRequest
+        :param request_brand:
+        :type request_brand: RequestBrand
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -71,24 +71,24 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateBrand201Response
+        :rtype: Brand
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_brand_with_http_info(create_brand_request, **kwargs)  # noqa: E501
+        return self.create_brand_with_http_info(request_brand, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_brand_with_http_info(self, create_brand_request : Optional[CreateBrandRequest] = None, **kwargs):  # noqa: E501
+    def create_brand_with_http_info(self, request_brand : Optional[RequestBrand] = None, **kwargs):  # noqa: E501
         """Create Brand  # noqa: E501
 
         Create a new Account Brand  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_brand_with_http_info(create_brand_request, async_req=True)
+        >>> thread = api.create_brand_with_http_info(request_brand, async_req=True)
         >>> result = thread.get()
 
-        :param create_brand_request:
-        :type create_brand_request: CreateBrandRequest
+        :param request_brand:
+        :type request_brand: RequestBrand
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -110,13 +110,13 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateBrand201Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Brand, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
-            'create_brand_request'
+            'request_brand'
         ]
         _all_params.extend(
             [
@@ -157,8 +157,8 @@ class BrandingServiceApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['create_brand_request']:
-            _body_params = _params['create_brand_request']
+        if _params['request_brand']:
+            _body_params = _params['request_brand']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -175,9 +175,9 @@ class BrandingServiceApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '201': "CreateBrand201Response",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '201': "Brand",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -339,7 +339,7 @@ class BrandingServiceApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_brand(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> CreateBrand201Response:  # noqa: E501
+    def get_brand(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> Brand:  # noqa: E501
         """Get Brand  # noqa: E501
 
         Retrieve a single brand via ID  # noqa: E501
@@ -364,7 +364,7 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateBrand201Response
+        :rtype: Brand
         """
         kwargs['_return_http_data_only'] = True
         return self.get_brand_with_http_info(brand_id, **kwargs)  # noqa: E501
@@ -403,7 +403,7 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateBrand201Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Brand, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -461,9 +461,9 @@ class BrandingServiceApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreateBrand201Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "Brand",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -484,7 +484,7 @@ class BrandingServiceApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_brand_apps(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> List[GetBrandApps200ResponseInner]:  # noqa: E501
+    def get_brand_apps(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> List[BrandApp]:  # noqa: E501
         """Get Brand Apps  # noqa: E501
 
         Get Apps Associated with Account Brand  # noqa: E501
@@ -509,7 +509,7 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[GetBrandApps200ResponseInner]
+        :rtype: List[BrandApp]
         """
         kwargs['_return_http_data_only'] = True
         return self.get_brand_apps_with_http_info(brand_id, **kwargs)  # noqa: E501
@@ -548,7 +548,7 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[GetBrandApps200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[BrandApp], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -606,9 +606,9 @@ class BrandingServiceApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[GetBrandApps200ResponseInner]",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "List[BrandApp]",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -629,7 +629,7 @@ class BrandingServiceApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_brands(self, **kwargs) -> List[ListBrands200ResponseInner]:  # noqa: E501
+    def list_brands(self, **kwargs) -> List[BrandReq]:  # noqa: E501
         """List Account Brands  # noqa: E501
 
         List Account Brands  # noqa: E501
@@ -652,7 +652,7 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListBrands200ResponseInner]
+        :rtype: List[BrandReq]
         """
         kwargs['_return_http_data_only'] = True
         return self.list_brands_with_http_info(**kwargs)  # noqa: E501
@@ -689,7 +689,7 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListBrands200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[BrandReq], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -744,7 +744,7 @@ class BrandingServiceApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListBrands200ResponseInner]",
+            '200': "List[BrandReq]",
         }
 
         return self.api_client.call_api(
@@ -765,20 +765,20 @@ class BrandingServiceApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_brand(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], create_brand_request : Optional[CreateBrandRequest] = None, **kwargs) -> CreateBrand201Response:  # noqa: E501
+    def update_brand(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], request_brand : Optional[RequestBrand] = None, **kwargs) -> Brand:  # noqa: E501
         """Update Brand  # noqa: E501
 
         Update Account Brand  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_brand(brand_id, create_brand_request, async_req=True)
+        >>> thread = api.update_brand(brand_id, request_brand, async_req=True)
         >>> result = thread.get()
 
         :param brand_id: Unique identifier for the branding object. (required)
         :type brand_id: int
-        :param create_brand_request:
-        :type create_brand_request: CreateBrandRequest
+        :param request_brand:
+        :type request_brand: RequestBrand
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -792,26 +792,26 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreateBrand201Response
+        :rtype: Brand
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_brand_with_http_info(brand_id, create_brand_request, **kwargs)  # noqa: E501
+        return self.update_brand_with_http_info(brand_id, request_brand, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], create_brand_request : Optional[CreateBrandRequest] = None, **kwargs):  # noqa: E501
+    def update_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], request_brand : Optional[RequestBrand] = None, **kwargs):  # noqa: E501
         """Update Brand  # noqa: E501
 
         Update Account Brand  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_brand_with_http_info(brand_id, create_brand_request, async_req=True)
+        >>> thread = api.update_brand_with_http_info(brand_id, request_brand, async_req=True)
         >>> result = thread.get()
 
         :param brand_id: Unique identifier for the branding object. (required)
         :type brand_id: int
-        :param create_brand_request:
-        :type create_brand_request: CreateBrandRequest
+        :param request_brand:
+        :type request_brand: RequestBrand
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -833,14 +833,14 @@ class BrandingServiceApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreateBrand201Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Brand, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'brand_id',
-            'create_brand_request'
+            'request_brand'
         ]
         _all_params.extend(
             [
@@ -883,8 +883,8 @@ class BrandingServiceApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['create_brand_request']:
-            _body_params = _params['create_brand_request']
+        if _params['request_brand']:
+            _body_params = _params['request_brand']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -901,9 +901,9 @@ class BrandingServiceApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '201': "CreateBrand201Response",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '201': "Brand",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(

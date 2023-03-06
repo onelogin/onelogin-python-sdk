@@ -25,9 +25,9 @@ from onelogin.models.create_device_verification201_response import CreateDeviceV
 from onelogin.models.create_device_verification_request import CreateDeviceVerificationRequest
 from onelogin.models.create_factor_registration201_response import CreateFactorRegistration201Response
 from onelogin.models.create_factor_registration_request import CreateFactorRegistrationRequest
+from onelogin.models.error import Error
 from onelogin.models.generate_otp201_response import GenerateOTP201Response
 from onelogin.models.generate_otp_request import GenerateOTPRequest
-from onelogin.models.generate_token400_response import GenerateToken400Response
 from onelogin.models.get_auth_factors200_response import GetAuthFactors200Response
 from onelogin.models.get_authentication_devices200_response_inner import GetAuthenticationDevices200ResponseInner
 from onelogin.models.get_user_verification200_response import GetUserVerification200Response
@@ -187,12 +187,19 @@ class MultiFactorAuthenticationApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
+        # set the HTTP header `Content-Type`
+        _content_types_list = _params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json']))
+        if _content_types_list:
+                _header_params['Content-Type'] = _content_types_list
+
         # authentication setting
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
             '201': "CreateDeviceVerification201Response",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -345,12 +352,19 @@ class MultiFactorAuthenticationApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
+        # set the HTTP header `Content-Type`
+        _content_types_list = _params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json']))
+        if _content_types_list:
+                _header_params['Content-Type'] = _content_types_list
+
         # authentication setting
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
             '201': "CreateFactorRegistration201Response",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -647,13 +661,20 @@ class MultiFactorAuthenticationApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
+        # set the HTTP header `Content-Type`
+        _content_types_list = _params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json']))
+        if _content_types_list:
+                _header_params['Content-Type'] = _content_types_list
+
         # authentication setting
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
             '201': "GenerateOTP201Response",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -797,7 +818,7 @@ class MultiFactorAuthenticationApi(object):
 
         _response_types_map = {
             '200': "GetAuthFactors200Response",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -941,7 +962,7 @@ class MultiFactorAuthenticationApi(object):
 
         _response_types_map = {
             '200': "List[GetAuthenticationDevices200ResponseInner]",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1092,7 +1113,7 @@ class MultiFactorAuthenticationApi(object):
 
         _response_types_map = {
             '200': "object",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1243,8 +1264,8 @@ class MultiFactorAuthenticationApi(object):
 
         _response_types_map = {
             '200': "GetUserVerification200Response",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1404,12 +1425,19 @@ class MultiFactorAuthenticationApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
+        # set the HTTP header `Content-Type`
+        _content_types_list = _params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json']))
+        if _content_types_list:
+                _header_params['Content-Type'] = _content_types_list
+
         # authentication setting
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
             '200': "VerifyUserRegistration200Response",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1430,7 +1458,7 @@ class MultiFactorAuthenticationApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def verify_user_verification(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], content_type : Optional[StrictStr] = None, verify_user_verification_request : Optional[VerifyUserVerificationRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def verify_user_verification(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], content_type : Optional[StrictStr] = None, verify_user_verification_request : Optional[VerifyUserVerificationRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Verify User Verification  # noqa: E501
 
         Submit an otp for verification.  # noqa: E501
@@ -1461,7 +1489,7 @@ class MultiFactorAuthenticationApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
         return self.verify_user_verification_with_http_info(user_id, verification_id, content_type, verify_user_verification_request, **kwargs)  # noqa: E501
@@ -1506,7 +1534,7 @@ class MultiFactorAuthenticationApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1569,13 +1597,20 @@ class MultiFactorAuthenticationApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
+        # set the HTTP header `Content-Type`
+        _content_types_list = _params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json']))
+        if _content_types_list:
+                _header_params['Content-Type'] = _content_types_list
+
         # authentication setting
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '401': "GetScopes401Response",
-            '403': "GetScopes401Response",
+            '200': "Error",
+            '401': "AltErr",
+            '403': "AltErr",
         }
 
         return self.api_client.call_api(

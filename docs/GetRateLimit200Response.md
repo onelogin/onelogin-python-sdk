@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | [**GenerateToken400Response**](GenerateToken400Response.md) |  | [optional] 
-**data** | [**GetRateLimit200ResponseData**](GetRateLimit200ResponseData.md) |  | [optional] 
+**status** | [**Error**](Error.md) |  | [optional] 
+**data** | [**RateLimit**](RateLimit.md) |  | [optional] 
 
 ## Example
 

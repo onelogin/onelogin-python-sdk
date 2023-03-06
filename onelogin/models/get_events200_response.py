@@ -19,8 +19,8 @@ import json
 
 from typing import List, Optional
 from pydantic import BaseModel
-from onelogin.models.generate_token400_response import GenerateToken400Response
-from onelogin.models.get_events200_response_data_inner import GetEvents200ResponseDataInner
+from onelogin.models.error import Error
+from onelogin.models.event import Event
 from onelogin.models.get_events200_response_pagination import GetEvents200ResponsePagination
 
 class GetEvents200Response(BaseModel):
@@ -29,9 +29,9 @@ class GetEvents200Response(BaseModel):
 
     Do not edit the class manually.
     """
-    status: Optional[GenerateToken400Response] = None
+    status: Optional[Error] = None
     pagination: Optional[GetEvents200ResponsePagination] = None
-    data: Optional[List[GetEvents200ResponseDataInner]] = None
+    data: Optional[List[Event]] = None
     __properties = ["status", "pagination", "data"]
 
     class Config:
@@ -82,9 +82,9 @@ class GetEvents200Response(BaseModel):
             return GetEvents200Response.parse_obj(obj)
 
         _obj = GetEvents200Response.parse_obj({
-            "status": GenerateToken400Response.from_dict(obj.get("status")) if obj.get("status") is not None else None,
+            "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "pagination": GetEvents200ResponsePagination.from_dict(obj.get("pagination")) if obj.get("pagination") is not None else None,
-            "data": [GetEvents200ResponseDataInner.from_dict(_item) for _item in obj.get("data")] if obj.get("data") is not None else None
+            "data": [Event.from_dict(_item) for _item in obj.get("data")] if obj.get("data") is not None else None
         })
         return _obj
 

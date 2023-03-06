@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **add_roles_to_user**
-> GenerateToken400Response add_roles_to_user(user_id, content_type=content_type, add_roles_to_user_request=add_roles_to_user_request)
+> Error add_roles_to_user(user_id, add_roles_to_user_request=add_roles_to_user_request)
 
 Add Roles for a User
 
@@ -56,12 +56,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     add_roles_to_user_request = onelogin.AddRolesToUserRequest() # AddRolesToUserRequest |  (optional)
 
     try:
         # Add Roles for a User
-        api_response = api_instance.add_roles_to_user(user_id, content_type=content_type, add_roles_to_user_request=add_roles_to_user_request)
+        api_response = api_instance.add_roles_to_user(user_id, add_roles_to_user_request=add_roles_to_user_request)
         print("The response of UsersV1Api->add_roles_to_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -73,12 +72,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **add_roles_to_user_request** | [**AddRolesToUserRequest**](AddRolesToUserRequest.md)|  | [optional] 
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -101,7 +99,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_user**
-> ListUsers200ResponseInner create_user(list_users200_response_inner, mappings=mappings, validate_policy=validate_policy)
+> User create_user(mappings=mappings, validate_policy=validate_policy, user=user)
 
 Create a User
 
@@ -134,13 +132,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
-    list_users200_response_inner = onelogin.ListUsers200ResponseInner() # ListUsers200ResponseInner | 
     mappings = 'mappings_example' # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
+    user = onelogin.User() # User |  (optional)
 
     try:
         # Create a User
-        api_response = api_instance.create_user(list_users200_response_inner, mappings=mappings, validate_policy=validate_policy)
+        api_response = api_instance.create_user(mappings=mappings, validate_policy=validate_policy, user=user)
         print("The response of UsersV1Api->create_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -151,13 +149,13 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **list_users200_response_inner** | [**ListUsers200ResponseInner**](ListUsers200ResponseInner.md)|  | 
  **mappings** | **str**| Controls how mappings will be applied to the user on creation. Defaults to async. | [optional] 
  **validate_policy** | **bool**| Will passwords validate against the User Policy? Defaults to true. | [optional] 
+ **user** | [**User**](User.md)|  | [optional] 
 
 ### Return type
 
-[**ListUsers200ResponseInner**](ListUsers200ResponseInner.md)
+[**User**](User.md)
 
 ### Authorization
 
@@ -394,7 +392,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_user_by_id**
-> ListUsers200ResponseInner get_user_by_id(user_id)
+> User get_user_by_id(user_id)
 
 Get User by ID
 
@@ -446,7 +444,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListUsers200ResponseInner**](ListUsers200ResponseInner.md)
+[**User**](User.md)
 
 ### Authorization
 
@@ -542,7 +540,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_users**
-> List[ListUsers200ResponseInner] list_users(limit=limit, page=page, cursor=cursor, created_since=created_since, created_until=created_until, updated_since=updated_since, updated_until=updated_until, last_login_since=last_login_since, last_login_until=last_login_until, firstname=firstname, lastname=lastname, email=email, username=username, samaccountname=samaccountname, directory_id=directory_id, external_id=external_id, user_ids=user_ids, custom_attributes_attribute_name=custom_attributes_attribute_name, fields=fields)
+> List[User] list_users(limit=limit, page=page, cursor=cursor, created_since=created_since, created_until=created_until, updated_since=updated_since, updated_until=updated_until, last_login_since=last_login_since, last_login_until=last_login_until, firstname=firstname, lastname=lastname, email=email, username=username, samaccountname=samaccountname, directory_id=directory_id, external_id=external_id, user_ids=user_ids, custom_attributes_attribute_name=custom_attributes_attribute_name, fields=fields)
 
 List Users
 
@@ -593,7 +591,7 @@ with onelogin.ApiClient(configuration) as api_client:
     external_id = 'external_id_example' # str | An external identifier that has been set on the user (optional)
     user_ids = 'user_ids_example' # str | A comma separated list of OneLogin User IDs (optional)
     custom_attributes_attribute_name = 'custom_attributes_attribute_name_example' # str | The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes. (optional)
-    fields = 'fields_example' # str | A comma separated list user attributes to return. (optional)
+    fields = 'fields_example' # str | Optional. Comma delimited list of fields to return. (optional)
 
     try:
         # List Users
@@ -626,11 +624,11 @@ Name | Type | Description  | Notes
  **external_id** | **str**| An external identifier that has been set on the user | [optional] 
  **user_ids** | **str**| A comma separated list of OneLogin User IDs | [optional] 
  **custom_attributes_attribute_name** | **str**| The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes. | [optional] 
- **fields** | **str**| A comma separated list user attributes to return. | [optional] 
+ **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional] 
 
 ### Return type
 
-[**List[ListUsers200ResponseInner]**](ListUsers200ResponseInner.md)
+[**List[User]**](User.md)
 
 ### Authorization
 
@@ -644,7 +642,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  * Current-Page - The index number of the current page being returned. <br>  * Page-Items - The number of items returned in the response. <br>  * Total-Count - The total number of items across all pages. <br>  * Total-Pages - The total number of pages to return all results. <br>  * Link - A set of urls which contains premade links for first, next <br>  * Before-Cursor - A string that can be used to request the page of results that preceed the current page using the same set of search filters and pagination options. <br>  * After-Cursor - A string that can be used to request the page of results that follows the current page using the same set of search filters and pagination options. <br>  |
+**200** | OK |  * Current-Page -  <br>  * Page-Items -  <br>  * Total-Count -  <br>  * Total-Pages -  <br>  * Link -  <br>  * Before-Cursor -  <br>  * After-Cursor -  <br>  |
 **400** | Bad Request |  -  |
 **401** | Unauthorized |  -  |
 **422** | Unprocessable |  -  |
@@ -652,7 +650,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **lock_account_user**
-> GenerateToken400Response lock_account_user(user_id, content_type=content_type, lock_account_user_request=lock_account_user_request)
+> Error lock_account_user(user_id, lock_account_user_request=lock_account_user_request)
 
 Lock User Account
 
@@ -686,12 +684,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     lock_account_user_request = onelogin.LockAccountUserRequest() # LockAccountUserRequest |  (optional)
 
     try:
         # Lock User Account
-        api_response = api_instance.lock_account_user(user_id, content_type=content_type, lock_account_user_request=lock_account_user_request)
+        api_response = api_instance.lock_account_user(user_id, lock_account_user_request=lock_account_user_request)
         print("The response of UsersV1Api->lock_account_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -703,12 +700,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **lock_account_user_request** | [**LockAccountUserRequest**](LockAccountUserRequest.md)|  | [optional] 
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -731,7 +727,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **log_out_user**
-> GenerateToken400Response log_out_user(user_id, body=body)
+> Error log_out_user(user_id, body=body)
 
 Log User Out
 
@@ -785,7 +781,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -808,7 +804,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_user_role**
-> GenerateToken400Response remove_user_role(user_id, content_type=content_type, remove_user_role_request=remove_user_role_request)
+> Error remove_user_role(user_id, remove_user_role_request=remove_user_role_request)
 
 Remove Roles for a User
 
@@ -842,12 +838,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     remove_user_role_request = onelogin.RemoveUserRoleRequest() # RemoveUserRoleRequest |  (optional)
 
     try:
         # Remove Roles for a User
-        api_response = api_instance.remove_user_role(user_id, content_type=content_type, remove_user_role_request=remove_user_role_request)
+        api_response = api_instance.remove_user_role(user_id, remove_user_role_request=remove_user_role_request)
         print("The response of UsersV1Api->remove_user_role:\n")
         pprint(api_response)
     except Exception as e:
@@ -859,12 +854,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **remove_user_role_request** | [**RemoveUserRoleRequest**](RemoveUserRoleRequest.md)|  | [optional] 
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -887,7 +881,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_user_state**
-> GenerateToken400Response set_user_state(user_id, content_type=content_type, set_user_state_request=set_user_state_request)
+> Error set_user_state(user_id, set_user_state_request=set_user_state_request)
 
 Set User State
 
@@ -921,12 +915,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     set_user_state_request = onelogin.SetUserStateRequest() # SetUserStateRequest |  (optional)
 
     try:
         # Set User State
-        api_response = api_instance.set_user_state(user_id, content_type=content_type, set_user_state_request=set_user_state_request)
+        api_response = api_instance.set_user_state(user_id, set_user_state_request=set_user_state_request)
         print("The response of UsersV1Api->set_user_state:\n")
         pprint(api_response)
     except Exception as e:
@@ -938,12 +931,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **set_user_state_request** | [**SetUserStateRequest**](SetUserStateRequest.md)|  | [optional] 
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -966,7 +958,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_password_insecure**
-> GenerateToken400Response update_password_insecure(user_id, content_type=content_type, update_password_insecure_request=update_password_insecure_request)
+> Error update_password_insecure(user_id, update_password_insecure_request=update_password_insecure_request)
 
 Set Password Using ID in Cleartext
 
@@ -1000,12 +992,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     update_password_insecure_request = onelogin.UpdatePasswordInsecureRequest() # UpdatePasswordInsecureRequest |  (optional)
 
     try:
         # Set Password Using ID in Cleartext
-        api_response = api_instance.update_password_insecure(user_id, content_type=content_type, update_password_insecure_request=update_password_insecure_request)
+        api_response = api_instance.update_password_insecure(user_id, update_password_insecure_request=update_password_insecure_request)
         print("The response of UsersV1Api->update_password_insecure:\n")
         pprint(api_response)
     except Exception as e:
@@ -1017,12 +1008,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **update_password_insecure_request** | [**UpdatePasswordInsecureRequest**](UpdatePasswordInsecureRequest.md)|  | [optional] 
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -1045,7 +1035,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_password_secure**
-> GenerateToken400Response update_password_secure(user_id, content_type=content_type, update_password_secure_request=update_password_secure_request)
+> Error update_password_secure(user_id, update_password_secure_request=update_password_secure_request)
 
 Set Password Using ID and SHA-256 and Salt
 
@@ -1079,12 +1069,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    content_type = 'application/json' # str |  (optional) (default to 'application/json')
     update_password_secure_request = onelogin.UpdatePasswordSecureRequest() # UpdatePasswordSecureRequest |  (optional)
 
     try:
         # Set Password Using ID and SHA-256 and Salt
-        api_response = api_instance.update_password_secure(user_id, content_type=content_type, update_password_secure_request=update_password_secure_request)
+        api_response = api_instance.update_password_secure(user_id, update_password_secure_request=update_password_secure_request)
         print("The response of UsersV1Api->update_password_secure:\n")
         pprint(api_response)
     except Exception as e:
@@ -1096,12 +1085,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
  **update_password_secure_request** | [**UpdatePasswordSecureRequest**](UpdatePasswordSecureRequest.md)|  | [optional] 
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -1124,7 +1112,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_user**
-> ListUsers200ResponseInner update_user(user_id, list_users200_response_inner, mappings=mappings, validate_policy=validate_policy)
+> User update_user(user_id, user, mappings=mappings, validate_policy=validate_policy)
 
 Update a User
 
@@ -1158,13 +1146,13 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    list_users200_response_inner = onelogin.ListUsers200ResponseInner() # ListUsers200ResponseInner | 
+    user = onelogin.User() # User | 
     mappings = 'mappings_example' # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
 
     try:
         # Update a User
-        api_response = api_instance.update_user(user_id, list_users200_response_inner, mappings=mappings, validate_policy=validate_policy)
+        api_response = api_instance.update_user(user_id, user, mappings=mappings, validate_policy=validate_policy)
         print("The response of UsersV1Api->update_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -1176,13 +1164,13 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **list_users200_response_inner** | [**ListUsers200ResponseInner**](ListUsers200ResponseInner.md)|  | 
+ **user** | [**User**](User.md)|  | 
  **mappings** | **str**| Controls how mappings will be applied to the user on creation. Defaults to async. | [optional] 
  **validate_policy** | **bool**| Will passwords validate against the User Policy? Defaults to true. | [optional] 
 
 ### Return type
 
-[**ListUsers200ResponseInner**](ListUsers200ResponseInner.md)
+[**User**](User.md)
 
 ### Authorization
 

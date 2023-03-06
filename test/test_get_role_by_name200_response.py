@@ -38,7 +38,7 @@ class TestGetRoleByName200Response(unittest.TestCase):
         model = onelogin.models.get_role_by_name200_response.GetRoleByName200Response()  # noqa: E501
         if include_optional :
             return GetRoleByName200Response(
-                status = onelogin.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.error.Error(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
@@ -46,7 +46,7 @@ class TestGetRoleByName200Response(unittest.TestCase):
                 pagination = onelogin.models.get_role_by_name_200_response_pagination.getRoleByName_200_response_pagination(
                     after_cursor = 'xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 
                     before_cursor = '""', 
-                    next_link = 'https://{subdomain}.onelogin.com/api/1/events?after_cursor=xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 
+                    next_link = 'https://your-api-subdomain.onelogin.com/api/1/events?after_cursor=xWNjb3VudF9pZDo6OjUzNDEzLS0jI2lkOjo6OTA0MjU3NTQ2', 
                     previous_link = '""', ), 
                 data = [{"id":1111,"name":"C-Executive"},{"id":1112,"name":"Contractor"},{"id":1113,"name":"Default"},{"id":1114,"name":"Employee"}]
             )

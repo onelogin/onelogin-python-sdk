@@ -38,31 +38,61 @@ class TestCreateAppRequest(unittest.TestCase):
         model = onelogin.models.create_app_request.CreateAppRequest()  # noqa: E501
         if include_optional :
             return CreateAppRequest(
-                connector_id = 56, 
-                name = '', 
-                description = '', 
+                id = 775664, 
+                name = 'A Sample App', 
                 visible = True, 
+                description = '', 
+                notes = 'This app is in beta.', 
+                icon_url = '/images/missing_connector_icon/square/old_original.png', 
+                auth_method = 8, 
                 policy_id = 56, 
-                configuration = onelogin.models.create_app_request_one_of_1_configuration.createApp_request_oneOf_1_configuration(
-                    signature_algorithm = '', 
-                    certificate_id = 56, ), 
-                parameters = onelogin.models.create_app_request_one_of_1_parameters.createApp_request_oneOf_1_parameters(
-                    saml_username = onelogin.models.create_app_request_one_of_1_parameters_saml_username.createApp_request_oneOf_1_parameters_saml_username(
-                        user_attribute_mappings = '', ), )
+                allow_assumed_signin = False, 
+                tab_id = 196885, 
+                connector_id = 108419, 
+                created_at = '2018-04-12T21:50:42Z', 
+                updated_at = '2019-05-16T19:20:34Z', 
+                role_ids = [192513], 
+                provisioning = onelogin.models.generic_app_provisioning.generic_app_provisioning(
+                    enabled = True, ), 
+                sso = None, 
+                configuration = None, 
+                parameters = {
+                    'key' : onelogin.models.app_parameters_value.app_parameters_value(
+                        user_attribute_mappings = '', 
+                        user_attribute_macros = '', 
+                        label = '', 
+                        include_in_saml_assertion = True, )
+                    }, 
+                enforcement_point = onelogin.models.enforcement_point.enforcement_point(
+                    require_sitewide_authentication = False, 
+                    conditions = '', 
+                    session_expiry_fixed = {"value":30,"unit":1}, 
+                    session_expiry_inactivity = {"value":30,"unit":1}, 
+                    permissions = 'allow', 
+                    token = 'b491c647f5e0cff854ad606722ac98342b4b0882', 
+                    target = '', 
+                    resources = [{"resource_id":809,"conditions":"","is_path_regex":false,"permissions":"allow","require_auth":false,"path":"/"}], 
+                    context_root = '/', 
+                    use_target_host_header = False, 
+                    vhost = '', 
+                    landing_page = '', 
+                    case_sensitive = False, )
             )
         else :
             return CreateAppRequest(
-                connector_id = 56,
-                name = '',
-                description = '',
+                name = 'A Sample App',
                 visible = True,
+                description = '',
                 policy_id = 56,
-                configuration = onelogin.models.create_app_request_one_of_1_configuration.createApp_request_oneOf_1_configuration(
-                    signature_algorithm = '', 
-                    certificate_id = 56, ),
-                parameters = onelogin.models.create_app_request_one_of_1_parameters.createApp_request_oneOf_1_parameters(
-                    saml_username = onelogin.models.create_app_request_one_of_1_parameters_saml_username.createApp_request_oneOf_1_parameters_saml_username(
-                        user_attribute_mappings = '', ), ),
+                connector_id = 108419,
+                configuration = None,
+                parameters = {
+                    'key' : onelogin.models.app_parameters_value.app_parameters_value(
+                        user_attribute_mappings = '', 
+                        user_attribute_macros = '', 
+                        label = '', 
+                        include_in_saml_assertion = True, )
+                    },
         )
         """
 

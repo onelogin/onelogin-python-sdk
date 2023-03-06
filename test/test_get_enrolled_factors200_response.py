@@ -38,7 +38,7 @@ class TestGetEnrolledFactors200Response(unittest.TestCase):
         model = onelogin.models.get_enrolled_factors200_response.GetEnrolledFactors200Response()  # noqa: E501
         if include_optional :
             return GetEnrolledFactors200Response(
-                status = onelogin.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.error.Error(
                     error = False, 
                     code = 200, 
                     type = 'Success', 

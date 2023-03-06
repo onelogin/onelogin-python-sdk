@@ -22,9 +22,9 @@ from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import List, Optional
 
 from onelogin.models.list_actions200_response_inner import ListActions200ResponseInner
-from onelogin.models.list_app_rules200_response_inner import ListAppRules200ResponseInner
 from onelogin.models.list_condition_operators200_response_inner import ListConditionOperators200ResponseInner
 from onelogin.models.list_conditions200_response_inner import ListConditions200ResponseInner
+from onelogin.models.rule import Rule
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -46,22 +46,20 @@ class AppRulesApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_app_rule(self, app_id : StrictInt, list_app_rules200_response_inner : ListAppRules200ResponseInner, content_type : Optional[StrictStr] = None, **kwargs) -> int:  # noqa: E501
+    def create_app_rule(self, app_id : StrictInt, rule : Optional[Rule] = None, **kwargs) -> int:  # noqa: E501
         """create_app_rule  # noqa: E501
 
         Create App Rule  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_app_rule(app_id, list_app_rules200_response_inner, content_type, async_req=True)
+        >>> thread = api.create_app_rule(app_id, rule, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
-        :param list_app_rules200_response_inner: (required)
-        :type list_app_rules200_response_inner: ListAppRules200ResponseInner
-        :param content_type:
-        :type content_type: str
+        :param rule:
+        :type rule: Rule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -78,25 +76,23 @@ class AppRulesApi(object):
         :rtype: int
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_app_rule_with_http_info(app_id, list_app_rules200_response_inner, content_type, **kwargs)  # noqa: E501
+        return self.create_app_rule_with_http_info(app_id, rule, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_app_rule_with_http_info(self, app_id : StrictInt, list_app_rules200_response_inner : ListAppRules200ResponseInner, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def create_app_rule_with_http_info(self, app_id : StrictInt, rule : Optional[Rule] = None, **kwargs):  # noqa: E501
         """create_app_rule  # noqa: E501
 
         Create App Rule  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_app_rule_with_http_info(app_id, list_app_rules200_response_inner, content_type, async_req=True)
+        >>> thread = api.create_app_rule_with_http_info(app_id, rule, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
-        :param list_app_rules200_response_inner: (required)
-        :type list_app_rules200_response_inner: ListAppRules200ResponseInner
-        :param content_type:
-        :type content_type: str
+        :param rule:
+        :type rule: Rule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -125,8 +121,7 @@ class AppRulesApi(object):
 
         _all_params = [
             'app_id',
-            'list_app_rules200_response_inner',
-            'content_type'
+            'rule'
         ]
         _all_params.extend(
             [
@@ -162,8 +157,6 @@ class AppRulesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -171,8 +164,8 @@ class AppRulesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_app_rules200_response_inner']:
-            _body_params = _params['list_app_rules200_response_inner']
+        if _params['rule']:
+            _body_params = _params['rule']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -190,8 +183,8 @@ class AppRulesApi(object):
 
         _response_types_map = {
             '201': "int",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -360,7 +353,7 @@ class AppRulesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_app_rule(self, app_id : StrictInt, rule_id : StrictStr, **kwargs) -> ListAppRules200ResponseInner:  # noqa: E501
+    def get_app_rule(self, app_id : StrictInt, rule_id : StrictStr, **kwargs) -> Rule:  # noqa: E501
         """Get Rule  # noqa: E501
 
         Get App Rule  # noqa: E501
@@ -387,7 +380,7 @@ class AppRulesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListAppRules200ResponseInner
+        :rtype: Rule
         """
         kwargs['_return_http_data_only'] = True
         return self.get_app_rule_with_http_info(app_id, rule_id, **kwargs)  # noqa: E501
@@ -428,7 +421,7 @@ class AppRulesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListAppRules200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Rule, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -489,9 +482,9 @@ class AppRulesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListAppRules200ResponseInner",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "Rule",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -642,7 +635,7 @@ class AppRulesApi(object):
 
         _response_types_map = {
             '200': "List[ListActions200ResponseInner]",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -786,7 +779,7 @@ class AppRulesApi(object):
 
         _response_types_map = {
             '200': "List[ListActions200ResponseInner]",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -807,7 +800,7 @@ class AppRulesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_app_rules(self, app_id : StrictInt, has_condition : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_condition_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_action : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Actions. Values formatted as :, where name is the Action to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_action=set_licenses:123456 Multiple filters. has_action=set_groups:123456,set_usertype:* Wildcard for actions. has_action=*:123456 Wildcard for action values. has_action=set_userprincipalname:*")] = None, has_action_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their action types. Allowed values are: builtin - actions that involve standard attributes custom - actions that involve custom attributes none - no actions are defined For example: Find Rules with no actions has_action_type=none")] = None, enabled : Annotated[Optional[StrictBool], Field(description="Defaults to true. When set to `false` will return all disabled mappings.")] = None, **kwargs) -> List[ListAppRules200ResponseInner]:  # noqa: E501
+    def list_app_rules(self, app_id : StrictInt, has_condition : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_condition_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_action : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Actions. Values formatted as :, where name is the Action to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_action=set_licenses:123456 Multiple filters. has_action=set_groups:123456,set_usertype:* Wildcard for actions. has_action=*:123456 Wildcard for action values. has_action=set_userprincipalname:*")] = None, has_action_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their action types. Allowed values are: builtin - actions that involve standard attributes custom - actions that involve custom attributes none - no actions are defined For example: Find Rules with no actions has_action_type=none")] = None, enabled : Annotated[Optional[StrictBool], Field(description="Defaults to true. When set to `false` will return all disabled mappings.")] = None, **kwargs) -> List[Rule]:  # noqa: E501
         """List Rules  # noqa: E501
 
         List App Rules  # noqa: E501
@@ -842,7 +835,7 @@ class AppRulesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListAppRules200ResponseInner]
+        :rtype: List[Rule]
         """
         kwargs['_return_http_data_only'] = True
         return self.list_app_rules_with_http_info(app_id, has_condition, has_condition_type, has_action, has_action_type, enabled, **kwargs)  # noqa: E501
@@ -891,7 +884,7 @@ class AppRulesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListAppRules200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[Rule], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -964,8 +957,8 @@ class AppRulesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListAppRules200ResponseInner]",
-            '401': "GetScopes401Response",
+            '200': "List[Rule]",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1116,7 +1109,7 @@ class AppRulesApi(object):
 
         _response_types_map = {
             '200': "List[ListConditionOperators200ResponseInner]",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1267,7 +1260,7 @@ class AppRulesApi(object):
 
         _response_types_map = {
             '200': "List[ListConditions200ResponseInner]",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1411,7 +1404,7 @@ class AppRulesApi(object):
 
         _response_types_map = {
             '200': "List[ListConditions200ResponseInner]",
-            '401': "GetScopes401Response",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1432,20 +1425,18 @@ class AppRulesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def sort_app_rules(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, request_body : Optional[List[StrictInt]] = None, **kwargs) -> List[int]:  # noqa: E501
+    def sort_app_rules(self, app_id : StrictInt, request_body : Optional[List[StrictInt]] = None, **kwargs) -> List[int]:  # noqa: E501
         """Bulk Sort  # noqa: E501
 
         Sort App rules  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.sort_app_rules(app_id, content_type, request_body, async_req=True)
+        >>> thread = api.sort_app_rules(app_id, request_body, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
-        :param content_type:
-        :type content_type: str
         :param request_body:
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -1464,23 +1455,21 @@ class AppRulesApi(object):
         :rtype: List[int]
         """
         kwargs['_return_http_data_only'] = True
-        return self.sort_app_rules_with_http_info(app_id, content_type, request_body, **kwargs)  # noqa: E501
+        return self.sort_app_rules_with_http_info(app_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def sort_app_rules_with_http_info(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, request_body : Optional[List[StrictInt]] = None, **kwargs):  # noqa: E501
+    def sort_app_rules_with_http_info(self, app_id : StrictInt, request_body : Optional[List[StrictInt]] = None, **kwargs):  # noqa: E501
         """Bulk Sort  # noqa: E501
 
         Sort App rules  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.sort_app_rules_with_http_info(app_id, content_type, request_body, async_req=True)
+        >>> thread = api.sort_app_rules_with_http_info(app_id, request_body, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
-        :param content_type:
-        :type content_type: str
         :param request_body:
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
@@ -1511,7 +1500,6 @@ class AppRulesApi(object):
 
         _all_params = [
             'app_id',
-            'content_type',
             'request_body'
         ]
         _all_params.extend(
@@ -1548,8 +1536,6 @@ class AppRulesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1576,8 +1562,8 @@ class AppRulesApi(object):
 
         _response_types_map = {
             '200': "List[int]",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1598,24 +1584,22 @@ class AppRulesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_app_rule(self, app_id : StrictInt, rule_id : StrictStr, list_app_rules200_response_inner : ListAppRules200ResponseInner, content_type : Optional[StrictStr] = None, **kwargs) -> int:  # noqa: E501
+    def update_app_rule(self, app_id : StrictInt, rule_id : StrictStr, rule : Optional[Rule] = None, **kwargs) -> int:  # noqa: E501
         """Update Rule  # noqa: E501
 
         Update App Rule.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_app_rule(app_id, rule_id, list_app_rules200_response_inner, content_type, async_req=True)
+        >>> thread = api.update_app_rule(app_id, rule_id, rule, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
         :param rule_id: (required)
         :type rule_id: str
-        :param list_app_rules200_response_inner: (required)
-        :type list_app_rules200_response_inner: ListAppRules200ResponseInner
-        :param content_type:
-        :type content_type: str
+        :param rule:
+        :type rule: Rule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1632,27 +1616,25 @@ class AppRulesApi(object):
         :rtype: int
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_app_rule_with_http_info(app_id, rule_id, list_app_rules200_response_inner, content_type, **kwargs)  # noqa: E501
+        return self.update_app_rule_with_http_info(app_id, rule_id, rule, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_app_rule_with_http_info(self, app_id : StrictInt, rule_id : StrictStr, list_app_rules200_response_inner : ListAppRules200ResponseInner, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def update_app_rule_with_http_info(self, app_id : StrictInt, rule_id : StrictStr, rule : Optional[Rule] = None, **kwargs):  # noqa: E501
         """Update Rule  # noqa: E501
 
         Update App Rule.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_app_rule_with_http_info(app_id, rule_id, list_app_rules200_response_inner, content_type, async_req=True)
+        >>> thread = api.update_app_rule_with_http_info(app_id, rule_id, rule, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
         :param rule_id: (required)
         :type rule_id: str
-        :param list_app_rules200_response_inner: (required)
-        :type list_app_rules200_response_inner: ListAppRules200ResponseInner
-        :param content_type:
-        :type content_type: str
+        :param rule:
+        :type rule: Rule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1682,8 +1664,7 @@ class AppRulesApi(object):
         _all_params = [
             'app_id',
             'rule_id',
-            'list_app_rules200_response_inner',
-            'content_type'
+            'rule'
         ]
         _all_params.extend(
             [
@@ -1721,8 +1702,6 @@ class AppRulesApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1730,8 +1709,8 @@ class AppRulesApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_app_rules200_response_inner']:
-            _body_params = _params['list_app_rules200_response_inner']
+        if _params['rule']:
+            _body_params = _params['rule']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -1749,8 +1728,8 @@ class AppRulesApi(object):
 
         _response_types_map = {
             '200': "int",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(

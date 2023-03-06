@@ -21,10 +21,11 @@ from pydantic import StrictInt, StrictStr
 
 from typing import List, Optional
 
+from onelogin.models.connector import Connector
+from onelogin.models.create_app200_response import CreateApp200Response
 from onelogin.models.create_app_request import CreateAppRequest
-from onelogin.models.list_apps200_response_inner import ListApps200ResponseInner
-from onelogin.models.list_connectors200_response import ListConnectors200Response
-from onelogin.models.list_users200_response_inner import ListUsers200ResponseInner
+from onelogin.models.generic_app import GenericApp
+from onelogin.models.user import User
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -46,7 +47,7 @@ class AppsApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_app(self, content_type : Optional[StrictStr] = None, create_app_request : Optional[CreateAppRequest] = None, **kwargs) -> ListApps200ResponseInner:  # noqa: E501
+    def create_app(self, content_type : Optional[StrictStr] = None, create_app_request : Optional[CreateAppRequest] = None, **kwargs) -> CreateApp200Response:  # noqa: E501
         """Create App  # noqa: E501
 
         Create App  # noqa: E501
@@ -73,7 +74,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListApps200ResponseInner
+        :rtype: CreateApp200Response
         """
         kwargs['_return_http_data_only'] = True
         return self.create_app_with_http_info(content_type, create_app_request, **kwargs)  # noqa: E501
@@ -114,7 +115,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListApps200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(CreateApp200Response, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -182,9 +183,9 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListApps200ResponseInner",
-            '401': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '200': "CreateApp200Response",
+            '401': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(
@@ -205,20 +206,18 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def delete_app(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
+    def delete_app(self, app_id : StrictInt, **kwargs) -> None:  # noqa: E501
         """Delete App  # noqa: E501
 
         Delete App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_app(app_id, content_type, async_req=True)
+        >>> thread = api.delete_app(app_id, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -235,23 +234,21 @@ class AppsApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.delete_app_with_http_info(app_id, content_type, **kwargs)  # noqa: E501
+        return self.delete_app_with_http_info(app_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_app_with_http_info(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def delete_app_with_http_info(self, app_id : StrictInt, **kwargs):  # noqa: E501
         """Delete App  # noqa: E501
 
         Delete App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_app_with_http_info(app_id, content_type, async_req=True)
+        >>> thread = api.delete_app_with_http_info(app_id, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -279,8 +276,7 @@ class AppsApi(object):
         _params = locals()
 
         _all_params = [
-            'app_id',
-            'content_type'
+            'app_id'
         ]
         _all_params.extend(
             [
@@ -316,8 +312,6 @@ class AppsApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -353,22 +347,20 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def delete_app_parameter(self, app_id : StrictInt, parameter_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
+    def delete_app_parameter(self, app_id : StrictInt, parameter_id : StrictStr, **kwargs) -> None:  # noqa: E501
         """Delete Parameter from App  # noqa: E501
 
         Delete Parameter from App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_app_parameter(app_id, parameter_id, content_type, async_req=True)
+        >>> thread = api.delete_app_parameter(app_id, parameter_id, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
         :param parameter_id: (required)
         :type parameter_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -385,25 +377,23 @@ class AppsApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.delete_app_parameter_with_http_info(app_id, parameter_id, content_type, **kwargs)  # noqa: E501
+        return self.delete_app_parameter_with_http_info(app_id, parameter_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_app_parameter_with_http_info(self, app_id : StrictInt, parameter_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def delete_app_parameter_with_http_info(self, app_id : StrictInt, parameter_id : StrictStr, **kwargs):  # noqa: E501
         """Delete Parameter from App  # noqa: E501
 
         Delete Parameter from App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_app_parameter_with_http_info(app_id, parameter_id, content_type, async_req=True)
+        >>> thread = api.delete_app_parameter_with_http_info(app_id, parameter_id, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
         :param parameter_id: (required)
         :type parameter_id: str
-        :param content_type:
-        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -432,8 +422,7 @@ class AppsApi(object):
 
         _all_params = [
             'app_id',
-            'parameter_id',
-            'content_type'
+            'parameter_id'
         ]
         _all_params.extend(
             [
@@ -471,8 +460,6 @@ class AppsApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -508,7 +495,7 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_app(self, app_id : StrictInt, **kwargs) -> ListApps200ResponseInner:  # noqa: E501
+    def get_app(self, app_id : StrictInt, **kwargs) -> GenericApp:  # noqa: E501
         """Get App  # noqa: E501
 
         Get App  # noqa: E501
@@ -533,7 +520,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListApps200ResponseInner
+        :rtype: GenericApp
         """
         kwargs['_return_http_data_only'] = True
         return self.get_app_with_http_info(app_id, **kwargs)  # noqa: E501
@@ -572,7 +559,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListApps200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(GenericApp, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -630,9 +617,9 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListApps200ResponseInner",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "GenericApp",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -653,7 +640,7 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_app_users(self, app_id : StrictInt, **kwargs) -> List[ListUsers200ResponseInner]:  # noqa: E501
+    def get_app_users(self, app_id : StrictInt, **kwargs) -> List[User]:  # noqa: E501
         """Get App Users  # noqa: E501
 
         Get App Users  # noqa: E501
@@ -678,7 +665,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListUsers200ResponseInner]
+        :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
         return self.get_app_users_with_http_info(app_id, **kwargs)  # noqa: E501
@@ -717,7 +704,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListUsers200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[User], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -775,8 +762,8 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListUsers200ResponseInner]",
-            '401': "GetScopes401Response",
+            '200': "List[User]",
+            '401': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -797,7 +784,7 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_apps(self, **kwargs) -> List[ListApps200ResponseInner]:  # noqa: E501
+    def list_apps(self, **kwargs) -> List[GenericApp]:  # noqa: E501
         """List Apps  # noqa: E501
 
         List Apps  # noqa: E501
@@ -820,7 +807,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListApps200ResponseInner]
+        :rtype: List[GenericApp]
         """
         kwargs['_return_http_data_only'] = True
         return self.list_apps_with_http_info(**kwargs)  # noqa: E501
@@ -857,7 +844,7 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListApps200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[GenericApp], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -912,9 +899,9 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListApps200ResponseInner]",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '200': "List[GenericApp]",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -935,16 +922,18 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_connectors(self, **kwargs) -> ListConnectors200Response:  # noqa: E501
+    def list_connectors(self, name : Optional[StrictStr] = None, **kwargs) -> Connector:  # noqa: E501
         """List Connectors  # noqa: E501
 
         List Connectors  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_connectors(async_req=True)
+        >>> thread = api.list_connectors(name, async_req=True)
         >>> result = thread.get()
 
+        :param name:
+        :type name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -958,22 +947,24 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListConnectors200Response
+        :rtype: Connector
         """
         kwargs['_return_http_data_only'] = True
-        return self.list_connectors_with_http_info(**kwargs)  # noqa: E501
+        return self.list_connectors_with_http_info(name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_connectors_with_http_info(self, **kwargs):  # noqa: E501
+    def list_connectors_with_http_info(self, name : Optional[StrictStr] = None, **kwargs):  # noqa: E501
         """List Connectors  # noqa: E501
 
         List Connectors  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_connectors_with_http_info(async_req=True)
+        >>> thread = api.list_connectors_with_http_info(name, async_req=True)
         >>> result = thread.get()
 
+        :param name:
+        :type name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -995,12 +986,13 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListConnectors200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Connector, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
+            'name'
         ]
         _all_params.extend(
             [
@@ -1031,6 +1023,8 @@ class AppsApi(object):
 
         # process the query parameters
         _query_params = []
+        if _params.get('name') is not None:  # noqa: E501
+            _query_params.append(('name', _params['name']))
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
@@ -1050,9 +1044,9 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListConnectors200Response",
-            '401': "GetScopes401Response",
-            '422': "GetScopes401Response",
+            '200': "Connector",
+            '401': "AltErr",
+            '422': "AltErr",
         }
 
         return self.api_client.call_api(
@@ -1073,22 +1067,20 @@ class AppsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_app(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, list_apps200_response_inner : Optional[ListApps200ResponseInner] = None, **kwargs) -> ListApps200ResponseInner:  # noqa: E501
+    def update_app(self, app_id : StrictInt, generic_app : Optional[GenericApp] = None, **kwargs) -> GenericApp:  # noqa: E501
         """Update App  # noqa: E501
 
         Update App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_app(app_id, content_type, list_apps200_response_inner, async_req=True)
+        >>> thread = api.update_app(app_id, generic_app, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
-        :param content_type:
-        :type content_type: str
-        :param list_apps200_response_inner:
-        :type list_apps200_response_inner: ListApps200ResponseInner
+        :param generic_app:
+        :type generic_app: GenericApp
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1102,28 +1094,26 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListApps200ResponseInner
+        :rtype: GenericApp
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_app_with_http_info(app_id, content_type, list_apps200_response_inner, **kwargs)  # noqa: E501
+        return self.update_app_with_http_info(app_id, generic_app, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_app_with_http_info(self, app_id : StrictInt, content_type : Optional[StrictStr] = None, list_apps200_response_inner : Optional[ListApps200ResponseInner] = None, **kwargs):  # noqa: E501
+    def update_app_with_http_info(self, app_id : StrictInt, generic_app : Optional[GenericApp] = None, **kwargs):  # noqa: E501
         """Update App  # noqa: E501
 
         Update App  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_app_with_http_info(app_id, content_type, list_apps200_response_inner, async_req=True)
+        >>> thread = api.update_app_with_http_info(app_id, generic_app, async_req=True)
         >>> result = thread.get()
 
         :param app_id: (required)
         :type app_id: int
-        :param content_type:
-        :type content_type: str
-        :param list_apps200_response_inner:
-        :type list_apps200_response_inner: ListApps200ResponseInner
+        :param generic_app:
+        :type generic_app: GenericApp
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1145,15 +1135,14 @@ class AppsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListApps200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(GenericApp, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
             'app_id',
-            'content_type',
-            'list_apps200_response_inner'
+            'generic_app'
         ]
         _all_params.extend(
             [
@@ -1189,8 +1178,6 @@ class AppsApi(object):
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
-        if _params['content_type']:
-            _header_params['Content-Type'] = _params['content_type']
 
         # process the form parameters
         _form_params = []
@@ -1198,8 +1185,8 @@ class AppsApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_apps200_response_inner']:
-            _body_params = _params['list_apps200_response_inner']
+        if _params['generic_app']:
+            _body_params = _params['generic_app']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -1216,9 +1203,9 @@ class AppsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListApps200ResponseInner",
-            '401': "GetScopes401Response",
-            '404': "GetScopes401Response",
+            '200': "GenericApp",
+            '401': "AltErr",
+            '404': "AltErr",
         }
 
         return self.api_client.call_api(

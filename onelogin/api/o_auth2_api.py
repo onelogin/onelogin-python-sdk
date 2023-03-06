@@ -21,10 +21,10 @@ from pydantic import Field, StrictStr
 
 from typing import Optional
 
-from onelogin.models.generate_token200_response import GenerateToken200Response
-from onelogin.models.generate_token400_response import GenerateToken400Response
+from onelogin.models.error import Error
 from onelogin.models.generate_token_request import GenerateTokenRequest
 from onelogin.models.get_rate_limit200_response import GetRateLimit200Response
+from onelogin.models.oauth_token import OauthToken
 from onelogin.models.revoke_tokens_request import RevokeTokensRequest
 
 from onelogin.api_client import ApiClient
@@ -47,20 +47,20 @@ class OAuth2Api(object):
         self.api_client = api_client
 
     @validate_arguments
-    def generate_token(self, content_type : StrictStr, generate_token_request : Annotated[GenerateTokenRequest, Field(..., description="Request Body to Generate OAuth Token")], **kwargs) -> GenerateToken200Response:  # noqa: E501
+    def generate_token(self, generate_token_request : Annotated[GenerateTokenRequest, Field(..., description="Request Body to Generate OAuth Token")], content_type : Optional[StrictStr] = None, **kwargs) -> OauthToken:  # noqa: E501
         """Generate Token  # noqa: E501
 
         Generate Token  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.generate_token(content_type, generate_token_request, async_req=True)
+        >>> thread = api.generate_token(generate_token_request, content_type, async_req=True)
         >>> result = thread.get()
 
-        :param content_type: (required)
-        :type content_type: str
         :param generate_token_request: Request Body to Generate OAuth Token (required)
         :type generate_token_request: GenerateTokenRequest
+        :param content_type:
+        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -74,26 +74,26 @@ class OAuth2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken200Response
+        :rtype: OauthToken
         """
         kwargs['_return_http_data_only'] = True
-        return self.generate_token_with_http_info(content_type, generate_token_request, **kwargs)  # noqa: E501
+        return self.generate_token_with_http_info(generate_token_request, content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def generate_token_with_http_info(self, content_type : StrictStr, generate_token_request : Annotated[GenerateTokenRequest, Field(..., description="Request Body to Generate OAuth Token")], **kwargs):  # noqa: E501
+    def generate_token_with_http_info(self, generate_token_request : Annotated[GenerateTokenRequest, Field(..., description="Request Body to Generate OAuth Token")], content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
         """Generate Token  # noqa: E501
 
         Generate Token  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.generate_token_with_http_info(content_type, generate_token_request, async_req=True)
+        >>> thread = api.generate_token_with_http_info(generate_token_request, content_type, async_req=True)
         >>> result = thread.get()
 
-        :param content_type: (required)
-        :type content_type: str
         :param generate_token_request: Request Body to Generate OAuth Token (required)
         :type generate_token_request: GenerateTokenRequest
+        :param content_type:
+        :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -115,14 +115,14 @@ class OAuth2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(OauthToken, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
-            'content_type',
-            'generate_token_request'
+            'generate_token_request',
+            'content_type'
         ]
         _all_params.extend(
             [
@@ -183,10 +183,10 @@ class OAuth2Api(object):
         _auth_settings = ['basicAuth']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "OauthToken",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -323,9 +323,9 @@ class OAuth2Api(object):
 
         _response_types_map = {
             '200': "GetRateLimit200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -346,7 +346,7 @@ class OAuth2Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def revoke_tokens(self, content_type : Optional[StrictStr] = None, revoke_tokens_request : Optional[RevokeTokensRequest] = None, **kwargs) -> GenerateToken400Response:  # noqa: E501
+    def revoke_tokens(self, content_type : Optional[StrictStr] = None, revoke_tokens_request : Optional[RevokeTokensRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Revoke Tokens  # noqa: E501
 
         Revoke Tokens  # noqa: E501
@@ -373,7 +373,7 @@ class OAuth2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GenerateToken400Response
+        :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
         return self.revoke_tokens_with_http_info(content_type, revoke_tokens_request, **kwargs)  # noqa: E501
@@ -414,7 +414,7 @@ class OAuth2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GenerateToken400Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Error, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -482,10 +482,10 @@ class OAuth2Api(object):
         _auth_settings = ['basicAuth']  # noqa: E501
 
         _response_types_map = {
-            '200': "GenerateToken400Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "Error",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(

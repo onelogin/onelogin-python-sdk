@@ -22,9 +22,9 @@ from pydantic import StrictStr
 from typing import Optional
 
 from onelogin.models.generate_saml_assert200_response import GenerateSamlAssert200Response
-from onelogin.models.generate_saml_assert_request import GenerateSamlAssertRequest
+from onelogin.models.saml_assert import SamlAssert
+from onelogin.models.saml_factor import SamlFactor
 from onelogin.models.ver_factor_saml200_response import VerFactorSaml200Response
-from onelogin.models.ver_factor_saml_request import VerFactorSamlRequest
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -46,20 +46,20 @@ class SAMLAssertionsApi(object):
         self.api_client = api_client
 
     @validate_arguments
-    def generate_saml_assert(self, content_type : Optional[StrictStr] = None, generate_saml_assert_request : Optional[GenerateSamlAssertRequest] = None, **kwargs) -> GenerateSamlAssert200Response:  # noqa: E501
+    def generate_saml_assert(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs) -> GenerateSamlAssert200Response:  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
         Generate SAML Assertion  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.generate_saml_assert(content_type, generate_saml_assert_request, async_req=True)
+        >>> thread = api.generate_saml_assert(content_type, saml_assert, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param generate_saml_assert_request:
-        :type generate_saml_assert_request: GenerateSamlAssertRequest
+        :param saml_assert:
+        :type saml_assert: SamlAssert
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -76,23 +76,23 @@ class SAMLAssertionsApi(object):
         :rtype: GenerateSamlAssert200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.generate_saml_assert_with_http_info(content_type, generate_saml_assert_request, **kwargs)  # noqa: E501
+        return self.generate_saml_assert_with_http_info(content_type, saml_assert, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def generate_saml_assert_with_http_info(self, content_type : Optional[StrictStr] = None, generate_saml_assert_request : Optional[GenerateSamlAssertRequest] = None, **kwargs):  # noqa: E501
+    def generate_saml_assert_with_http_info(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs):  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
         Generate SAML Assertion  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.generate_saml_assert_with_http_info(content_type, generate_saml_assert_request, async_req=True)
+        >>> thread = api.generate_saml_assert_with_http_info(content_type, saml_assert, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param generate_saml_assert_request:
-        :type generate_saml_assert_request: GenerateSamlAssertRequest
+        :param saml_assert:
+        :type saml_assert: SamlAssert
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -121,7 +121,7 @@ class SAMLAssertionsApi(object):
 
         _all_params = [
             'content_type',
-            'generate_saml_assert_request'
+            'saml_assert'
         ]
         _all_params.extend(
             [
@@ -164,8 +164,8 @@ class SAMLAssertionsApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['generate_saml_assert_request']:
-            _body_params = _params['generate_saml_assert_request']
+        if _params['saml_assert']:
+            _body_params = _params['saml_assert']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -183,8 +183,8 @@ class SAMLAssertionsApi(object):
 
         _response_types_map = {
             '200': "GenerateSamlAssert200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -205,20 +205,20 @@ class SAMLAssertionsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def generate_saml_assert2(self, content_type : Optional[StrictStr] = None, generate_saml_assert_request : Optional[GenerateSamlAssertRequest] = None, **kwargs) -> GenerateSamlAssert200Response:  # noqa: E501
+    def generate_saml_assert2(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs) -> GenerateSamlAssert200Response:  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
         Generate SAML Assertion  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.generate_saml_assert2(content_type, generate_saml_assert_request, async_req=True)
+        >>> thread = api.generate_saml_assert2(content_type, saml_assert, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param generate_saml_assert_request:
-        :type generate_saml_assert_request: GenerateSamlAssertRequest
+        :param saml_assert:
+        :type saml_assert: SamlAssert
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -235,23 +235,23 @@ class SAMLAssertionsApi(object):
         :rtype: GenerateSamlAssert200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.generate_saml_assert2_with_http_info(content_type, generate_saml_assert_request, **kwargs)  # noqa: E501
+        return self.generate_saml_assert2_with_http_info(content_type, saml_assert, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def generate_saml_assert2_with_http_info(self, content_type : Optional[StrictStr] = None, generate_saml_assert_request : Optional[GenerateSamlAssertRequest] = None, **kwargs):  # noqa: E501
+    def generate_saml_assert2_with_http_info(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs):  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
         Generate SAML Assertion  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.generate_saml_assert2_with_http_info(content_type, generate_saml_assert_request, async_req=True)
+        >>> thread = api.generate_saml_assert2_with_http_info(content_type, saml_assert, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param generate_saml_assert_request:
-        :type generate_saml_assert_request: GenerateSamlAssertRequest
+        :param saml_assert:
+        :type saml_assert: SamlAssert
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -280,7 +280,7 @@ class SAMLAssertionsApi(object):
 
         _all_params = [
             'content_type',
-            'generate_saml_assert_request'
+            'saml_assert'
         ]
         _all_params.extend(
             [
@@ -323,8 +323,8 @@ class SAMLAssertionsApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['generate_saml_assert_request']:
-            _body_params = _params['generate_saml_assert_request']
+        if _params['saml_assert']:
+            _body_params = _params['saml_assert']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -342,8 +342,8 @@ class SAMLAssertionsApi(object):
 
         _response_types_map = {
             '200': "GenerateSamlAssert200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
         }
 
         return self.api_client.call_api(
@@ -364,20 +364,20 @@ class SAMLAssertionsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def ver_factor_saml(self, content_type : Optional[StrictStr] = None, ver_factor_saml_request : Optional[VerFactorSamlRequest] = None, **kwargs) -> VerFactorSaml200Response:  # noqa: E501
+    def ver_factor_saml(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs) -> VerFactorSaml200Response:  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
         Verify Factor: SAML  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.ver_factor_saml(content_type, ver_factor_saml_request, async_req=True)
+        >>> thread = api.ver_factor_saml(content_type, saml_factor, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param ver_factor_saml_request:
-        :type ver_factor_saml_request: VerFactorSamlRequest
+        :param saml_factor:
+        :type saml_factor: SamlFactor
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -394,23 +394,23 @@ class SAMLAssertionsApi(object):
         :rtype: VerFactorSaml200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.ver_factor_saml_with_http_info(content_type, ver_factor_saml_request, **kwargs)  # noqa: E501
+        return self.ver_factor_saml_with_http_info(content_type, saml_factor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def ver_factor_saml_with_http_info(self, content_type : Optional[StrictStr] = None, ver_factor_saml_request : Optional[VerFactorSamlRequest] = None, **kwargs):  # noqa: E501
+    def ver_factor_saml_with_http_info(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs):  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
         Verify Factor: SAML  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.ver_factor_saml_with_http_info(content_type, ver_factor_saml_request, async_req=True)
+        >>> thread = api.ver_factor_saml_with_http_info(content_type, saml_factor, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param ver_factor_saml_request:
-        :type ver_factor_saml_request: VerFactorSamlRequest
+        :param saml_factor:
+        :type saml_factor: SamlFactor
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -439,7 +439,7 @@ class SAMLAssertionsApi(object):
 
         _all_params = [
             'content_type',
-            'ver_factor_saml_request'
+            'saml_factor'
         ]
         _all_params.extend(
             [
@@ -482,8 +482,8 @@ class SAMLAssertionsApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['ver_factor_saml_request']:
-            _body_params = _params['ver_factor_saml_request']
+        if _params['saml_factor']:
+            _body_params = _params['saml_factor']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -501,9 +501,9 @@ class SAMLAssertionsApi(object):
 
         _response_types_map = {
             '200': "VerFactorSaml200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -524,20 +524,20 @@ class SAMLAssertionsApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def ver_factor_saml2(self, content_type : Optional[StrictStr] = None, ver_factor_saml_request : Optional[VerFactorSamlRequest] = None, **kwargs) -> VerFactorSaml200Response:  # noqa: E501
+    def ver_factor_saml2(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs) -> VerFactorSaml200Response:  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
         Verify Factor: SAML  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.ver_factor_saml2(content_type, ver_factor_saml_request, async_req=True)
+        >>> thread = api.ver_factor_saml2(content_type, saml_factor, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param ver_factor_saml_request:
-        :type ver_factor_saml_request: VerFactorSamlRequest
+        :param saml_factor:
+        :type saml_factor: SamlFactor
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -554,23 +554,23 @@ class SAMLAssertionsApi(object):
         :rtype: VerFactorSaml200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.ver_factor_saml2_with_http_info(content_type, ver_factor_saml_request, **kwargs)  # noqa: E501
+        return self.ver_factor_saml2_with_http_info(content_type, saml_factor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def ver_factor_saml2_with_http_info(self, content_type : Optional[StrictStr] = None, ver_factor_saml_request : Optional[VerFactorSamlRequest] = None, **kwargs):  # noqa: E501
+    def ver_factor_saml2_with_http_info(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs):  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
         Verify Factor: SAML  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.ver_factor_saml2_with_http_info(content_type, ver_factor_saml_request, async_req=True)
+        >>> thread = api.ver_factor_saml2_with_http_info(content_type, saml_factor, async_req=True)
         >>> result = thread.get()
 
         :param content_type:
         :type content_type: str
-        :param ver_factor_saml_request:
-        :type ver_factor_saml_request: VerFactorSamlRequest
+        :param saml_factor:
+        :type saml_factor: SamlFactor
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -599,7 +599,7 @@ class SAMLAssertionsApi(object):
 
         _all_params = [
             'content_type',
-            'ver_factor_saml_request'
+            'saml_factor'
         ]
         _all_params.extend(
             [
@@ -642,8 +642,8 @@ class SAMLAssertionsApi(object):
 
         # process the body parameter
         _body_params = None
-        if _params['ver_factor_saml_request']:
-            _body_params = _params['ver_factor_saml_request']
+        if _params['saml_factor']:
+            _body_params = _params['saml_factor']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -661,9 +661,9 @@ class SAMLAssertionsApi(object):
 
         _response_types_map = {
             '200': "VerFactorSaml200Response",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(

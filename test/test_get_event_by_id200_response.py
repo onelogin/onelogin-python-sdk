@@ -38,8 +38,12 @@ class TestGetEventById200Response(unittest.TestCase):
         model = onelogin.models.get_event_by_id200_response.GetEventById200Response()  # noqa: E501
         if include_optional :
             return GetEventById200Response(
-                status = {"error":false,"code":200,"type":"success","message":"success"}, 
-                data = onelogin.models.get_events_200_response_data_inner.getEvents_200_response_data_inner(
+                status = onelogin.models.error.Error(
+                    error = False, 
+                    code = 200, 
+                    type = 'Success', 
+                    message = 'Success', ), 
+                data = onelogin.models.event.event(
                     account_id = 56, 
                     actor_system = '', 
                     actor_user_id = 56, 

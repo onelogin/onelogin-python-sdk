@@ -42,10 +42,10 @@ class TestGetAssignedUser200Response(unittest.TestCase):
                 users = [
                     56
                     ], 
-                before_cursor = 56, 
-                previous_link = '', 
-                after_cursor = 56, 
-                next_link = ''
+                before_cursor = 'none', 
+                previous_link = 'none', 
+                after_cursor = 'none', 
+                next_link = 'none'
             )
         else :
             return GetAssignedUser200Response(

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **generate_token**
-> GenerateToken200Response generate_token(content_type, generate_token_request)
+> OauthToken generate_token(generate_token_request, content_type=content_type)
 
 Generate Token
 
@@ -47,12 +47,12 @@ configuration = onelogin.Configuration(
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.OAuth2Api(api_client)
-    content_type = 'application/json' # str |  (default to 'application/json')
     generate_token_request = {"grant_type":"client_credentials"} # GenerateTokenRequest | Request Body to Generate OAuth Token
+    content_type = 'application/json' # str |  (optional) (default to 'application/json')
 
     try:
         # Generate Token
-        api_response = api_instance.generate_token(content_type, generate_token_request)
+        api_response = api_instance.generate_token(generate_token_request, content_type=content_type)
         print("The response of OAuth2Api->generate_token:\n")
         pprint(api_response)
     except Exception as e:
@@ -63,12 +63,12 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **content_type** | **str**|  | [default to &#39;application/json&#39;]
  **generate_token_request** | [**GenerateTokenRequest**](GenerateTokenRequest.md)| Request Body to Generate OAuth Token | 
+ **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
 
 ### Return type
 
-[**GenerateToken200Response**](GenerateToken200Response.md)
+[**OauthToken**](OauthToken.md)
 
 ### Authorization
 
@@ -160,7 +160,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **revoke_tokens**
-> GenerateToken400Response revoke_tokens(content_type=content_type, revoke_tokens_request=revoke_tokens_request)
+> Error revoke_tokens(content_type=content_type, revoke_tokens_request=revoke_tokens_request)
 
 Revoke Tokens
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GenerateToken400Response**](GenerateToken400Response.md)
+[**Error**](Error.md)
 
 ### Authorization
 

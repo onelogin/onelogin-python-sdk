@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | [**GetEventById200ResponseStatus**](GetEventById200ResponseStatus.md) |  | [optional] 
-**data** | [**GetEvents200ResponseDataInner**](GetEvents200ResponseDataInner.md) |  | [optional] 
+**status** | [**Error**](Error.md) |  | [optional] 
+**data** | [**Event**](Event.md) |  | [optional] 
 
 ## Example
 

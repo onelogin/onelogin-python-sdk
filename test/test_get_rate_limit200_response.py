@@ -38,12 +38,12 @@ class TestGetRateLimit200Response(unittest.TestCase):
         model = onelogin.models.get_rate_limit200_response.GetRateLimit200Response()  # noqa: E501
         if include_optional :
             return GetRateLimit200Response(
-                status = onelogin.models.generate_token_400_response.generateToken_400_response(
+                status = onelogin.models.error.Error(
                     error = False, 
                     code = 200, 
                     type = 'Success', 
                     message = 'Success', ), 
-                data = onelogin.models.get_rate_limit_200_response_data.getRateLimit_200_response_data(
+                data = onelogin.models.rate_limit.rate_limit(
                     x_rate_limit_limit = 5000, 
                     x_rate_limit_remaining = 4988, 
                     x_rate_limit_reset = 832, )

@@ -19,7 +19,7 @@ import json
 
 from typing import List, Optional
 from pydantic import BaseModel
-from onelogin.models.generate_token400_response import GenerateToken400Response
+from onelogin.models.error import Error
 from onelogin.models.get_event_types200_response_data_inner import GetEventTypes200ResponseDataInner
 
 class GetEventTypes200Response(BaseModel):
@@ -28,7 +28,7 @@ class GetEventTypes200Response(BaseModel):
 
     Do not edit the class manually.
     """
-    status: Optional[GenerateToken400Response] = None
+    status: Optional[Error] = None
     data: Optional[List[GetEventTypes200ResponseDataInner]] = None
     __properties = ["status", "data"]
 
@@ -77,7 +77,7 @@ class GetEventTypes200Response(BaseModel):
             return GetEventTypes200Response.parse_obj(obj)
 
         _obj = GetEventTypes200Response.parse_obj({
-            "status": GenerateToken400Response.from_dict(obj.get("status")) if obj.get("status") is not None else None,
+            "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "data": [GetEventTypes200ResponseDataInner.from_dict(_item) for _item in obj.get("data")] if obj.get("data") is not None else None
         })
         return _obj

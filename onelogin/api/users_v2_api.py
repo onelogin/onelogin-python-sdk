@@ -22,7 +22,7 @@ from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import List, Optional
 
 from onelogin.models.get_user_apps200_response_inner import GetUserApps200ResponseInner
-from onelogin.models.list_users200_response_inner import ListUsers200ResponseInner
+from onelogin.models.user import User
 
 from onelogin.api_client import ApiClient
 from onelogin.exceptions import (  # noqa: F401
@@ -44,22 +44,22 @@ class UsersV2Api(object):
         self.api_client = api_client
 
     @validate_arguments
-    def create_user2(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, list_users200_response_inner : Optional[ListUsers200ResponseInner] = None, **kwargs) -> ListUsers200ResponseInner:  # noqa: E501
+    def create_user2(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> User:  # noqa: E501
         """Create User  # noqa: E501
 
         Create User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_user2(mappings, validate_policy, list_users200_response_inner, async_req=True)
+        >>> thread = api.create_user2(mappings, validate_policy, user, async_req=True)
         >>> result = thread.get()
 
         :param mappings: Controls how mappings will be applied to the user on creation. Defaults to async.
         :type mappings: str
         :param validate_policy: Will passwords validate against the User Policy? Defaults to true.
         :type validate_policy: bool
-        :param list_users200_response_inner:
-        :type list_users200_response_inner: ListUsers200ResponseInner
+        :param user:
+        :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -73,28 +73,28 @@ class UsersV2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListUsers200ResponseInner
+        :rtype: User
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_user2_with_http_info(mappings, validate_policy, list_users200_response_inner, **kwargs)  # noqa: E501
+        return self.create_user2_with_http_info(mappings, validate_policy, user, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_user2_with_http_info(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, list_users200_response_inner : Optional[ListUsers200ResponseInner] = None, **kwargs):  # noqa: E501
+    def create_user2_with_http_info(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs):  # noqa: E501
         """Create User  # noqa: E501
 
         Create User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_user2_with_http_info(mappings, validate_policy, list_users200_response_inner, async_req=True)
+        >>> thread = api.create_user2_with_http_info(mappings, validate_policy, user, async_req=True)
         >>> result = thread.get()
 
         :param mappings: Controls how mappings will be applied to the user on creation. Defaults to async.
         :type mappings: str
         :param validate_policy: Will passwords validate against the User Policy? Defaults to true.
         :type validate_policy: bool
-        :param list_users200_response_inner:
-        :type list_users200_response_inner: ListUsers200ResponseInner
+        :param user:
+        :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -116,7 +116,7 @@ class UsersV2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListUsers200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(User, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -124,7 +124,7 @@ class UsersV2Api(object):
         _all_params = [
             'mappings',
             'validate_policy',
-            'list_users200_response_inner'
+            'user'
         ]
         _all_params.extend(
             [
@@ -169,8 +169,8 @@ class UsersV2Api(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_users200_response_inner']:
-            _body_params = _params['list_users200_response_inner']
+        if _params['user']:
+            _body_params = _params['user']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -187,10 +187,10 @@ class UsersV2Api(object):
         _auth_settings = []  # noqa: E501
 
         _response_types_map = {
-            '201': "ListUsers200ResponseInner",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '201': "User",
+            '400': "Error",
+            '401': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(
@@ -352,7 +352,7 @@ class UsersV2Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_user2(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ListUsers200ResponseInner:  # noqa: E501
+    def get_user2(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> User:  # noqa: E501
         """Get User  # noqa: E501
 
         Get User  # noqa: E501
@@ -377,7 +377,7 @@ class UsersV2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListUsers200ResponseInner
+        :rtype: User
         """
         kwargs['_return_http_data_only'] = True
         return self.get_user2_with_http_info(user_id, **kwargs)  # noqa: E501
@@ -416,7 +416,7 @@ class UsersV2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListUsers200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(User, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -474,9 +474,9 @@ class UsersV2Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListUsers200ResponseInner",
-            '400': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '200': "User",
+            '400': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -627,8 +627,8 @@ class UsersV2Api(object):
 
         _response_types_map = {
             '200': "List[GetUserApps200ResponseInner]",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
+            '401': "Error",
+            '404': "Error",
         }
 
         return self.api_client.call_api(
@@ -649,7 +649,7 @@ class UsersV2Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_users2(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="A comma separated list user attributes to return.")] = None, **kwargs) -> List[ListUsers200ResponseInner]:  # noqa: E501
+    def list_users2(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs) -> List[User]:  # noqa: E501
         """List Users  # noqa: E501
 
         Get a list of users  # noqa: E501
@@ -695,7 +695,7 @@ class UsersV2Api(object):
         :type user_ids: str
         :param custom_attributes_attribute_name: The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.
         :type custom_attributes_attribute_name: str
-        :param fields: A comma separated list user attributes to return.
+        :param fields: Optional. Comma delimited list of fields to return.
         :type fields: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -710,13 +710,13 @@ class UsersV2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[ListUsers200ResponseInner]
+        :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
         return self.list_users2_with_http_info(limit, page, cursor, created_since, created_until, updated_since, updated_until, last_login_since, last_login_until, firstname, lastname, email, username, samaccountname, directory_id, external_id, user_ids, custom_attributes_attribute_name, fields, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_users2_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="A comma separated list user attributes to return.")] = None, **kwargs):  # noqa: E501
+    def list_users2_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs):  # noqa: E501
         """List Users  # noqa: E501
 
         Get a list of users  # noqa: E501
@@ -762,7 +762,7 @@ class UsersV2Api(object):
         :type user_ids: str
         :param custom_attributes_attribute_name: The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.
         :type custom_attributes_attribute_name: str
-        :param fields: A comma separated list user attributes to return.
+        :param fields: Optional. Comma delimited list of fields to return.
         :type fields: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -785,7 +785,7 @@ class UsersV2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[ListUsers200ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[User], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -897,10 +897,10 @@ class UsersV2Api(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "List[ListUsers200ResponseInner]",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '200': "List[User]",
+            '400': "Error",
+            '401': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(
@@ -921,14 +921,14 @@ class UsersV2Api(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def update_user2(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, list_users200_response_inner : Optional[ListUsers200ResponseInner] = None, **kwargs) -> ListUsers200ResponseInner:  # noqa: E501
+    def update_user2(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> User:  # noqa: E501
         """Update User  # noqa: E501
 
         Update User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_user2(user_id, mappings, validate_policy, list_users200_response_inner, async_req=True)
+        >>> thread = api.update_user2(user_id, mappings, validate_policy, user, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
@@ -937,8 +937,8 @@ class UsersV2Api(object):
         :type mappings: str
         :param validate_policy: Will passwords validate against the User Policy? Defaults to true.
         :type validate_policy: bool
-        :param list_users200_response_inner:
-        :type list_users200_response_inner: ListUsers200ResponseInner
+        :param user:
+        :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -952,20 +952,20 @@ class UsersV2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListUsers200ResponseInner
+        :rtype: User
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_user2_with_http_info(user_id, mappings, validate_policy, list_users200_response_inner, **kwargs)  # noqa: E501
+        return self.update_user2_with_http_info(user_id, mappings, validate_policy, user, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_user2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, list_users200_response_inner : Optional[ListUsers200ResponseInner] = None, **kwargs):  # noqa: E501
+    def update_user2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs):  # noqa: E501
         """Update User  # noqa: E501
 
         Update User  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_user2_with_http_info(user_id, mappings, validate_policy, list_users200_response_inner, async_req=True)
+        >>> thread = api.update_user2_with_http_info(user_id, mappings, validate_policy, user, async_req=True)
         >>> result = thread.get()
 
         :param user_id: Set to the id of the user that you want to return. (required)
@@ -974,8 +974,8 @@ class UsersV2Api(object):
         :type mappings: str
         :param validate_policy: Will passwords validate against the User Policy? Defaults to true.
         :type validate_policy: bool
-        :param list_users200_response_inner:
-        :type list_users200_response_inner: ListUsers200ResponseInner
+        :param user:
+        :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -997,7 +997,7 @@ class UsersV2Api(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListUsers200ResponseInner, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(User, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1006,7 +1006,7 @@ class UsersV2Api(object):
             'user_id',
             'mappings',
             'validate_policy',
-            'list_users200_response_inner'
+            'user'
         ]
         _all_params.extend(
             [
@@ -1053,8 +1053,8 @@ class UsersV2Api(object):
 
         # process the body parameter
         _body_params = None
-        if _params['list_users200_response_inner']:
-            _body_params = _params['list_users200_response_inner']
+        if _params['user']:
+            _body_params = _params['user']
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -1071,11 +1071,11 @@ class UsersV2Api(object):
         _auth_settings = []  # noqa: E501
 
         _response_types_map = {
-            '200': "ListUsers200ResponseInner",
-            '400': "GenerateToken400Response",
-            '401': "GenerateToken400Response",
-            '404': "GenerateToken400Response",
-            '422': "GenerateToken400Response",
+            '200': "User",
+            '400': "Error",
+            '401': "Error",
+            '404': "Error",
+            '422': "Error",
         }
 
         return self.api_client.call_api(

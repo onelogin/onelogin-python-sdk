@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **create_scope**
-> CreateScope200Response create_scope(api_auth_id, content_type=content_type, create_scope_request=create_scope_request)
+> AuthId create_scope(api_auth_id, content_type=content_type, auth_scope=auth_scope)
 
 Create Api Auth Server Scope
 
@@ -46,11 +46,11 @@ with onelogin.ApiClient(configuration) as api_client:
     api_instance = onelogin.APIAuthScopesApi(api_client)
     api_auth_id = 'api_auth_id_example' # str | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    create_scope_request = onelogin.CreateScopeRequest() # CreateScopeRequest |  (optional)
+    auth_scope = onelogin.AuthScope() # AuthScope |  (optional)
 
     try:
         # Create Api Auth Server Scope
-        api_response = api_instance.create_scope(api_auth_id, content_type=content_type, create_scope_request=create_scope_request)
+        api_response = api_instance.create_scope(api_auth_id, content_type=content_type, auth_scope=auth_scope)
         print("The response of APIAuthScopesApi->create_scope:\n")
         pprint(api_response)
     except Exception as e:
@@ -63,11 +63,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **api_auth_id** | **str**|  | 
  **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **create_scope_request** | [**CreateScopeRequest**](CreateScopeRequest.md)|  | [optional] 
+ **auth_scope** | [**AuthScope**](AuthScope.md)|  | [optional] 
 
 ### Return type
 
-[**CreateScope200Response**](CreateScope200Response.md)
+[**AuthId**](AuthId.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_scopes**
-> List[GetScopes200ResponseInner] get_scopes(api_auth_id, content_type=content_type)
+> List[AuthServer] get_scopes(api_auth_id, content_type=content_type)
 
 Get Api Auth Server Scopes
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[GetScopes200ResponseInner]**](GetScopes200ResponseInner.md)
+[**List[AuthServer]**](AuthServer.md)
 
 ### Authorization
 
@@ -238,7 +238,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_scope**
-> CreateScope200Response update_scope(api_auth_id, scope_id, content_type=content_type, create_scope_request=create_scope_request)
+> AuthId update_scope(api_auth_id, scope_id, content_type=content_type, auth_scope=auth_scope)
 
 Update Api Auth Server Scope
 
@@ -274,11 +274,11 @@ with onelogin.ApiClient(configuration) as api_client:
     api_auth_id = 'api_auth_id_example' # str | 
     scope_id = 56 # int | 
     content_type = 'application/json' # str |  (optional) (default to 'application/json')
-    create_scope_request = onelogin.CreateScopeRequest() # CreateScopeRequest |  (optional)
+    auth_scope = onelogin.AuthScope() # AuthScope |  (optional)
 
     try:
         # Update Api Auth Server Scope
-        api_response = api_instance.update_scope(api_auth_id, scope_id, content_type=content_type, create_scope_request=create_scope_request)
+        api_response = api_instance.update_scope(api_auth_id, scope_id, content_type=content_type, auth_scope=auth_scope)
         print("The response of APIAuthScopesApi->update_scope:\n")
         pprint(api_response)
     except Exception as e:
@@ -292,11 +292,11 @@ Name | Type | Description  | Notes
  **api_auth_id** | **str**|  | 
  **scope_id** | **int**|  | 
  **content_type** | **str**|  | [optional] [default to &#39;application/json&#39;]
- **create_scope_request** | [**CreateScopeRequest**](CreateScopeRequest.md)|  | [optional] 
+ **auth_scope** | [**AuthScope**](AuthScope.md)|  | [optional] 
 
 ### Return type
 
-[**CreateScope200Response**](CreateScope200Response.md)
+[**AuthId**](AuthId.md)
 
 ### Authorization
 
