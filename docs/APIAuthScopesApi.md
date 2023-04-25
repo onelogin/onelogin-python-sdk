@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **create_scope**
-> AuthId create_scope(api_auth_id, content_type=content_type, auth_scope=auth_scope)
+> AuthScope create_scope(api_auth_id, content_type=content_type, auth_scope=auth_scope)
 
 Create Api Auth Server Scope
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthId**](AuthId.md)
+[**AuthScope**](AuthScope.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_scopes**
-> List[AuthServer] get_scopes(api_auth_id, content_type=content_type)
+> List[AuthScope] get_scopes(api_auth_id, content_type=content_type)
 
 Get Api Auth Server Scopes
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[AuthServer]**](AuthServer.md)
+[**List[AuthScope]**](AuthScope.md)
 
 ### Authorization
 

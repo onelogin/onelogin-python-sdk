@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**signature_algorithm** | **str** | One of the following:   - SHA-1   - SHA-256   - SHA-348   - SHA-512 | 
+**signature_algorithm** | **str** | One of the following:   - SHA-1   - SHA-256   - SHA-348   - SHA-512 | [optional] 
 **certificate_id** | **int** | When creating apps the default certificate will be used unless the &#x60;certificate_id&#x60; attribute is applied in the &#x60;configuration&#x60; object. | [optional] 
 
 ## Example

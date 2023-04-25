@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **enroll_mfa_factor**
-> EnrollMfaFactor200Response enroll_mfa_factor(user_id, enroll_mfa_factor_request=enroll_mfa_factor_request)
+> EnrollMfaFactor200Response enroll_mfa_factor(user_id, otp_device=otp_device)
 
 Enroll a Factor
 
@@ -125,11 +125,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.MultiFactorAuthenticationV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    enroll_mfa_factor_request = onelogin.EnrollMfaFactorRequest() # EnrollMfaFactorRequest |  (optional)
+    otp_device = onelogin.OtpDevice() # OtpDevice |  (optional)
 
     try:
         # Enroll a Factor
-        api_response = api_instance.enroll_mfa_factor(user_id, enroll_mfa_factor_request=enroll_mfa_factor_request)
+        api_response = api_instance.enroll_mfa_factor(user_id, otp_device=otp_device)
         print("The response of MultiFactorAuthenticationV1Api->enroll_mfa_factor:\n")
         pprint(api_response)
     except Exception as e:
@@ -141,7 +141,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **enroll_mfa_factor_request** | [**EnrollMfaFactorRequest**](EnrollMfaFactorRequest.md)|  | [optional] 
+ **otp_device** | [**OtpDevice**](OtpDevice.md)|  | [optional] 
 
 ### Return type
 

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **create_brand**
-> Brand create_brand(request_brand=request_brand)
+> Brand create_brand(brand=brand)
 
 Create Brand
 
@@ -46,11 +46,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.BrandingServiceApi(api_client)
-    request_brand = onelogin.RequestBrand() # RequestBrand |  (optional)
+    brand = onelogin.Brand() # Brand |  (optional)
 
     try:
         # Create Brand
-        api_response = api_instance.create_brand(request_brand=request_brand)
+        api_response = api_instance.create_brand(brand=brand)
         print("The response of BrandingServiceApi->create_brand:\n")
         pprint(api_response)
     except Exception as e:
@@ -61,7 +61,7 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request_brand** | [**RequestBrand**](RequestBrand.md)|  | [optional] 
+ **brand** | [**Brand**](Brand.md)|  | [optional] 
 
 ### Return type
 

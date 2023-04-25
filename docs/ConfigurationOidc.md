@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **redirect_uri** | **str** | Comma or newline separated list of valid redirect uris for the OpenId Connect Authorization Code flow. | 
 **access_token_expiration_minutes** | **int** | Number of minutes the refresh token will be valid for. | 
 **refresh_token_expiration_minutes** | **int** | Number of minutes the refresh token will be valid for. | 
-**token_endpoint_auth_method** | **int** | Endpoint Auth Methods:   - 0: Basic   - 1: POST   - 2: None / PKCE | 
-**oidc_application_type** | **int** | Application Types:   - 0: Web   - 1: Native / Mobile | 
+**token_endpoint_auth_method** | **int** | - 0: Basic - 1: POST - 2: None / PKCE | 
+**oidc_application_type** | **int** | - 0 : Web - 1 : Native / Mobile | 
 
 ## Example
 

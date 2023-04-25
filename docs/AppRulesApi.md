@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **create_app_rule**
-> int create_app_rule(app_id, rule=rule)
+> AppRule create_app_rule(app_id, app_rule=app_rule)
 
 
 
@@ -52,10 +52,10 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.AppRulesApi(api_client)
     app_id = 56 # int | 
-    rule = onelogin.Rule() # Rule |  (optional)
+    app_rule = onelogin.AppRule() # AppRule |  (optional)
 
     try:
-        api_response = api_instance.create_app_rule(app_id, rule=rule)
+        api_response = api_instance.create_app_rule(app_id, app_rule=app_rule)
         print("The response of AppRulesApi->create_app_rule:\n")
         pprint(api_response)
     except Exception as e:
@@ -67,11 +67,11 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
- **rule** | [**Rule**](Rule.md)|  | [optional] 
+ **app_rule** | [**AppRule**](AppRule.md)|  | [optional] 
 
 ### Return type
 
-**int**
+[**AppRule**](AppRule.md)
 
 ### Authorization
 
@@ -165,7 +165,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_app_rule**
-> Rule get_app_rule(app_id, rule_id)
+> AppRule get_app_rule(app_id, rule_id)
 
 Get Rule
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Rule**](Rule.md)
+[**AppRule**](AppRule.md)
 
 ### Authorization
 
@@ -240,7 +240,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_action_valies**
-> List[ListActions200ResponseInner] list_action_valies(app_id, rule_action_value)
+> List[RuleAction] list_action_valies(app_id, rule_action_value)
 
 List Actions Values
 
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListActions200ResponseInner]**](ListActions200ResponseInner.md)
+[**List[RuleAction]**](RuleAction.md)
 
 ### Authorization
 
@@ -314,7 +314,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_actions**
-> List[ListActions200ResponseInner] list_actions(app_id)
+> List[RuleAction] list_actions(app_id)
 
 List Actions
 
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListActions200ResponseInner]**](ListActions200ResponseInner.md)
+[**List[RuleAction]**](RuleAction.md)
 
 ### Authorization
 
@@ -386,7 +386,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_app_rules**
-> List[Rule] list_app_rules(app_id, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type, enabled=enabled)
+> List[AppRule] list_app_rules(app_id, has_condition=has_condition, has_condition_type=has_condition_type, has_action=has_action, has_action_type=has_action_type, enabled=enabled)
 
 List Rules
 
@@ -448,7 +448,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[Rule]**](Rule.md)
+[**List[AppRule]**](AppRule.md)
 
 ### Authorization
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_condition_operators**
-> List[ListConditionOperators200ResponseInner] list_condition_operators(app_id, rule_condition_value)
+> List[RuleCondition] list_condition_operators(app_id, rule_condition_value)
 
 List Conditions Operators
 
@@ -522,7 +522,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListConditionOperators200ResponseInner]**](ListConditionOperators200ResponseInner.md)
+[**List[RuleCondition]**](RuleCondition.md)
 
 ### Authorization
 
@@ -542,7 +542,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_condition_values**
-> List[ListConditions200ResponseInner] list_condition_values(app_id, rule_condition_value)
+> RuleCondition list_condition_values(app_id, rule_condition_value)
 
 List Conditions Values
 
@@ -596,7 +596,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ListConditions200ResponseInner]**](ListConditions200ResponseInner.md)
+[**RuleCondition**](RuleCondition.md)
 
 ### Authorization
 
@@ -763,7 +763,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_app_rule**
-> int update_app_rule(app_id, rule_id, rule=rule)
+> AppRule update_app_rule(app_id, rule_id, app_rule=app_rule)
 
 Update Rule
 
@@ -798,11 +798,11 @@ with onelogin.ApiClient(configuration) as api_client:
     api_instance = onelogin.AppRulesApi(api_client)
     app_id = 56 # int | 
     rule_id = 'rule_id_example' # str | 
-    rule = onelogin.Rule() # Rule |  (optional)
+    app_rule = onelogin.AppRule() # AppRule |  (optional)
 
     try:
         # Update Rule
-        api_response = api_instance.update_app_rule(app_id, rule_id, rule=rule)
+        api_response = api_instance.update_app_rule(app_id, rule_id, app_rule=app_rule)
         print("The response of AppRulesApi->update_app_rule:\n")
         pprint(api_response)
     except Exception as e:
@@ -815,11 +815,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
  **rule_id** | **str**|  | 
- **rule** | [**Rule**](Rule.md)|  | [optional] 
+ **app_rule** | [**AppRule**](AppRule.md)|  | [optional] 
 
 ### Return type
 
-**int**
+[**AppRule**](AppRule.md)
 
 ### Authorization
 

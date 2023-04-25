@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **acs_url** | **str** |  | [optional] 
 **sls_url** | **str** |  | [optional] 
 **issuer** | **str** |  | [optional] 
-**certificate** | [**SsoSamlAllOfCertificate**](SsoSamlAllOfCertificate.md) |  | [optional] 
+**certificate** | [**SsoSamlCertificate**](SsoSamlCertificate.md) |  | [optional] 
 
 ## Example
 

@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_role_admins**](RolesApi.md#add_role_admins) | **POST** /api/2/roles/{role_id}/admins | Add Role Admins
 [**add_role_users**](RolesApi.md#add_role_users) | **POST** /api/2/roles/{role_id}/users | Add Role Users
-[**create_roles**](RolesApi.md#create_roles) | **POST** /api/2/roles | Create Role
+[**create_role**](RolesApi.md#create_role) | **POST** /api/2/roles | Create Role
 [**delete_role**](RolesApi.md#delete_role) | **DELETE** /api/2/roles/{role_id} | Delete Role by ID
 [**get_role**](RolesApi.md#get_role) | **GET** /api/2/roles/{role_id} | Get Role by ID
 [**get_role_admins**](RolesApi.md#get_role_admins) | **GET** /api/2/roles/{role_id}/admins | Get Role Admins
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **add_role_admins**
-> List[CreateRoles201ResponseInner] add_role_admins(role_id, request_body)
+> List[CreateRole201ResponseInner] add_role_admins(role_id, request_body)
 
 Add Role Admins
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[CreateRoles201ResponseInner]**](CreateRoles201ResponseInner.md)
+[**List[CreateRole201ResponseInner]**](CreateRole201ResponseInner.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_role_users**
-> List[CreateRoles201ResponseInner] add_role_users(role_id, request_body)
+> List[CreateRole201ResponseInner] add_role_users(role_id, request_body)
 
 Add Role Users
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[CreateRoles201ResponseInner]**](CreateRoles201ResponseInner.md)
+[**List[CreateRole201ResponseInner]**](CreateRole201ResponseInner.md)
 
 ### Authorization
 
@@ -170,8 +170,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_roles**
-> List[CreateRoles201ResponseInner] create_roles(role=role)
+# **create_role**
+> List[CreateRole201ResponseInner] create_role(role=role)
 
 Create Role
 
@@ -208,11 +208,11 @@ with onelogin.ApiClient(configuration) as api_client:
 
     try:
         # Create Role
-        api_response = api_instance.create_roles(role=role)
-        print("The response of RolesApi->create_roles:\n")
+        api_response = api_instance.create_role(role=role)
+        print("The response of RolesApi->create_role:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling RolesApi->create_roles: %s\n" % e)
+        print("Exception when calling RolesApi->create_role: %s\n" % e)
 ```
 
 ### Parameters
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[CreateRoles201ResponseInner]**](CreateRoles201ResponseInner.md)
+[**List[CreateRole201ResponseInner]**](CreateRole201ResponseInner.md)
 
 ### Authorization
 
@@ -783,7 +783,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_roles**
-> List[Role] list_roles(app_id, limit=limit, page=page, cursor=cursor, role_name=role_name, app_name=app_name, fields=fields)
+> List[Role] list_roles(limit=limit, page=page, cursor=cursor, role_name=role_name, app_id=app_id, app_name=app_name, fields=fields)
 
 List Roles
 
@@ -816,17 +816,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
-    app_id = 56 # int | 
     limit = 56 # int | How many items to return at one time (max 100) (optional)
     page = 56 # int | The page number of results to return. (optional)
     cursor = 'cursor_example' # str | Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. (optional)
     role_name = 'role_name_example' # str | Optional. Filters by role name. (optional)
+    app_id = 56 # int |  (optional)
     app_name = 'app_name_example' # str | Optional. Returns roles that contain this app name. (optional)
     fields = 'fields_example' # str | Optional. Comma delimited list of fields to return. (optional)
 
     try:
         # List Roles
-        api_response = api_instance.list_roles(app_id, limit=limit, page=page, cursor=cursor, role_name=role_name, app_name=app_name, fields=fields)
+        api_response = api_instance.list_roles(limit=limit, page=page, cursor=cursor, role_name=role_name, app_id=app_id, app_name=app_name, fields=fields)
         print("The response of RolesApi->list_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -837,11 +837,11 @@ with onelogin.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**|  | 
  **limit** | **int**| How many items to return at one time (max 100) | [optional] 
  **page** | **int**| The page number of results to return. | [optional] 
  **cursor** | **str**| Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page. | [optional] 
  **role_name** | **str**| Optional. Filters by role name. | [optional] 
+ **app_id** | **int**|  | [optional] 
  **app_name** | **str**| Optional. Returns roles that contain this app name. | [optional] 
  **fields** | **str**| Optional. Comma delimited list of fields to return. | [optional] 
 
@@ -1013,7 +1013,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **set_role_apps**
-> List[CreateRoles201ResponseInner] set_role_apps(role_id, request_body)
+> List[CreateRole201ResponseInner] set_role_apps(role_id, request_body)
 
 Set Role Apps
 
@@ -1067,7 +1067,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[CreateRoles201ResponseInner]**](CreateRoles201ResponseInner.md)
+[**List[CreateRole201ResponseInner]**](CreateRole201ResponseInner.md)
 
 ### Authorization
 

@@ -4,11 +4,14 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **int** |  | [optional] [readonly] 
+**account_id** | **int** |  | [optional] [readonly] 
 **type** | **str** | Template type that describes the source (sms, voice, email) and purpose (registration, invite, etc) | 
 **locale** | **str** | The 2 character language locale for the template. e.g. en &#x3D; English, es &#x3D; Spanish | 
 **template** | [**MessageTemplateTemplate**](MessageTemplateTemplate.md) |  | 
-**updated_at** | **str** | Last time template was updated | [optional] 
-**brand_id** | **int** | brand id number | [optional] 
+**template_class** | **str** |  | [optional] [readonly] 
+**updated_at** | **str** | Last time template was updated | [optional] [readonly] 
+**brand_id** | **int** | brand id number | [optional] [readonly] 
 
 ## Example
 

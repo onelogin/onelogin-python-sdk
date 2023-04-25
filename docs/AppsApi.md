@@ -522,7 +522,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_app**
-> GenericApp update_app(app_id, generic_app=generic_app)
+> GenericApp update_app(app_id, request_body=request_body)
 
 Update App
 
@@ -556,11 +556,11 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.AppsApi(api_client)
     app_id = 56 # int | 
-    generic_app = {"id":1061937,"connector_id":50534,"auth_method":2,"auth_method_description":"SAML2.0","name":"Amazon Web Services (AWS) Multi Role","description":"","updated_at":"2020-01-14T21:21:06Z","created_at":"2020-01-14T21:21:06Z","visible":true} # GenericApp |  (optional)
+    request_body = None # Dict[str, object] |  (optional)
 
     try:
         # Update App
-        api_response = api_instance.update_app(app_id, generic_app=generic_app)
+        api_response = api_instance.update_app(app_id, request_body=request_body)
         print("The response of AppsApi->update_app:\n")
         pprint(api_response)
     except Exception as e:
@@ -572,7 +572,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**|  | 
- **generic_app** | [**GenericApp**](GenericApp.md)|  | [optional] 
+ **request_body** | [**Dict[str, object]**](object.md)|  | [optional] 
 
 ### Return type
 

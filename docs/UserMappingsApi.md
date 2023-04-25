@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 Create Mapping
 
-Create User Mapping
+Create Mapping
 
 ### Example
 
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 
 Delete Mapping
 
-Delete User Mapping
+Delete Mapping
 
 ### Example
 
@@ -168,7 +168,7 @@ void (empty response body)
 
 Get Mapping
 
-Get User Mapping
+Get Mapping
 
 ### Example
 
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 
 List Actions Values
 
-List User Mappings' Actions' Values
+List Mappings' Actions' Values
 
 ### Example
 
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 
 List Conditions
 
-List User Mappings' Conditions
+List Mappings' Conditions
 
 ### Example
 
@@ -381,7 +381,7 @@ This endpoint does not need any parameter.
 
 List Conditions Operators
 
-List User Mappings' Conditions' Operators
+List Mappings' Conditions' Operators
 
 ### Example
 
@@ -453,7 +453,7 @@ Name | Type | Description  | Notes
 
 List Conditions Values
 
-List User Mappings'  Conditions' Values
+List Mappings'  Conditions' Values
 
 ### Example
 
@@ -605,7 +605,7 @@ Name | Type | Description  | Notes
 
 List Actions
 
-List User Mappings' Actions
+List Mappings' Actions
 
 ### Example
 
@@ -673,7 +673,7 @@ This endpoint does not need any parameter.
 
 Bulk Sort
 
-Bulk Sort User Mappings
+Bulk Sort Mappings
 
 ### Example
 
@@ -746,7 +746,7 @@ Name | Type | Description  | Notes
 
 Update Mapping
 
-Update User Mapping
+Update Mapping
 
 ### Example
 

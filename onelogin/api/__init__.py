@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 # flake8: noqa
 
 # import apis into api package
@@ -21,7 +19,9 @@ from onelogin.api.o_auth2_api import OAuth2Api
 from onelogin.api.privileges_api import PrivilegesApi
 from onelogin.api.roles_api import RolesApi
 from onelogin.api.saml_assertions_api import SAMLAssertionsApi
+from onelogin.api.smart_hooks_api import SmartHooksApi
 from onelogin.api.user_mappings_api import UserMappingsApi
 from onelogin.api.users_v1_api import UsersV1Api
 from onelogin.api.users_v2_api import UsersV2Api
 from onelogin.api.vigilance_ai_api import VigilanceAIApi
+

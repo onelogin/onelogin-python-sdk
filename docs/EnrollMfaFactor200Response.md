@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | [**Error**](Error.md) |  | [optional] 
-**data** | [**List[EnrollMfaFactor200ResponseDataInner]**](EnrollMfaFactor200ResponseDataInner.md) |  | [optional] 
+**data** | [**List[GetEnrolledFactors200ResponseDataOtpDevicesInner]**](GetEnrolledFactors200ResponseDataOtpDevicesInner.md) |  | [optional] 
 
 ## Example
 

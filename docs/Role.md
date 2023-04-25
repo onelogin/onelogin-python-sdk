@@ -4,11 +4,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Role ID | [optional] 
-**name** | **str** | Role Name | 
-**apps** | **List[int]** | array of app IDs | [optional] 
-**users** | **List[int]** | array of user IDs | [optional] 
-**admins** | **List[int]** |  | [optional] 
+**id** | **int** | Role ID | [optional] [readonly] 
+**name** | **str** | The name of the role. | 
+**apps** | **List[int]** | A list of app IDs that will be assigned to the role. | [optional] 
+**users** | **List[int]** | A list of user IDs to assign to the role. | [optional] 
+**admins** | **List[int]** | A list of user IDs to assign as role administrators. | [optional] 
 
 ## Example
 

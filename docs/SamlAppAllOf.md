@@ -4,9 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**configuration** | [**ConfigurationSaml**](ConfigurationSaml.md) |  | 
+**configuration** | [**ConfigurationSaml**](ConfigurationSaml.md) |  | [optional] 
 **sso** | [**SsoSaml**](SsoSaml.md) |  | [optional] 
-**parameters** | [**SamlAppAllOfParameters**](SamlAppAllOfParameters.md) |  | 
+**parameters** | [**SamlAppAllOfParameters**](SamlAppAllOfParameters.md) |  | [optional] 
 
 ## Example
 

@@ -1112,7 +1112,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_user**
-> User update_user(user_id, user, mappings=mappings, validate_policy=validate_policy)
+> User update_user(user_id, mappings=mappings, validate_policy=validate_policy, user=user)
 
 Update a User
 
@@ -1146,13 +1146,13 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.UsersV1Api(api_client)
     user_id = 56 # int | Set to the id of the user that you want to return.
-    user = onelogin.User() # User | 
     mappings = 'mappings_example' # str | Controls how mappings will be applied to the user on creation. Defaults to async. (optional)
     validate_policy = True # bool | Will passwords validate against the User Policy? Defaults to true. (optional)
+    user = onelogin.User() # User |  (optional)
 
     try:
         # Update a User
-        api_response = api_instance.update_user(user_id, user, mappings=mappings, validate_policy=validate_policy)
+        api_response = api_instance.update_user(user_id, mappings=mappings, validate_policy=validate_policy, user=user)
         print("The response of UsersV1Api->update_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -1164,9 +1164,9 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| Set to the id of the user that you want to return. | 
- **user** | [**User**](User.md)|  | 
  **mappings** | **str**| Controls how mappings will be applied to the user on creation. Defaults to async. | [optional] 
  **validate_policy** | **bool**| Will passwords validate against the User Policy? Defaults to true. | [optional] 
+ **user** | [**User**](User.md)|  | [optional] 
 
 ### Return type
 

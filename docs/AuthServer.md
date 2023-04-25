@@ -5,7 +5,7 @@ base resource for configuring api authorization in OneLogin
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Auth server unique ID in Onelogin | [optional] 
+**id** | **int** | Auth server unique ID in Onelogin | [optional] [readonly] 
 **name** | **str** | Name of the API. | 
 **description** | **str** | Description of what the API does. | 
 **configuration** | [**AuthServerConfiguration**](AuthServerConfiguration.md) |  | 

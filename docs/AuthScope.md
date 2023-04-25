@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **int** | Unique ID for the Scope | [optional] [readonly] 
 **value** | **str** | A value representing the api scope that with be authorized | [optional] 
 **description** | **str** | A description of what access the scope enables | [optional] 
 

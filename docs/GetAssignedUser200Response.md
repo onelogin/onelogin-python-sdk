@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **total** | **int** |  | [optional] 
 **users** | **List[int]** |  | [optional] 
-**before_cursor** | **str** |  | [optional] 
+**before_cursor** | **int** |  | [optional] 
 **previous_link** | **str** |  | [optional] 
-**after_cursor** | **str** |  | [optional] 
+**after_cursor** | **int** |  | [optional] 
 **next_link** | **str** |  | [optional] 
 
 ## Example

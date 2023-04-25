@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **create_auth_server**
-> int create_auth_server(content_type=content_type, auth_server=auth_server)
+> AuthServer create_auth_server(content_type=content_type, auth_server=auth_server)
 
 Create Api Auth Server
 
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**int**
+[**AuthServer**](AuthServer.md)
 
 ### Authorization
 
@@ -302,7 +302,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_auth_server**
-> int update_auth_server(api_auth_id, content_type=content_type, auth_server=auth_server)
+> AuthServer update_auth_server(api_auth_id, content_type=content_type, auth_server=auth_server)
 
 Update Api Auth Server
 
@@ -358,7 +358,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**int**
+[**AuthServer**](AuthServer.md)
 
 ### Authorization
 

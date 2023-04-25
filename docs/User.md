@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **trusted_idp_id** | **int** | The ID of the OneLogin Trusted IDP of the user. | [optional] 
 **manager_ad_id** | **str** | The ID of the user&#39;s manager in Active Directory. | [optional] 
 **manager_user_id** | **str** | The OneLogin User ID for the user&#39;s manager. | [optional] 
-**samaccount_name** | **str** | The user&#39;s Active Directory username. | [optional] 
+**samaccountname** | **str** | The user&#39;s Active Directory username. | [optional] 
 **member_of** | **str** | The user&#39;s directory membership. | [optional] 
 **userprincipalname** | **str** | The principle name of the user. | [optional] 
 **distinguished_name** | **str** | The distinguished name of the user. | [optional] 
