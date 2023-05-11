@@ -37,7 +37,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -66,7 +65,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->add_roles_to_user: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -115,7 +113,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -145,7 +142,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->create_user: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -194,7 +190,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -220,7 +215,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->delete_user: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -266,7 +260,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -293,7 +286,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->get_custom_attributes: %s\n" % e)
 ```
-
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -336,7 +328,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -365,7 +356,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->get_user_apps: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -412,7 +402,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -440,7 +429,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->get_user_by_id: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -486,7 +474,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -514,7 +501,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->get_user_roles: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -562,7 +548,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -608,7 +593,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->list_users: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -673,7 +657,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -702,7 +685,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->lock_account_user: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -751,7 +733,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -780,7 +761,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->log_out_user: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -829,7 +809,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -858,7 +837,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->remove_user_role: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -907,7 +885,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -936,7 +913,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->set_user_state: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -985,7 +961,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -1014,7 +989,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->update_password_insecure: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -1063,7 +1037,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -1092,7 +1065,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->update_password_secure: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -1141,7 +1113,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -1172,7 +1143,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling UsersV1Api->update_user: %s\n" % e)
 ```
-
 
 ### Parameters
 

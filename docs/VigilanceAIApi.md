@@ -30,7 +30,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -58,7 +57,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling VigilanceAIApi->create_risk_rule: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -104,7 +102,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -130,7 +127,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling VigilanceAIApi->delete_risk_rule: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -175,7 +171,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -203,7 +198,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling VigilanceAIApi->get_risk_rule: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -248,7 +242,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -278,7 +271,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling VigilanceAIApi->get_risk_score: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -326,7 +318,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -353,7 +344,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling VigilanceAIApi->get_risk_scores: %s\n" % e)
 ```
-
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -395,7 +385,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -422,7 +411,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling VigilanceAIApi->list_risk_rules: %s\n" % e)
 ```
-
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -464,7 +452,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -490,7 +477,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling VigilanceAIApi->track_risk_event: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -536,7 +522,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -565,7 +550,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling VigilanceAIApi->update_risk_rule: %s\n" % e)
 ```
-
 
 ### Parameters
 

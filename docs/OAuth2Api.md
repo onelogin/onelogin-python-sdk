@@ -1,3 +1,4 @@
+
 # onelogin.OAuth2Api
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -25,7 +26,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -58,7 +58,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling OAuth2Api->generate_token: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -106,7 +105,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -133,7 +131,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling OAuth2Api->get_rate_limit: %s\n" % e)
 ```
-
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -177,7 +174,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -210,7 +206,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling OAuth2Api->revoke_tokens: %s\n" % e)
 ```
-
 
 ### Parameters
 

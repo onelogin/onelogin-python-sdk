@@ -32,7 +32,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -62,7 +61,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->create_device_verification: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -109,7 +107,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -139,7 +136,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->create_factor_registration: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -186,7 +182,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -213,7 +208,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->delete_enrolled_factor: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -258,7 +252,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -288,7 +281,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->generate_otp: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -336,7 +328,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -364,7 +355,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->get_auth_factors: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -409,7 +399,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -437,7 +426,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->get_authentication_devices: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -482,7 +470,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -511,7 +498,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->get_user_registration: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -557,7 +543,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -586,7 +571,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->get_user_verification: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -633,7 +617,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -664,7 +647,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->verify_user_registration: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -712,7 +694,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -743,7 +724,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling MultiFactorAuthenticationApi->verify_user_verification: %s\n" % e)
 ```
-
 
 ### Parameters
 

@@ -51,7 +51,6 @@ from onelogin.exceptions import ApiValueError
 from onelogin.exceptions import ApiKeyError
 from onelogin.exceptions import ApiAttributeError
 from onelogin.exceptions import ApiException
-
 # import models into sdk package
 from onelogin.models.action_obj import ActionObj
 from onelogin.models.activate_mfa_factors_request import ActivateMfaFactorsRequest

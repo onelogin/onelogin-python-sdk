@@ -1,4 +1,4 @@
-# coding: utf-8
+s# coding: utf-8
 
 """
     OneLogin API

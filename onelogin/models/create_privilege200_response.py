@@ -1,5 +1,3 @@
-
-
 # coding: utf-8
 
 """
@@ -15,24 +13,23 @@
 
 
 from __future__ import annotations
+from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictBool, StrictInt
+from pydantic import BaseModel, Field, StrictStr
 
-class GenerateMFAtokenRequest(BaseModel):
+class CreatePrivilege200Response(BaseModel):
     """
-    GenerateMFAtokenRequest
+    CreatePrivilege200Response
     """
-    expires_in: Optional[StrictInt] = Field(None, description="Set the duration of the token in seconds. Token expiration defaults to 259200 seconds = 72 hours. 72 hours is the max value.")
-    reusable: Optional[StrictBool] = Field(False, description="Defines if the token is reusable multiple times within the expiry window. Value defaults to false. If set to true, token can be used multiple times, until it expires.")
-    __properties = ["expires_in", "reusable"]
+    id: Optional[StrictStr] = Field(None, description="Privilege Id")
+    __properties = ["id"]
 
     class Config:
-        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -45,8 +42,8 @@ class GenerateMFAtokenRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> GenerateMFAtokenRequest:
-        """Create an instance of GenerateMFAtokenRequest from a JSON string"""
+    def from_json(cls, json_str: str) -> CreatePrivilege200Response:
+        """Create an instance of CreatePrivilege200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -58,17 +55,16 @@ class GenerateMFAtokenRequest(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> GenerateMFAtokenRequest:
-        """Create an instance of GenerateMFAtokenRequest from a dict"""
+    def from_dict(cls, obj: dict) -> CreatePrivilege200Response:
+        """Create an instance of CreatePrivilege200Response from a dict"""
         if obj is None:
             return None
 
-        if not isinstance(obj, dict):
-            return GenerateMFAtokenRequest.parse_obj(obj)
+        if type(obj) is not dict:
+            return CreatePrivilege200Response.parse_obj(obj)
 
-        _obj = GenerateMFAtokenRequest.parse_obj({
-            "expires_in": obj.get("expires_in"),
-            "reusable": obj.get("reusable") if obj.get("reusable") is not None else False
+        _obj = CreatePrivilege200Response.parse_obj({
+            "id": obj.get("id")
         })
         return _obj
 

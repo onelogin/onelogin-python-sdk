@@ -1,3 +1,5 @@
+
+
 # onelogin.BrandingServiceTemplatesApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -30,7 +32,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -60,7 +61,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceTemplatesApi->create_message_template: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -108,7 +108,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -135,7 +134,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceTemplatesApi->delete_message_template: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -181,7 +179,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -209,7 +206,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceTemplatesApi->get_master_by_type: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -255,7 +251,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -284,7 +279,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceTemplatesApi->get_message_template_by_id: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -331,7 +325,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -361,7 +354,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceTemplatesApi->get_template_by_locale: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -409,7 +401,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -438,7 +429,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceTemplatesApi->list_message_templates: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -485,7 +475,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -514,7 +503,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceTemplatesApi->update_message_template_by_id: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -561,7 +549,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -591,7 +578,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceTemplatesApi->update_template_by_locale: %s\n" % e)
 ```
-
 
 ### Parameters
 

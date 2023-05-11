@@ -1,3 +1,4 @@
+
 # onelogin.EventsApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -25,7 +26,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -53,7 +53,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling EventsApi->get_event_by_id: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -99,7 +98,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -121,7 +119,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling EventsApi->get_event_types: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -165,7 +162,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -201,7 +197,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling EventsApi->get_events: %s\n" % e)
 ```
-
 
 ### Parameters
 

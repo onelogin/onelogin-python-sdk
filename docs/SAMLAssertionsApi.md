@@ -1,3 +1,4 @@
+
 # onelogin.SAMLAssertionsApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -26,7 +27,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -55,7 +55,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling SAMLAssertionsApi->generate_saml_assert: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -102,7 +101,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -131,7 +129,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling SAMLAssertionsApi->generate_saml_assert2: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -178,7 +175,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -207,7 +203,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling SAMLAssertionsApi->ver_factor_saml: %s\n" % e)
 ```
-
 
 ### Parameters
 
@@ -255,7 +250,6 @@ import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
-
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -284,7 +278,6 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling SAMLAssertionsApi->ver_factor_saml2: %s\n" % e)
 ```
-
 
 ### Parameters
 
