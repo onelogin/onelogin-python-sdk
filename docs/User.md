@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **company** | **str** | The user&#39;s company. | [optional] 
 **comment** | **str** | Free text related to the user. | [optional] 
 **group_id** | **int** | The ID of the Group in OneLogin that the user is assigned to. | [optional] 
-**role_ids** | **[int]** | A list of OneLogin Role IDs of the user | [optional] 
+**role_ids** | **List[int]** | A list of OneLogin Role IDs of the user | [optional] 
 **phone** | **str** | The E.164 format phone number for a user. | [optional] 
 **state** | **int** |  | [optional] 
 **status** | **int** |  | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **trusted_idp_id** | **int** | The ID of the OneLogin Trusted IDP of the user. | [optional] 
 **manager_ad_id** | **str** | The ID of the user&#39;s manager in Active Directory. | [optional] 
 **manager_user_id** | **str** | The OneLogin User ID for the user&#39;s manager. | [optional] 
-**samaccount_name** | **str** | The user&#39;s Active Directory username. | [optional] 
+**samaccountname** | **str** | The user&#39;s Active Directory username. | [optional] 
 **member_of** | **str** | The user&#39;s directory membership. | [optional] 
 **userprincipalname** | **str** | The principle name of the user. | [optional] 
 **distinguished_name** | **str** | The distinguished name of the user. | [optional] 
@@ -33,7 +33,6 @@ Name | Type | Description | Notes
 **updated_at** | **str** |  | [optional] 
 **preferred_locale_code** | **str** |  | [optional] 
 **created_at** | **str** |  | [optional] 
-**custom_attributes** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
 **invalid_login_attempts** | **int** |  | [optional] 
 **locked_until** | **str** |  | [optional] 
 **password_changed_at** | **str** |  | [optional] 
@@ -41,8 +40,24 @@ Name | Type | Description | Notes
 **password_confirmation** | **str** | Required if the password is being set. | [optional] 
 **password_algorithm** | **str** | Use this when importing a password that&#39;s already hashed. Prepend the salt value to the cleartext password value before SHA-256-encoding it | [optional] 
 **salt** | **str** | The salt value used with the password_algorithm. | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
+## Example
+
+```python
+from onelogin.models.user import User
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of User from a JSON string
+user_instance = User.from_json(json)
+# print the JSON string representation of the object
+print User.to_json()
+
+# convert the object into a dict
+user_dict = user_instance.to_dict()
+# create an instance of User from a dict
+user_form_dict = user.from_dict(user_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

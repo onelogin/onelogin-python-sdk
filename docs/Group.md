@@ -4,11 +4,27 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**name** | **str** |  | [optional] 
-**reference** | **str** |  | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+**id** | **int** | Group&#39;s unique Onelogin ID | [optional] 
+**name** | **str** | Group name | [optional] 
+**reference** | **str** | Deprecated. Will always show the attribute nil&#x3D;\&quot;true\&quot;. | [optional] 
 
+## Example
+
+```python
+from onelogin.models.group import Group
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of Group from a JSON string
+group_instance = Group.from_json(json)
+# print the JSON string representation of the object
+print Group.to_json()
+
+# convert the object into a dict
+group_dict = group_instance.to_dict()
+# create an instance of Group from a dict
+group_form_dict = group.from_dict(group_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

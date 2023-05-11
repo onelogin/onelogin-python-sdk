@@ -4,13 +4,26 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**device_id** | **str** |  | [optional] 
-**user_display_name** | **str** |  | [optional] 
-**type_display_name** | **str** |  | [optional] 
-**auth_factor_name** | **str** |  | [optional] 
-**default** | **bool** |  | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+**device_id** | **int** | an ID for the device type that must be submitted with the Verify Factor API call. | [optional] 
+**device_type** | **str** | Lists an available MFA device type, such as OneLogin OTP SMS or Google Authenticator. | [optional] 
 
+## Example
+
+```python
+from onelogin.models.device import Device
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of Device from a JSON string
+device_instance = Device.from_json(json)
+# print the JSON string representation of the object
+print Device.to_json()
+
+# convert the object into a dict
+device_dict = device_instance.to_dict()
+# create an instance of Device from a dict
+device_form_dict = device.from_dict(device_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
