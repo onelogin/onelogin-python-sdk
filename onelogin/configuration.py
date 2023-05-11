@@ -1,3 +1,4 @@
+
 # coding: utf-8
 
 """
@@ -161,6 +162,10 @@ conf = onelogin.Configuration(
         """
         self.assert_hostname = None
         """Set this to True/False to enable/disable SSL hostname verification.
+        """
+        self.tls_server_name = None
+        """SSL/TLS Server Name Indication (SNI)
+           Set this to the SNI value expected by the server.
         """
 
         self.connection_pool_maxsize = multiprocessing.cpu_count() * 5
@@ -398,7 +403,7 @@ conf = onelogin.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 3.1.1\n"\
-               "SDK Package Version: 3.1.4".\
+               "SDK Package Version: 3.1.5".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self):

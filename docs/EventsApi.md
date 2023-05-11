@@ -1,3 +1,4 @@
+
 # onelogin.EventsApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -20,7 +21,6 @@ Get Event By ID
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -93,7 +93,6 @@ Get Event types
 ### Example
 
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -158,7 +157,6 @@ Get Events
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

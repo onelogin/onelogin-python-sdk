@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -27,6 +29,7 @@ from onelogin.models.rule_action import RuleAction
 from onelogin.models.rule_condition import RuleCondition
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -62,10 +65,6 @@ class AppRulesApi(object):
         :type app_rule: AppRule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -76,10 +75,12 @@ class AppRulesApi(object):
         :rtype: AppRule
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_app_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_app_rule_with_http_info(app_id, app_rule, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_app_rule_with_http_info(self, app_id : StrictInt, app_rule : Optional[AppRule] = None, **kwargs):  # noqa: E501
+    def create_app_rule_with_http_info(self, app_id : StrictInt, app_rule : Optional[AppRule] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """create_app_rule  # noqa: E501
 
         Create App Rule  # noqa: E501
@@ -95,13 +96,14 @@ class AppRulesApi(object):
         :type app_rule: AppRule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -162,7 +164,7 @@ class AppRulesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['app_rule']:
+        if _params['app_rule'] is not None:
             _body_params = _params['app_rule']
 
         # set the HTTP header `Accept`
@@ -219,10 +221,6 @@ class AppRulesApi(object):
         :type rule_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -233,10 +231,12 @@ class AppRulesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_rule_with_http_info(app_id, rule_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_rule_with_http_info(self, app_id : StrictInt, rule_id : StrictStr, **kwargs):  # noqa: E501
+    def delete_rule_with_http_info(self, app_id : StrictInt, rule_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Rule  # noqa: E501
 
         Delete App Rule  # noqa: E501
@@ -252,13 +252,14 @@ class AppRulesApi(object):
         :type rule_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -365,10 +366,6 @@ class AppRulesApi(object):
         :type rule_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -379,10 +376,12 @@ class AppRulesApi(object):
         :rtype: AppRule
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_app_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_app_rule_with_http_info(app_id, rule_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_app_rule_with_http_info(self, app_id : StrictInt, rule_id : StrictStr, **kwargs):  # noqa: E501
+    def get_app_rule_with_http_info(self, app_id : StrictInt, rule_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Rule  # noqa: E501
 
         Get App Rule  # noqa: E501
@@ -398,13 +397,14 @@ class AppRulesApi(object):
         :type rule_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -515,10 +515,6 @@ class AppRulesApi(object):
         :type rule_action_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -529,10 +525,12 @@ class AppRulesApi(object):
         :rtype: List[RuleAction]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_action_valies_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_action_valies_with_http_info(app_id, rule_action_value, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_action_valies_with_http_info(self, app_id : StrictInt, rule_action_value : StrictStr, **kwargs):  # noqa: E501
+    def list_action_valies_with_http_info(self, app_id : StrictInt, rule_action_value : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """List Actions Values  # noqa: E501
 
         Sort App rules  # noqa: E501
@@ -548,13 +546,14 @@ class AppRulesApi(object):
         :type rule_action_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -662,10 +661,6 @@ class AppRulesApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -676,10 +671,12 @@ class AppRulesApi(object):
         :rtype: List[RuleAction]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_actions_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_actions_with_http_info(app_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_actions_with_http_info(self, app_id : StrictInt, **kwargs):  # noqa: E501
+    def list_actions_with_http_info(self, app_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """List Actions  # noqa: E501
 
         List Actions  # noqa: E501
@@ -693,13 +690,14 @@ class AppRulesApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -813,10 +811,6 @@ class AppRulesApi(object):
         :type enabled: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -827,10 +821,12 @@ class AppRulesApi(object):
         :rtype: List[AppRule]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_app_rules_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_app_rules_with_http_info(app_id, has_condition, has_condition_type, has_action, has_action_type, enabled, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_app_rules_with_http_info(self, app_id : StrictInt, has_condition : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_condition_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_action : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Actions. Values formatted as :, where name is the Action to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_action=set_licenses:123456 Multiple filters. has_action=set_groups:123456,set_usertype:* Wildcard for actions. has_action=*:123456 Wildcard for action values. has_action=set_userprincipalname:*")] = None, has_action_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their action types. Allowed values are: builtin - actions that involve standard attributes custom - actions that involve custom attributes none - no actions are defined For example: Find Rules with no actions has_action_type=none")] = None, enabled : Annotated[Optional[StrictBool], Field(description="Defaults to true. When set to `false` will return all disabled mappings.")] = None, **kwargs):  # noqa: E501
+    def list_app_rules_with_http_info(self, app_id : StrictInt, has_condition : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_condition_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_action : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Actions. Values formatted as :, where name is the Action to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_action=set_licenses:123456 Multiple filters. has_action=set_groups:123456,set_usertype:* Wildcard for actions. has_action=*:123456 Wildcard for action values. has_action=set_userprincipalname:*")] = None, has_action_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their action types. Allowed values are: builtin - actions that involve standard attributes custom - actions that involve custom attributes none - no actions are defined For example: Find Rules with no actions has_action_type=none")] = None, enabled : Annotated[Optional[StrictBool], Field(description="Defaults to true. When set to `false` will return all disabled mappings.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Rules  # noqa: E501
 
         List App Rules  # noqa: E501
@@ -854,13 +850,14 @@ class AppRulesApi(object):
         :type enabled: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -986,10 +983,6 @@ class AppRulesApi(object):
         :type rule_condition_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1000,10 +993,12 @@ class AppRulesApi(object):
         :rtype: List[RuleCondition]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_condition_operators_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_condition_operators_with_http_info(app_id, rule_condition_value, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_condition_operators_with_http_info(self, app_id : StrictInt, rule_condition_value : StrictStr, **kwargs):  # noqa: E501
+    def list_condition_operators_with_http_info(self, app_id : StrictInt, rule_condition_value : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """List Conditions Operators  # noqa: E501
 
         List Condition Operators  # noqa: E501
@@ -1019,13 +1014,14 @@ class AppRulesApi(object):
         :type rule_condition_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1135,10 +1131,6 @@ class AppRulesApi(object):
         :type rule_condition_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1149,10 +1141,12 @@ class AppRulesApi(object):
         :rtype: RuleCondition
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_condition_values_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_condition_values_with_http_info(app_id, rule_condition_value, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_condition_values_with_http_info(self, app_id : StrictInt, rule_condition_value : StrictStr, **kwargs):  # noqa: E501
+    def list_condition_values_with_http_info(self, app_id : StrictInt, rule_condition_value : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """List Conditions Values  # noqa: E501
 
         List Condition Values  # noqa: E501
@@ -1168,13 +1162,14 @@ class AppRulesApi(object):
         :type rule_condition_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1282,10 +1277,6 @@ class AppRulesApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1296,10 +1287,12 @@ class AppRulesApi(object):
         :rtype: List[ListConditions200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_conditions_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_conditions_with_http_info(app_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_conditions_with_http_info(self, app_id : StrictInt, **kwargs):  # noqa: E501
+    def list_conditions_with_http_info(self, app_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """List Conditions  # noqa: E501
 
         List App Conditions  # noqa: E501
@@ -1313,13 +1306,14 @@ class AppRulesApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1425,10 +1419,6 @@ class AppRulesApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1439,10 +1429,12 @@ class AppRulesApi(object):
         :rtype: List[int]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the sort_app_rules_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.sort_app_rules_with_http_info(app_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def sort_app_rules_with_http_info(self, app_id : StrictInt, request_body : Optional[conlist(StrictInt)] = None, **kwargs):  # noqa: E501
+    def sort_app_rules_with_http_info(self, app_id : StrictInt, request_body : Optional[conlist(StrictInt)] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Bulk Sort  # noqa: E501
 
         Sort App rules  # noqa: E501
@@ -1458,13 +1450,14 @@ class AppRulesApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1525,7 +1518,7 @@ class AppRulesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['request_body']:
+        if _params['request_body'] is not None:
             _body_params = _params['request_body']
 
         # set the HTTP header `Accept`
@@ -1584,10 +1577,6 @@ class AppRulesApi(object):
         :type app_rule: AppRule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1598,10 +1587,12 @@ class AppRulesApi(object):
         :rtype: AppRule
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_app_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_app_rule_with_http_info(app_id, rule_id, app_rule, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_app_rule_with_http_info(self, app_id : StrictInt, rule_id : StrictStr, app_rule : Optional[AppRule] = None, **kwargs):  # noqa: E501
+    def update_app_rule_with_http_info(self, app_id : StrictInt, rule_id : StrictStr, app_rule : Optional[AppRule] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Rule  # noqa: E501
 
         Update App Rule.  # noqa: E501
@@ -1619,13 +1610,14 @@ class AppRulesApi(object):
         :type app_rule: AppRule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1690,7 +1682,7 @@ class AppRulesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['app_rule']:
+        if _params['app_rule'] is not None:
             _body_params = _params['app_rule']
 
         # set the HTTP header `Accept`

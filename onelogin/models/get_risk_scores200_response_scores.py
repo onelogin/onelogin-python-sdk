@@ -1,3 +1,4 @@
+
 # coding: utf-8
 
 """
@@ -13,7 +14,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -34,6 +34,7 @@ class GetRiskScores200ResponseScores(BaseModel):
     __properties = ["minimal", "low", "medium", "high", "very_high"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -64,7 +65,7 @@ class GetRiskScores200ResponseScores(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return GetRiskScores200ResponseScores.parse_obj(obj)
 
         _obj = GetRiskScores200ResponseScores.parse_obj({

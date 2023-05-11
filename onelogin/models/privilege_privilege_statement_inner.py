@@ -1,3 +1,4 @@
+
 # coding: utf-8
 
 """
@@ -13,7 +14,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -32,13 +32,15 @@ class PrivilegePrivilegeStatementInner(BaseModel):
     __properties = ["Effect", "Action", "Scope"]
 
     @validator('action')
-    def action_validate_enum(cls, v):
-        for i in v:
+    def action_validate_enum(cls, value):
+        """Validates the enum"""
+        for i in value:
             if i not in ('Apps:Create', 'Apps:Delete', 'Apps:List', 'Apps:Get', 'Apps:Update', 'Apps:ManageConnectors', 'Apps:ManageRoles', 'Apps:ManageTabs', 'Apps:ManageUsers', 'Apps:ReapplyMappings', 'Users:Create', 'Users:Delete', 'Users:List', 'Users:Get', 'Users:Update', 'Users:AssumeUser', 'Users:ManageApps', 'Users:Unlock', 'Users:GenerateTempMfaToken', 'Users:ResetPassword', 'Users:ReapplyMappings', 'Users:ManageLicense', 'Users:Invite', 'Users:ManageRoles', 'Roles:Create', 'Roles:Get', 'Roles:List', 'Roles:Update', 'Roles:Delete', 'Roles:ManageUsers', 'Roles:ManageApps', 'Reports:Create', 'Reports:Get', 'Reports:List', 'Reports:Update', 'Reports:Delete', 'Reports:Clone', 'Events:Get', 'Events:List', 'Groups:Create', 'Groups:Get', 'Groups:List', 'Groups:Update', 'Groups:Delete', 'Policies:Create', 'Policies:Get', 'Policies:List', 'Policies:Update', 'Policies:Delete', 'Policies:SetDefault'):
                 raise ValueError("each list item must be one of ('Apps:Create', 'Apps:Delete', 'Apps:List', 'Apps:Get', 'Apps:Update', 'Apps:ManageConnectors', 'Apps:ManageRoles', 'Apps:ManageTabs', 'Apps:ManageUsers', 'Apps:ReapplyMappings', 'Users:Create', 'Users:Delete', 'Users:List', 'Users:Get', 'Users:Update', 'Users:AssumeUser', 'Users:ManageApps', 'Users:Unlock', 'Users:GenerateTempMfaToken', 'Users:ResetPassword', 'Users:ReapplyMappings', 'Users:ManageLicense', 'Users:Invite', 'Users:ManageRoles', 'Roles:Create', 'Roles:Get', 'Roles:List', 'Roles:Update', 'Roles:Delete', 'Roles:ManageUsers', 'Roles:ManageApps', 'Reports:Create', 'Reports:Get', 'Reports:List', 'Reports:Update', 'Reports:Delete', 'Reports:Clone', 'Events:Get', 'Events:List', 'Groups:Create', 'Groups:Get', 'Groups:List', 'Groups:Update', 'Groups:Delete', 'Policies:Create', 'Policies:Get', 'Policies:List', 'Policies:Update', 'Policies:Delete', 'Policies:SetDefault')")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -69,7 +71,7 @@ class PrivilegePrivilegeStatementInner(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return PrivilegePrivilegeStatementInner.parse_obj(obj)
 
         _obj = PrivilegePrivilegeStatementInner.parse_obj({

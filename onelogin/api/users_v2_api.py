@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -25,6 +27,7 @@ from onelogin.models.get_user_apps200_response_inner import GetUserApps200Respon
 from onelogin.models.user import User
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -62,10 +65,6 @@ class UsersV2Api(object):
         :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -76,10 +75,12 @@ class UsersV2Api(object):
         :rtype: User
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_user2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_user2_with_http_info(mappings, validate_policy, user, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_user2_with_http_info(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs):  # noqa: E501
+    def create_user2_with_http_info(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create User  # noqa: E501
 
         Create User  # noqa: E501
@@ -97,13 +98,14 @@ class UsersV2Api(object):
         :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -168,7 +170,7 @@ class UsersV2Api(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['user']:
+        if _params['user'] is not None:
             _body_params = _params['user']
 
         # set the HTTP header `Accept`
@@ -224,10 +226,6 @@ class UsersV2Api(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -238,10 +236,12 @@ class UsersV2Api(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_user2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_user2_with_http_info(user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_user2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs):  # noqa: E501
+    def delete_user2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete User  # noqa: E501
 
         Delete User  # noqa: E501
@@ -255,13 +255,14 @@ class UsersV2Api(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -362,10 +363,6 @@ class UsersV2Api(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -376,10 +373,12 @@ class UsersV2Api(object):
         :rtype: User
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_user2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user2_with_http_info(user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_user2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs):  # noqa: E501
+    def get_user2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User  # noqa: E501
 
         Get User  # noqa: E501
@@ -393,13 +392,14 @@ class UsersV2Api(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -506,10 +506,6 @@ class UsersV2Api(object):
         :type ignore_visibility: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -520,10 +516,12 @@ class UsersV2Api(object):
         :rtype: List[GetUserApps200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_user_apps2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user_apps2_with_http_info(user_id, ignore_visibility, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_user_apps2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], ignore_visibility : Annotated[Optional[StrictBool], Field(description="Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting.")] = None, **kwargs):  # noqa: E501
+    def get_user_apps2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], ignore_visibility : Annotated[Optional[StrictBool], Field(description="Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Apps  # noqa: E501
 
         Get User Apps  # noqa: E501
@@ -539,13 +537,14 @@ class UsersV2Api(object):
         :type ignore_visibility: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -690,10 +689,6 @@ class UsersV2Api(object):
         :type fields: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -704,10 +699,12 @@ class UsersV2Api(object):
         :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_users2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_users2_with_http_info(limit, page, cursor, created_since, created_until, updated_since, updated_until, last_login_since, last_login_until, firstname, lastname, email, username, samaccountname, directory_id, external_id, user_ids, custom_attributes_attribute_name, fields, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_users2_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs):  # noqa: E501
+    def list_users2_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Users  # noqa: E501
 
         Get a list of users  # noqa: E501
@@ -757,13 +754,14 @@ class UsersV2Api(object):
         :type fields: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -947,10 +945,6 @@ class UsersV2Api(object):
         :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -961,10 +955,12 @@ class UsersV2Api(object):
         :rtype: User
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_user2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_user2_with_http_info(user_id, mappings, validate_policy, user, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_user2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs):  # noqa: E501
+    def update_user2_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update User  # noqa: E501
 
         Update User  # noqa: E501
@@ -984,13 +980,14 @@ class UsersV2Api(object):
         :type user: User
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1059,7 +1056,7 @@ class UsersV2Api(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['user']:
+        if _params['user'] is not None:
             _body_params = _params['user']
 
         # set the HTTP header `Accept`

@@ -14,7 +14,7 @@
 """
 
 
-__version__ = "3.1.4"
+__version__ = "3.1.5"
 
 # import apis into sdk package
 from onelogin.api.api_auth_claims_api import APIAuthClaimsApi
@@ -42,6 +42,7 @@ from onelogin.api.users_v2_api import UsersV2Api
 from onelogin.api.vigilance_ai_api import VigilanceAIApi
 
 # import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.api_client import ApiClient
 from onelogin.configuration import Configuration
 from onelogin.exceptions import OpenApiException
@@ -87,7 +88,6 @@ from onelogin.models.create_device_verification201_response import CreateDeviceV
 from onelogin.models.create_device_verification_request import CreateDeviceVerificationRequest
 from onelogin.models.create_factor_registration201_response import CreateFactorRegistration201Response
 from onelogin.models.create_factor_registration_request import CreateFactorRegistrationRequest
-from onelogin.models.create_privilege200_response import CreatePrivilege200Response
 from onelogin.models.create_role201_response_inner import CreateRole201ResponseInner
 from onelogin.models.device import Device
 from onelogin.models.email_config import EmailConfig
@@ -151,7 +151,7 @@ from onelogin.models.list_mapping_conditions_operators200_response_inner import 
 from onelogin.models.list_mapping_contion_values200_response_inner import ListMappingContionValues200ResponseInner
 from onelogin.models.list_mappings_actions200_response_inner import ListMappingsActions200ResponseInner
 from onelogin.models.list_message_templates200_response_inner import ListMessageTemplates200ResponseInner
-from onelogin.models.list_privelege_roles200_response import ListPrivelegeRoles200Response
+from onelogin.models.list_privilege_roles200_response import ListPrivilegeRoles200Response
 from onelogin.models.locale import Locale
 from onelogin.models.lock_account_user_request import LockAccountUserRequest
 from onelogin.models.mapping import Mapping

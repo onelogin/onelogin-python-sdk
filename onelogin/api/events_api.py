@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -26,6 +28,7 @@ from onelogin.models.get_event_types200_response import GetEventTypes200Response
 from onelogin.models.get_events200_response import GetEvents200Response
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -59,10 +62,6 @@ class EventsApi(object):
         :type event_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -73,10 +72,12 @@ class EventsApi(object):
         :rtype: GetEventById200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_event_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_event_by_id_with_http_info(event_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_event_by_id_with_http_info(self, event_id : StrictInt, **kwargs):  # noqa: E501
+    def get_event_by_id_with_http_info(self, event_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Event by ID  # noqa: E501
 
         Get Event By ID  # noqa: E501
@@ -90,13 +91,14 @@ class EventsApi(object):
         :type event_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -202,10 +204,6 @@ class EventsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -216,10 +214,12 @@ class EventsApi(object):
         :rtype: GetEventTypes200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_event_types_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_event_types_with_http_info(content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_event_types_with_http_info(self, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def get_event_types_with_http_info(self, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Event Types  # noqa: E501
 
         Get Event types  # noqa: E501
@@ -233,13 +233,14 @@ class EventsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -358,10 +359,6 @@ class EventsApi(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -372,10 +369,12 @@ class EventsApi(object):
         :rtype: GetEvents200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_events_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_events_with_http_info(event_type_id, client_id, directory_id, id, created_at, resolution, since, until, user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_events_with_http_info(self, event_type_id : Optional[conlist(StrictInt)] = None, client_id : Optional[StrictInt] = None, directory_id : Optional[StrictInt] = None, id : Optional[StrictInt] = None, created_at : Optional[StrictStr] = None, resolution : Optional[StrictStr] = None, since : Optional[StrictStr] = None, until : Optional[StrictStr] = None, user_id : Annotated[Optional[StrictInt], Field(description="Set to the id of the user that you want to return.")] = None, **kwargs):  # noqa: E501
+    def get_events_with_http_info(self, event_type_id : Optional[conlist(StrictInt)] = None, client_id : Optional[StrictInt] = None, directory_id : Optional[StrictInt] = None, id : Optional[StrictInt] = None, created_at : Optional[StrictStr] = None, resolution : Optional[StrictStr] = None, since : Optional[StrictStr] = None, until : Optional[StrictStr] = None, user_id : Annotated[Optional[StrictInt], Field(description="Set to the id of the user that you want to return.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Events  # noqa: E501
 
         Get Events  # noqa: E501
@@ -405,13 +404,14 @@ class EventsApi(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

@@ -19,7 +19,6 @@ Get Group By ID
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -93,7 +92,6 @@ Get Groups
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

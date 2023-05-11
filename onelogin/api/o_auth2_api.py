@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -28,6 +30,7 @@ from onelogin.models.oauth_token import OauthToken
 from onelogin.models.revoke_tokens_request import RevokeTokensRequest
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -63,10 +66,6 @@ class OAuth2Api(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -77,10 +76,12 @@ class OAuth2Api(object):
         :rtype: OauthToken
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the generate_token_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.generate_token_with_http_info(generate_token_request, content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def generate_token_with_http_info(self, generate_token_request : Annotated[GenerateTokenRequest, Field(..., description="Request Body to Generate OAuth Token")], content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def generate_token_with_http_info(self, generate_token_request : Annotated[GenerateTokenRequest, Field(..., description="Request Body to Generate OAuth Token")], content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate Token  # noqa: E501
 
         Generate Token  # noqa: E501
@@ -96,13 +97,14 @@ class OAuth2Api(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -163,7 +165,7 @@ class OAuth2Api(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['generate_token_request']:
+        if _params['generate_token_request'] is not None:
             _body_params = _params['generate_token_request']
 
         # set the HTTP header `Accept`
@@ -217,10 +219,6 @@ class OAuth2Api(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -231,10 +229,12 @@ class OAuth2Api(object):
         :rtype: GetRateLimit200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_rate_limit_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_rate_limit_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_rate_limit_with_http_info(self, **kwargs):  # noqa: E501
+    def get_rate_limit_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Rate Limit  # noqa: E501
 
         Get Rate Limit  # noqa: E501
@@ -246,13 +246,14 @@ class OAuth2Api(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -356,10 +357,6 @@ class OAuth2Api(object):
         :type revoke_tokens_request: RevokeTokensRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -370,10 +367,12 @@ class OAuth2Api(object):
         :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the revoke_tokens_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.revoke_tokens_with_http_info(content_type, revoke_tokens_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def revoke_tokens_with_http_info(self, content_type : Optional[StrictStr] = None, revoke_tokens_request : Optional[RevokeTokensRequest] = None, **kwargs):  # noqa: E501
+    def revoke_tokens_with_http_info(self, content_type : Optional[StrictStr] = None, revoke_tokens_request : Optional[RevokeTokensRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Revoke Tokens  # noqa: E501
 
         Revoke Tokens  # noqa: E501
@@ -389,13 +388,14 @@ class OAuth2Api(object):
         :type revoke_tokens_request: RevokeTokensRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -456,7 +456,7 @@ class OAuth2Api(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['revoke_tokens_request']:
+        if _params['revoke_tokens_request'] is not None:
             _body_params = _params['revoke_tokens_request']
 
         # set the HTTP header `Accept`

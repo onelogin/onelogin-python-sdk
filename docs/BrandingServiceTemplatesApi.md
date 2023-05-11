@@ -1,3 +1,5 @@
+
+
 # onelogin.BrandingServiceTemplatesApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -25,7 +27,6 @@ Create Message Template
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -102,7 +103,6 @@ Delete Message Template
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -174,7 +174,6 @@ Get Master Template by Type
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -247,7 +246,6 @@ Get Message Template by ID
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -322,7 +320,6 @@ Get Template by Type and Locale
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -399,7 +396,6 @@ List Message Templates
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -474,7 +470,6 @@ Update Message Template by ID
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -549,7 +544,6 @@ Update Template by Type and Locale
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

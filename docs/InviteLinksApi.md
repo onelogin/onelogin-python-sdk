@@ -1,3 +1,4 @@
+
 # onelogin.InviteLinksApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -19,7 +20,6 @@ Generate Invite Link
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -92,7 +92,6 @@ Send Invite Link
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

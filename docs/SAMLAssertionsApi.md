@@ -1,3 +1,4 @@
+
 # onelogin.SAMLAssertionsApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -21,7 +22,6 @@ Generate SAML Assertion
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -96,7 +96,6 @@ Generate SAML Assertion
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -171,7 +170,6 @@ Verify Factor: SAML
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -247,7 +245,6 @@ Verify Factor: SAML
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

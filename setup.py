@@ -21,14 +21,11 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "onelogin"
-VERSION = "3.1.4"
+VERSION = "3.1.5"
+
 PYTHON_REQUIRES = ">=3.7"
-REQUIRES = [
-    "urllib3 >= 1.25.3",
-    "python-dateutil",
-    "pydantic",
-    "aenum"
-]
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
 
 setup(
     name=NAME,
@@ -38,7 +35,7 @@ setup(
     author_email="team@openapitools.org",
     url="",
     keywords=["OpenAPI", "OpenAPI-Generator", "OneLogin API"],
-    install_requires=REQUIRES,
+    install_requires=requirements,
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
     long_description_content_type='text/markdown',

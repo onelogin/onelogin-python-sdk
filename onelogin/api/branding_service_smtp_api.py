@@ -1,3 +1,4 @@
+
 # coding: utf-8
 
 """
@@ -13,6 +14,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -24,6 +27,7 @@ from onelogin.models.email_config import EmailConfig
 from onelogin.models.get_email_settings200_response import GetEmailSettings200Response
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -55,10 +59,6 @@ class BrandingServiceSMTPApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -69,10 +69,12 @@ class BrandingServiceSMTPApi(object):
         :rtype: AltErr
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_email_settings_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_email_settings_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_email_settings_with_http_info(self, **kwargs):  # noqa: E501
+    def delete_email_settings_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Custom Email Settings  # noqa: E501
 
         Reset Email Setting config  # noqa: E501
@@ -84,13 +86,14 @@ class BrandingServiceSMTPApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -188,10 +191,6 @@ class BrandingServiceSMTPApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -202,10 +201,12 @@ class BrandingServiceSMTPApi(object):
         :rtype: GetEmailSettings200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_email_settings_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_email_settings_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_email_settings_with_http_info(self, **kwargs):  # noqa: E501
+    def get_email_settings_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Email Settings  # noqa: E501
 
         Get Email Settings Config  # noqa: E501
@@ -217,13 +218,14 @@ class BrandingServiceSMTPApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -323,10 +325,6 @@ class BrandingServiceSMTPApi(object):
         :type email_config: EmailConfig
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -337,10 +335,12 @@ class BrandingServiceSMTPApi(object):
         :rtype: AltErr
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_email_settings_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_email_settings_with_http_info(email_config, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_email_settings_with_http_info(self, email_config : Optional[EmailConfig] = None, **kwargs):  # noqa: E501
+    def update_email_settings_with_http_info(self, email_config : Optional[EmailConfig] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Email Settings  # noqa: E501
 
         Update Email Settings Config  # noqa: E501
@@ -354,13 +354,14 @@ class BrandingServiceSMTPApi(object):
         :type email_config: EmailConfig
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -417,7 +418,7 @@ class BrandingServiceSMTPApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['email_config']:
+        if _params['email_config'] is not None:
             _body_params = _params['email_config']
 
         # set the HTTP header `Accept`

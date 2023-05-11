@@ -23,12 +23,12 @@ Create a new Account Brand
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -56,6 +56,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceApi->create_brand: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -96,12 +97,12 @@ Delete Brand
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -127,6 +128,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceApi->delete_brand: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -167,12 +169,12 @@ Retrieve a single brand via ID
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -200,6 +202,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceApi->get_brand: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -240,12 +243,12 @@ Get Apps Associated with Account Brand
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -273,6 +276,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceApi->get_brand_apps: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -313,12 +317,12 @@ List Account Brands
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -345,6 +349,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceApi->list_brands: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -380,12 +385,12 @@ Update Account Brand
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -414,6 +419,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling BrandingServiceApi->update_brand: %s\n" % e)
 ```
+
 
 ### Parameters
 

@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -22,6 +24,7 @@ from pydantic import StrictStr
 from onelogin.models.get_groups200_response import GetGroups200Response
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -55,10 +58,6 @@ class GroupsApi(object):
         :type group_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -69,10 +68,12 @@ class GroupsApi(object):
         :rtype: GetGroups200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_group_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_group_by_id_with_http_info(group_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_group_by_id_with_http_info(self, group_id : StrictStr, **kwargs):  # noqa: E501
+    def get_group_by_id_with_http_info(self, group_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Group by ID  # noqa: E501
 
         Get Group By ID  # noqa: E501
@@ -86,13 +87,14 @@ class GroupsApi(object):
         :type group_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -196,10 +198,6 @@ class GroupsApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -210,10 +208,12 @@ class GroupsApi(object):
         :rtype: GetGroups200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_groups_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_groups_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_groups_with_http_info(self, **kwargs):  # noqa: E501
+    def get_groups_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Groups  # noqa: E501
 
         Get Groups  # noqa: E501
@@ -225,13 +225,14 @@ class GroupsApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

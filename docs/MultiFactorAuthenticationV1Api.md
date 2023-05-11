@@ -1,3 +1,4 @@
+
 # onelogin.MultiFactorAuthenticationV1Api
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -24,7 +25,6 @@ Activate a Factor
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -101,7 +101,6 @@ Enroll a Factor
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -176,7 +175,6 @@ Generate MFA Token
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -249,7 +247,6 @@ Get Enrolled Factors
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -322,7 +319,6 @@ Get MFA Factors
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -396,7 +392,6 @@ Remove an enrolled MFA device for a user
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -469,7 +464,6 @@ Verify a Factor
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

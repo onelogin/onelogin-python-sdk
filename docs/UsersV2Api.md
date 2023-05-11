@@ -22,7 +22,6 @@ Create User
 ### Example
 
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -94,7 +93,6 @@ Delete User
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -165,7 +163,6 @@ Get User
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -238,7 +235,6 @@ Get User Apps
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -313,7 +309,6 @@ Get a list of users
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -422,7 +417,6 @@ Update User
 ### Example
 
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -27,6 +29,7 @@ from onelogin.models.saml_factor import SamlFactor
 from onelogin.models.ver_factor_saml200_response import VerFactorSaml200Response
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -62,10 +65,6 @@ class SAMLAssertionsApi(object):
         :type saml_assert: SamlAssert
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -76,10 +75,12 @@ class SAMLAssertionsApi(object):
         :rtype: GenerateSamlAssert200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the generate_saml_assert_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.generate_saml_assert_with_http_info(content_type, saml_assert, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def generate_saml_assert_with_http_info(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs):  # noqa: E501
+    def generate_saml_assert_with_http_info(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
         Generate SAML Assertion  # noqa: E501
@@ -95,13 +96,14 @@ class SAMLAssertionsApi(object):
         :type saml_assert: SamlAssert
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -162,7 +164,7 @@ class SAMLAssertionsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['saml_assert']:
+        if _params['saml_assert'] is not None:
             _body_params = _params['saml_assert']
 
         # set the HTTP header `Accept`
@@ -219,10 +221,6 @@ class SAMLAssertionsApi(object):
         :type saml_assert: SamlAssert
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -233,10 +231,12 @@ class SAMLAssertionsApi(object):
         :rtype: GenerateSamlAssert200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the generate_saml_assert2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.generate_saml_assert2_with_http_info(content_type, saml_assert, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def generate_saml_assert2_with_http_info(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs):  # noqa: E501
+    def generate_saml_assert2_with_http_info(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
         Generate SAML Assertion  # noqa: E501
@@ -252,13 +252,14 @@ class SAMLAssertionsApi(object):
         :type saml_assert: SamlAssert
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -319,7 +320,7 @@ class SAMLAssertionsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['saml_assert']:
+        if _params['saml_assert'] is not None:
             _body_params = _params['saml_assert']
 
         # set the HTTP header `Accept`
@@ -376,10 +377,6 @@ class SAMLAssertionsApi(object):
         :type saml_factor: SamlFactor
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -390,10 +387,12 @@ class SAMLAssertionsApi(object):
         :rtype: VerFactorSaml200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the ver_factor_saml_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.ver_factor_saml_with_http_info(content_type, saml_factor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def ver_factor_saml_with_http_info(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs):  # noqa: E501
+    def ver_factor_saml_with_http_info(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
         Verify Factor: SAML  # noqa: E501
@@ -409,13 +408,14 @@ class SAMLAssertionsApi(object):
         :type saml_factor: SamlFactor
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -476,7 +476,7 @@ class SAMLAssertionsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['saml_factor']:
+        if _params['saml_factor'] is not None:
             _body_params = _params['saml_factor']
 
         # set the HTTP header `Accept`
@@ -534,10 +534,6 @@ class SAMLAssertionsApi(object):
         :type saml_factor: SamlFactor
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -548,10 +544,12 @@ class SAMLAssertionsApi(object):
         :rtype: VerFactorSaml200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the ver_factor_saml2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.ver_factor_saml2_with_http_info(content_type, saml_factor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def ver_factor_saml2_with_http_info(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs):  # noqa: E501
+    def ver_factor_saml2_with_http_info(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
         Verify Factor: SAML  # noqa: E501
@@ -567,13 +565,14 @@ class SAMLAssertionsApi(object):
         :type saml_factor: SamlFactor
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -634,7 +633,7 @@ class SAMLAssertionsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['saml_factor']:
+        if _params['saml_factor'] is not None:
             _body_params = _params['saml_factor']
 
         # set the HTTP header `Accept`

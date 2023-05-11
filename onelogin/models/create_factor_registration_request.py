@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -35,6 +34,7 @@ class CreateFactorRegistrationRequest(BaseModel):
     __properties = ["factor_id", "display_name", "expires_in", "verified", "redirect_to", "custom_message"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -65,7 +65,7 @@ class CreateFactorRegistrationRequest(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return CreateFactorRegistrationRequest.parse_obj(obj)
 
         _obj = CreateFactorRegistrationRequest.parse_obj({

@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -34,6 +33,7 @@ class GetAuthenticationDevices200ResponseInner(BaseModel):
     __properties = ["device_id", "user_display_name", "type_display_name", "auth_factor_name", "default"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -64,7 +64,7 @@ class GetAuthenticationDevices200ResponseInner(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return GetAuthenticationDevices200ResponseInner.parse_obj(obj)
 
         _obj = GetAuthenticationDevices200ResponseInner.parse_obj({

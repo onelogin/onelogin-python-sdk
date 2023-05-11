@@ -22,12 +22,12 @@ Create Auth Server
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -56,6 +56,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthorizationServerApi->create_auth_server: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -97,12 +98,12 @@ Delete Authentication Server
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -129,6 +130,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthorizationServerApi->delete_auth_server: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -170,12 +172,12 @@ Get Authorization Server
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -204,6 +206,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthorizationServerApi->get_auth_server: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -244,12 +247,12 @@ List Authorization Servers
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -276,6 +279,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthorizationServerApi->list_auth_servers: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -312,12 +316,12 @@ Update Authorization Server
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -347,6 +351,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthorizationServerApi->update_auth_server: %s\n" % e)
 ```
+
 
 ### Parameters
 

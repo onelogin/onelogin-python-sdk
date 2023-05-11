@@ -1,3 +1,4 @@
+
 # coding: utf-8
 
 """
@@ -13,6 +14,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -28,6 +31,7 @@ from onelogin.models.generic_app import GenericApp
 from onelogin.models.user import User
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -63,10 +67,6 @@ class AppsApi(object):
         :type create_app_request: CreateAppRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -77,10 +77,12 @@ class AppsApi(object):
         :rtype: CreateApp200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_app_with_http_info(content_type, create_app_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_app_with_http_info(self, content_type : Optional[StrictStr] = None, create_app_request : Optional[CreateAppRequest] = None, **kwargs):  # noqa: E501
+    def create_app_with_http_info(self, content_type : Optional[StrictStr] = None, create_app_request : Optional[CreateAppRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create App  # noqa: E501
 
         Create App  # noqa: E501
@@ -96,13 +98,14 @@ class AppsApi(object):
         :type create_app_request: CreateAppRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -163,7 +166,7 @@ class AppsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['create_app_request']:
+        if _params['create_app_request'] is not None:
             _body_params = _params['create_app_request']
 
         # set the HTTP header `Accept`
@@ -218,10 +221,6 @@ class AppsApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -232,10 +231,12 @@ class AppsApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_app_with_http_info(app_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_app_with_http_info(self, app_id : StrictInt, **kwargs):  # noqa: E501
+    def delete_app_with_http_info(self, app_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete App  # noqa: E501
 
         Delete App  # noqa: E501
@@ -249,13 +250,14 @@ class AppsApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -358,10 +360,6 @@ class AppsApi(object):
         :type parameter_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -372,10 +370,12 @@ class AppsApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_app_parameter_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_app_parameter_with_http_info(app_id, parameter_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_app_parameter_with_http_info(self, app_id : StrictInt, parameter_id : StrictStr, **kwargs):  # noqa: E501
+    def delete_app_parameter_with_http_info(self, app_id : StrictInt, parameter_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Parameter from App  # noqa: E501
 
         Delete Parameter from App  # noqa: E501
@@ -391,13 +391,14 @@ class AppsApi(object):
         :type parameter_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -502,10 +503,6 @@ class AppsApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -516,10 +513,12 @@ class AppsApi(object):
         :rtype: GenericApp
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_app_with_http_info(app_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_app_with_http_info(self, app_id : StrictInt, **kwargs):  # noqa: E501
+    def get_app_with_http_info(self, app_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """Get App  # noqa: E501
 
         Get App  # noqa: E501
@@ -533,13 +532,14 @@ class AppsApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -644,10 +644,6 @@ class AppsApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -658,10 +654,12 @@ class AppsApi(object):
         :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_app_users_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_app_users_with_http_info(app_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_app_users_with_http_info(self, app_id : StrictInt, **kwargs):  # noqa: E501
+    def get_app_users_with_http_info(self, app_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """Get App Users  # noqa: E501
 
         Get App Users  # noqa: E501
@@ -675,13 +673,14 @@ class AppsApi(object):
         :type app_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -783,10 +782,6 @@ class AppsApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -797,10 +792,12 @@ class AppsApi(object):
         :rtype: List[GenericApp]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_apps_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_apps_with_http_info(self, **kwargs):  # noqa: E501
+    def list_apps_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Apps  # noqa: E501
 
         List Apps  # noqa: E501
@@ -812,13 +809,14 @@ class AppsApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -919,10 +917,6 @@ class AppsApi(object):
         :type name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -933,10 +927,12 @@ class AppsApi(object):
         :rtype: Connector
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_connectors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_connectors_with_http_info(name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_connectors_with_http_info(self, name : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def list_connectors_with_http_info(self, name : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Connectors  # noqa: E501
 
         List Connectors  # noqa: E501
@@ -950,13 +946,14 @@ class AppsApi(object):
         :type name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1063,10 +1060,6 @@ class AppsApi(object):
         :type request_body: Dict[str, object]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1077,10 +1070,12 @@ class AppsApi(object):
         :rtype: GenericApp
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_app_with_http_info(app_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_app_with_http_info(self, app_id : StrictInt, request_body : Optional[Dict[str, Any]] = None, **kwargs):  # noqa: E501
+    def update_app_with_http_info(self, app_id : StrictInt, request_body : Optional[Dict[str, Any]] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update App  # noqa: E501
 
         Update App  # noqa: E501
@@ -1096,13 +1091,14 @@ class AppsApi(object):
         :type request_body: Dict[str, object]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1163,7 +1159,7 @@ class AppsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['request_body']:
+        if _params['request_body'] is not None:
             _body_params = _params['request_body']
 
         # set the HTTP header `Accept`

@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -31,6 +33,7 @@ from onelogin.models.update_role200_response import UpdateRole200Response
 from onelogin.models.user import User
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -66,10 +69,6 @@ class RolesApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -80,10 +79,12 @@ class RolesApi(object):
         :rtype: List[CreateRole201ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the add_role_admins_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.add_role_admins_with_http_info(role_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : conlist(StrictInt), **kwargs):  # noqa: E501
+    def add_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : conlist(StrictInt), **kwargs) -> ApiResponse:  # noqa: E501
         """Add Role Admins  # noqa: E501
 
         Add Role Admins  # noqa: E501
@@ -99,13 +100,14 @@ class RolesApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -166,7 +168,7 @@ class RolesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['request_body']:
+        if _params['request_body'] is not None:
             _body_params = _params['request_body']
 
         # set the HTTP header `Accept`
@@ -222,10 +224,6 @@ class RolesApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -236,10 +234,12 @@ class RolesApi(object):
         :rtype: List[CreateRole201ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the add_role_users_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.add_role_users_with_http_info(role_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : conlist(StrictInt), **kwargs):  # noqa: E501
+    def add_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : conlist(StrictInt), **kwargs) -> ApiResponse:  # noqa: E501
         """Add Role Users  # noqa: E501
 
         Add Role Users  # noqa: E501
@@ -255,13 +255,14 @@ class RolesApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -322,7 +323,7 @@ class RolesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['request_body']:
+        if _params['request_body'] is not None:
             _body_params = _params['request_body']
 
         # set the HTTP header `Accept`
@@ -377,10 +378,6 @@ class RolesApi(object):
         :type role: Role
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -391,10 +388,12 @@ class RolesApi(object):
         :rtype: List[CreateRole201ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_role_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_role_with_http_info(role, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_role_with_http_info(self, role : Optional[Role] = None, **kwargs):  # noqa: E501
+    def create_role_with_http_info(self, role : Optional[Role] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Role  # noqa: E501
 
         Create Role  # noqa: E501
@@ -408,13 +407,14 @@ class RolesApi(object):
         :type role: Role
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -471,7 +471,7 @@ class RolesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['role']:
+        if _params['role'] is not None:
             _body_params = _params['role']
 
         # set the HTTP header `Accept`
@@ -525,10 +525,6 @@ class RolesApi(object):
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -539,10 +535,12 @@ class RolesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_role_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_role_with_http_info(role_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
+    def delete_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Role by ID  # noqa: E501
 
         Delete Role  # noqa: E501
@@ -556,13 +554,14 @@ class RolesApi(object):
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -663,10 +662,6 @@ class RolesApi(object):
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -677,10 +672,12 @@ class RolesApi(object):
         :rtype: Role
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_role_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_role_with_http_info(role_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
+    def get_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Role by ID  # noqa: E501
 
         Get Role  # noqa: E501
@@ -694,13 +691,14 @@ class RolesApi(object):
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -815,10 +813,6 @@ class RolesApi(object):
         :type include_unassigned: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -829,10 +823,12 @@ class RolesApi(object):
         :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_role_admins_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_role_admins_with_http_info(role_id, limit, page, cursor, name, include_unassigned, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs):  # noqa: E501
+    def get_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Role Admins  # noqa: E501
 
         Get Role Admins  # noqa: E501
@@ -856,13 +852,14 @@ class RolesApi(object):
         :type include_unassigned: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -995,10 +992,6 @@ class RolesApi(object):
         :type assigned: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1009,10 +1002,12 @@ class RolesApi(object):
         :rtype: List[GetRoleApps200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_role_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_role_apps_with_http_info(role_id, limit, page, cursor, assigned, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_apps_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, assigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to true. Returns all apps not yet assigned to the role.")] = None, **kwargs):  # noqa: E501
+    def get_role_apps_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, assigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to true. Returns all apps not yet assigned to the role.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get all Apps assigned to Role  # noqa: E501
 
         Get Role Apps  # noqa: E501
@@ -1034,13 +1029,14 @@ class RolesApi(object):
         :type assigned: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1161,10 +1157,6 @@ class RolesApi(object):
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1175,10 +1167,12 @@ class RolesApi(object):
         :rtype: GetRoleById200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_role_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_role_by_id_with_http_info(role_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_by_id_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
+    def get_role_by_id_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Role by ID  # noqa: E501
 
         Get Role By ID  # noqa: E501
@@ -1192,13 +1186,14 @@ class RolesApi(object):
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1305,10 +1300,6 @@ class RolesApi(object):
         :type name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1319,10 +1310,12 @@ class RolesApi(object):
         :rtype: GetRoleByName200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_role_by_name_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_role_by_name_with_http_info(name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_by_name_with_http_info(self, name : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def get_role_by_name_with_http_info(self, name : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Role by Name  # noqa: E501
 
         Get Role by Name  # noqa: E501
@@ -1336,13 +1329,14 @@ class RolesApi(object):
         :type name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1457,10 +1451,6 @@ class RolesApi(object):
         :type include_unassigned: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1471,10 +1461,12 @@ class RolesApi(object):
         :rtype: List[User]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_role_users_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_role_users_with_http_info(role_id, limit, page, cursor, name, include_unassigned, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs):  # noqa: E501
+    def get_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, name : Annotated[Optional[StrictStr], Field(description="Allows you to filter on first name, last name, username, and email address.")] = None, include_unassigned : Annotated[Optional[StrictBool], Field(description="Optional. Defaults to false. Include users that aren’t assigned to the role.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Role Users  # noqa: E501
 
         Get Role Users  # noqa: E501
@@ -1498,13 +1490,14 @@ class RolesApi(object):
         :type include_unassigned: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1641,10 +1634,6 @@ class RolesApi(object):
         :type fields: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1655,10 +1644,12 @@ class RolesApi(object):
         :rtype: List[Role]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_roles_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_roles_with_http_info(limit, page, cursor, role_name, app_id, app_name, fields, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_roles_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, role_name : Annotated[Optional[StrictStr], Field(description="Optional. Filters by role name.")] = None, app_id : Optional[StrictInt] = None, app_name : Annotated[Optional[StrictStr], Field(description="Optional. Returns roles that contain this app name.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs):  # noqa: E501
+    def list_roles_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, role_name : Annotated[Optional[StrictStr], Field(description="Optional. Filters by role name.")] = None, app_id : Optional[StrictInt] = None, app_name : Annotated[Optional[StrictStr], Field(description="Optional. Returns roles that contain this app name.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Roles  # noqa: E501
 
         List Roles  # noqa: E501
@@ -1684,13 +1675,14 @@ class RolesApi(object):
         :type fields: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1820,10 +1812,6 @@ class RolesApi(object):
         :type remove_role_users_request: RemoveRoleUsersRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1834,10 +1822,12 @@ class RolesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the remove_role_admins_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.remove_role_admins_with_http_info(role_id, remove_role_users_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def remove_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs):  # noqa: E501
+    def remove_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> ApiResponse:  # noqa: E501
         """Remove Role Admins  # noqa: E501
 
         Remove Role Admins  # noqa: E501
@@ -1853,13 +1843,14 @@ class RolesApi(object):
         :type remove_role_users_request: RemoveRoleUsersRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1920,7 +1911,7 @@ class RolesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['remove_role_users_request']:
+        if _params['remove_role_users_request'] is not None:
             _body_params = _params['remove_role_users_request']
 
         # set the HTTP header `Accept`
@@ -1973,10 +1964,6 @@ class RolesApi(object):
         :type remove_role_users_request: RemoveRoleUsersRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1987,10 +1974,12 @@ class RolesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the remove_role_users_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.remove_role_users_with_http_info(role_id, remove_role_users_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def remove_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs):  # noqa: E501
+    def remove_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> ApiResponse:  # noqa: E501
         """Remove Role Users  # noqa: E501
 
         Remove Role Users  # noqa: E501
@@ -2006,13 +1995,14 @@ class RolesApi(object):
         :type remove_role_users_request: RemoveRoleUsersRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2073,7 +2063,7 @@ class RolesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['remove_role_users_request']:
+        if _params['remove_role_users_request'] is not None:
             _body_params = _params['remove_role_users_request']
 
         # set the HTTP header `Accept`
@@ -2126,10 +2116,6 @@ class RolesApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2140,10 +2126,12 @@ class RolesApi(object):
         :rtype: List[CreateRole201ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the set_role_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.set_role_apps_with_http_info(role_id, request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def set_role_apps_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : conlist(StrictInt), **kwargs):  # noqa: E501
+    def set_role_apps_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], request_body : conlist(StrictInt), **kwargs) -> ApiResponse:  # noqa: E501
         """Set Role Apps  # noqa: E501
 
         Set Role Apps  # noqa: E501
@@ -2159,13 +2147,14 @@ class RolesApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2226,7 +2215,7 @@ class RolesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['request_body']:
+        if _params['request_body'] is not None:
             _body_params = _params['request_body']
 
         # set the HTTP header `Accept`
@@ -2283,10 +2272,6 @@ class RolesApi(object):
         :type role: Role
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2297,10 +2282,12 @@ class RolesApi(object):
         :rtype: UpdateRole200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_role_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_role_with_http_info(role_id, role, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], role : Optional[Role] = None, **kwargs):  # noqa: E501
+    def update_role_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], role : Optional[Role] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Role  # noqa: E501
 
         Update Role  # noqa: E501
@@ -2316,13 +2303,14 @@ class RolesApi(object):
         :type role: Role
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2383,7 +2371,7 @@ class RolesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['role']:
+        if _params['role'] is not None:
             _body_params = _params['role']
 
         # set the HTTP header `Accept`

@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -32,6 +31,7 @@ class HookOptions(BaseModel):
     __properties = ["risk_enabled", "location_enabled", "mfa_device_info_enabled"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -62,7 +62,7 @@ class HookOptions(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return HookOptions.parse_obj(obj)
 
         _obj = HookOptions.parse_obj({

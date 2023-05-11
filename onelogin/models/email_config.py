@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -36,6 +35,7 @@ class EmailConfig(BaseModel):
     __properties = ["address", "use_tls", "from", "domain", "user_name", "password", "port"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -66,7 +66,7 @@ class EmailConfig(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return EmailConfig.parse_obj(obj)
 
         _obj = EmailConfig.parse_obj({

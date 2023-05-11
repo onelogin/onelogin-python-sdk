@@ -1,3 +1,4 @@
+
 # coding: utf-8
 
 """
@@ -13,6 +14,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -29,6 +32,7 @@ from onelogin.models.track_risk_event_request import TrackRiskEventRequest
 from onelogin.models.update_risk_rule_request import UpdateRiskRuleRequest
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -62,10 +66,6 @@ class VigilanceAIApi(object):
         :type risk_rule: RiskRule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -76,10 +76,12 @@ class VigilanceAIApi(object):
         :rtype: RiskRule
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_risk_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_risk_rule_with_http_info(risk_rule, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_risk_rule_with_http_info(self, risk_rule : Optional[RiskRule] = None, **kwargs):  # noqa: E501
+    def create_risk_rule_with_http_info(self, risk_rule : Optional[RiskRule] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Rule  # noqa: E501
 
         Create Vigilance AI (Risk Service) Rule  # noqa: E501
@@ -93,13 +95,14 @@ class VigilanceAIApi(object):
         :type risk_rule: RiskRule
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -156,7 +159,7 @@ class VigilanceAIApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['risk_rule']:
+        if _params['risk_rule'] is not None:
             _body_params = _params['risk_rule']
 
         # set the HTTP header `Accept`
@@ -211,10 +214,6 @@ class VigilanceAIApi(object):
         :type rule_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -225,10 +224,12 @@ class VigilanceAIApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_risk_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_risk_rule_with_http_info(rule_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_risk_rule_with_http_info(self, rule_id : StrictStr, **kwargs):  # noqa: E501
+    def delete_risk_rule_with_http_info(self, rule_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Rule  # noqa: E501
 
         Delete Vigilance AI (Risk Service)  # noqa: E501
@@ -242,13 +243,14 @@ class VigilanceAIApi(object):
         :type rule_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -349,10 +351,6 @@ class VigilanceAIApi(object):
         :type rule_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -363,10 +361,12 @@ class VigilanceAIApi(object):
         :rtype: RiskRule
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_risk_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_risk_rule_with_http_info(rule_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_risk_rule_with_http_info(self, rule_id : StrictStr, **kwargs):  # noqa: E501
+    def get_risk_rule_with_http_info(self, rule_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """get Risk Rule  # noqa: E501
 
         Use this API to return a single rule that has been created in the Risk Sevice.  # noqa: E501
@@ -380,13 +380,14 @@ class VigilanceAIApi(object):
         :type rule_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -494,10 +495,6 @@ class VigilanceAIApi(object):
         :type after: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -508,10 +505,12 @@ class VigilanceAIApi(object):
         :rtype: GetRiskScore200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_risk_score_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_risk_score_with_http_info(get_risk_score_request, before, after, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_risk_score_with_http_info(self, get_risk_score_request : GetRiskScoreRequest, before : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.")] = None, after : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.")] = None, **kwargs):  # noqa: E501
+    def get_risk_score_with_http_info(self, get_risk_score_request : GetRiskScoreRequest, before : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.")] = None, after : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get a Risk Score  # noqa: E501
 
         Get Vigilance AI (Risk Service) Score  # noqa: E501
@@ -529,13 +528,14 @@ class VigilanceAIApi(object):
         :type after: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -600,7 +600,7 @@ class VigilanceAIApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['get_risk_score_request']:
+        if _params['get_risk_score_request'] is not None:
             _body_params = _params['get_risk_score_request']
 
         # set the HTTP header `Accept`
@@ -653,10 +653,6 @@ class VigilanceAIApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -667,10 +663,12 @@ class VigilanceAIApi(object):
         :rtype: GetRiskScores200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_risk_scores_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_risk_scores_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_risk_scores_with_http_info(self, **kwargs):  # noqa: E501
+    def get_risk_scores_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Score Summary  # noqa: E501
 
         Get Vigilance AI (Risk Service) Score Summary  # noqa: E501
@@ -682,13 +680,14 @@ class VigilanceAIApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -786,10 +785,6 @@ class VigilanceAIApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -800,10 +795,12 @@ class VigilanceAIApi(object):
         :rtype: List[RiskRule]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_risk_rules_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_risk_rules_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_risk_rules_with_http_info(self, **kwargs):  # noqa: E501
+    def list_risk_rules_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Rules  # noqa: E501
 
         List Vigilance AI (Risk Service) Rules  # noqa: E501
@@ -815,13 +812,14 @@ class VigilanceAIApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -921,10 +919,6 @@ class VigilanceAIApi(object):
         :type track_risk_event_request: TrackRiskEventRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -935,10 +929,12 @@ class VigilanceAIApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the track_risk_event_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.track_risk_event_with_http_info(track_risk_event_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def track_risk_event_with_http_info(self, track_risk_event_request : TrackRiskEventRequest, **kwargs):  # noqa: E501
+    def track_risk_event_with_http_info(self, track_risk_event_request : TrackRiskEventRequest, **kwargs) -> ApiResponse:  # noqa: E501
         """Track an Event  # noqa: E501
 
         Track Vigilance AI (Risk Service) Event  # noqa: E501
@@ -952,13 +948,14 @@ class VigilanceAIApi(object):
         :type track_risk_event_request: TrackRiskEventRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1015,7 +1012,7 @@ class VigilanceAIApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['track_risk_event_request']:
+        if _params['track_risk_event_request'] is not None:
             _body_params = _params['track_risk_event_request']
 
         # set the HTTP header `Accept`
@@ -1068,10 +1065,6 @@ class VigilanceAIApi(object):
         :type update_risk_rule_request: UpdateRiskRuleRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1082,10 +1075,12 @@ class VigilanceAIApi(object):
         :rtype: RiskRule
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_risk_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_risk_rule_with_http_info(rule_id, update_risk_rule_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_risk_rule_with_http_info(self, rule_id : StrictStr, update_risk_rule_request : Optional[UpdateRiskRuleRequest] = None, **kwargs):  # noqa: E501
+    def update_risk_rule_with_http_info(self, rule_id : StrictStr, update_risk_rule_request : Optional[UpdateRiskRuleRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Rule  # noqa: E501
 
         Update Vigilance AI (Risk Service) Rule  # noqa: E501
@@ -1101,13 +1096,14 @@ class VigilanceAIApi(object):
         :type update_risk_rule_request: UpdateRiskRuleRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1168,7 +1164,7 @@ class VigilanceAIApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['update_risk_rule_request']:
+        if _params['update_risk_rule_request'] is not None:
             _body_params = _params['update_risk_rule_request']
 
         # set the HTTP header `Accept`

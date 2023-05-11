@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -24,13 +26,13 @@ from typing import List, Optional
 from onelogin.models.add_privilege_to_role201_response import AddPrivilegeToRole201Response
 from onelogin.models.add_privilege_to_role_request import AddPrivilegeToRoleRequest
 from onelogin.models.assign_users_to_privilege_request import AssignUsersToPrivilegeRequest
-from onelogin.models.create_privilege200_response import CreatePrivilege200Response
 from onelogin.models.get_assigned_user200_response import GetAssignedUser200Response
-from onelogin.models.list_privelege_roles200_response import ListPrivelegeRoles200Response
+from onelogin.models.list_privilege_roles200_response import ListPrivilegeRoles200Response
 from onelogin.models.privilege import Privilege
 from onelogin.models.update_privilege200_response import UpdatePrivilege200Response
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -66,10 +68,6 @@ class PrivilegesApi(object):
         :type add_privilege_to_role_request: AddPrivilegeToRoleRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -80,10 +78,12 @@ class PrivilegesApi(object):
         :rtype: AddPrivilegeToRole201Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the add_privilege_to_role_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.add_privilege_to_role_with_http_info(privilege_id, add_privilege_to_role_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_privilege_to_role_with_http_info(self, privilege_id : StrictStr, add_privilege_to_role_request : Optional[AddPrivilegeToRoleRequest] = None, **kwargs):  # noqa: E501
+    def add_privilege_to_role_with_http_info(self, privilege_id : StrictStr, add_privilege_to_role_request : Optional[AddPrivilegeToRoleRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Assign a Privilege to Roles  # noqa: E501
 
         Add roles to privilege   # noqa: E501
@@ -99,13 +99,14 @@ class PrivilegesApi(object):
         :type add_privilege_to_role_request: AddPrivilegeToRoleRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -166,7 +167,7 @@ class PrivilegesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['add_privilege_to_role_request']:
+        if _params['add_privilege_to_role_request'] is not None:
             _body_params = _params['add_privilege_to_role_request']
 
         # set the HTTP header `Accept`
@@ -223,10 +224,6 @@ class PrivilegesApi(object):
         :type assign_users_to_privilege_request: AssignUsersToPrivilegeRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -237,10 +234,12 @@ class PrivilegesApi(object):
         :rtype: AddPrivilegeToRole201Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the assign_users_to_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.assign_users_to_privilege_with_http_info(privilege_id, assign_users_to_privilege_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def assign_users_to_privilege_with_http_info(self, privilege_id : StrictStr, assign_users_to_privilege_request : Optional[AssignUsersToPrivilegeRequest] = None, **kwargs):  # noqa: E501
+    def assign_users_to_privilege_with_http_info(self, privilege_id : StrictStr, assign_users_to_privilege_request : Optional[AssignUsersToPrivilegeRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Assign Users to a Privilege  # noqa: E501
 
         Assign Users to Privilege  # noqa: E501
@@ -256,13 +255,14 @@ class PrivilegesApi(object):
         :type assign_users_to_privilege_request: AssignUsersToPrivilegeRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -323,7 +323,7 @@ class PrivilegesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['assign_users_to_privilege_request']:
+        if _params['assign_users_to_privilege_request'] is not None:
             _body_params = _params['assign_users_to_privilege_request']
 
         # set the HTTP header `Accept`
@@ -364,7 +364,7 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def create_privilege(self, privilege : Optional[Privilege] = None, **kwargs) -> CreatePrivilege200Response:  # noqa: E501
+    def create_privilege(self, privilege : Optional[Privilege] = None, **kwargs) -> Privilege:  # noqa: E501
         """Create a Privilege  # noqa: E501
 
         Create privilege  # noqa: E501
@@ -378,10 +378,6 @@ class PrivilegesApi(object):
         :type privilege: Privilege
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -389,13 +385,15 @@ class PrivilegesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: CreatePrivilege200Response
+        :rtype: Privilege
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_privilege_with_http_info(privilege, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_privilege_with_http_info(self, privilege : Optional[Privilege] = None, **kwargs):  # noqa: E501
+    def create_privilege_with_http_info(self, privilege : Optional[Privilege] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create a Privilege  # noqa: E501
 
         Create privilege  # noqa: E501
@@ -409,13 +407,14 @@ class PrivilegesApi(object):
         :type privilege: Privilege
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -428,7 +427,7 @@ class PrivilegesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(CreatePrivilege200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Privilege, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -472,7 +471,7 @@ class PrivilegesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['privilege']:
+        if _params['privilege'] is not None:
             _body_params = _params['privilege']
 
         # set the HTTP header `Accept`
@@ -490,7 +489,7 @@ class PrivilegesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "CreatePrivilege200Response",
+            '200': "Privilege",
             '400': "AltErr",
             '401': "AltErr",
         }
@@ -527,10 +526,6 @@ class PrivilegesApi(object):
         :type privilege_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -541,10 +536,12 @@ class PrivilegesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_privilege_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_privilege_with_http_info(self, privilege_id : StrictStr, **kwargs):  # noqa: E501
+    def delete_privilege_with_http_info(self, privilege_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete a Privilege  # noqa: E501
 
         Delete  # noqa: E501
@@ -558,13 +555,14 @@ class PrivilegesApi(object):
         :type privilege_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -667,10 +665,6 @@ class PrivilegesApi(object):
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -681,10 +675,12 @@ class PrivilegesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_role_from_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_role_from_privilege_with_http_info(privilege_id, role_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_role_from_privilege_with_http_info(self, privilege_id : StrictStr, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs):  # noqa: E501
+    def delete_role_from_privilege_with_http_info(self, privilege_id : StrictStr, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Remove a Privilege from a Role  # noqa: E501
 
         Add roles to privilege  # noqa: E501
@@ -700,13 +696,14 @@ class PrivilegesApi(object):
         :type role_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -811,10 +808,6 @@ class PrivilegesApi(object):
         :type privilege_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -825,10 +818,12 @@ class PrivilegesApi(object):
         :rtype: GetAssignedUser200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_assigned_user_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_assigned_user_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_assigned_user_with_http_info(self, privilege_id : StrictStr, **kwargs):  # noqa: E501
+    def get_assigned_user_with_http_info(self, privilege_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Users assigned to a Privilege  # noqa: E501
 
         Get Assigned Users  # noqa: E501
@@ -842,13 +837,14 @@ class PrivilegesApi(object):
         :type privilege_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -953,10 +949,6 @@ class PrivilegesApi(object):
         :type privilege_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -967,10 +959,12 @@ class PrivilegesApi(object):
         :rtype: Privilege
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_privilege_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_privilege_with_http_info(self, privilege_id : StrictStr, **kwargs):  # noqa: E501
+    def get_privilege_with_http_info(self, privilege_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get a Privilege  # noqa: E501
 
         Get a Privilige  # noqa: E501
@@ -984,13 +978,14 @@ class PrivilegesApi(object):
         :type privilege_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1081,24 +1076,20 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_privelege_roles(self, privilege_id : StrictStr, **kwargs) -> ListPrivelegeRoles200Response:  # noqa: E501
+    def list_privilege_roles(self, privilege_id : StrictStr, **kwargs) -> ListPrivilegeRoles200Response:  # noqa: E501
         """Get Roles assigned to Privilege  # noqa: E501
 
         List roles for privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_privelege_roles(privilege_id, async_req=True)
+        >>> thread = api.list_privilege_roles(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1106,33 +1097,36 @@ class PrivilegesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: ListPrivelegeRoles200Response
+        :rtype: ListPrivilegeRoles200Response
         """
         kwargs['_return_http_data_only'] = True
-        return self.list_privelege_roles_with_http_info(privilege_id, **kwargs)  # noqa: E501
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_privilege_roles_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
+        return self.list_privilege_roles_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_privelege_roles_with_http_info(self, privilege_id : StrictStr, **kwargs):  # noqa: E501
+    def list_privilege_roles_with_http_info(self, privilege_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Roles assigned to Privilege  # noqa: E501
 
         List roles for privilege  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_privelege_roles_with_http_info(privilege_id, async_req=True)
+        >>> thread = api.list_privilege_roles_with_http_info(privilege_id, async_req=True)
         >>> result = thread.get()
 
         :param privilege_id: (required)
         :type privilege_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1145,7 +1139,7 @@ class PrivilegesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(ListPrivelegeRoles200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(ListPrivilegeRoles200Response, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1170,7 +1164,7 @@ class PrivilegesApi(object):
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method list_privelege_roles" % _key
+                    " to method list_privilege_roles" % _key
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -1200,7 +1194,7 @@ class PrivilegesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "ListPrivelegeRoles200Response",
+            '200': "ListPrivilegeRoles200Response",
             '401': "AltErr",
             '404': "AltErr",
         }
@@ -1223,22 +1217,18 @@ class PrivilegesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_priveleges(self, **kwargs) -> List[Privilege]:  # noqa: E501
+    def list_privileges(self, **kwargs) -> List[Privilege]:  # noqa: E501
         """List Privileges  # noqa: E501
 
         List Privileges  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_priveleges(async_req=True)
+        >>> thread = api.list_privileges(async_req=True)
         >>> result = thread.get()
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1249,28 +1239,31 @@ class PrivilegesApi(object):
         :rtype: List[Privilege]
         """
         kwargs['_return_http_data_only'] = True
-        return self.list_priveleges_with_http_info(**kwargs)  # noqa: E501
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_privileges_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
+        return self.list_privileges_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_priveleges_with_http_info(self, **kwargs):  # noqa: E501
+    def list_privileges_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Privileges  # noqa: E501
 
         List Privileges  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_priveleges_with_http_info(async_req=True)
+        >>> thread = api.list_privileges_with_http_info(async_req=True)
         >>> result = thread.get()
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1307,7 +1300,7 @@ class PrivilegesApi(object):
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method list_priveleges" % _key
+                    " to method list_privileges" % _key
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -1372,10 +1365,6 @@ class PrivilegesApi(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1386,10 +1375,12 @@ class PrivilegesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the remove_user_from_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.remove_user_from_privilege_with_http_info(privilege_id, user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def remove_user_from_privilege_with_http_info(self, privilege_id : StrictStr, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs):  # noqa: E501
+    def remove_user_from_privilege_with_http_info(self, privilege_id : StrictStr, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Remove a Privilege from Users  # noqa: E501
 
         Remove a Privilege from Users  # noqa: E501
@@ -1405,13 +1396,14 @@ class PrivilegesApi(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1518,10 +1510,6 @@ class PrivilegesApi(object):
         :type privilege: Privilege
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1532,10 +1520,12 @@ class PrivilegesApi(object):
         :rtype: UpdatePrivilege200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_privilege_with_http_info(privilege_id, privilege, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_privilege_with_http_info(self, privilege_id : StrictStr, privilege : Optional[Privilege] = None, **kwargs):  # noqa: E501
+    def update_privilege_with_http_info(self, privilege_id : StrictStr, privilege : Optional[Privilege] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update a Privilege  # noqa: E501
 
         Update privilege  # noqa: E501
@@ -1551,13 +1541,14 @@ class PrivilegesApi(object):
         :type privilege: Privilege
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1618,7 +1609,7 @@ class PrivilegesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['privilege']:
+        if _params['privilege'] is not None:
             _body_params = _params['privilege']
 
         # set the HTTP header `Accept`

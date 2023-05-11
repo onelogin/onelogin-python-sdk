@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -30,12 +29,14 @@ class SetUserStateRequest(BaseModel):
     __properties = ["state"]
 
     @validator('state')
-    def state_validate_enum(cls, v):
-        if v not in (0, 1, 2, 3):
+    def state_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in (0, 1, 2, 3):
             raise ValueError("must be one of enum values (0, 1, 2, 3)")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -66,7 +67,7 @@ class SetUserStateRequest(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return SetUserStateRequest.parse_obj(obj)
 
         _obj = SetUserStateRequest.parse_obj({

@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -32,6 +31,7 @@ class AuthClaim(BaseModel):
     __properties = ["name", "user_attribute_mappings", "user_attribute_macros"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -62,7 +62,7 @@ class AuthClaim(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return AuthClaim.parse_obj(obj)
 
         _obj = AuthClaim.parse_obj({

@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -25,6 +27,7 @@ from onelogin.models.send_invite_link200_response import SendInviteLink200Respon
 from onelogin.models.send_invite_link_request import SendInviteLinkRequest
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -58,10 +61,6 @@ class InviteLinksApi(object):
         :type get_invite_link_request: GetInviteLinkRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -72,10 +71,12 @@ class InviteLinksApi(object):
         :rtype: GetInviteLink200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_invite_link_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_invite_link_with_http_info(get_invite_link_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_invite_link_with_http_info(self, get_invite_link_request : Optional[GetInviteLinkRequest] = None, **kwargs):  # noqa: E501
+    def get_invite_link_with_http_info(self, get_invite_link_request : Optional[GetInviteLinkRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate Invite Link  # noqa: E501
 
         Generate Invite Link  # noqa: E501
@@ -89,13 +90,14 @@ class InviteLinksApi(object):
         :type get_invite_link_request: GetInviteLinkRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -152,7 +154,7 @@ class InviteLinksApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['get_invite_link_request']:
+        if _params['get_invite_link_request'] is not None:
             _body_params = _params['get_invite_link_request']
 
         # set the HTTP header `Accept`
@@ -207,10 +209,6 @@ class InviteLinksApi(object):
         :type send_invite_link_request: SendInviteLinkRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -221,10 +219,12 @@ class InviteLinksApi(object):
         :rtype: SendInviteLink200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the send_invite_link_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.send_invite_link_with_http_info(send_invite_link_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def send_invite_link_with_http_info(self, send_invite_link_request : Optional[SendInviteLinkRequest] = None, **kwargs):  # noqa: E501
+    def send_invite_link_with_http_info(self, send_invite_link_request : Optional[SendInviteLinkRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Send  Invite Link  # noqa: E501
 
         Send Invite Link  # noqa: E501
@@ -238,13 +238,14 @@ class InviteLinksApi(object):
         :type send_invite_link_request: SendInviteLinkRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -301,7 +302,7 @@ class InviteLinksApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['send_invite_link_request']:
+        if _params['send_invite_link_request'] is not None:
             _body_params = _params['send_invite_link_request']
 
         # set the HTTP header `Accept`

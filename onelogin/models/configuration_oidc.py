@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -35,18 +34,21 @@ class ConfigurationOidc(BaseModel):
     __properties = ["login_url", "redirect_uri", "access_token_expiration_minutes", "refresh_token_expiration_minutes", "token_endpoint_auth_method", "oidc_application_type"]
 
     @validator('token_endpoint_auth_method')
-    def token_endpoint_auth_method_validate_enum(cls, v):
-        if v not in (0, 1, 2):
+    def token_endpoint_auth_method_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in (0, 1, 2):
             raise ValueError("must be one of enum values (0, 1, 2)")
-        return v
+        return value
 
     @validator('oidc_application_type')
-    def oidc_application_type_validate_enum(cls, v):
-        if v not in (0, 1):
+    def oidc_application_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in (0, 1):
             raise ValueError("must be one of enum values (0, 1)")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -77,7 +79,7 @@ class ConfigurationOidc(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return ConfigurationOidc.parse_obj(obj)
 
         _obj = ConfigurationOidc.parse_obj({

@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -33,6 +32,7 @@ class AuthServerConfiguration(BaseModel):
     __properties = ["audiences", "refresh_token_expiration_minutes", "resource_identifier", "access_token_expiration_minutes"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -63,7 +63,7 @@ class AuthServerConfiguration(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return AuthServerConfiguration.parse_obj(obj)
 
         _obj = AuthServerConfiguration.parse_obj({

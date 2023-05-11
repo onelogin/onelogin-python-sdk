@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -25,6 +27,7 @@ from onelogin.models.auth_id import AuthId
 from onelogin.models.auth_scope import AuthScope
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -62,10 +65,6 @@ class APIAuthScopesApi(object):
         :type auth_scope: AuthScope
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -76,10 +75,12 @@ class APIAuthScopesApi(object):
         :rtype: AuthScope
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_scope_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_scope_with_http_info(api_auth_id, content_type, auth_scope, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_scope_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs):  # noqa: E501
+    def create_scope_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Api Auth Server Scope  # noqa: E501
 
         Create API Auth Server Scope  # noqa: E501
@@ -97,13 +98,14 @@ class APIAuthScopesApi(object):
         :type auth_scope: AuthScope
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -168,7 +170,7 @@ class APIAuthScopesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['auth_scope']:
+        if _params['auth_scope'] is not None:
             _body_params = _params['auth_scope']
 
         # set the HTTP header `Accept`
@@ -228,10 +230,6 @@ class APIAuthScopesApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -242,10 +240,12 @@ class APIAuthScopesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_scope_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_scope_with_http_info(api_auth_id, scope_id, content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_scope_with_http_info(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def delete_scope_with_http_info(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Api Auth Server Scope  # noqa: E501
 
         Delete Scope  # noqa: E501
@@ -263,13 +263,14 @@ class APIAuthScopesApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -380,10 +381,6 @@ class APIAuthScopesApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -394,10 +391,12 @@ class APIAuthScopesApi(object):
         :rtype: List[AuthScope]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_scopes_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_scopes_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_scopes_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def get_scopes_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Api Auth Server Scopes  # noqa: E501
 
         List Authorization Scopes  # noqa: E501
@@ -413,13 +412,14 @@ class APIAuthScopesApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -533,10 +533,6 @@ class APIAuthScopesApi(object):
         :type auth_scope: AuthScope
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -547,10 +543,12 @@ class APIAuthScopesApi(object):
         :rtype: AuthId
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_scope_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_scope_with_http_info(api_auth_id, scope_id, content_type, auth_scope, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_scope_with_http_info(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs):  # noqa: E501
+    def update_scope_with_http_info(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Api Auth Server Scope  # noqa: E501
 
         Update Scope  # noqa: E501
@@ -570,13 +568,14 @@ class APIAuthScopesApi(object):
         :type auth_scope: AuthScope
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -645,7 +644,7 @@ class APIAuthScopesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['auth_scope']:
+        if _params['auth_scope'] is not None:
             _body_params = _params['auth_scope']
 
         # set the HTTP header `Accept`

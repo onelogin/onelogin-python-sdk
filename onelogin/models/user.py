@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -65,22 +64,27 @@ class User(BaseModel):
     __properties = ["id", "username", "email", "firstname", "lastname", "title", "department", "company", "comment", "group_id", "role_ids", "phone", "state", "status", "directory_id", "trusted_idp_id", "manager_ad_id", "manager_user_id", "samaccountname", "member_of", "userprincipalname", "distinguished_name", "external_id", "activated_at", "last_login", "invitation_sent_at", "updated_at", "preferred_locale_code", "created_at", "invalid_login_attempts", "locked_until", "password_changed_at", "password", "password_confirmation", "password_algorithm", "salt"]
 
     @validator('state')
-    def state_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in (0, 1, 2, 3):
+    def state_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in (0, 1, 2, 3):
             raise ValueError("must be one of enum values (0, 1, 2, 3)")
-        return v
+        return value
 
     @validator('status')
-    def status_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in (0, 1, 2, 3, 4, 5, 7, 8):
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in (0, 1, 2, 3, 4, 5, 7, 8):
             raise ValueError("must be one of enum values (0, 1, 2, 3, 4, 5, 7, 8)")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -111,7 +115,7 @@ class User(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return User.parse_obj(obj)
 
         _obj = User.parse_obj({

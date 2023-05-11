@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -37,22 +36,27 @@ class GetUserApps200ResponseInner(BaseModel):
     __properties = ["id", "icon_url", "extension", "login_id", "name", "provisioning_status", "provisioning_state", "provisioning_enabled"]
 
     @validator('provisioning_status')
-    def provisioning_status_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in ('enabling', 'disabling', 'enabling_pending_approval', 'disabling_pendding_approval', 'enabled', 'disabled', 'disabling_failed', 'enabling_failed'):
+    def provisioning_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in ('enabling', 'disabling', 'enabling_pending_approval', 'disabling_pendding_approval', 'enabled', 'disabled', 'disabling_failed', 'enabling_failed'):
             raise ValueError("must be one of enum values ('enabling', 'disabling', 'enabling_pending_approval', 'disabling_pendding_approval', 'enabled', 'disabled', 'disabling_failed', 'enabling_failed')")
-        return v
+        return value
 
     @validator('provisioning_state')
-    def provisioning_state_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in ('unknown', 'provisioning', 'modifying', 'deleting', 'provisioning_pending_approval', 'deleting_pending_approval', 'modifying_pending_approval', 'linking', 'provisioned', 'deleted', 'modifying_failed', 'provisioning_failed', 'deleting_failed', 'linking_failed', 'disabled', 'nonexistent', 'modifying_pending_approval_then_disabled'):
+    def provisioning_state_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in ('unknown', 'provisioning', 'modifying', 'deleting', 'provisioning_pending_approval', 'deleting_pending_approval', 'modifying_pending_approval', 'linking', 'provisioned', 'deleted', 'modifying_failed', 'provisioning_failed', 'deleting_failed', 'linking_failed', 'disabled', 'nonexistent', 'modifying_pending_approval_then_disabled'):
             raise ValueError("must be one of enum values ('unknown', 'provisioning', 'modifying', 'deleting', 'provisioning_pending_approval', 'deleting_pending_approval', 'modifying_pending_approval', 'linking', 'provisioned', 'deleted', 'modifying_failed', 'provisioning_failed', 'deleting_failed', 'linking_failed', 'disabled', 'nonexistent', 'modifying_pending_approval_then_disabled')")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -83,7 +87,7 @@ class GetUserApps200ResponseInner(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return GetUserApps200ResponseInner.parse_obj(obj)
 
         _obj = GetUserApps200ResponseInner.parse_obj({

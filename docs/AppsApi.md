@@ -25,12 +25,12 @@ Create App
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -59,6 +59,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling AppsApi->create_app: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -100,12 +101,12 @@ Delete App
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -131,6 +132,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling AppsApi->delete_app: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -171,12 +173,12 @@ Delete Parameter from App
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -203,6 +205,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling AppsApi->delete_app_parameter: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -245,12 +248,12 @@ Get App
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -278,6 +281,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling AppsApi->get_app: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -318,12 +322,12 @@ Get App Users
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -351,6 +355,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling AppsApi->get_app_users: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -390,12 +395,12 @@ List Apps
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -422,6 +427,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling AppsApi->list_apps: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -459,12 +465,12 @@ List Connectors
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -492,6 +498,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling AppsApi->list_connectors: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -532,12 +539,12 @@ Update App
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -566,6 +573,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling AppsApi->update_app: %s\n" % e)
 ```
+
 
 ### Parameters
 

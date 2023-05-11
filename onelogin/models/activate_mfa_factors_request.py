@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -32,6 +31,7 @@ class ActivateMfaFactorsRequest(BaseModel):
     __properties = ["state_token_expires_in", "numeric_sms_otp", "sms_message"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -62,7 +62,7 @@ class ActivateMfaFactorsRequest(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return ActivateMfaFactorsRequest.parse_obj(obj)
 
         _obj = ActivateMfaFactorsRequest.parse_obj({

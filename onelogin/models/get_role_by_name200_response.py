@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -35,6 +34,7 @@ class GetRoleByName200Response(BaseModel):
     __properties = ["status", "pagination", "data"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -78,7 +78,7 @@ class GetRoleByName200Response(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return GetRoleByName200Response.parse_obj(obj)
 
         _obj = GetRoleByName200Response.parse_obj({

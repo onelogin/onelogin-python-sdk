@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -44,14 +43,17 @@ class EnforcementPoint(BaseModel):
     __properties = ["require_sitewide_authentication", "conditions", "session_expiry_fixed", "session_expiry_inactivity", "permissions", "token", "target", "resources", "context_root", "use_target_host_header", "vhost", "landing_page", "case_sensitive"]
 
     @validator('permissions')
-    def permissions_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in ('allow', 'deny', 'conditional'):
+    def permissions_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in ('allow', 'deny', 'conditional'):
             raise ValueError("must be one of enum values ('allow', 'deny', 'conditional')")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -111,7 +113,7 @@ class EnforcementPoint(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return EnforcementPoint.parse_obj(obj)
 
         _obj = EnforcementPoint.parse_obj({

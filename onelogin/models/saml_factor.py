@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -34,6 +33,7 @@ class SamlFactor(BaseModel):
     __properties = ["app_id", "device_id", "state_token", "otp_token", "do_not_notify"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -64,7 +64,7 @@ class SamlFactor(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return SamlFactor.parse_obj(obj)
 
         _obj = SamlFactor.parse_obj({

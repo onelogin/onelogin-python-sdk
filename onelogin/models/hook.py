@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -46,14 +45,17 @@ class Hook(BaseModel):
     __properties = ["id", "type", "disabled", "timeout", "env_vars", "runtime", "retries", "packages", "function", "context_version", "status", "options", "conditions", "created_at", "updated_at"]
 
     @validator('status')
-    def status_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in ('ready', 'create-queued', 'create-running', 'create-failed', 'update-queued', 'update-running', 'update-failed'):
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in ('ready', 'create-queued', 'create-running', 'create-failed', 'update-queued', 'update-running', 'update-failed'):
             raise ValueError("must be one of enum values ('ready', 'create-queued', 'create-running', 'create-failed', 'update-queued', 'update-running', 'update-failed')")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -94,7 +96,7 @@ class Hook(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return Hook.parse_obj(obj)
 
         _obj = Hook.parse_obj({

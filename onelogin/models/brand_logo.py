@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -34,6 +33,7 @@ class BrandLogo(BaseModel):
     __properties = ["urls", "file_size", "updated_at", "content_type"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -67,7 +67,7 @@ class BrandLogo(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return BrandLogo.parse_obj(obj)
 
         _obj = BrandLogo.parse_obj({

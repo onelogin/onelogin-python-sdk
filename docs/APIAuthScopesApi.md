@@ -21,12 +21,12 @@ Create API Auth Server Scope
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -56,6 +56,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthScopesApi->create_scope: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -99,12 +100,12 @@ Delete Scope
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -132,6 +133,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthScopesApi->delete_scope: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -174,12 +176,12 @@ List Authorization Scopes
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -208,6 +210,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthScopesApi->get_scopes: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -248,12 +251,12 @@ Update Scope
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -284,6 +287,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthScopesApi->update_scope: %s\n" % e)
 ```
+
 
 ### Parameters
 

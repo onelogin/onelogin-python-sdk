@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -46,6 +45,7 @@ class Brand(BaseModel):
     __properties = ["id", "enabled", "custom_support_enabled", "custom_color", "custom_accent_color", "custom_masking_color", "custom_masking_opacity", "mfa_enrollment_message", "enable_custom_label_for_login_screen", "custom_label_text_for_login_screen", "login_instruction", "login_instruction_title", "hide_onelogin_footer", "background", "logo"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -82,7 +82,7 @@ class Brand(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return Brand.parse_obj(obj)
 
         _obj = Brand.parse_obj({

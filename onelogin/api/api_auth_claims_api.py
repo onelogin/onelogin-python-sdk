@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -26,6 +28,7 @@ from onelogin.models.auth_id import AuthId
 from onelogin.models.token_claim import TokenClaim
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -63,10 +66,6 @@ class APIAuthClaimsApi(object):
         :type auth_claim: AuthClaim
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -77,10 +76,12 @@ class APIAuthClaimsApi(object):
         :rtype: int
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_auth_claim_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_auth_claim_with_http_info(api_auth_id, content_type, auth_claim, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_auth_claim_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_claim : Optional[AuthClaim] = None, **kwargs):  # noqa: E501
+    def create_auth_claim_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_claim : Optional[AuthClaim] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Api Auth Server Claim  # noqa: E501
 
         Create Authorization Claim  # noqa: E501
@@ -98,13 +99,14 @@ class APIAuthClaimsApi(object):
         :type auth_claim: AuthClaim
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -169,7 +171,7 @@ class APIAuthClaimsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['auth_claim']:
+        if _params['auth_claim'] is not None:
             _body_params = _params['auth_claim']
 
         # set the HTTP header `Accept`
@@ -229,10 +231,6 @@ class APIAuthClaimsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -243,10 +241,12 @@ class APIAuthClaimsApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_auth_claim_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_auth_claim_with_http_info(api_auth_id, claim_id, content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_auth_claim_with_http_info(self, api_auth_id : StrictStr, claim_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def delete_auth_claim_with_http_info(self, api_auth_id : StrictStr, claim_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Api Auth Server Claim  # noqa: E501
 
         Delete Authorization Claim  # noqa: E501
@@ -264,13 +264,14 @@ class APIAuthClaimsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -381,10 +382,6 @@ class APIAuthClaimsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -395,10 +392,12 @@ class APIAuthClaimsApi(object):
         :rtype: List[TokenClaim]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_authclaims_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_authclaims_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_authclaims_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def get_authclaims_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Api Auth Server claims  # noqa: E501
 
         Get Authorization claims  # noqa: E501
@@ -414,13 +413,14 @@ class APIAuthClaimsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -535,10 +535,6 @@ class APIAuthClaimsApi(object):
         :type auth_claim: AuthClaim
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -549,10 +545,12 @@ class APIAuthClaimsApi(object):
         :rtype: AuthId
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_claim_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_claim_with_http_info(api_auth_id, claim_id, content_type, auth_claim, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_claim_with_http_info(self, api_auth_id : StrictStr, claim_id : StrictInt, content_type : Optional[StrictStr] = None, auth_claim : Optional[AuthClaim] = None, **kwargs):  # noqa: E501
+    def update_claim_with_http_info(self, api_auth_id : StrictStr, claim_id : StrictInt, content_type : Optional[StrictStr] = None, auth_claim : Optional[AuthClaim] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Api Auth Server Claim  # noqa: E501
 
         Update Authorization Server Claim  # noqa: E501
@@ -572,13 +570,14 @@ class APIAuthClaimsApi(object):
         :type auth_claim: AuthClaim
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -647,7 +646,7 @@ class APIAuthClaimsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['auth_claim']:
+        if _params['auth_claim'] is not None:
             _body_params = _params['auth_claim']
 
         # set the HTTP header `Accept`

@@ -21,12 +21,12 @@ Create Authorization Claim
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -56,6 +56,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthClaimsApi->create_auth_claim: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -99,12 +100,12 @@ Delete Authorization Claim
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -132,6 +133,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthClaimsApi->delete_auth_claim: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -174,12 +176,12 @@ Get Authorization claims
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -208,6 +210,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthClaimsApi->get_authclaims: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -249,12 +252,12 @@ Update Authorization Server Claim
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = onelogin.Configuration(
@@ -285,6 +288,7 @@ with onelogin.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling APIAuthClaimsApi->update_claim: %s\n" % e)
 ```
+
 
 ### Parameters
 

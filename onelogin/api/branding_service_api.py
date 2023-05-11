@@ -1,3 +1,4 @@
+
 # coding: utf-8
 
 """
@@ -13,6 +14,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -27,6 +30,7 @@ from onelogin.models.brand_req import BrandReq
 from onelogin.models.request_brand import RequestBrand
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -60,10 +64,6 @@ class BrandingServiceApi(object):
         :type brand: Brand
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -74,10 +74,12 @@ class BrandingServiceApi(object):
         :rtype: Brand
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_brand_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_brand_with_http_info(brand, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_brand_with_http_info(self, brand : Optional[Brand] = None, **kwargs):  # noqa: E501
+    def create_brand_with_http_info(self, brand : Optional[Brand] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Brand  # noqa: E501
 
         Create a new Account Brand  # noqa: E501
@@ -91,13 +93,14 @@ class BrandingServiceApi(object):
         :type brand: Brand
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -154,7 +157,7 @@ class BrandingServiceApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['brand']:
+        if _params['brand'] is not None:
             _body_params = _params['brand']
 
         # set the HTTP header `Accept`
@@ -209,10 +212,6 @@ class BrandingServiceApi(object):
         :type brand_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -223,10 +222,12 @@ class BrandingServiceApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_brand_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_brand_with_http_info(brand_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs):  # noqa: E501
+    def delete_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Brand  # noqa: E501
 
         Delete Brand  # noqa: E501
@@ -240,13 +241,14 @@ class BrandingServiceApi(object):
         :type brand_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -347,10 +349,6 @@ class BrandingServiceApi(object):
         :type brand_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -361,10 +359,12 @@ class BrandingServiceApi(object):
         :rtype: Brand
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_brand_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_brand_with_http_info(brand_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs):  # noqa: E501
+    def get_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Brand  # noqa: E501
 
         Retrieve a single brand via ID  # noqa: E501
@@ -378,13 +378,14 @@ class BrandingServiceApi(object):
         :type brand_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -489,10 +490,6 @@ class BrandingServiceApi(object):
         :type brand_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -503,10 +500,12 @@ class BrandingServiceApi(object):
         :rtype: List[BrandApp]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_brand_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_brand_apps_with_http_info(brand_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_brand_apps_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs):  # noqa: E501
+    def get_brand_apps_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Brand Apps  # noqa: E501
 
         Get Apps Associated with Account Brand  # noqa: E501
@@ -520,13 +519,14 @@ class BrandingServiceApi(object):
         :type brand_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -629,10 +629,6 @@ class BrandingServiceApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -643,10 +639,12 @@ class BrandingServiceApi(object):
         :rtype: List[BrandReq]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_brands_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_brands_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_brands_with_http_info(self, **kwargs):  # noqa: E501
+    def list_brands_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Account Brands  # noqa: E501
 
         List Account Brands  # noqa: E501
@@ -658,13 +656,14 @@ class BrandingServiceApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -765,10 +764,6 @@ class BrandingServiceApi(object):
         :type request_brand: RequestBrand
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -779,10 +774,12 @@ class BrandingServiceApi(object):
         :rtype: Brand
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_brand_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_brand_with_http_info(brand_id, request_brand, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], request_brand : Optional[RequestBrand] = None, **kwargs):  # noqa: E501
+    def update_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], request_brand : Optional[RequestBrand] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Brand  # noqa: E501
 
         Update Account Brand  # noqa: E501
@@ -798,13 +795,14 @@ class BrandingServiceApi(object):
         :type request_brand: RequestBrand
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -865,7 +863,7 @@ class BrandingServiceApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['request_brand']:
+        if _params['request_brand'] is not None:
             _body_params = _params['request_brand']
 
         # set the HTTP header `Accept`

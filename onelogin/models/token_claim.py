@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -38,6 +37,7 @@ class TokenClaim(BaseModel):
     __properties = ["id", "label", "user_attribute_mappings", "user_attribute_macros", "attribute_transformations", "skip_if_blank", "values", "default_values", "provisioned_entitlements"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -68,7 +68,7 @@ class TokenClaim(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return TokenClaim.parse_obj(obj)
 
         _obj = TokenClaim.parse_obj({

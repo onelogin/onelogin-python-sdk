@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -35,6 +34,7 @@ class CreateFactorRegistration201Response(BaseModel):
     __properties = ["device_id", "user_display_name", "type_display_name", "auth_factor_name", "id", "user_id"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -65,7 +65,7 @@ class CreateFactorRegistration201Response(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return CreateFactorRegistration201Response.parse_obj(obj)
 
         _obj = CreateFactorRegistration201Response.parse_obj({

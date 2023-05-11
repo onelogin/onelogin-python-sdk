@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -38,12 +37,14 @@ class Mapping(BaseModel):
     __properties = ["id", "name", "enabled", "match", "position", "conditions", "actions"]
 
     @validator('match')
-    def match_validate_enum(cls, v):
-        if v not in ('all', 'any'):
+    def match_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in ('all', 'any'):
             raise ValueError("must be one of enum values ('all', 'any')")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -88,7 +89,7 @@ class Mapping(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return Mapping.parse_obj(obj)
 
         _obj = Mapping.parse_obj({

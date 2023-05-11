@@ -1,4 +1,5 @@
 .github/workflows/python.yml
+.github/workflows/python.yml
 .gitignore
 .gitlab-ci.yml
 .openapi-generator-ignore
@@ -49,7 +50,6 @@ docs/CreateDeviceVerification201Response.md
 docs/CreateDeviceVerificationRequest.md
 docs/CreateFactorRegistration201Response.md
 docs/CreateFactorRegistrationRequest.md
-docs/CreatePrivilege200Response.md
 docs/CreateRole201ResponseInner.md
 docs/Device.md
 docs/EmailConfig.md
@@ -116,7 +116,7 @@ docs/ListMappingConditionsOperators200ResponseInner.md
 docs/ListMappingContionValues200ResponseInner.md
 docs/ListMappingsActions200ResponseInner.md
 docs/ListMessageTemplates200ResponseInner.md
-docs/ListPrivelegeRoles200Response.md
+docs/ListPrivilegeRoles200Response.md
 docs/Locale.md
 docs/LockAccountUserRequest.md
 docs/Mapping.md
@@ -251,7 +251,6 @@ onelogin/models/create_device_verification201_response.py
 onelogin/models/create_device_verification_request.py
 onelogin/models/create_factor_registration201_response.py
 onelogin/models/create_factor_registration_request.py
-onelogin/models/create_privilege200_response.py
 onelogin/models/create_role201_response_inner.py
 onelogin/models/device.py
 onelogin/models/email_config.py
@@ -315,7 +314,7 @@ onelogin/models/list_mapping_conditions_operators200_response_inner.py
 onelogin/models/list_mapping_contion_values200_response_inner.py
 onelogin/models/list_mappings_actions200_response_inner.py
 onelogin/models/list_message_templates200_response_inner.py
-onelogin/models/list_privelege_roles200_response.py
+onelogin/models/list_privilege_roles200_response.py
 onelogin/models/locale.py
 onelogin/models/lock_account_user_request.py
 onelogin/models/mapping.py
@@ -425,7 +424,6 @@ test/test_create_device_verification201_response.py
 test/test_create_device_verification_request.py
 test/test_create_factor_registration201_response.py
 test/test_create_factor_registration_request.py
-test/test_create_privilege200_response.py
 test/test_create_role201_response_inner.py
 test/test_device.py
 test/test_email_config.py
@@ -492,7 +490,7 @@ test/test_list_mapping_conditions_operators200_response_inner.py
 test/test_list_mapping_contion_values200_response_inner.py
 test/test_list_mappings_actions200_response_inner.py
 test/test_list_message_templates200_response_inner.py
-test/test_list_privelege_roles200_response.py
+test/test_list_privilege_roles200_response.py
 test/test_locale.py
 test/test_lock_account_user_request.py
 test/test_mapping.py

@@ -12,7 +12,7 @@
 """
 
 
-from inspect import getfullargspec
+import json
 import pprint
 import re  # noqa: F401
 from aenum import Enum, no_arg
@@ -38,4 +38,10 @@ class AuthMethod(int, Enum):
     NUMBER_6 = 6
     NUMBER_7 = 7
     NUMBER_8 = 8
+
+    @classmethod
+    def from_json(cls, json_str: str) -> AuthMethod:
+        """Create an instance of AuthMethod from a JSON string"""
+        return AuthMethod(json.loads(json_str))
+
 

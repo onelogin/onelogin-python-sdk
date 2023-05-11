@@ -77,15 +77,15 @@ class TestPrivilegesApi(unittest.TestCase):
         """
         pass
 
-    def test_list_privelege_roles(self):
-        """Test case for list_privelege_roles
+    def test_list_privilege_roles(self):
+        """Test case for list_privilege_roles
 
         Get Roles assigned to Privilege  # noqa: E501
         """
         pass
 
-    def test_list_priveleges(self):
-        """Test case for list_priveleges
+    def test_list_privileges(self):
+        """Test case for list_privileges
 
         List Privileges  # noqa: E501
         """

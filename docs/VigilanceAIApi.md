@@ -25,7 +25,6 @@ Create Vigilance AI (Risk Service) Rule
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -98,7 +97,6 @@ Delete Vigilance AI (Risk Service)
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -168,7 +166,6 @@ Use this API to return a single rule that has been created in the Risk Sevice.
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -240,7 +237,6 @@ Get Vigilance AI (Risk Service) Score
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -317,7 +313,6 @@ Get Vigilance AI (Risk Service) Score Summary
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -385,7 +380,6 @@ List Vigilance AI (Risk Service) Rules
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -453,7 +447,6 @@ Track Vigilance AI (Risk Service) Event
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -524,7 +517,6 @@ Update Vigilance AI (Risk Service) Rule
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

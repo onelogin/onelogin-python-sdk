@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -31,6 +30,7 @@ class GetMFAFactors200ResponseData(BaseModel):
     __properties = ["auth_factors"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -68,7 +68,7 @@ class GetMFAFactors200ResponseData(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return GetMFAFactors200ResponseData.parse_obj(obj)
 
         _obj = GetMFAFactors200ResponseData.parse_obj({

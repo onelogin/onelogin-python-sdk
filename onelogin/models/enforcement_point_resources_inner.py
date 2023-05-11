@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -34,14 +33,17 @@ class EnforcementPointResourcesInner(BaseModel):
     __properties = ["path", "is_path_regex", "require_auth", "permission", "conditions"]
 
     @validator('permission')
-    def permission_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in ('allow', 'deny', 'conditions'):
+    def permission_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in ('allow', 'deny', 'conditions'):
             raise ValueError("must be one of enum values ('allow', 'deny', 'conditions')")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -77,7 +79,7 @@ class EnforcementPointResourcesInner(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return EnforcementPointResourcesInner.parse_obj(obj)
 
         _obj = EnforcementPointResourcesInner.parse_obj({

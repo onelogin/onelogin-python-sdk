@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -29,6 +31,7 @@ from onelogin.models.list_mappings_actions200_response_inner import ListMappings
 from onelogin.models.mapping import Mapping
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -64,10 +67,6 @@ class UserMappingsApi(object):
         :type mapping: Mapping
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -78,10 +77,12 @@ class UserMappingsApi(object):
         :rtype: List[Mapping]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_mapping_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_mapping_with_http_info(content_type, mapping, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_mapping_with_http_info(self, content_type : Optional[StrictStr] = None, mapping : Optional[Mapping] = None, **kwargs):  # noqa: E501
+    def create_mapping_with_http_info(self, content_type : Optional[StrictStr] = None, mapping : Optional[Mapping] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Mapping  # noqa: E501
 
         Create Mapping  # noqa: E501
@@ -97,13 +98,14 @@ class UserMappingsApi(object):
         :type mapping: Mapping
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -164,7 +166,7 @@ class UserMappingsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['mapping']:
+        if _params['mapping'] is not None:
             _body_params = _params['mapping']
 
         # set the HTTP header `Accept`
@@ -219,10 +221,6 @@ class UserMappingsApi(object):
         :type mapping_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -233,10 +231,12 @@ class UserMappingsApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_mapping_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_mapping_with_http_info(mapping_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_mapping_with_http_info(self, mapping_id : Annotated[StrictInt, Field(..., description="The id of the user mapping to locate.")], **kwargs):  # noqa: E501
+    def delete_mapping_with_http_info(self, mapping_id : Annotated[StrictInt, Field(..., description="The id of the user mapping to locate.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Mapping  # noqa: E501
 
         Delete Mapping  # noqa: E501
@@ -250,13 +250,14 @@ class UserMappingsApi(object):
         :type mapping_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -357,10 +358,6 @@ class UserMappingsApi(object):
         :type mapping_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -371,10 +368,12 @@ class UserMappingsApi(object):
         :rtype: Mapping
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_mapping_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_mapping_with_http_info(mapping_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_mapping_with_http_info(self, mapping_id : Annotated[StrictInt, Field(..., description="The id of the user mapping to locate.")], **kwargs):  # noqa: E501
+    def get_mapping_with_http_info(self, mapping_id : Annotated[StrictInt, Field(..., description="The id of the user mapping to locate.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Mapping  # noqa: E501
 
         Get Mapping  # noqa: E501
@@ -388,13 +387,14 @@ class UserMappingsApi(object):
         :type mapping_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -499,10 +499,6 @@ class UserMappingsApi(object):
         :type mapping_action_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -513,10 +509,12 @@ class UserMappingsApi(object):
         :rtype: List[ListMappingActionValues200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_mapping_action_values_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_mapping_action_values_with_http_info(mapping_action_value, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_mapping_action_values_with_http_info(self, mapping_action_value : StrictStr, **kwargs):  # noqa: E501
+    def list_mapping_action_values_with_http_info(self, mapping_action_value : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """List Actions Values  # noqa: E501
 
         List Mappings' Actions' Values  # noqa: E501
@@ -530,13 +528,14 @@ class UserMappingsApi(object):
         :type mapping_action_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -638,10 +637,6 @@ class UserMappingsApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -652,10 +647,12 @@ class UserMappingsApi(object):
         :rtype: ListMappingConditions200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_mapping_conditions_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_mapping_conditions_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_mapping_conditions_with_http_info(self, **kwargs):  # noqa: E501
+    def list_mapping_conditions_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Conditions  # noqa: E501
 
         List Mappings' Conditions  # noqa: E501
@@ -667,13 +664,14 @@ class UserMappingsApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -773,10 +771,6 @@ class UserMappingsApi(object):
         :type mapping_condition_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -787,10 +781,12 @@ class UserMappingsApi(object):
         :rtype: List[ListMappingConditionsOperators200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_mapping_conditions_operators_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_mapping_conditions_operators_with_http_info(mapping_condition_value, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_mapping_conditions_operators_with_http_info(self, mapping_condition_value : StrictStr, **kwargs):  # noqa: E501
+    def list_mapping_conditions_operators_with_http_info(self, mapping_condition_value : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """List Conditions Operators  # noqa: E501
 
         List Mappings' Conditions' Operators  # noqa: E501
@@ -804,13 +800,14 @@ class UserMappingsApi(object):
         :type mapping_condition_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -914,10 +911,6 @@ class UserMappingsApi(object):
         :type mapping_condition_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -928,10 +921,12 @@ class UserMappingsApi(object):
         :rtype: List[ListMappingContionValues200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_mapping_contion_values_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_mapping_contion_values_with_http_info(mapping_condition_value, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_mapping_contion_values_with_http_info(self, mapping_condition_value : StrictStr, **kwargs):  # noqa: E501
+    def list_mapping_contion_values_with_http_info(self, mapping_condition_value : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """List Conditions Values  # noqa: E501
 
         List Mappings'  Conditions' Values  # noqa: E501
@@ -945,13 +940,14 @@ class UserMappingsApi(object):
         :type mapping_condition_value: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1063,10 +1059,6 @@ class UserMappingsApi(object):
         :type has_action_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1077,10 +1069,12 @@ class UserMappingsApi(object):
         :rtype: List[Mapping]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_mappings_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_mappings_with_http_info(enabled, has_condition, has_condition_type, has_action, has_action_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_mappings_with_http_info(self, enabled : Annotated[Optional[StrictBool], Field(description="Defaults to true. When set to `false` will return all disabled mappings.")] = None, has_condition : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_condition_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_action : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Actions. Values formatted as :, where name is the Action to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_action=set_licenses:123456 Multiple filters. has_action=set_groups:123456,set_usertype:* Wildcard for actions. has_action=*:123456 Wildcard for action values. has_action=set_userprincipalname:*")] = None, has_action_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their action types. Allowed values are: builtin - actions that involve standard attributes custom - actions that involve custom attributes none - no actions are defined For example: Find Rules with no actions has_action_type=none")] = None, **kwargs):  # noqa: E501
+    def list_mappings_with_http_info(self, enabled : Annotated[Optional[StrictBool], Field(description="Defaults to true. When set to `false` will return all disabled mappings.")] = None, has_condition : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_condition_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Conditions. Values formatted as :, where name is the Condition to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_condition=has_role:123456 Multiple filters. has_condition=has_role:123456,status:1 Wildcard for conditions. has_condition=*:123456 Wildcard for condition values. has_condition=has_role:*")] = None, has_action : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their Actions. Values formatted as :, where name is the Action to look for, and value is the value to find. Multiple filters can be declared by using a comma delimited list. Wildcards are supported in both the name and value fields. For example: Single filter. has_action=set_licenses:123456 Multiple filters. has_action=set_groups:123456,set_usertype:* Wildcard for actions. has_action=*:123456 Wildcard for action values. has_action=set_userprincipalname:*")] = None, has_action_type : Annotated[Optional[StrictStr], Field(description="Filters Rules based on their action types. Allowed values are: builtin - actions that involve standard attributes custom - actions that involve custom attributes none - no actions are defined For example: Find Rules with no actions has_action_type=none")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Mappings  # noqa: E501
 
         List Mappings  # noqa: E501
@@ -1102,13 +1096,14 @@ class UserMappingsApi(object):
         :type has_action_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1226,10 +1221,6 @@ class UserMappingsApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1240,10 +1231,12 @@ class UserMappingsApi(object):
         :rtype: List[ListMappingsActions200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_mappings_actions_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_mappings_actions_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_mappings_actions_with_http_info(self, **kwargs):  # noqa: E501
+    def list_mappings_actions_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Actions  # noqa: E501
 
         List Mappings' Actions  # noqa: E501
@@ -1255,13 +1248,14 @@ class UserMappingsApi(object):
 
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1361,10 +1355,6 @@ class UserMappingsApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1375,10 +1365,12 @@ class UserMappingsApi(object):
         :rtype: List[int]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the sort_mappings_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.sort_mappings_with_http_info(request_body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def sort_mappings_with_http_info(self, request_body : Optional[conlist(StrictInt)] = None, **kwargs):  # noqa: E501
+    def sort_mappings_with_http_info(self, request_body : Optional[conlist(StrictInt)] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Bulk Sort  # noqa: E501
 
         Bulk Sort Mappings  # noqa: E501
@@ -1392,13 +1384,14 @@ class UserMappingsApi(object):
         :type request_body: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1455,7 +1448,7 @@ class UserMappingsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['request_body']:
+        if _params['request_body'] is not None:
             _body_params = _params['request_body']
 
         # set the HTTP header `Accept`
@@ -1514,10 +1507,6 @@ class UserMappingsApi(object):
         :type body: object
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1528,10 +1517,12 @@ class UserMappingsApi(object):
         :rtype: int
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_mapping_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_mapping_with_http_info(mapping_id, content_type, body, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_mapping_with_http_info(self, mapping_id : Annotated[StrictInt, Field(..., description="The id of the user mapping to locate.")], content_type : Optional[StrictStr] = None, body : Optional[Dict[str, Any]] = None, **kwargs):  # noqa: E501
+    def update_mapping_with_http_info(self, mapping_id : Annotated[StrictInt, Field(..., description="The id of the user mapping to locate.")], content_type : Optional[StrictStr] = None, body : Optional[Dict[str, Any]] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Mapping  # noqa: E501
 
         Update Mapping  # noqa: E501
@@ -1549,13 +1540,14 @@ class UserMappingsApi(object):
         :type body: object
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1620,7 +1612,7 @@ class UserMappingsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['body']:
+        if _params['body'] is not None:
             _body_params = _params['body']
 
         # set the HTTP header `Accept`

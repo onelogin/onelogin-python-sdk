@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -32,6 +31,7 @@ class ListMessageTemplates200ResponseInner(BaseModel):
     __properties = ["id", "enabled", "name"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -62,7 +62,7 @@ class ListMessageTemplates200ResponseInner(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return ListMessageTemplates200ResponseInner.parse_obj(obj)
 
         _obj = ListMessageTemplates200ResponseInner.parse_obj({

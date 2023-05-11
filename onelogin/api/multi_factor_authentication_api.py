@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -36,6 +38,7 @@ from onelogin.models.verify_user_registration_request import VerifyUserRegistrat
 from onelogin.models.verify_user_verification_request import VerifyUserVerificationRequest
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -73,10 +76,6 @@ class MultiFactorAuthenticationApi(object):
         :type create_device_verification_request: CreateDeviceVerificationRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -87,10 +86,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: CreateDeviceVerification201Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_device_verification_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_device_verification_with_http_info(user_id, content_type, create_device_verification_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_device_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, create_device_verification_request : Optional[CreateDeviceVerificationRequest] = None, **kwargs):  # noqa: E501
+    def create_device_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, create_device_verification_request : Optional[CreateDeviceVerificationRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Device Verification  # noqa: E501
 
         Create a new verification process  # noqa: E501
@@ -108,13 +109,14 @@ class MultiFactorAuthenticationApi(object):
         :type create_device_verification_request: CreateDeviceVerificationRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -179,7 +181,7 @@ class MultiFactorAuthenticationApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['create_device_verification_request']:
+        if _params['create_device_verification_request'] is not None:
             _body_params = _params['create_device_verification_request']
 
         # set the HTTP header `Accept`
@@ -237,10 +239,6 @@ class MultiFactorAuthenticationApi(object):
         :type create_factor_registration_request: CreateFactorRegistrationRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -251,10 +249,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: CreateFactorRegistration201Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_factor_registration_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_factor_registration_with_http_info(user_id, content_type, create_factor_registration_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_factor_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, create_factor_registration_request : Optional[CreateFactorRegistrationRequest] = None, **kwargs):  # noqa: E501
+    def create_factor_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, create_factor_registration_request : Optional[CreateFactorRegistrationRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Factor Registration  # noqa: E501
 
         Create a new registration process  # noqa: E501
@@ -272,13 +272,14 @@ class MultiFactorAuthenticationApi(object):
         :type create_factor_registration_request: CreateFactorRegistrationRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -343,7 +344,7 @@ class MultiFactorAuthenticationApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['create_factor_registration_request']:
+        if _params['create_factor_registration_request'] is not None:
             _body_params = _params['create_factor_registration_request']
 
         # set the HTTP header `Accept`
@@ -399,10 +400,6 @@ class MultiFactorAuthenticationApi(object):
         :type device_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -413,10 +410,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_enrolled_factor_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_enrolled_factor_with_http_info(user_id, device_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_enrolled_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, **kwargs):  # noqa: E501
+    def delete_enrolled_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Enrolled Factor  # noqa: E501
 
         Delete a user\\'s authentication device  # noqa: E501
@@ -432,13 +431,14 @@ class MultiFactorAuthenticationApi(object):
         :type device_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -543,10 +543,6 @@ class MultiFactorAuthenticationApi(object):
         :type generate_otp_request: GenerateOTPRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -557,10 +553,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: GenerateOTP201Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the generate_otp_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.generate_otp_with_http_info(user_id, content_type, generate_otp_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def generate_otp_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, generate_otp_request : Optional[GenerateOTPRequest] = None, **kwargs):  # noqa: E501
+    def generate_otp_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, generate_otp_request : Optional[GenerateOTPRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate MFA token  # noqa: E501
 
         Create new MFA token on the user's account  # noqa: E501
@@ -578,13 +576,14 @@ class MultiFactorAuthenticationApi(object):
         :type generate_otp_request: GenerateOTPRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -649,7 +648,7 @@ class MultiFactorAuthenticationApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['generate_otp_request']:
+        if _params['generate_otp_request'] is not None:
             _body_params = _params['generate_otp_request']
 
         # set the HTTP header `Accept`
@@ -704,10 +703,6 @@ class MultiFactorAuthenticationApi(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -718,10 +713,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: GetAuthFactors200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_auth_factors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_auth_factors_with_http_info(user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_auth_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs):  # noqa: E501
+    def get_auth_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Factors  # noqa: E501
 
         Get a user\\'s available authentication factors  # noqa: E501
@@ -735,13 +732,14 @@ class MultiFactorAuthenticationApi(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -845,10 +843,6 @@ class MultiFactorAuthenticationApi(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -859,10 +853,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: List[GetAuthenticationDevices200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_authentication_devices_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_authentication_devices_with_http_info(user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_authentication_devices_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs):  # noqa: E501
+    def get_authentication_devices_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Devices  # noqa: E501
 
         Get a user authentication devices  # noqa: E501
@@ -876,13 +872,14 @@ class MultiFactorAuthenticationApi(object):
         :type user_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -988,10 +985,6 @@ class MultiFactorAuthenticationApi(object):
         :type registration_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1002,10 +995,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: object
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_user_registration_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user_registration_with_http_info(user_id, registration_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_user_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], registration_id : Annotated[StrictStr, Field(..., description="The id of a registration")], **kwargs):  # noqa: E501
+    def get_user_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], registration_id : Annotated[StrictStr, Field(..., description="The id of a registration")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Registration  # noqa: E501
 
         Get registration state by id  # noqa: E501
@@ -1021,13 +1016,14 @@ class MultiFactorAuthenticationApi(object):
         :type registration_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1137,10 +1133,6 @@ class MultiFactorAuthenticationApi(object):
         :type verification_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1151,10 +1143,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: GetUserVerification200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_user_verification_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user_verification_with_http_info(user_id, verification_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_user_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], **kwargs):  # noqa: E501
+    def get_user_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Verification  # noqa: E501
 
         Get verification state by id  # noqa: E501
@@ -1170,13 +1164,14 @@ class MultiFactorAuthenticationApi(object):
         :type verification_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1291,10 +1286,6 @@ class MultiFactorAuthenticationApi(object):
         :type verify_user_registration_request: VerifyUserRegistrationRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1305,10 +1296,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: VerifyUserRegistration200Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the verify_user_registration_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.verify_user_registration_with_http_info(user_id, registration_id, content_type, verify_user_registration_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def verify_user_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], registration_id : Annotated[StrictStr, Field(..., description="The id of a registration")], content_type : Optional[StrictStr] = None, verify_user_registration_request : Optional[VerifyUserRegistrationRequest] = None, **kwargs):  # noqa: E501
+    def verify_user_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], registration_id : Annotated[StrictStr, Field(..., description="The id of a registration")], content_type : Optional[StrictStr] = None, verify_user_registration_request : Optional[VerifyUserRegistrationRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify User Registration  # noqa: E501
 
         Submit an otp for verification.  # noqa: E501
@@ -1328,13 +1321,14 @@ class MultiFactorAuthenticationApi(object):
         :type verify_user_registration_request: VerifyUserRegistrationRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1403,7 +1397,7 @@ class MultiFactorAuthenticationApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['verify_user_registration_request']:
+        if _params['verify_user_registration_request'] is not None:
             _body_params = _params['verify_user_registration_request']
 
         # set the HTTP header `Accept`
@@ -1463,10 +1457,6 @@ class MultiFactorAuthenticationApi(object):
         :type verify_user_verification_request: VerifyUserVerificationRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1477,10 +1467,12 @@ class MultiFactorAuthenticationApi(object):
         :rtype: Error
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the verify_user_verification_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.verify_user_verification_with_http_info(user_id, verification_id, content_type, verify_user_verification_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def verify_user_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], content_type : Optional[StrictStr] = None, verify_user_verification_request : Optional[VerifyUserVerificationRequest] = None, **kwargs):  # noqa: E501
+    def verify_user_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], content_type : Optional[StrictStr] = None, verify_user_verification_request : Optional[VerifyUserVerificationRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify User Verification  # noqa: E501
 
         Submit an otp for verification.  # noqa: E501
@@ -1500,13 +1492,14 @@ class MultiFactorAuthenticationApi(object):
         :type verify_user_verification_request: VerifyUserVerificationRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1575,7 +1568,7 @@ class MultiFactorAuthenticationApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['verify_user_verification_request']:
+        if _params['verify_user_verification_request'] is not None:
             _body_params = _params['verify_user_verification_request']
 
         # set the HTTP header `Accept`

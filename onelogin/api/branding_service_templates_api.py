@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -25,6 +27,7 @@ from onelogin.models.list_message_templates200_response_inner import ListMessage
 from onelogin.models.message_template import MessageTemplate
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -62,10 +65,6 @@ class BrandingServiceTemplatesApi(object):
         :type message_template: MessageTemplate
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -76,10 +75,12 @@ class BrandingServiceTemplatesApi(object):
         :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_message_template_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_message_template_with_http_info(brand_id, locale, message_template, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_message_template_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, message_template : Optional[MessageTemplate] = None, **kwargs):  # noqa: E501
+    def create_message_template_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, message_template : Optional[MessageTemplate] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Message Template  # noqa: E501
 
         Create Message Template  # noqa: E501
@@ -97,13 +98,14 @@ class BrandingServiceTemplatesApi(object):
         :type message_template: MessageTemplate
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -168,7 +170,7 @@ class BrandingServiceTemplatesApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['message_template']:
+        if _params['message_template'] is not None:
             _body_params = _params['message_template']
 
         # set the HTTP header `Accept`
@@ -225,10 +227,6 @@ class BrandingServiceTemplatesApi(object):
         :type template_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -239,10 +237,12 @@ class BrandingServiceTemplatesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_message_template_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_message_template_with_http_info(brand_id, template_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_message_template_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs):  # noqa: E501
+    def delete_message_template_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Message Template  # noqa: E501
 
         Delete Message Template  # noqa: E501
@@ -258,13 +258,14 @@ class BrandingServiceTemplatesApi(object):
         :type template_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -369,10 +370,6 @@ class BrandingServiceTemplatesApi(object):
         :type template_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -383,10 +380,12 @@ class BrandingServiceTemplatesApi(object):
         :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_master_by_type_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_master_by_type_with_http_info(template_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_master_by_type_with_http_info(self, template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], **kwargs):  # noqa: E501
+    def get_master_by_type_with_http_info(self, template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Master Template by Type  # noqa: E501
 
         Get Master Template by Type  # noqa: E501
@@ -400,13 +399,14 @@ class BrandingServiceTemplatesApi(object):
         :type template_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -513,10 +513,6 @@ class BrandingServiceTemplatesApi(object):
         :type template_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -527,10 +523,12 @@ class BrandingServiceTemplatesApi(object):
         :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_message_template_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_message_template_by_id_with_http_info(brand_id, template_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_message_template_by_id_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs):  # noqa: E501
+    def get_message_template_by_id_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Message Template  # noqa: E501
 
         Get Message Template by ID  # noqa: E501
@@ -546,13 +544,14 @@ class BrandingServiceTemplatesApi(object):
         :type template_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -665,10 +664,6 @@ class BrandingServiceTemplatesApi(object):
         :type locale: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -679,10 +674,12 @@ class BrandingServiceTemplatesApi(object):
         :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_template_by_locale_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_template_by_locale_with_http_info(brand_id, template_type, locale, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_template_by_locale_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs):  # noqa: E501
+    def get_template_by_locale_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Template by Type & Locale  # noqa: E501
 
         Get Template by Type and Locale  # noqa: E501
@@ -700,13 +697,14 @@ class BrandingServiceTemplatesApi(object):
         :type locale: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -821,10 +819,6 @@ class BrandingServiceTemplatesApi(object):
         :type locale: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -835,10 +829,12 @@ class BrandingServiceTemplatesApi(object):
         :rtype: List[ListMessageTemplates200ResponseInner]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_message_templates_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_message_templates_with_http_info(brand_id, locale, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_message_templates_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, **kwargs):  # noqa: E501
+    def list_message_templates_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Message Templates  # noqa: E501
 
         List Message Templates  # noqa: E501
@@ -854,13 +850,14 @@ class BrandingServiceTemplatesApi(object):
         :type locale: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -971,10 +968,6 @@ class BrandingServiceTemplatesApi(object):
         :type template_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -985,10 +978,12 @@ class BrandingServiceTemplatesApi(object):
         :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_message_template_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_message_template_by_id_with_http_info(brand_id, template_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_message_template_by_id_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs):  # noqa: E501
+    def update_message_template_by_id_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Update Message Template  # noqa: E501
 
         Update Message Template by ID  # noqa: E501
@@ -1004,13 +999,14 @@ class BrandingServiceTemplatesApi(object):
         :type template_id: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1123,10 +1119,6 @@ class BrandingServiceTemplatesApi(object):
         :type locale: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1137,10 +1129,12 @@ class BrandingServiceTemplatesApi(object):
         :rtype: MessageTemplate
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_template_by_locale_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_template_by_locale_with_http_info(brand_id, template_type, locale, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_template_by_locale_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs):  # noqa: E501
+    def update_template_by_locale_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> ApiResponse:  # noqa: E501
         """Update Template by Type & Locale  # noqa: E501
 
         Update Template by Type and Locale  # noqa: E501
@@ -1158,13 +1152,14 @@ class BrandingServiceTemplatesApi(object):
         :type locale: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

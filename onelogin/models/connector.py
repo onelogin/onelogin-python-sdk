@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -35,6 +34,7 @@ class Connector(BaseModel):
     __properties = ["id", "name", "icon_url", "auth_method", "allows_new_parameters"]
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -65,7 +65,7 @@ class Connector(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return Connector.parse_obj(obj)
 
         _obj = Connector.parse_obj({

@@ -1,3 +1,4 @@
+
 # onelogin.OAuth2Api
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -20,7 +21,6 @@ Generate Token
 
 * Basic Authentication (basicAuth):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -100,7 +100,6 @@ Get Rate Limit
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -170,7 +169,6 @@ Revoke Tokens
 
 * Basic Authentication (basicAuth):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -27,6 +29,7 @@ from onelogin.models.client_app_full import ClientAppFull
 from onelogin.models.update_client_app_request import UpdateClientAppRequest
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -64,10 +67,6 @@ class APIAuthClientAppsApi(object):
         :type add_client_app_request: AddClientAppRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -78,10 +77,12 @@ class APIAuthClientAppsApi(object):
         :rtype: AddClientApp201Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the add_client_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.add_client_app_with_http_info(api_auth_id, content_type, add_client_app_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_client_app_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, add_client_app_request : Optional[AddClientAppRequest] = None, **kwargs):  # noqa: E501
+    def add_client_app_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, add_client_app_request : Optional[AddClientAppRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Add Client App  # noqa: E501
 
         Add Client App  # noqa: E501
@@ -99,13 +100,14 @@ class APIAuthClientAppsApi(object):
         :type add_client_app_request: AddClientAppRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -170,7 +172,7 @@ class APIAuthClientAppsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['add_client_app_request']:
+        if _params['add_client_app_request'] is not None:
             _body_params = _params['add_client_app_request']
 
         # set the HTTP header `Accept`
@@ -230,10 +232,6 @@ class APIAuthClientAppsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -244,10 +242,12 @@ class APIAuthClientAppsApi(object):
         :rtype: AddClientApp201Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_client_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_client_app_with_http_info(api_auth_id, client_app_id, content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_client_app_with_http_info(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def delete_client_app_with_http_info(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Remove Client App  # noqa: E501
 
         Delete Client App  # noqa: E501
@@ -265,13 +265,14 @@ class APIAuthClientAppsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -387,10 +388,6 @@ class APIAuthClientAppsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -401,10 +398,12 @@ class APIAuthClientAppsApi(object):
         :rtype: ClientAppFull
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_client_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_client_apps_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_client_apps_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs):  # noqa: E501
+    def list_client_apps_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Clients Apps  # noqa: E501
 
         List Client Apps  # noqa: E501
@@ -420,13 +419,14 @@ class APIAuthClientAppsApi(object):
         :type content_type: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -541,10 +541,6 @@ class APIAuthClientAppsApi(object):
         :type update_client_app_request: UpdateClientAppRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -555,10 +551,12 @@ class APIAuthClientAppsApi(object):
         :rtype: AddClientApp201Response
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_client_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_client_app_with_http_info(api_auth_id, client_app_id, content_type, update_client_app_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_client_app_with_http_info(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, update_client_app_request : Optional[UpdateClientAppRequest] = None, **kwargs):  # noqa: E501
+    def update_client_app_with_http_info(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, update_client_app_request : Optional[UpdateClientAppRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Client App  # noqa: E501
 
         Update Client App  # noqa: E501
@@ -578,13 +576,14 @@ class APIAuthClientAppsApi(object):
         :type update_client_app_request: UpdateClientAppRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -653,7 +652,7 @@ class APIAuthClientAppsApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['update_client_app_request']:
+        if _params['update_client_app_request'] is not None:
             _body_params = _params['update_client_app_request']
 
         # set the HTTP header `Accept`

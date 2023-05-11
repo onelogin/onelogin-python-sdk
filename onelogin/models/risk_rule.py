@@ -13,7 +13,6 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import pprint
 import re  # noqa: F401
 import json
@@ -37,22 +36,27 @@ class RiskRule(BaseModel):
     __properties = ["id", "name", "description", "type", "target", "filters", "source"]
 
     @validator('type')
-    def type_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in ('blacklist', 'whitelist'):
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in ('blacklist', 'whitelist'):
             raise ValueError("must be one of enum values ('blacklist', 'whitelist')")
-        return v
+        return value
 
     @validator('target')
-    def target_validate_enum(cls, v):
-        if v is None:
-            return v
-        if v not in ('location.ip', 'location.address.country_iso_code'):
+    def target_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in ('location.ip', 'location.address.country_iso_code'):
             raise ValueError("must be one of enum values ('location.ip', 'location.address.country_iso_code')")
-        return v
+        return value
 
     class Config:
+        """Pydantic configuration"""
         allow_population_by_field_name = True
         validate_assignment = True
 
@@ -86,7 +90,7 @@ class RiskRule(BaseModel):
         if obj is None:
             return None
 
-        if type(obj) is not dict:
+        if not isinstance(obj, dict):
             return RiskRule.parse_obj(obj)
 
         _obj = RiskRule.parse_obj({

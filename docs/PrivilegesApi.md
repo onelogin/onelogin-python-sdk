@@ -1,3 +1,4 @@
+
 # onelogin.PrivilegesApi
 
 All URIs are relative to *https://your-api-subdomain.onelogin.com*
@@ -11,8 +12,8 @@ Method | HTTP request | Description
 [**delete_role_from_privilege**](PrivilegesApi.md#delete_role_from_privilege) | **DELETE** /api/1/privileges/{privilege_id}/roles/{role_id} | Remove a Privilege from a Role
 [**get_assigned_user**](PrivilegesApi.md#get_assigned_user) | **GET** /api/1/privileges/{privilege_id}/users | Get Users assigned to a Privilege
 [**get_privilege**](PrivilegesApi.md#get_privilege) | **GET** /api/1/privileges/{privilege_id} | Get a Privilege
-[**list_privelege_roles**](PrivilegesApi.md#list_privelege_roles) | **GET** /api/1/privileges/{privilege_id}/roles | Get Roles assigned to Privilege
-[**list_priveleges**](PrivilegesApi.md#list_priveleges) | **GET** /api/1/privileges | List Privileges
+[**list_privilege_roles**](PrivilegesApi.md#list_privilege_roles) | **GET** /api/1/privileges/{privilege_id}/roles | Get Roles assigned to Privilege
+[**list_privileges**](PrivilegesApi.md#list_privileges) | **GET** /api/1/privileges | List Privileges
 [**remove_user_from_privilege**](PrivilegesApi.md#remove_user_from_privilege) | **DELETE** /api/1/privileges/{privilege_id}/users/{user_id} | Remove a Privilege from Users
 [**update_privilege**](PrivilegesApi.md#update_privilege) | **PUT** /api/1/privileges/{privilege_id} | Update a Privilege
 
@@ -28,7 +29,6 @@ Add roles to privilege
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -103,7 +103,6 @@ Assign Users to Privilege
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -168,7 +167,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_privilege**
-> CreatePrivilege200Response create_privilege(privilege=privilege)
+> Privilege create_privilege(privilege=privilege)
 
 Create a Privilege
 
@@ -178,7 +177,6 @@ Create privilege
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -220,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreatePrivilege200Response**](CreatePrivilege200Response.md)
+[**Privilege**](Privilege.md)
 
 ### Authorization
 
@@ -251,7 +249,6 @@ Delete
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -322,7 +319,6 @@ Add roles to privilege
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -395,7 +391,6 @@ Get Assigned Users
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -468,7 +463,6 @@ Get a Privilige
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -530,8 +524,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_privelege_roles**
-> ListPrivelegeRoles200Response list_privelege_roles(privilege_id)
+# **list_privilege_roles**
+> ListPrivilegeRoles200Response list_privilege_roles(privilege_id)
 
 Get Roles assigned to Privilege
 
@@ -541,7 +535,6 @@ List roles for privilege
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -568,12 +561,13 @@ with onelogin.ApiClient(configuration) as api_client:
 
     try:
         # Get Roles assigned to Privilege
-        api_response = api_instance.list_privelege_roles(privilege_id)
-        print("The response of PrivilegesApi->list_privelege_roles:\n")
+        api_response = api_instance.list_privilege_roles(privilege_id)
+        print("The response of PrivilegesApi->list_privilege_roles:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PrivilegesApi->list_privelege_roles: %s\n" % e)
+        print("Exception when calling PrivilegesApi->list_privilege_roles: %s\n" % e)
 ```
+
 
 ### Parameters
 
@@ -583,7 +577,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPrivelegeRoles200Response**](ListPrivelegeRoles200Response.md)
+[**ListPrivilegeRoles200Response**](ListPrivilegeRoles200Response.md)
 
 ### Authorization
 
@@ -603,8 +597,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_priveleges**
-> List[Privilege] list_priveleges()
+# **list_privileges**
+> List[Privilege] list_privileges()
 
 List Privileges
 
@@ -614,7 +608,6 @@ List Privileges
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -640,12 +633,13 @@ with onelogin.ApiClient(configuration) as api_client:
 
     try:
         # List Privileges
-        api_response = api_instance.list_priveleges()
-        print("The response of PrivilegesApi->list_priveleges:\n")
+        api_response = api_instance.list_privileges()
+        print("The response of PrivilegesApi->list_privileges:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PrivilegesApi->list_priveleges: %s\n" % e)
+        print("Exception when calling PrivilegesApi->list_privileges: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -682,7 +676,6 @@ Remove a Privilege from Users
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin
@@ -755,7 +748,6 @@ Update privilege
 
 * OAuth Authentication (OAuth2):
 ```python
-from __future__ import print_function
 import time
 import os
 import onelogin

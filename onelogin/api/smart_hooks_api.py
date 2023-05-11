@@ -13,6 +13,8 @@
 
 
 import re  # noqa: F401
+import io
+import warnings
 
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
@@ -27,6 +29,7 @@ from onelogin.models.hook_log import HookLog
 from onelogin.models.update_environment_variable_request import UpdateEnvironmentVariableRequest
 
 from onelogin.api_client import ApiClient
+from onelogin.api_response import ApiResponse
 from onelogin.exceptions import (  # noqa: F401
     ApiTypeError,
     ApiValueError
@@ -60,10 +63,6 @@ class SmartHooksApi(object):
         :type hook_envvar: HookEnvvar
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -74,10 +73,12 @@ class SmartHooksApi(object):
         :rtype: HookEnvvar
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_environment_variable_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_environment_variable_with_http_info(hook_envvar, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_environment_variable_with_http_info(self, hook_envvar : HookEnvvar, **kwargs):  # noqa: E501
+    def create_environment_variable_with_http_info(self, hook_envvar : HookEnvvar, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Environment Variable  # noqa: E501
 
         Create Environment Variable  # noqa: E501
@@ -91,13 +92,14 @@ class SmartHooksApi(object):
         :type hook_envvar: HookEnvvar
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -154,7 +156,7 @@ class SmartHooksApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['hook_envvar']:
+        if _params['hook_envvar'] is not None:
             _body_params = _params['hook_envvar']
 
         # set the HTTP header `Accept`
@@ -209,10 +211,6 @@ class SmartHooksApi(object):
         :type hook: Hook
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -223,10 +221,12 @@ class SmartHooksApi(object):
         :rtype: Hook
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the create_hook_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_hook_with_http_info(hook, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_hook_with_http_info(self, hook : Hook, **kwargs):  # noqa: E501
+    def create_hook_with_http_info(self, hook : Hook, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Smart Hook  # noqa: E501
 
         Create Smart Hook  # noqa: E501
@@ -240,13 +240,14 @@ class SmartHooksApi(object):
         :type hook: Hook
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -303,7 +304,7 @@ class SmartHooksApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['hook']:
+        if _params['hook'] is not None:
             _body_params = _params['hook']
 
         # set the HTTP header `Accept`
@@ -359,10 +360,6 @@ class SmartHooksApi(object):
         :type envvar_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -373,10 +370,12 @@ class SmartHooksApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_environment_variable_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_environment_variable_with_http_info(envvar_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], **kwargs):  # noqa: E501
+    def delete_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Environment Variable  # noqa: E501
 
         Delete Environment Variable  # noqa: E501
@@ -390,13 +389,14 @@ class SmartHooksApi(object):
         :type envvar_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -497,10 +497,6 @@ class SmartHooksApi(object):
         :type hook_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -511,10 +507,12 @@ class SmartHooksApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the delete_hook_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_hook_with_http_info(hook_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], **kwargs):  # noqa: E501
+    def delete_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Smart Hook by ID  # noqa: E501
 
         Delete Smart Hook  # noqa: E501
@@ -528,13 +526,14 @@ class SmartHooksApi(object):
         :type hook_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -635,10 +634,6 @@ class SmartHooksApi(object):
         :type envvar_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -649,10 +644,12 @@ class SmartHooksApi(object):
         :rtype: HookEnvvar
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_environment_variable_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_environment_variable_with_http_info(envvar_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], **kwargs):  # noqa: E501
+    def get_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Environment Variable  # noqa: E501
 
         Get Environment Variable  # noqa: E501
@@ -666,13 +663,14 @@ class SmartHooksApi(object):
         :type envvar_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -776,10 +774,6 @@ class SmartHooksApi(object):
         :type hook_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -790,10 +784,12 @@ class SmartHooksApi(object):
         :rtype: Hook
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_hook_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_hook_with_http_info(hook_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], **kwargs):  # noqa: E501
+    def get_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Smart Hook by ID  # noqa: E501
 
         Get Smart Hook  # noqa: E501
@@ -807,13 +803,14 @@ class SmartHooksApi(object):
         :type hook_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -928,10 +925,6 @@ class SmartHooksApi(object):
         :type correlation_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -942,10 +935,12 @@ class SmartHooksApi(object):
         :rtype: List[HookLog]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the get_logs_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_logs_with_http_info(hook_id, limit, page, cursor, request_id, correlation_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_logs_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, request_id : Annotated[Optional[StrictStr], Field(description="Returns logs that contain this request_id.")] = None, correlation_id : Annotated[Optional[StrictStr], Field(description="Returns logs that contain this correlation_id.")] = None, **kwargs):  # noqa: E501
+    def get_logs_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, request_id : Annotated[Optional[StrictStr], Field(description="Returns logs that contain this request_id.")] = None, correlation_id : Annotated[Optional[StrictStr], Field(description="Returns logs that contain this correlation_id.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Smart Hook Logs  # noqa: E501
 
         Get Smart Hook Logs  # noqa: E501
@@ -969,13 +964,14 @@ class SmartHooksApi(object):
         :type correlation_id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1104,10 +1100,6 @@ class SmartHooksApi(object):
         :type cursor: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1118,10 +1110,12 @@ class SmartHooksApi(object):
         :rtype: List[HookEnvvar]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_environment_variables_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_environment_variables_with_http_info(limit, page, cursor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_environment_variables_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, **kwargs):  # noqa: E501
+    def list_environment_variables_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Environment Variables  # noqa: E501
 
         List Environment Variables  # noqa: E501
@@ -1139,13 +1133,14 @@ class SmartHooksApi(object):
         :type cursor: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1261,10 +1256,6 @@ class SmartHooksApi(object):
         :type cursor: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1275,10 +1266,12 @@ class SmartHooksApi(object):
         :rtype: List[Hook]
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_hooks_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_hooks_with_http_info(limit, page, cursor, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_hooks_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, **kwargs):  # noqa: E501
+    def list_hooks_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List all Smart Hooks  # noqa: E501
 
         List Smart Hooks  # noqa: E501
@@ -1296,13 +1289,14 @@ class SmartHooksApi(object):
         :type cursor: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1416,10 +1410,6 @@ class SmartHooksApi(object):
         :type update_environment_variable_request: UpdateEnvironmentVariableRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1430,10 +1420,12 @@ class SmartHooksApi(object):
         :rtype: HookEnvvar
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_environment_variable_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_environment_variable_with_http_info(envvar_id, update_environment_variable_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], update_environment_variable_request : UpdateEnvironmentVariableRequest, **kwargs):  # noqa: E501
+    def update_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], update_environment_variable_request : UpdateEnvironmentVariableRequest, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Environment Variable  # noqa: E501
 
         Update Environment Variable  # noqa: E501
@@ -1449,13 +1441,14 @@ class SmartHooksApi(object):
         :type update_environment_variable_request: UpdateEnvironmentVariableRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1516,7 +1509,7 @@ class SmartHooksApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['update_environment_variable_request']:
+        if _params['update_environment_variable_request'] is not None:
             _body_params = _params['update_environment_variable_request']
 
         # set the HTTP header `Accept`
@@ -1574,10 +1567,6 @@ class SmartHooksApi(object):
         :type hook: Hook
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1588,10 +1577,12 @@ class SmartHooksApi(object):
         :rtype: Hook
         """
         kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the update_hook_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_hook_with_http_info(hook_id, hook, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], hook : Hook, **kwargs):  # noqa: E501
+    def update_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], hook : Hook, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Smart Hook by ID  # noqa: E501
 
         Update Smart Hook  # noqa: E501
@@ -1607,13 +1598,14 @@ class SmartHooksApi(object):
         :type hook: Hook
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
         :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1674,7 +1666,7 @@ class SmartHooksApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
-        if _params['hook']:
+        if _params['hook'] is not None:
             _body_params = _params['hook']
 
         # set the HTTP header `Accept`
