@@ -19,7 +19,7 @@ import json
 
 
 from typing import List, Optional
-from pydantic import BaseModel, Field, StrictInt, StrictStr, conlist, validator
+from pydantic import BaseModel, Field, StrictInt, StrictStr, conlist, field_validator
 
 class User(BaseModel):
     """
@@ -63,7 +63,8 @@ class User(BaseModel):
     salt: Optional[StrictStr] = Field(None, description="The salt value used with the password_algorithm.")
     __properties = ["id", "username", "email", "firstname", "lastname", "title", "department", "company", "comment", "group_id", "role_ids", "phone", "state", "status", "directory_id", "trusted_idp_id", "manager_ad_id", "manager_user_id", "samaccountname", "member_of", "userprincipalname", "distinguished_name", "external_id", "activated_at", "last_login", "invitation_sent_at", "updated_at", "preferred_locale_code", "created_at", "invalid_login_attempts", "locked_until", "password_changed_at", "password", "password_confirmation", "password_algorithm", "salt"]
 
-    @validator('state')
+    @field_validator('state')
+    @classmethod
     def state_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -73,7 +74,8 @@ class User(BaseModel):
             raise ValueError("must be one of enum values (0, 1, 2, 3)")
         return value
 
-    @validator('status')
+    @field_validator('status')
+    @classmethod
     def status_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -83,10 +85,12 @@ class User(BaseModel):
             raise ValueError("must be one of enum values (0, 1, 2, 3, 4, 5, 7, 8)")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from typing import Optional
@@ -46,7 +46,7 @@ class InviteLinksApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def get_invite_link(self, get_invite_link_request : Optional[GetInviteLinkRequest] = None, **kwargs) -> GetInviteLink200Response:  # noqa: E501
         """Generate Invite Link  # noqa: E501
 
@@ -75,7 +75,7 @@ class InviteLinksApi(object):
             raise ValueError("Error! Please call the get_invite_link_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_invite_link_with_http_info(get_invite_link_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_invite_link_with_http_info(self, get_invite_link_request : Optional[GetInviteLinkRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate Invite Link  # noqa: E501
 
@@ -194,7 +194,7 @@ class InviteLinksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def send_invite_link(self, send_invite_link_request : Optional[SendInviteLinkRequest] = None, **kwargs) -> SendInviteLink200Response:  # noqa: E501
         """Send  Invite Link  # noqa: E501
 
@@ -223,7 +223,7 @@ class InviteLinksApi(object):
             raise ValueError("Error! Please call the send_invite_link_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.send_invite_link_with_http_info(send_invite_link_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def send_invite_link_with_http_info(self, send_invite_link_request : Optional[SendInviteLinkRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Send  Invite Link  # noqa: E501
 

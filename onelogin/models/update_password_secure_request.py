@@ -31,10 +31,12 @@ class UpdatePasswordSecureRequest(BaseModel):
     password_salt: Optional[StrictStr] = Field(None, description="Optional. If your password hash has been salted then you can provide the salt used in this param. This assumes that the salt was prepended to the password before doing the SHA256 hash. The API supports a salt value that is up to 40 characters long.")
     __properties = ["password", "password_confirmation", "password_algorithm", "password_salt"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

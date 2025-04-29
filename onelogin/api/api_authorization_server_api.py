@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
@@ -45,7 +45,7 @@ class APIAuthorizationServerApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_auth_server(self, content_type : Optional[StrictStr] = None, auth_server : Optional[AuthServer] = None, **kwargs) -> AuthServer:  # noqa: E501
         """Create Api Auth Server  # noqa: E501
 
@@ -76,7 +76,7 @@ class APIAuthorizationServerApi(object):
             raise ValueError("Error! Please call the create_auth_server_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_auth_server_with_http_info(content_type, auth_server, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_auth_server_with_http_info(self, content_type : Optional[StrictStr] = None, auth_server : Optional[AuthServer] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Api Auth Server  # noqa: E501
 
@@ -201,7 +201,7 @@ class APIAuthorizationServerApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_auth_server(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
         """Delete Api Auth Server  # noqa: E501
 
@@ -232,7 +232,7 @@ class APIAuthorizationServerApi(object):
             raise ValueError("Error! Please call the delete_auth_server_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_auth_server_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_auth_server_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Api Auth Server  # noqa: E501
 
@@ -346,7 +346,7 @@ class APIAuthorizationServerApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_auth_server(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> AuthServer:  # noqa: E501
         """Get Api Auth Server  # noqa: E501
 
@@ -377,7 +377,7 @@ class APIAuthorizationServerApi(object):
             raise ValueError("Error! Please call the get_auth_server_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_auth_server_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_auth_server_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Api Auth Server  # noqa: E501
 
@@ -494,7 +494,7 @@ class APIAuthorizationServerApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_auth_servers(self, **kwargs) -> List[AuthServer]:  # noqa: E501
         """List Api Auth Servers  # noqa: E501
 
@@ -521,7 +521,7 @@ class APIAuthorizationServerApi(object):
             raise ValueError("Error! Please call the list_auth_servers_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_auth_servers_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_auth_servers_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Api Auth Servers  # noqa: E501
 
@@ -626,7 +626,7 @@ class APIAuthorizationServerApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_auth_server(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_server : Optional[AuthServer] = None, **kwargs) -> AuthServer:  # noqa: E501
         """Update Api Auth Server  # noqa: E501
 
@@ -659,7 +659,7 @@ class APIAuthorizationServerApi(object):
             raise ValueError("Error! Please call the update_auth_server_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_auth_server_with_http_info(api_auth_id, content_type, auth_server, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_auth_server_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_server : Optional[AuthServer] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Api Auth Server  # noqa: E501
 

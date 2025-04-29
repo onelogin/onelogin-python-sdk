@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional
+from typing import List, Dict, Optional, Any
 from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conlist
 from onelogin.models.app_parameters import AppParameters
 from onelogin.models.auth_method import AuthMethod
@@ -49,10 +49,12 @@ class GenericApp(BaseModel):
     additional_properties: Dict[str, Any] = {}
     __properties = ["id", "name", "visible", "description", "notes", "icon_url", "auth_method", "policy_id", "allow_assumed_signin", "tab_id", "connector_id", "created_at", "updated_at", "role_ids", "provisioning", "parameters", "enforcement_point"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

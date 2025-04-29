@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import StrictInt, StrictStr
@@ -46,7 +46,7 @@ class APIAuthScopesApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_scope(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs) -> AuthScope:  # noqa: E501
         """Create Api Auth Server Scope  # noqa: E501
 
@@ -79,7 +79,7 @@ class APIAuthScopesApi(object):
             raise ValueError("Error! Please call the create_scope_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_scope_with_http_info(api_auth_id, content_type, auth_scope, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_scope_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Api Auth Server Scope  # noqa: E501
 
@@ -211,7 +211,7 @@ class APIAuthScopesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_scope(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
         """Delete Api Auth Server Scope  # noqa: E501
 
@@ -244,7 +244,7 @@ class APIAuthScopesApi(object):
             raise ValueError("Error! Please call the delete_scope_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_scope_with_http_info(api_auth_id, scope_id, content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_scope_with_http_info(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Api Auth Server Scope  # noqa: E501
 
@@ -364,7 +364,7 @@ class APIAuthScopesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_scopes(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> List[AuthScope]:  # noqa: E501
         """Get Api Auth Server Scopes  # noqa: E501
 
@@ -395,7 +395,7 @@ class APIAuthScopesApi(object):
             raise ValueError("Error! Please call the get_scopes_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_scopes_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_scopes_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Api Auth Server Scopes  # noqa: E501
 
@@ -512,7 +512,7 @@ class APIAuthScopesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_scope(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs) -> AuthId:  # noqa: E501
         """Update Api Auth Server Scope  # noqa: E501
 
@@ -547,7 +547,7 @@ class APIAuthScopesApi(object):
             raise ValueError("Error! Please call the update_scope_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_scope_with_http_info(api_auth_id, scope_id, content_type, auth_scope, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_scope_with_http_info(self, api_auth_id : StrictStr, scope_id : StrictInt, content_type : Optional[StrictStr] = None, auth_scope : Optional[AuthScope] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Api Auth Server Scope  # noqa: E501
 

@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr
@@ -48,7 +48,7 @@ class SmartHooksApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_environment_variable(self, hook_envvar : HookEnvvar, **kwargs) -> HookEnvvar:  # noqa: E501
         """Create Environment Variable  # noqa: E501
 
@@ -77,7 +77,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the create_environment_variable_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_environment_variable_with_http_info(hook_envvar, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_environment_variable_with_http_info(self, hook_envvar : HookEnvvar, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Environment Variable  # noqa: E501
 
@@ -196,7 +196,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def create_hook(self, hook : Hook, **kwargs) -> Hook:  # noqa: E501
         """Create Smart Hook  # noqa: E501
 
@@ -225,7 +225,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the create_hook_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_hook_with_http_info(hook, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_hook_with_http_info(self, hook : Hook, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Smart Hook  # noqa: E501
 
@@ -345,7 +345,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_environment_variable(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], **kwargs) -> None:  # noqa: E501
         """Delete Environment Variable  # noqa: E501
 
@@ -374,7 +374,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the delete_environment_variable_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_environment_variable_with_http_info(envvar_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Environment Variable  # noqa: E501
 
@@ -482,7 +482,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_hook(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], **kwargs) -> None:  # noqa: E501
         """Delete Smart Hook by ID  # noqa: E501
 
@@ -511,7 +511,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the delete_hook_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_hook_with_http_info(hook_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Smart Hook by ID  # noqa: E501
 
@@ -619,7 +619,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_environment_variable(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], **kwargs) -> HookEnvvar:  # noqa: E501
         """Get Environment Variable  # noqa: E501
 
@@ -648,7 +648,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the get_environment_variable_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_environment_variable_with_http_info(envvar_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Environment Variable  # noqa: E501
 
@@ -759,7 +759,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_hook(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], **kwargs) -> Hook:  # noqa: E501
         """Get Smart Hook by ID  # noqa: E501
 
@@ -788,7 +788,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the get_hook_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_hook_with_http_info(hook_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Smart Hook by ID  # noqa: E501
 
@@ -900,7 +900,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_logs(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, request_id : Annotated[Optional[StrictStr], Field(description="Returns logs that contain this request_id.")] = None, correlation_id : Annotated[Optional[StrictStr], Field(description="Returns logs that contain this correlation_id.")] = None, **kwargs) -> List[HookLog]:  # noqa: E501
         """Get Smart Hook Logs  # noqa: E501
 
@@ -939,7 +939,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the get_logs_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_logs_with_http_info(hook_id, limit, page, cursor, request_id, correlation_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_logs_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, request_id : Annotated[Optional[StrictStr], Field(description="Returns logs that contain this request_id.")] = None, correlation_id : Annotated[Optional[StrictStr], Field(description="Returns logs that contain this correlation_id.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Smart Hook Logs  # noqa: E501
 
@@ -1081,7 +1081,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_environment_variables(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, **kwargs) -> List[HookEnvvar]:  # noqa: E501
         """List Environment Variables  # noqa: E501
 
@@ -1114,7 +1114,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the list_environment_variables_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_environment_variables_with_http_info(limit, page, cursor, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_environment_variables_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Environment Variables  # noqa: E501
 
@@ -1237,7 +1237,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_hooks(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, **kwargs) -> List[Hook]:  # noqa: E501
         """List all Smart Hooks  # noqa: E501
 
@@ -1270,7 +1270,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the list_hooks_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_hooks_with_http_info(limit, page, cursor, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_hooks_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List all Smart Hooks  # noqa: E501
 
@@ -1393,7 +1393,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_environment_variable(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], update_environment_variable_request : UpdateEnvironmentVariableRequest, **kwargs) -> HookEnvvar:  # noqa: E501
         """Update Environment Variable  # noqa: E501
 
@@ -1424,7 +1424,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the update_environment_variable_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_environment_variable_with_http_info(envvar_id, update_environment_variable_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_environment_variable_with_http_info(self, envvar_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook Environment Variable that you want to fetch.")], update_environment_variable_request : UpdateEnvironmentVariableRequest, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Environment Variable  # noqa: E501
 
@@ -1550,7 +1550,7 @@ class SmartHooksApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_hook(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], hook : Hook, **kwargs) -> Hook:  # noqa: E501
         """Update Smart Hook by ID  # noqa: E501
 
@@ -1581,7 +1581,7 @@ class SmartHooksApi(object):
             raise ValueError("Error! Please call the update_hook_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_hook_with_http_info(hook_id, hook, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_hook_with_http_info(self, hook_id : Annotated[StrictStr, Field(..., description="Set to the id of the Hook that you want to return.")], hook : Hook, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Smart Hook by ID  # noqa: E501
 

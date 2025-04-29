@@ -29,10 +29,12 @@ class VerifyUserVerificationRequest(BaseModel):
     device_id: Optional[StrictInt] = Field(None, description="ID of the specified device which has been registerd for the given user. Available on Get Devices API call.")
     __properties = ["otp", "device_id"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -31,10 +31,12 @@ class AuthServerConfiguration(BaseModel):
     access_token_expiration_minutes: Optional[StrictInt] = Field(None, description="The number of minutes until access token expires. There is no maximum expiry limit.")
     __properties = ["audiences", "refresh_token_expiration_minutes", "resource_identifier", "access_token_expiration_minutes"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -28,10 +28,12 @@ class AuthId(BaseModel):
     id: Optional[StrictInt] = Field(None, description="Unique ID for the Scope")
     __properties = ["id"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

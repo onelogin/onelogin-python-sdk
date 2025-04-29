@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Optional, Dict, Any
 from pydantic import BaseModel, Field, StrictBool, StrictStr
 
 class AppParameters(BaseModel):
@@ -32,10 +32,12 @@ class AppParameters(BaseModel):
     additional_properties: Dict[str, Any] = {}
     __properties = ["user_attribute_mappings", "user_attribute_macros", "label", "include_in_saml_assertion"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

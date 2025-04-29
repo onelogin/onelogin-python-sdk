@@ -19,10 +19,10 @@ import pprint
 import re  # noqa: F401
 
 from typing import Any, List, Optional
-from pydantic import BaseModel, Field, StrictStr, ValidationError, validator
+from pydantic import BaseModel, Field, StrictStr, ValidationError, field_validator
 from onelogin.models.email_config import EmailConfig
 from onelogin.models.get_email_settings200_response_one_of import GetEmailSettings200ResponseOneOf
-from typing import Any, List
+from typing import Any, List, Literal
 from pydantic import StrictStr, Field
 
 GETEMAILSETTINGS200RESPONSE_ONE_OF_SCHEMAS = ["EmailConfig", "GetEmailSettings200ResponseOneOf"]
@@ -36,10 +36,12 @@ class GetEmailSettings200Response(BaseModel):
     # data type: EmailConfig
     oneof_schema_2_validator: Optional[EmailConfig] = None
     actual_instance: Any
-    one_of_schemas: List[str] = Field(GETEMAILSETTINGS200RESPONSE_ONE_OF_SCHEMAS, const=True)
+    one_of_schemas: List[str] = Literal[GETEMAILSETTINGS200RESPONSE_ONE_OF_SCHEMAS]
 
-    class Config:
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_assignment": True
+    }
 
     def __init__(self, *args, **kwargs):
         if args:
@@ -51,7 +53,8 @@ class GetEmailSettings200Response(BaseModel):
         else:
             super().__init__(**kwargs)
 
-    @validator('actual_instance')
+    @field_validator('actual_instance')
+    @classmethod
     def actual_instance_must_validate_oneof(cls, v):
         instance = GetEmailSettings200Response.construct()
         error_messages = []

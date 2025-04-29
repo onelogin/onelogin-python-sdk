@@ -36,10 +36,12 @@ class TokenClaim(BaseModel):
     provisioned_entitlements: Optional[StrictBool] = Field(None, description="Relates to Rules/Entitlements. Not supported yet.")
     __properties = ["id", "label", "user_attribute_mappings", "user_attribute_macros", "attribute_transformations", "skip_if_blank", "values", "default_values", "provisioned_entitlements"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

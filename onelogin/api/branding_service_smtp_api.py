@@ -17,7 +17,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from typing import Optional
@@ -46,7 +46,7 @@ class BrandingServiceSMTPApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def delete_email_settings(self, **kwargs) -> AltErr:  # noqa: E501
         """Delete Custom Email Settings  # noqa: E501
 
@@ -73,7 +73,7 @@ class BrandingServiceSMTPApi(object):
             raise ValueError("Error! Please call the delete_email_settings_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_email_settings_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_email_settings_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Custom Email Settings  # noqa: E501
 
@@ -178,7 +178,7 @@ class BrandingServiceSMTPApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_email_settings(self, **kwargs) -> GetEmailSettings200Response:  # noqa: E501
         """Get Email Settings  # noqa: E501
 
@@ -205,7 +205,7 @@ class BrandingServiceSMTPApi(object):
             raise ValueError("Error! Please call the get_email_settings_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_email_settings_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_email_settings_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Email Settings  # noqa: E501
 
@@ -310,7 +310,7 @@ class BrandingServiceSMTPApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_email_settings(self, email_config : Optional[EmailConfig] = None, **kwargs) -> AltErr:  # noqa: E501
         """Update Email Settings  # noqa: E501
 
@@ -339,7 +339,7 @@ class BrandingServiceSMTPApi(object):
             raise ValueError("Error! Please call the update_email_settings_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_email_settings_with_http_info(email_config, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_email_settings_with_http_info(self, email_config : Optional[EmailConfig] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Email Settings  # noqa: E501
 

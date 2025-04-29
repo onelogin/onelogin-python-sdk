@@ -30,10 +30,12 @@ class AuthScope(BaseModel):
     description: Optional[StrictStr] = Field(None, description="A description of what access the scope enables")
     __properties = ["id", "value", "description"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr
@@ -51,7 +51,7 @@ class PrivilegesApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def add_privilege_to_role(self, privilege_id : StrictStr, add_privilege_to_role_request : Optional[AddPrivilegeToRoleRequest] = None, **kwargs) -> AddPrivilegeToRole201Response:  # noqa: E501
         """Assign a Privilege to Roles  # noqa: E501
 
@@ -82,7 +82,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the add_privilege_to_role_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.add_privilege_to_role_with_http_info(privilege_id, add_privilege_to_role_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def add_privilege_to_role_with_http_info(self, privilege_id : StrictStr, add_privilege_to_role_request : Optional[AddPrivilegeToRoleRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Assign a Privilege to Roles  # noqa: E501
 
@@ -207,7 +207,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def assign_users_to_privilege(self, privilege_id : StrictStr, assign_users_to_privilege_request : Optional[AssignUsersToPrivilegeRequest] = None, **kwargs) -> AddPrivilegeToRole201Response:  # noqa: E501
         """Assign Users to a Privilege  # noqa: E501
 
@@ -238,7 +238,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the assign_users_to_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.assign_users_to_privilege_with_http_info(privilege_id, assign_users_to_privilege_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def assign_users_to_privilege_with_http_info(self, privilege_id : StrictStr, assign_users_to_privilege_request : Optional[AssignUsersToPrivilegeRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Assign Users to a Privilege  # noqa: E501
 
@@ -363,7 +363,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def create_privilege(self, privilege : Optional[Privilege] = None, **kwargs) -> Privilege:  # noqa: E501
         """Create a Privilege  # noqa: E501
 
@@ -392,7 +392,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the create_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_privilege_with_http_info(privilege, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_privilege_with_http_info(self, privilege : Optional[Privilege] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create a Privilege  # noqa: E501
 
@@ -511,7 +511,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_privilege(self, privilege_id : StrictStr, **kwargs) -> None:  # noqa: E501
         """Delete a Privilege  # noqa: E501
 
@@ -540,7 +540,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the delete_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_privilege_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_privilege_with_http_info(self, privilege_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete a Privilege  # noqa: E501
 
@@ -648,7 +648,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_role_from_privilege(self, privilege_id : StrictStr, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> None:  # noqa: E501
         """Remove a Privilege from a Role  # noqa: E501
 
@@ -679,7 +679,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the delete_role_from_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_role_from_privilege_with_http_info(privilege_id, role_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_role_from_privilege_with_http_info(self, privilege_id : StrictStr, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Remove a Privilege from a Role  # noqa: E501
 
@@ -793,7 +793,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_assigned_user(self, privilege_id : StrictStr, **kwargs) -> GetAssignedUser200Response:  # noqa: E501
         """Get Users assigned to a Privilege  # noqa: E501
 
@@ -822,7 +822,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the get_assigned_user_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_assigned_user_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_assigned_user_with_http_info(self, privilege_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Users assigned to a Privilege  # noqa: E501
 
@@ -934,7 +934,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_privilege(self, privilege_id : StrictStr, **kwargs) -> Privilege:  # noqa: E501
         """Get a Privilege  # noqa: E501
 
@@ -963,7 +963,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the get_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_privilege_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_privilege_with_http_info(self, privilege_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get a Privilege  # noqa: E501
 
@@ -1075,7 +1075,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_privilege_roles(self, privilege_id : StrictStr, **kwargs) -> ListPrivilegeRoles200Response:  # noqa: E501
         """Get Roles assigned to Privilege  # noqa: E501
 
@@ -1104,7 +1104,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the list_privilege_roles_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_privilege_roles_with_http_info(privilege_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_privilege_roles_with_http_info(self, privilege_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Roles assigned to Privilege  # noqa: E501
 
@@ -1216,7 +1216,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_privileges(self, **kwargs) -> List[Privilege]:  # noqa: E501
         """List Privileges  # noqa: E501
 
@@ -1243,7 +1243,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the list_privileges_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_privileges_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_privileges_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Privileges  # noqa: E501
 
@@ -1348,7 +1348,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def remove_user_from_privilege(self, privilege_id : StrictStr, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> None:  # noqa: E501
         """Remove a Privilege from Users  # noqa: E501
 
@@ -1379,7 +1379,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the remove_user_from_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.remove_user_from_privilege_with_http_info(privilege_id, user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def remove_user_from_privilege_with_http_info(self, privilege_id : StrictStr, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Remove a Privilege from Users  # noqa: E501
 
@@ -1493,7 +1493,7 @@ class PrivilegesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_privilege(self, privilege_id : StrictStr, privilege : Optional[Privilege] = None, **kwargs) -> UpdatePrivilege200Response:  # noqa: E501
         """Update a Privilege  # noqa: E501
 
@@ -1524,7 +1524,7 @@ class PrivilegesApi(object):
             raise ValueError("Error! Please call the update_privilege_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_privilege_with_http_info(privilege_id, privilege, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_privilege_with_http_info(self, privilege_id : StrictStr, privilege : Optional[Privilege] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update a Privilege  # noqa: E501
 

@@ -32,10 +32,12 @@ class GenerateMFAtoken200Response(BaseModel):
     expires_at: Optional[StrictStr] = Field(None, description="Defines the expiration time and date for the token. Format is UTC time.")
     __properties = ["mfa_token", "resuable", "expires_at"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

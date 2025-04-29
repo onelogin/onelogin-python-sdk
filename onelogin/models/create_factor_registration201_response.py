@@ -33,10 +33,12 @@ class CreateFactorRegistration201Response(BaseModel):
     user_id: Optional[StrictStr] = Field(None, description="User identifier")
     __properties = ["device_id", "user_display_name", "type_display_name", "auth_factor_name", "id", "user_id"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

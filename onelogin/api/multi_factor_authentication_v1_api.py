@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr
@@ -53,7 +53,7 @@ class MultiFactorAuthenticationV1Api(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def activate_mfa_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, activate_mfa_factors_request : Optional[ActivateMfaFactorsRequest] = None, **kwargs) -> GetEnrolledFactors200Response:  # noqa: E501
         """Activate a Factor  # noqa: E501
 
@@ -86,7 +86,7 @@ class MultiFactorAuthenticationV1Api(object):
             raise ValueError("Error! Please call the activate_mfa_factors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.activate_mfa_factors_with_http_info(user_id, device_id, activate_mfa_factors_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def activate_mfa_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, activate_mfa_factors_request : Optional[ActivateMfaFactorsRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Activate a Factor  # noqa: E501
 
@@ -217,7 +217,7 @@ class MultiFactorAuthenticationV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def enroll_mfa_factor(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], otp_device : Optional[OtpDevice] = None, **kwargs) -> EnrollMfaFactor200Response:  # noqa: E501
         """Enroll a Factor  # noqa: E501
 
@@ -248,7 +248,7 @@ class MultiFactorAuthenticationV1Api(object):
             raise ValueError("Error! Please call the enroll_mfa_factor_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.enroll_mfa_factor_with_http_info(user_id, otp_device, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def enroll_mfa_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], otp_device : Optional[OtpDevice] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Enroll a Factor  # noqa: E501
 
@@ -373,7 +373,7 @@ class MultiFactorAuthenticationV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def generate_mf_atoken(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], generate_mf_atoken_request : Optional[GenerateMFAtokenRequest] = None, **kwargs) -> GenerateMFAtoken200Response:  # noqa: E501
         """Generate Temp MFA Token  # noqa: E501
 
@@ -404,7 +404,7 @@ class MultiFactorAuthenticationV1Api(object):
             raise ValueError("Error! Please call the generate_mf_atoken_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.generate_mf_atoken_with_http_info(user_id, generate_mf_atoken_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def generate_mf_atoken_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], generate_mf_atoken_request : Optional[GenerateMFAtokenRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate Temp MFA Token  # noqa: E501
 
@@ -527,7 +527,7 @@ class MultiFactorAuthenticationV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_enrolled_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> GetEnrolledFactors200Response:  # noqa: E501
         """Get Enrolled Factors  # noqa: E501
 
@@ -556,7 +556,7 @@ class MultiFactorAuthenticationV1Api(object):
             raise ValueError("Error! Please call the get_enrolled_factors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_enrolled_factors_with_http_info(user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_enrolled_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Enrolled Factors  # noqa: E501
 
@@ -668,7 +668,7 @@ class MultiFactorAuthenticationV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_mfa_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> GetMFAFactors200Response:  # noqa: E501
         """Get Available Factors  # noqa: E501
 
@@ -697,7 +697,7 @@ class MultiFactorAuthenticationV1Api(object):
             raise ValueError("Error! Please call the get_mfa_factors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_mfa_factors_with_http_info(user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_mfa_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Available Factors  # noqa: E501
 
@@ -810,7 +810,7 @@ class MultiFactorAuthenticationV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def remove_mfa_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, **kwargs) -> None:  # noqa: E501
         """Remove an Enrolled Factor  # noqa: E501
 
@@ -841,7 +841,7 @@ class MultiFactorAuthenticationV1Api(object):
             raise ValueError("Error! Please call the remove_mfa_factors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.remove_mfa_factors_with_http_info(user_id, device_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def remove_mfa_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Remove an Enrolled Factor  # noqa: E501
 
@@ -955,7 +955,7 @@ class MultiFactorAuthenticationV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def verify_mfa_factor(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, verify_mfa_factor_request : Optional[VerifyMfaFactorRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Verify a Factor  # noqa: E501
 
@@ -988,7 +988,7 @@ class MultiFactorAuthenticationV1Api(object):
             raise ValueError("Error! Please call the verify_mfa_factor_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.verify_mfa_factor_with_http_info(user_id, device_id, verify_mfa_factor_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def verify_mfa_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, verify_mfa_factor_request : Optional[VerifyMfaFactorRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify a Factor  # noqa: E501
 

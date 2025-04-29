@@ -19,7 +19,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, validator
+from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, field_validator
 
 class GetUserApps200ResponseInner(BaseModel):
     """
@@ -35,7 +35,8 @@ class GetUserApps200ResponseInner(BaseModel):
     provisioning_enabled: Optional[StrictBool] = Field(None, description="Indicates if provisioning is enabled for this app.")
     __properties = ["id", "icon_url", "extension", "login_id", "name", "provisioning_status", "provisioning_state", "provisioning_enabled"]
 
-    @validator('provisioning_status')
+    @field_validator('provisioning_status')
+    @classmethod
     def provisioning_status_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -45,7 +46,8 @@ class GetUserApps200ResponseInner(BaseModel):
             raise ValueError("must be one of enum values ('enabling', 'disabling', 'enabling_pending_approval', 'disabling_pendding_approval', 'enabled', 'disabled', 'disabling_failed', 'enabling_failed')")
         return value
 
-    @validator('provisioning_state')
+    @field_validator('provisioning_state')
+    @classmethod
     def provisioning_state_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -55,10 +57,12 @@ class GetUserApps200ResponseInner(BaseModel):
             raise ValueError("must be one of enum values ('unknown', 'provisioning', 'modifying', 'deleting', 'provisioning_pending_approval', 'deleting_pending_approval', 'modifying_pending_approval', 'linking', 'provisioned', 'deleted', 'modifying_failed', 'provisioning_failed', 'deleting_failed', 'linking_failed', 'disabled', 'nonexistent', 'modifying_pending_approval_then_disabled')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

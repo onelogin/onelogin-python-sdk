@@ -28,10 +28,12 @@ class SsoOidc(BaseModel):
     client_id: Optional[StrictStr] = Field(None, description="OIDC: The OpenId Connect Client Id.  Note that client_secret is only returned after Creating an App")
     __properties = ["client_id"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

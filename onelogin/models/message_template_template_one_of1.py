@@ -28,10 +28,12 @@ class MessageTemplateTemplateOneOf1(BaseModel):
     message: constr(strict=True, max_length=160) = Field(..., description="The body of the SMS message. Max length 160 characters.")
     __properties = ["message"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

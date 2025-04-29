@@ -29,10 +29,12 @@ class ListMappingsActions200ResponseInner(BaseModel):
     value: Optional[StrictStr] = Field(None, description="The unique identifier of the action. This should be used when defining actions for a User Mapping.")
     __properties = ["name", "value"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

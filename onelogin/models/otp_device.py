@@ -31,10 +31,12 @@ class OtpDevice(BaseModel):
     verified: Optional[StrictBool] = Field(None, description="Defaults to false. Some factors like SMS or Voice require that a user recieve a token and then that token is supplied to the Verify endpoint before the device is considered active. You can set verfied to `true` which indicates the the users phone number is pre verified and the device can be immediately activated.           ")
     __properties = ["factor_id", "display_name", "number", "verified"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

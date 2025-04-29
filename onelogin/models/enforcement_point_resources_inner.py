@@ -19,7 +19,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictBool, StrictStr, validator
+from pydantic import BaseModel, Field, StrictBool, StrictStr, field_validator
 
 class EnforcementPointResourcesInner(BaseModel):
     """
@@ -32,7 +32,8 @@ class EnforcementPointResourcesInner(BaseModel):
     conditions: Optional[StrictStr] = Field(None, description="required if permission == \"conditions\"")
     __properties = ["path", "is_path_regex", "require_auth", "permission", "conditions"]
 
-    @validator('permission')
+    @field_validator('permission')
+    @classmethod
     def permission_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -42,10 +43,12 @@ class EnforcementPointResourcesInner(BaseModel):
             raise ValueError("must be one of enum values ('allow', 'deny', 'conditions')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

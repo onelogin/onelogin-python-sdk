@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import StrictInt, StrictStr
@@ -48,7 +48,7 @@ class APIAuthClientAppsApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def add_client_app(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, add_client_app_request : Optional[AddClientAppRequest] = None, **kwargs) -> AddClientApp201Response:  # noqa: E501
         """Add Client App  # noqa: E501
 
@@ -81,7 +81,7 @@ class APIAuthClientAppsApi(object):
             raise ValueError("Error! Please call the add_client_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.add_client_app_with_http_info(api_auth_id, content_type, add_client_app_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def add_client_app_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, add_client_app_request : Optional[AddClientAppRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Add Client App  # noqa: E501
 
@@ -213,7 +213,7 @@ class APIAuthClientAppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_client_app(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> AddClientApp201Response:  # noqa: E501
         """Remove Client App  # noqa: E501
 
@@ -246,7 +246,7 @@ class APIAuthClientAppsApi(object):
             raise ValueError("Error! Please call the delete_client_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_client_app_with_http_info(api_auth_id, client_app_id, content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_client_app_with_http_info(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Remove Client App  # noqa: E501
 
@@ -371,7 +371,7 @@ class APIAuthClientAppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_client_apps(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ClientAppFull:  # noqa: E501
         """List Clients Apps  # noqa: E501
 
@@ -402,7 +402,7 @@ class APIAuthClientAppsApi(object):
             raise ValueError("Error! Please call the list_client_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_client_apps_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_client_apps_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Clients Apps  # noqa: E501
 
@@ -520,7 +520,7 @@ class APIAuthClientAppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_client_app(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, update_client_app_request : Optional[UpdateClientAppRequest] = None, **kwargs) -> AddClientApp201Response:  # noqa: E501
         """Update Client App  # noqa: E501
 
@@ -555,7 +555,7 @@ class APIAuthClientAppsApi(object):
             raise ValueError("Error! Please call the update_client_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_client_app_with_http_info(api_auth_id, client_app_id, content_type, update_client_app_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_client_app_with_http_info(self, api_auth_id : StrictStr, client_app_id : StrictInt, content_type : Optional[StrictStr] = None, update_client_app_request : Optional[UpdateClientAppRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Client App  # noqa: E501
 

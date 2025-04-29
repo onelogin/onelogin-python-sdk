@@ -17,7 +17,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import StrictInt, StrictStr
@@ -50,7 +50,7 @@ class AppsApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_app(self, content_type : Optional[StrictStr] = None, create_app_request : Optional[CreateAppRequest] = None, **kwargs) -> CreateApp200Response:  # noqa: E501
         """Create App  # noqa: E501
 
@@ -81,7 +81,7 @@ class AppsApi(object):
             raise ValueError("Error! Please call the create_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_app_with_http_info(content_type, create_app_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_app_with_http_info(self, content_type : Optional[StrictStr] = None, create_app_request : Optional[CreateAppRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create App  # noqa: E501
 
@@ -206,7 +206,7 @@ class AppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_app(self, app_id : StrictInt, **kwargs) -> None:  # noqa: E501
         """Delete App  # noqa: E501
 
@@ -235,7 +235,7 @@ class AppsApi(object):
             raise ValueError("Error! Please call the delete_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_app_with_http_info(app_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_app_with_http_info(self, app_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete App  # noqa: E501
 
@@ -343,7 +343,7 @@ class AppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_app_parameter(self, app_id : StrictInt, parameter_id : StrictStr, **kwargs) -> None:  # noqa: E501
         """Delete Parameter from App  # noqa: E501
 
@@ -374,7 +374,7 @@ class AppsApi(object):
             raise ValueError("Error! Please call the delete_app_parameter_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_app_parameter_with_http_info(app_id, parameter_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_app_parameter_with_http_info(self, app_id : StrictInt, parameter_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Parameter from App  # noqa: E501
 
@@ -488,7 +488,7 @@ class AppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_app(self, app_id : StrictInt, **kwargs) -> GenericApp:  # noqa: E501
         """Get App  # noqa: E501
 
@@ -517,7 +517,7 @@ class AppsApi(object):
             raise ValueError("Error! Please call the get_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_app_with_http_info(app_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_app_with_http_info(self, app_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """Get App  # noqa: E501
 
@@ -629,7 +629,7 @@ class AppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_app_users(self, app_id : StrictInt, **kwargs) -> List[User]:  # noqa: E501
         """Get App Users  # noqa: E501
 
@@ -658,7 +658,7 @@ class AppsApi(object):
             raise ValueError("Error! Please call the get_app_users_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_app_users_with_http_info(app_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_app_users_with_http_info(self, app_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """Get App Users  # noqa: E501
 
@@ -769,7 +769,7 @@ class AppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_apps(self, **kwargs) -> List[GenericApp]:  # noqa: E501
         """List Apps  # noqa: E501
 
@@ -796,7 +796,7 @@ class AppsApi(object):
             raise ValueError("Error! Please call the list_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_apps_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_apps_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Apps  # noqa: E501
 
@@ -902,7 +902,7 @@ class AppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_connectors(self, name : Optional[StrictStr] = None, **kwargs) -> Connector:  # noqa: E501
         """List Connectors  # noqa: E501
 
@@ -931,7 +931,7 @@ class AppsApi(object):
             raise ValueError("Error! Please call the list_connectors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_connectors_with_http_info(name, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_connectors_with_http_info(self, name : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Connectors  # noqa: E501
 
@@ -1043,7 +1043,7 @@ class AppsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_app(self, app_id : StrictInt, request_body : Optional[Dict[str, Any]] = None, **kwargs) -> GenericApp:  # noqa: E501
         """Update App  # noqa: E501
 
@@ -1074,7 +1074,7 @@ class AppsApi(object):
             raise ValueError("Error! Please call the update_app_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_app_with_http_info(app_id, request_body, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_app_with_http_info(self, app_id : StrictInt, request_body : Optional[Dict[str, Any]] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update App  # noqa: E501
 

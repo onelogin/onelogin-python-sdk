@@ -19,7 +19,7 @@ import json
 
 
 from typing import Dict, List, Optional
-from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conint, conlist, validator
+from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conint, conlist, field_validator
 from onelogin.models.condition import Condition
 from onelogin.models.hook_options import HookOptions
 
@@ -44,7 +44,8 @@ class Hook(BaseModel):
     updated_at: Optional[StrictStr] = Field(None, description="ISO8601 format date that they hook function was last updated.")
     __properties = ["id", "type", "disabled", "timeout", "env_vars", "runtime", "retries", "packages", "function", "context_version", "status", "options", "conditions", "created_at", "updated_at"]
 
-    @validator('status')
+    @field_validator('status')
+    @classmethod
     def status_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -54,10 +55,12 @@ class Hook(BaseModel):
             raise ValueError("must be one of enum values ('ready', 'create-queued', 'create-running', 'create-failed', 'update-queued', 'update-running', 'update-failed')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

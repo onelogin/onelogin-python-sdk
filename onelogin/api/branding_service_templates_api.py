@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr, constr, validator
@@ -46,7 +46,7 @@ class BrandingServiceTemplatesApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_message_template(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, message_template : Optional[MessageTemplate] = None, **kwargs) -> MessageTemplate:  # noqa: E501
         """Create Message Template  # noqa: E501
 
@@ -79,7 +79,7 @@ class BrandingServiceTemplatesApi(object):
             raise ValueError("Error! Please call the create_message_template_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_message_template_with_http_info(brand_id, locale, message_template, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_message_template_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, message_template : Optional[MessageTemplate] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Message Template  # noqa: E501
 
@@ -210,7 +210,7 @@ class BrandingServiceTemplatesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_message_template(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> None:  # noqa: E501
         """Delete Message Template  # noqa: E501
 
@@ -241,7 +241,7 @@ class BrandingServiceTemplatesApi(object):
             raise ValueError("Error! Please call the delete_message_template_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_message_template_with_http_info(brand_id, template_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_message_template_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Message Template  # noqa: E501
 
@@ -355,7 +355,7 @@ class BrandingServiceTemplatesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_master_by_type(self, template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Get Master Template by Type  # noqa: E501
 
@@ -384,7 +384,7 @@ class BrandingServiceTemplatesApi(object):
             raise ValueError("Error! Please call the get_master_by_type_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_master_by_type_with_http_info(template_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_master_by_type_with_http_info(self, template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Master Template by Type  # noqa: E501
 
@@ -496,7 +496,7 @@ class BrandingServiceTemplatesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_message_template_by_id(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Get Message Template  # noqa: E501
 
@@ -527,7 +527,7 @@ class BrandingServiceTemplatesApi(object):
             raise ValueError("Error! Please call the get_message_template_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_message_template_by_id_with_http_info(brand_id, template_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_message_template_by_id_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Message Template  # noqa: E501
 
@@ -645,7 +645,7 @@ class BrandingServiceTemplatesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_template_by_locale(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Get Template by Type & Locale  # noqa: E501
 
@@ -678,7 +678,7 @@ class BrandingServiceTemplatesApi(object):
             raise ValueError("Error! Please call the get_template_by_locale_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_template_by_locale_with_http_info(brand_id, template_type, locale, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_template_by_locale_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Template by Type & Locale  # noqa: E501
 
@@ -802,7 +802,7 @@ class BrandingServiceTemplatesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_message_templates(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, **kwargs) -> List[ListMessageTemplates200ResponseInner]:  # noqa: E501
         """List Message Templates  # noqa: E501
 
@@ -833,7 +833,7 @@ class BrandingServiceTemplatesApi(object):
             raise ValueError("Error! Please call the list_message_templates_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_message_templates_with_http_info(brand_id, locale, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_message_templates_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], locale : Annotated[Optional[constr(strict=True)], Field(description="The 2 character language locale for the template. e.g. en = English, es = Spanish")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Message Templates  # noqa: E501
 
@@ -951,7 +951,7 @@ class BrandingServiceTemplatesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_message_template_by_id(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Update Message Template  # noqa: E501
 
@@ -982,7 +982,7 @@ class BrandingServiceTemplatesApi(object):
             raise ValueError("Error! Please call the update_message_template_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_message_template_by_id_with_http_info(brand_id, template_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_message_template_by_id_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_id : Annotated[StrictInt, Field(..., description="Unique identifier for the template to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Update Message Template  # noqa: E501
 
@@ -1100,7 +1100,7 @@ class BrandingServiceTemplatesApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_template_by_locale(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> MessageTemplate:  # noqa: E501
         """Update Template by Type & Locale  # noqa: E501
 
@@ -1133,7 +1133,7 @@ class BrandingServiceTemplatesApi(object):
             raise ValueError("Error! Please call the update_template_by_locale_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_template_by_locale_with_http_info(brand_id, template_type, locale, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_template_by_locale_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], template_type : Annotated[StrictStr, Field(..., description="The message template type to return.")], locale : Annotated[constr(strict=True), Field(..., description="The 2 character language locale for the template. e.g. en = English, es = Spanish")], **kwargs) -> ApiResponse:  # noqa: E501
         """Update Template by Type & Locale  # noqa: E501
 

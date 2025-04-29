@@ -33,10 +33,12 @@ class GetAssignedUser200Response(BaseModel):
     next_link: Optional[StrictStr] = Field(None, alias="nextLink")
     __properties = ["total", "users", "beforeCursor", "previousLink", "afterCursor", "nextLink"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

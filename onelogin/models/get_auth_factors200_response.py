@@ -30,10 +30,12 @@ class GetAuthFactors200Response(BaseModel):
     auth_factor_name: Optional[StrictStr] = Field(None, description="Internal use only")
     __properties = ["factor_id", "name", "auth_factor_name"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

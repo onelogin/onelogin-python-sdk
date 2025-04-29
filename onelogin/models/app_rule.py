@@ -19,7 +19,7 @@ import json
 
 
 from typing import List, Optional
-from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conlist, validator
+from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conlist, field_validator
 from onelogin.models.action_obj import ActionObj
 from onelogin.models.condition import Condition
 
@@ -36,7 +36,8 @@ class AppRule(BaseModel):
     actions: Optional[conlist(ActionObj)] = None
     __properties = ["id", "name", "match", "enabled", "position", "conditions", "actions"]
 
-    @validator('match')
+    @field_validator('match')
+    @classmethod
     def match_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -46,10 +47,12 @@ class AppRule(BaseModel):
             raise ValueError("must be one of enum values ('all', 'any')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -17,7 +17,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr
@@ -51,7 +51,7 @@ class VigilanceAIApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_risk_rule(self, risk_rule : Optional[RiskRule] = None, **kwargs) -> RiskRule:  # noqa: E501
         """Create Rule  # noqa: E501
 
@@ -80,7 +80,7 @@ class VigilanceAIApi(object):
             raise ValueError("Error! Please call the create_risk_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_risk_rule_with_http_info(risk_rule, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_risk_rule_with_http_info(self, risk_rule : Optional[RiskRule] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Rule  # noqa: E501
 
@@ -199,7 +199,7 @@ class VigilanceAIApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_risk_rule(self, rule_id : StrictStr, **kwargs) -> None:  # noqa: E501
         """Delete Rule  # noqa: E501
 
@@ -228,7 +228,7 @@ class VigilanceAIApi(object):
             raise ValueError("Error! Please call the delete_risk_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_risk_rule_with_http_info(rule_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_risk_rule_with_http_info(self, rule_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Rule  # noqa: E501
 
@@ -336,7 +336,7 @@ class VigilanceAIApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_risk_rule(self, rule_id : StrictStr, **kwargs) -> RiskRule:  # noqa: E501
         """get Risk Rule  # noqa: E501
 
@@ -365,7 +365,7 @@ class VigilanceAIApi(object):
             raise ValueError("Error! Please call the get_risk_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_risk_rule_with_http_info(rule_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_risk_rule_with_http_info(self, rule_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """get Risk Rule  # noqa: E501
 
@@ -476,7 +476,7 @@ class VigilanceAIApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_risk_score(self, get_risk_score_request : GetRiskScoreRequest, before : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.")] = None, after : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.")] = None, **kwargs) -> GetRiskScore200Response:  # noqa: E501
         """Get a Risk Score  # noqa: E501
 
@@ -509,7 +509,7 @@ class VigilanceAIApi(object):
             raise ValueError("Error! Please call the get_risk_score_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_risk_score_with_http_info(get_risk_score_request, before, after, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_risk_score_with_http_info(self, get_risk_score_request : GetRiskScoreRequest, before : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to current date. Maximum date is 90 days ago.")] = None, after : Annotated[Optional[StrictStr], Field(description="Optional ISO8601 formatted date string. Defaults to 30 days ago. Maximum date is 90 days ago.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get a Risk Score  # noqa: E501
 
@@ -640,7 +640,7 @@ class VigilanceAIApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_risk_scores(self, **kwargs) -> GetRiskScores200Response:  # noqa: E501
         """Get Score Summary  # noqa: E501
 
@@ -667,7 +667,7 @@ class VigilanceAIApi(object):
             raise ValueError("Error! Please call the get_risk_scores_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_risk_scores_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_risk_scores_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Score Summary  # noqa: E501
 
@@ -772,7 +772,7 @@ class VigilanceAIApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_risk_rules(self, **kwargs) -> List[RiskRule]:  # noqa: E501
         """List Rules  # noqa: E501
 
@@ -799,7 +799,7 @@ class VigilanceAIApi(object):
             raise ValueError("Error! Please call the list_risk_rules_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_risk_rules_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_risk_rules_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Rules  # noqa: E501
 
@@ -904,7 +904,7 @@ class VigilanceAIApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def track_risk_event(self, track_risk_event_request : TrackRiskEventRequest, **kwargs) -> None:  # noqa: E501
         """Track an Event  # noqa: E501
 
@@ -933,7 +933,7 @@ class VigilanceAIApi(object):
             raise ValueError("Error! Please call the track_risk_event_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.track_risk_event_with_http_info(track_risk_event_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def track_risk_event_with_http_info(self, track_risk_event_request : TrackRiskEventRequest, **kwargs) -> ApiResponse:  # noqa: E501
         """Track an Event  # noqa: E501
 
@@ -1048,7 +1048,7 @@ class VigilanceAIApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_risk_rule(self, rule_id : StrictStr, update_risk_rule_request : Optional[UpdateRiskRuleRequest] = None, **kwargs) -> RiskRule:  # noqa: E501
         """Update Rule  # noqa: E501
 
@@ -1079,7 +1079,7 @@ class VigilanceAIApi(object):
             raise ValueError("Error! Please call the update_risk_rule_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_risk_rule_with_http_info(rule_id, update_risk_rule_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_risk_rule_with_http_info(self, rule_id : StrictStr, update_risk_rule_request : Optional[UpdateRiskRuleRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Rule  # noqa: E501
 
