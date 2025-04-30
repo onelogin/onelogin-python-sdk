@@ -38,7 +38,7 @@ with onelogin.ApiClient(configuration) as api_client:
         print("Exception when calling UsersV2Api->list_users: %s\n" % e)
     
     priv_instance = onelogin.PrivilegesApi(api_client)
-    privilege = {"name":"User Helpdesk","description":"Can administer helpdesk users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["Users:List","Users:Get","Users:Unlock","Users:ResetPassword","Users:GenerateTempMfaToken"],"Scope":["*"]}]}} # Privilege |  (optional)
+    privilege = {"name":"User Helpdesk","description":"Can administer helpdesk users","privilege":{"Version":"2018-05-18","Statement":[{"Effect":"Allow","Action":["users:List","users:Get","users:Unlock","users:ResetPassword","users:GenerateTempMfaToken"],"Scope":["*"]}]}} # Privilege |  (optional)
 
     try:
         # Create a Privilege
