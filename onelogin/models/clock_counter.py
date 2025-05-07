@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Optional, ClassVar, List
 from pydantic import BaseModel, StrictInt
 
 class ClockCounter(BaseModel):
@@ -27,7 +27,9 @@ class ClockCounter(BaseModel):
     """
     value: Optional[StrictInt] = None
     unit: Optional[StrictInt] = None
-    __properties = ["value", "unit"]
+    
+    # Define properties as a class variable
+    _properties: ClassVar[List[str]] = ["value", "unit"]
 
     """Pydantic configuration"""
     model_config = {

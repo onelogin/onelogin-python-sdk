@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Optional, ClassVar, List
 from pydantic import BaseModel, Field, StrictBool, StrictStr, field_validator
 
 class EnforcementPointResourcesInner(BaseModel):
@@ -30,7 +30,9 @@ class EnforcementPointResourcesInner(BaseModel):
     require_auth: Optional[StrictBool] = None
     permission: Optional[StrictStr] = None
     conditions: Optional[StrictStr] = Field(None, description="required if permission == \"conditions\"")
-    __properties = ["path", "is_path_regex", "require_auth", "permission", "conditions"]
+    
+    # Define properties as a class variable
+    _properties: ClassVar[List[str]] = ["path", "is_path_regex", "require_auth", "permission", "conditions"]
 
     @field_validator('permission')
     @classmethod

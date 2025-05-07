@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Optional, ClassVar, List
 from pydantic import BaseModel, StrictBool
 
 class GenericAppProvisioning(BaseModel):
@@ -26,7 +26,9 @@ class GenericAppProvisioning(BaseModel):
     Indicates if provisioning is enabled for this app.
     """
     enabled: Optional[StrictBool] = None
-    __properties = ["enabled"]
+    
+    # Define properties as a class variable
+    _properties: ClassVar[List[str]] = ["enabled"]
 
     """Pydantic configuration"""
     model_config = {
