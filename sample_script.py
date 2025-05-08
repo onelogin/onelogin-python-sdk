@@ -57,3 +57,75 @@ with onelogin.ApiClient(configuration) as api_client:
         pprint(api_response)
     except Exception as e:
         print("Exception when calling PrivilegesApi->list_privileges: %s\n" % e)
+
+    # Create an instance of the APIAuthClaimsApi
+    auth_claims_api = onelogin.APIAuthClaimsApi(api_client)
+    content_type = "application/json"
+    
+    # First, list available auth servers to get an ID
+    auth_server_api = onelogin.APIAuthorizationServerApi(api_client)
+    try:
+        # Get list of auth servers
+        auth_servers = auth_server_api.get_auth_servers(content_type=content_type)
+        print("Available Auth Servers:\n")
+        pprint(auth_servers)
+        
+        # For testing, use the first auth server ID if available
+        if auth_servers and len(auth_servers) > 0:
+            auth_server_id = str(auth_servers[0].id)
+            
+            # Create an auth claim
+            auth_claim = onelogin.AuthClaim(
+                name="test_claim",
+                user_attribute_mappings="email"
+            )
+            
+            try:
+                # Create Auth Claim
+                create_response = auth_claims_api.create_auth_claim(
+                    api_auth_id=auth_server_id,
+                    content_type=content_type,
+                    auth_claim=auth_claim
+                )
+                print("Created Auth Claim with ID:\n")
+                pprint(create_response)
+                
+                # Get the created claim ID
+                claim_id = create_response
+                
+                # List all claims to verify creation
+                try:
+                    all_claims = auth_claims_api.get_authclaims(
+                        api_auth_id=auth_server_id,
+                        content_type=content_type
+                    )
+                    print("All Auth Claims:\n")
+                    pprint(all_claims)
+                except Exception as e:
+                    print(f"Exception when listing auth claims: {e}")
+                
+                # Delete the auth claim
+                try:
+                    auth_claims_api.delete_auth_claim(
+                        api_auth_id=auth_server_id,
+                        claim_id=claim_id,
+                        content_type=content_type
+                    )
+                    print(f"Successfully deleted auth claim with ID: {claim_id}")
+                    
+                    # Verify deletion by listing claims again
+                    all_claims_after = auth_claims_api.get_authclaims(
+                        api_auth_id=auth_server_id,
+                        content_type=content_type
+                    )
+                    print("Auth Claims after deletion:\n")
+                    pprint(all_claims_after)
+                except Exception as e:
+                    print(f"Exception when deleting auth claim: {e}")
+            
+            except Exception as e:
+                print(f"Exception when creating auth claim: {e}")
+        else:
+            print("No authorization servers found to test with.")
+    except Exception as e:
+        print(f"Exception when getting auth servers: {e}")
