@@ -7,9 +7,14 @@ For more information about the OneLogin API, visit the [OneLogin API Documentati
 ## Support
 OneLogin by One Identity open source projects are supported through [OneLogin GitHub issues](https://github.com/onelogin/onelogin-python-sdk/issues). This includes all scripts, plugins, SDKs, modules, code snippets or other solutions. For assistance with any OneLogin by One Identity GitHub project, please raise a new Issue on the [OneLogin GitHub issues](https://github.com/onelogin/onelogin-python-sdk/issues) page. Requests for assistance made through official One Identity Support will be referred back to GitHub where those requests can benefit all users.
 
-## Requirements.
+## Requirements
 
-Python 3.7+
+- Python 3.7+
+- Dependencies:
+  - Pydantic 2.11+ (latest version)
+  - urllib3 2.0.2+
+  - python-dateutil 2.5.3+
+  - aenum 3.1.11+
 
 ## Installation & Usage
 
@@ -66,6 +71,7 @@ configuration = onelogin.Configuration(
 
 # Set your API credentials
 # Use environment variables to avoid hardcoding credentials
+# IMPORTANT: Use ONELOGIN_CLIENT_ID and ONELOGIN_CLIENT_SECRET for your environment variables
 configuration = onelogin.Configuration(
     username = os.environ["ONELOGIN_CLIENT_ID"],
     password = os.environ["ONELOGIN_CLIENT_SECRET"]
@@ -114,3 +120,26 @@ The OneLogin API supports the following scopes:
 - **Read All**: Read-only access to all API resources
 
 You can set up your API credentials with appropriate scopes in the OneLogin portal under Security > API Credentials.
+
+## Troubleshooting
+
+### ImportError with Pydantic
+If you encounter an error like `ImportError: cannot import name validate_call from pydantic`, make sure you have Pydantic 2.11+ installed:
+
+```sh
+pip install pydantic>=2.11.0
+```
+
+### Environment Variable Names
+Make sure to set your environment variables using the names expected by your code:
+
+```sh
+export ONELOGIN_CLIENT_ID="your-client-id"
+export ONELOGIN_CLIENT_SECRET="your-client-secret"
+```
+
+### API Connection Issues
+If you're having trouble connecting to the API, double-check:
+- Your OneLogin subdomain is correct in the host URL
+- Your API credentials have the correct scopes for the operations you're trying to perform
+- Your network can reach the OneLogin API endpoints
