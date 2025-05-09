@@ -1,4 +1,4 @@
-# onelogin
+# onelogin-python-sdk
 
 Python SDK for OneLogin API
 For more information, please visit [https://support.onelogin.com](https://support.onelogin.com)
