@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import StrictStr
@@ -48,7 +48,7 @@ class SAMLAssertionsApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def generate_saml_assert(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs) -> GenerateSamlAssert200Response:  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
@@ -79,7 +79,7 @@ class SAMLAssertionsApi(object):
             raise ValueError("Error! Please call the generate_saml_assert_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.generate_saml_assert_with_http_info(content_type, saml_assert, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def generate_saml_assert_with_http_info(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
@@ -204,7 +204,7 @@ class SAMLAssertionsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def generate_saml_assert2(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs) -> GenerateSamlAssert200Response:  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
@@ -235,7 +235,7 @@ class SAMLAssertionsApi(object):
             raise ValueError("Error! Please call the generate_saml_assert2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.generate_saml_assert2_with_http_info(content_type, saml_assert, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def generate_saml_assert2_with_http_info(self, content_type : Optional[StrictStr] = None, saml_assert : Optional[SamlAssert] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate SAML Assertion  # noqa: E501
 
@@ -360,7 +360,7 @@ class SAMLAssertionsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def ver_factor_saml(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs) -> VerFactorSaml200Response:  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
@@ -391,7 +391,7 @@ class SAMLAssertionsApi(object):
             raise ValueError("Error! Please call the ver_factor_saml_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.ver_factor_saml_with_http_info(content_type, saml_factor, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def ver_factor_saml_with_http_info(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
@@ -517,7 +517,7 @@ class SAMLAssertionsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def ver_factor_saml2(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs) -> VerFactorSaml200Response:  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 
@@ -548,7 +548,7 @@ class SAMLAssertionsApi(object):
             raise ValueError("Error! Please call the ver_factor_saml2_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.ver_factor_saml2_with_http_info(content_type, saml_factor, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def ver_factor_saml2_with_http_info(self, content_type : Optional[StrictStr] = None, saml_factor : Optional[SamlFactor] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify Factor SAML  # noqa: E501
 

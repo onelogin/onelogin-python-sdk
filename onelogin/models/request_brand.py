@@ -42,10 +42,12 @@ class RequestBrand(BaseModel):
     logo: Optional[StrictStr] = Field(None, description="Base64 encoded image data (PNG, <1MB)")
     __properties = ["enabled", "name", "custom_support_enabled", "custom_color", "custom_accent_color", "custom_masking_color", "custom_masking_opacity", "enable_custom_label_for_login_screen", "custom_label_text_for_login_screen", "login_instruction_title", "login_instruction", "hide_onelogin_footer", "mfa_enrollment_message", "background", "logo"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -19,7 +19,7 @@ import json
 
 
 from typing import List, Optional
-from pydantic import BaseModel, Field, StrictStr, conlist, validator
+from pydantic import BaseModel, Field, StrictStr, conlist, field_validator
 from onelogin.models.source import Source
 
 class RiskRule(BaseModel):
@@ -35,7 +35,8 @@ class RiskRule(BaseModel):
     source: Optional[Source] = None
     __properties = ["id", "name", "description", "type", "target", "filters", "source"]
 
-    @validator('type')
+    @field_validator('type')
+    @classmethod
     def type_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -45,7 +46,8 @@ class RiskRule(BaseModel):
             raise ValueError("must be one of enum values ('blacklist', 'whitelist')")
         return value
 
-    @validator('target')
+    @field_validator('target')
+    @classmethod
     def target_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -55,10 +57,12 @@ class RiskRule(BaseModel):
             raise ValueError("must be one of enum values ('location.ip', 'location.address.country_iso_code')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

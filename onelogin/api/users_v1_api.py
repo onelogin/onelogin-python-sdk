@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictBool, StrictInt, StrictStr
@@ -55,7 +55,7 @@ class UsersV1Api(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def add_roles_to_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], add_roles_to_user_request : Optional[AddRolesToUserRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Add Roles for a User  # noqa: E501
 
@@ -86,7 +86,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the add_roles_to_user_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.add_roles_to_user_with_http_info(user_id, add_roles_to_user_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def add_roles_to_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], add_roles_to_user_request : Optional[AddRolesToUserRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Add Roles for a User  # noqa: E501
 
@@ -213,7 +213,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def create_user(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> User:  # noqa: E501
         """Create a User  # noqa: E501
 
@@ -246,7 +246,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the create_user_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_user_with_http_info(mappings, validate_policy, user, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_user_with_http_info(self, mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create a User  # noqa: E501
 
@@ -378,7 +378,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> None:  # noqa: E501
         """Delete a User  # noqa: E501
 
@@ -407,7 +407,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the delete_user_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_user_with_http_info(user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete a User  # noqa: E501
 
@@ -515,7 +515,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_custom_attributes(self, **kwargs) -> GetCustomAttributes200Response:  # noqa: E501
         """Get Custom Attributes  # noqa: E501
 
@@ -542,7 +542,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the get_custom_attributes_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_custom_attributes_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_custom_attributes_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Custom Attributes  # noqa: E501
 
@@ -648,7 +648,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_user_apps(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], ignore_visibility : Annotated[Optional[StrictBool], Field(description="Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting.")] = None, **kwargs) -> List[GetUserApps200ResponseInner]:  # noqa: E501
         """Get Apps for a User  # noqa: E501
 
@@ -679,7 +679,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the get_user_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user_apps_with_http_info(user_id, ignore_visibility, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_user_apps_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], ignore_visibility : Annotated[Optional[StrictBool], Field(description="Defaults to `false`. When `true` will show all apps that are assigned to a user regardless of their portal visibility setting.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Apps for a User  # noqa: E501
 
@@ -797,7 +797,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_user_by_id(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> User:  # noqa: E501
         """Get User by ID  # noqa: E501
 
@@ -826,7 +826,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the get_user_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user_by_id_with_http_info(user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_user_by_id_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User by ID  # noqa: E501
 
@@ -938,7 +938,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_user_roles(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> GetUserRoles200Response:  # noqa: E501
         """Get Roles for a User  # noqa: E501
 
@@ -967,7 +967,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the get_user_roles_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user_roles_with_http_info(user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_user_roles_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Roles for a User  # noqa: E501
 
@@ -1081,7 +1081,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_users(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs) -> List[User]:  # noqa: E501
         """List Users  # noqa: E501
 
@@ -1146,7 +1146,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the list_users_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_users_with_http_info(limit, page, cursor, created_since, created_until, updated_since, updated_until, last_login_since, last_login_until, firstname, lastname, email, username, samaccountname, directory_id, external_id, user_ids, custom_attributes_attribute_name, fields, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_users_with_http_info(self, limit : Annotated[Optional[StrictInt], Field(description="How many items to return at one time (max 100)")] = None, page : Annotated[Optional[StrictInt], Field(description="The page number of results to return.")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Set to the value extracted from Before-Cursor or After-Cursor headers to return the previous or next page.")] = None, created_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created after a given date & time.")] = None, created_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users created before a given date & time.")] = None, updated_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated after a given date & time.")] = None, updated_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users updated before a given date & time.")] = None, last_login_since : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in after a given date & time.")] = None, last_login_until : Annotated[Optional[StrictStr], Field(description="An ISO8601 timestamp value that returns all users that logged in before a given date & time.")] = None, firstname : Annotated[Optional[StrictStr], Field(description="The first name of the user")] = None, lastname : Annotated[Optional[StrictStr], Field(description="The last name of the user")] = None, email : Annotated[Optional[StrictStr], Field(description="The email address of the user")] = None, username : Annotated[Optional[StrictStr], Field(description="The username for the user")] = None, samaccountname : Annotated[Optional[StrictStr], Field(description="The AD login name for the user")] = None, directory_id : Optional[StrictInt] = None, external_id : Annotated[Optional[StrictStr], Field(description="An external identifier that has been set on the user")] = None, user_ids : Annotated[Optional[StrictStr], Field(description="A comma separated list of OneLogin User IDs")] = None, custom_attributes_attribute_name : Annotated[Optional[StrictStr], Field(description="The short name of a custom attribute. Note that the attribute name is prefixed with custom_attributes.")] = None, fields : Annotated[Optional[StrictStr], Field(description="Optional. Comma delimited list of fields to return.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List Users  # noqa: E501
 
@@ -1367,7 +1367,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def lock_account_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], lock_account_user_request : Optional[LockAccountUserRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Lock User Account  # noqa: E501
 
@@ -1398,7 +1398,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the lock_account_user_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.lock_account_user_with_http_info(user_id, lock_account_user_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def lock_account_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], lock_account_user_request : Optional[LockAccountUserRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Lock User Account  # noqa: E501
 
@@ -1525,7 +1525,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def log_out_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], body : Optional[Dict[str, Any]] = None, **kwargs) -> Error:  # noqa: E501
         """Log User Out  # noqa: E501
 
@@ -1556,7 +1556,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the log_out_user_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.log_out_user_with_http_info(user_id, body, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def log_out_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], body : Optional[Dict[str, Any]] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Log User Out  # noqa: E501
 
@@ -1683,7 +1683,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def remove_user_role(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], remove_user_role_request : Optional[RemoveUserRoleRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Remove Roles for a User  # noqa: E501
 
@@ -1714,7 +1714,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the remove_user_role_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.remove_user_role_with_http_info(user_id, remove_user_role_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def remove_user_role_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], remove_user_role_request : Optional[RemoveUserRoleRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Remove Roles for a User  # noqa: E501
 
@@ -1841,7 +1841,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def set_user_state(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], set_user_state_request : Optional[SetUserStateRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Set User State  # noqa: E501
 
@@ -1872,7 +1872,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the set_user_state_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.set_user_state_with_http_info(user_id, set_user_state_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def set_user_state_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], set_user_state_request : Optional[SetUserStateRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Set User State  # noqa: E501
 
@@ -1999,7 +1999,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_password_insecure(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], update_password_insecure_request : Optional[UpdatePasswordInsecureRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Set Password Using ID in Cleartext  # noqa: E501
 
@@ -2030,7 +2030,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the update_password_insecure_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_password_insecure_with_http_info(user_id, update_password_insecure_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_password_insecure_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], update_password_insecure_request : Optional[UpdatePasswordInsecureRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Set Password Using ID in Cleartext  # noqa: E501
 
@@ -2157,7 +2157,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_password_secure(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], update_password_secure_request : Optional[UpdatePasswordSecureRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Set Password Using ID and SHA-256 and Salt  # noqa: E501
 
@@ -2188,7 +2188,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the update_password_secure_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_password_secure_with_http_info(user_id, update_password_secure_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_password_secure_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], update_password_secure_request : Optional[UpdatePasswordSecureRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Set Password Using ID and SHA-256 and Salt  # noqa: E501
 
@@ -2315,7 +2315,7 @@ class UsersV1Api(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_user(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> User:  # noqa: E501
         """Update a User  # noqa: E501
 
@@ -2350,7 +2350,7 @@ class UsersV1Api(object):
             raise ValueError("Error! Please call the update_user_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_user_with_http_info(user_id, mappings, validate_policy, user, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_user_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], mappings : Annotated[Optional[StrictStr], Field(description="Controls how mappings will be applied to the user on creation. Defaults to async.")] = None, validate_policy : Annotated[Optional[StrictBool], Field(description="Will passwords validate against the User Policy? Defaults to true.")] = None, user : Optional[User] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update a User  # noqa: E501
 

@@ -29,9 +29,12 @@ class CreatePrivilege200Response(BaseModel):
     id: Optional[StrictStr] = Field(None, description="Privilege Id")
     __properties = ["id"]
 
-    class Config:
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

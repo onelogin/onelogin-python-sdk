@@ -19,7 +19,7 @@ import json
 
 
 
-from pydantic import BaseModel, Field, StrictInt, validator
+from pydantic import BaseModel, Field, StrictInt, field_validator
 
 class SetUserStateRequest(BaseModel):
     """
@@ -28,17 +28,20 @@ class SetUserStateRequest(BaseModel):
     state: StrictInt = Field(..., description="Set to the state value. Valid values include:   - 0 : Unapproved   - 1 : Approved   - 2 : Rejected   - 3 : Unlicensed")
     __properties = ["state"]
 
-    @validator('state')
+    @field_validator('state')
+    @classmethod
     def state_validate_enum(cls, value):
         """Validates the enum"""
         if value not in (0, 1, 2, 3):
             raise ValueError("must be one of enum values (0, 1, 2, 3)")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -30,10 +30,12 @@ class Group(BaseModel):
     reference: Optional[StrictStr] = Field(None, description="Deprecated. Will always show the attribute nil=\"true\".")
     __properties = ["id", "name", "reference"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

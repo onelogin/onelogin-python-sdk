@@ -17,7 +17,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt
@@ -49,7 +49,7 @@ class BrandingServiceApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_brand(self, brand : Optional[Brand] = None, **kwargs) -> Brand:  # noqa: E501
         """Create Brand  # noqa: E501
 
@@ -78,7 +78,7 @@ class BrandingServiceApi(object):
             raise ValueError("Error! Please call the create_brand_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_brand_with_http_info(brand, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_brand_with_http_info(self, brand : Optional[Brand] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Brand  # noqa: E501
 
@@ -197,7 +197,7 @@ class BrandingServiceApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_brand(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> None:  # noqa: E501
         """Delete Brand  # noqa: E501
 
@@ -226,7 +226,7 @@ class BrandingServiceApi(object):
             raise ValueError("Error! Please call the delete_brand_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_brand_with_http_info(brand_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Brand  # noqa: E501
 
@@ -334,7 +334,7 @@ class BrandingServiceApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_brand(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> Brand:  # noqa: E501
         """Get Brand  # noqa: E501
 
@@ -363,7 +363,7 @@ class BrandingServiceApi(object):
             raise ValueError("Error! Please call the get_brand_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_brand_with_http_info(brand_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Brand  # noqa: E501
 
@@ -475,7 +475,7 @@ class BrandingServiceApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_brand_apps(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> List[BrandApp]:  # noqa: E501
         """Get Brand Apps  # noqa: E501
 
@@ -504,7 +504,7 @@ class BrandingServiceApi(object):
             raise ValueError("Error! Please call the get_brand_apps_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_brand_apps_with_http_info(brand_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_brand_apps_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get Brand Apps  # noqa: E501
 
@@ -616,7 +616,7 @@ class BrandingServiceApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def list_brands(self, **kwargs) -> List[BrandReq]:  # noqa: E501
         """List Account Brands  # noqa: E501
 
@@ -643,7 +643,7 @@ class BrandingServiceApi(object):
             raise ValueError("Error! Please call the list_brands_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.list_brands_with_http_info(**kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def list_brands_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
         """List Account Brands  # noqa: E501
 
@@ -747,7 +747,7 @@ class BrandingServiceApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_brand(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], request_brand : Optional[RequestBrand] = None, **kwargs) -> Brand:  # noqa: E501
         """Update Brand  # noqa: E501
 
@@ -778,7 +778,7 @@ class BrandingServiceApi(object):
             raise ValueError("Error! Please call the update_brand_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_brand_with_http_info(brand_id, request_brand, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_brand_with_http_info(self, brand_id : Annotated[StrictInt, Field(..., description="Unique identifier for the branding object.")], request_brand : Optional[RequestBrand] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Brand  # noqa: E501
 

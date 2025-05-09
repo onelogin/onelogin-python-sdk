@@ -29,10 +29,12 @@ class SendInviteLinkRequest(BaseModel):
     personal_email: Optional[StrictStr] = Field(None, description="To send an invite email to a different address than the one provided in email, provide it here. The invite link is sent to this address instead.")
     __properties = ["email", "personal_email"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

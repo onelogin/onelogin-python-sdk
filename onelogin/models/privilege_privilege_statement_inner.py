@@ -20,7 +20,7 @@ import json
 
 
 from typing import List
-from pydantic import BaseModel, Field, StrictStr, conlist, validator
+from pydantic import BaseModel, Field, StrictStr, conlist, field_validator
 
 class PrivilegePrivilegeStatementInner(BaseModel):
     """
@@ -31,18 +31,21 @@ class PrivilegePrivilegeStatementInner(BaseModel):
     scope: conlist(StrictStr) = Field(..., alias="Scope", description="Target the privileged action against specific resources with the scope. The scope pattern is the class of object used by the Action, followed by an ID that represents a resource in OneLogin. e.g. apps/1234, where apps is the class and 1234 is the ID of an app. The wildcard * is supported and indicates that all resources of the class type declared, in the Action, are in scope. The Action and Scope classes must match. However, there is an exception, a scope of roles/{role_id} can be combined with Actions on the user or app class. The exception allows you to target groups of users or apps with specific actions.")
     __properties = ["Effect", "Action", "Scope"]
 
-    @validator('action')
+    @field_validator('action')
+    @classmethod
     def action_validate_enum(cls, value):
         """Validates the enum"""
         for i in value:
-            if i not in ('Apps:Create', 'Apps:Delete', 'Apps:List', 'Apps:Get', 'Apps:Update', 'Apps:ManageConnectors', 'Apps:ManageRoles', 'Apps:ManageTabs', 'Apps:ManageUsers', 'Apps:ReapplyMappings', 'Users:Create', 'Users:Delete', 'Users:List', 'Users:Get', 'Users:Update', 'Users:AssumeUser', 'Users:ManageApps', 'Users:Unlock', 'Users:GenerateTempMfaToken', 'Users:ResetPassword', 'Users:ReapplyMappings', 'Users:ManageLicense', 'Users:Invite', 'Users:ManageRoles', 'Roles:Create', 'Roles:Get', 'Roles:List', 'Roles:Update', 'Roles:Delete', 'Roles:ManageUsers', 'Roles:ManageApps', 'Reports:Create', 'Reports:Get', 'Reports:List', 'Reports:Update', 'Reports:Delete', 'Reports:Clone', 'Events:Get', 'Events:List', 'Groups:Create', 'Groups:Get', 'Groups:List', 'Groups:Update', 'Groups:Delete', 'Policies:Create', 'Policies:Get', 'Policies:List', 'Policies:Update', 'Policies:Delete', 'Policies:SetDefault'):
-                raise ValueError("each list item must be one of ('Apps:Create', 'Apps:Delete', 'Apps:List', 'Apps:Get', 'Apps:Update', 'Apps:ManageConnectors', 'Apps:ManageRoles', 'Apps:ManageTabs', 'Apps:ManageUsers', 'Apps:ReapplyMappings', 'Users:Create', 'Users:Delete', 'Users:List', 'Users:Get', 'Users:Update', 'Users:AssumeUser', 'Users:ManageApps', 'Users:Unlock', 'Users:GenerateTempMfaToken', 'Users:ResetPassword', 'Users:ReapplyMappings', 'Users:ManageLicense', 'Users:Invite', 'Users:ManageRoles', 'Roles:Create', 'Roles:Get', 'Roles:List', 'Roles:Update', 'Roles:Delete', 'Roles:ManageUsers', 'Roles:ManageApps', 'Reports:Create', 'Reports:Get', 'Reports:List', 'Reports:Update', 'Reports:Delete', 'Reports:Clone', 'Events:Get', 'Events:List', 'Groups:Create', 'Groups:Get', 'Groups:List', 'Groups:Update', 'Groups:Delete', 'Policies:Create', 'Policies:Get', 'Policies:List', 'Policies:Update', 'Policies:Delete', 'Policies:SetDefault')")
+            if i not in ('apps:Create', 'apps:Delete', 'apps:List', 'apps:Get', 'apps:Update', 'apps:ManageConnectors', 'apps:ManageRoles', 'apps:ManageTabs', 'apps:ManageUsers', 'apps:ReapplyMappings', 'users:Create', 'users:Delete', 'users:List', 'users:Get', 'users:Update', 'users:AssumeUser', 'users:ManageApps', 'users:Unlock', 'users:GenerateTempMfaToken', 'users:ResetPassword', 'users:ReapplyMappings', 'users:ManageLicense', 'users:Invite', 'users:ManageRoles', 'roles:Create', 'roles:Get', 'roles:List', 'roles:Update', 'roles:Delete', 'roles:ManageUsers', 'roles:ManageApps', 'reports:Create', 'reports:Get', 'reports:List', 'reports:Update', 'reports:Delete', 'reports:Clone', 'events:Get', 'events:List', 'groups:Create', 'groups:Get', 'groups:List', 'groups:Update', 'groups:Delete', 'policies:Create', 'policies:Get', 'policies:List', 'policies:Update', 'policies:Delete', 'policies:SetDefault'):
+                raise ValueError("each list item must be one of ('apps:Create', 'apps:Delete', 'apps:List', 'apps:Get', 'apps:Update', 'apps:ManageConnectors', 'apps:ManageRoles', 'apps:ManageTabs', 'apps:ManageUsers', 'apps:ReapplyMappings', 'users:Create', 'users:Delete', 'users:List', 'users:Get', 'users:Update', 'users:AssumeUser', 'users:ManageApps', 'users:Unlock', 'users:GenerateTempMfaToken', 'users:ResetPassword', 'users:ReapplyMappings', 'users:ManageLicense', 'users:Invite', 'users:ManageRoles', 'roles:Create', 'roles:Get', 'roles:List', 'roles:Update', 'roles:Delete', 'roles:ManageUsers', 'roles:ManageApps', 'reports:Create', 'reports:Get', 'reports:List', 'reports:Update', 'reports:Delete', 'reports:Clone', 'events:Get', 'events:List', 'groups:Create', 'groups:Get', 'groups:List', 'groups:Update', 'groups:Delete', 'policies:Create', 'policies:Get', 'policies:List', 'policies:Update', 'policies:Delete', 'policies:SetDefault')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

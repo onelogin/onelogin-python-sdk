@@ -29,10 +29,12 @@ class Device(BaseModel):
     device_type: Optional[StrictStr] = Field(None, description="Lists an available MFA device type, such as OneLogin OTP SMS or Google Authenticator.")
     __properties = ["device_id", "device_type"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

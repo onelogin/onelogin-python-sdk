@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional
-from pydantic import BaseModel, Field, StrictBool, StrictStr, conlist, validator
+from typing import List, Optional, ClassVar
+from pydantic import BaseModel, Field, StrictBool, StrictStr, conlist, field_validator
 from onelogin.models.clock_counter import ClockCounter
 from onelogin.models.enforcement_point_resources_inner import EnforcementPointResourcesInner
 
@@ -40,9 +40,12 @@ class EnforcementPoint(BaseModel):
     vhost: Optional[StrictStr] = Field(None, description="A comma-delimited list of one or more virtual hosts that map to applications assigned to the enforcement point. A VHOST may be a host name or an IP address. VHOST distinguish between applications that are at the same context root.")
     landing_page: Optional[StrictStr] = Field(None, description="The location within the context root to which the browser will be redirected for IdP-initiated single sign-on. For example, the landing page might be an index page in the context root such as index.html or default.aspx. The landing page cannot begin with a slash and must use valid URL characters.")
     case_sensitive: Optional[StrictBool] = Field(None, description="The URL path evaluation is case insensitive by default. Resources hosted on web servers such as Apache, NGINX and Java EE are case sensitive paths. Web servers such as Microsoft IIS are not case-sensitive.")
-    __properties = ["require_sitewide_authentication", "conditions", "session_expiry_fixed", "session_expiry_inactivity", "permissions", "token", "target", "resources", "context_root", "use_target_host_header", "vhost", "landing_page", "case_sensitive"]
+    
+    # Define properties as a class variable
+    _properties: ClassVar[List[str]] = ["require_sitewide_authentication", "conditions", "session_expiry_fixed", "session_expiry_inactivity", "permissions", "token", "target", "resources", "context_root", "use_target_host_header", "vhost", "landing_page", "case_sensitive"]
 
-    @validator('permissions')
+    @field_validator('permissions')
+    @classmethod
     def permissions_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
@@ -52,10 +55,12 @@ class EnforcementPoint(BaseModel):
             raise ValueError("must be one of enum values ('allow', 'deny', 'conditional')")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

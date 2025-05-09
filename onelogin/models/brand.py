@@ -44,10 +44,12 @@ class Brand(BaseModel):
     logo: BrandLogo = ...
     __properties = ["id", "enabled", "custom_support_enabled", "custom_color", "custom_accent_color", "custom_masking_color", "custom_masking_opacity", "mfa_enrollment_message", "enable_custom_label_for_login_screen", "custom_label_text_for_login_screen", "login_instruction", "login_instruction_title", "hide_onelogin_footer", "background", "logo"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

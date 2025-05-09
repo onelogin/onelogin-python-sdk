@@ -30,10 +30,12 @@ class AuthClaim(BaseModel):
     user_attribute_macros: Optional[StrictStr] = Field(None, description="When `user_attribute_mappings` is set to `_macro_` this macro will be used to assign the parameter value.")
     __properties = ["name", "user_attribute_mappings", "user_attribute_macros"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

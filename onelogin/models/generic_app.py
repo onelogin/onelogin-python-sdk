@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional
+from typing import List, Dict, Optional, Any, ClassVar
 from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conlist
 from onelogin.models.app_parameters import AppParameters
 from onelogin.models.auth_method import AuthMethod
@@ -47,12 +47,16 @@ class GenericApp(BaseModel):
     parameters: Optional[AppParameters] = None
     enforcement_point: Optional[EnforcementPoint] = None
     additional_properties: Dict[str, Any] = {}
-    __properties = ["id", "name", "visible", "description", "notes", "icon_url", "auth_method", "policy_id", "allow_assumed_signin", "tab_id", "connector_id", "created_at", "updated_at", "role_ids", "provisioning", "parameters", "enforcement_point"]
+    
+    # Define properties as a class variable
+    _properties: ClassVar[List[str]] = ["id", "name", "visible", "description", "notes", "icon_url", "auth_method", "policy_id", "allow_assumed_signin", "tab_id", "connector_id", "created_at", "updated_at", "role_ids", "provisioning", "parameters", "enforcement_point"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -120,8 +124,10 @@ class GenericApp(BaseModel):
             "enforcement_point": EnforcementPoint.from_dict(obj.get("enforcement_point")) if obj.get("enforcement_point") is not None else None
         })
         # store additional fields in additional_properties
+        # Get standard properties with fallback 
+        standard_props = getattr(cls, "_properties", ["id", "name", "visible", "description", "notes", "icon_url", "auth_method", "policy_id", "allow_assumed_signin", "tab_id", "connector_id", "created_at", "updated_at", "role_ids", "provisioning", "parameters", "enforcement_point"])
         for _key in obj.keys():
-            if _key not in cls.__properties:
+            if _key not in standard_props:
                 _obj.additional_properties[_key] = obj.get(_key)
 
         return _obj

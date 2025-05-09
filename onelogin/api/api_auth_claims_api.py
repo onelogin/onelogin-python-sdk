@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import StrictInt, StrictStr
@@ -47,7 +47,7 @@ class APIAuthClaimsApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_auth_claim(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_claim : Optional[AuthClaim] = None, **kwargs) -> int:  # noqa: E501
         """Create Api Auth Server Claim  # noqa: E501
 
@@ -80,7 +80,7 @@ class APIAuthClaimsApi(object):
             raise ValueError("Error! Please call the create_auth_claim_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_auth_claim_with_http_info(api_auth_id, content_type, auth_claim, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_auth_claim_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, auth_claim : Optional[AuthClaim] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Api Auth Server Claim  # noqa: E501
 
@@ -212,7 +212,7 @@ class APIAuthClaimsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_auth_claim(self, api_auth_id : StrictStr, claim_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> None:  # noqa: E501
         """Delete Api Auth Server Claim  # noqa: E501
 
@@ -245,7 +245,7 @@ class APIAuthClaimsApi(object):
             raise ValueError("Error! Please call the delete_auth_claim_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_auth_claim_with_http_info(api_auth_id, claim_id, content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_auth_claim_with_http_info(self, api_auth_id : StrictStr, claim_id : StrictInt, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Api Auth Server Claim  # noqa: E501
 
@@ -365,7 +365,7 @@ class APIAuthClaimsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_authclaims(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> List[TokenClaim]:  # noqa: E501
         """Get Api Auth Server claims  # noqa: E501
 
@@ -396,7 +396,7 @@ class APIAuthClaimsApi(object):
             raise ValueError("Error! Please call the get_authclaims_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_authclaims_with_http_info(api_auth_id, content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_authclaims_with_http_info(self, api_auth_id : StrictStr, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Api Auth Server claims  # noqa: E501
 
@@ -514,7 +514,7 @@ class APIAuthClaimsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def update_claim(self, api_auth_id : StrictStr, claim_id : StrictInt, content_type : Optional[StrictStr] = None, auth_claim : Optional[AuthClaim] = None, **kwargs) -> AuthId:  # noqa: E501
         """Update Api Auth Server Claim  # noqa: E501
 
@@ -549,7 +549,7 @@ class APIAuthClaimsApi(object):
             raise ValueError("Error! Please call the update_claim_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.update_claim_with_http_info(api_auth_id, claim_id, content_type, auth_claim, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def update_claim_with_http_info(self, api_auth_id : StrictStr, claim_id : StrictInt, content_type : Optional[StrictStr] = None, auth_claim : Optional[AuthClaim] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Update Api Auth Server Claim  # noqa: E501
 

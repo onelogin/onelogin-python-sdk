@@ -30,10 +30,12 @@ class RateLimit(BaseModel):
     x_rate_limit_reset: Optional[StrictInt] = Field(None, alias="X-RateLimit-Reset", description="Rate Limit Reset")
     __properties = ["X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

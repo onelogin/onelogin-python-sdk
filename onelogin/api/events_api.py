@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr, conlist
@@ -47,7 +47,7 @@ class EventsApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def get_event_by_id(self, event_id : StrictInt, **kwargs) -> GetEventById200Response:  # noqa: E501
         """Get Event by ID  # noqa: E501
 
@@ -76,7 +76,7 @@ class EventsApi(object):
             raise ValueError("Error! Please call the get_event_by_id_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_event_by_id_with_http_info(event_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_event_by_id_with_http_info(self, event_id : StrictInt, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Event by ID  # noqa: E501
 
@@ -189,7 +189,7 @@ class EventsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_event_types(self, content_type : Optional[StrictStr] = None, **kwargs) -> GetEventTypes200Response:  # noqa: E501
         """Get Event Types  # noqa: E501
 
@@ -218,7 +218,7 @@ class EventsApi(object):
             raise ValueError("Error! Please call the get_event_types_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_event_types_with_http_info(content_type, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_event_types_with_http_info(self, content_type : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Event Types  # noqa: E501
 
@@ -328,7 +328,7 @@ class EventsApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_events(self, event_type_id : Optional[conlist(StrictInt)] = None, client_id : Optional[StrictInt] = None, directory_id : Optional[StrictInt] = None, id : Optional[StrictInt] = None, created_at : Optional[StrictStr] = None, resolution : Optional[StrictStr] = None, since : Optional[StrictStr] = None, until : Optional[StrictStr] = None, user_id : Annotated[Optional[StrictInt], Field(description="Set to the id of the user that you want to return.")] = None, **kwargs) -> GetEvents200Response:  # noqa: E501
         """Get Events  # noqa: E501
 
@@ -373,7 +373,7 @@ class EventsApi(object):
             raise ValueError("Error! Please call the get_events_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_events_with_http_info(event_type_id, client_id, directory_id, id, created_at, resolution, since, until, user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_events_with_http_info(self, event_type_id : Optional[conlist(StrictInt)] = None, client_id : Optional[StrictInt] = None, directory_id : Optional[StrictInt] = None, id : Optional[StrictInt] = None, created_at : Optional[StrictStr] = None, resolution : Optional[StrictStr] = None, since : Optional[StrictStr] = None, until : Optional[StrictStr] = None, user_id : Annotated[Optional[StrictInt], Field(description="Set to the id of the user that you want to return.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get Events  # noqa: E501
 

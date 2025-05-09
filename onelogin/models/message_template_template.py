@@ -19,11 +19,11 @@ import pprint
 import re  # noqa: F401
 
 from typing import Any, List, Optional
-from pydantic import BaseModel, Field, StrictStr, ValidationError, validator
+from pydantic import BaseModel, Field, StrictStr, ValidationError, field_validator
 from onelogin.models.message_template_template_one_of import MessageTemplateTemplateOneOf
 from onelogin.models.message_template_template_one_of1 import MessageTemplateTemplateOneOf1
-from typing import Any, List
-from pydantic import StrictStr, Field
+from typing import Any, List, Literal
+from pydantic import StrictStr
 
 MESSAGETEMPLATETEMPLATE_ONE_OF_SCHEMAS = ["MessageTemplateTemplateOneOf", "MessageTemplateTemplateOneOf1"]
 
@@ -36,10 +36,12 @@ class MessageTemplateTemplate(BaseModel):
     # data type: MessageTemplateTemplateOneOf1
     oneof_schema_2_validator: Optional[MessageTemplateTemplateOneOf1] = None
     actual_instance: Any
-    one_of_schemas: List[str] = Field(MESSAGETEMPLATETEMPLATE_ONE_OF_SCHEMAS, const=True)
+    one_of_schemas: List[str] = Literal[MESSAGETEMPLATETEMPLATE_ONE_OF_SCHEMAS]
 
-    class Config:
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_assignment": True
+    }
 
     def __init__(self, *args, **kwargs):
         if args:
@@ -51,7 +53,8 @@ class MessageTemplateTemplate(BaseModel):
         else:
             super().__init__(**kwargs)
 
-    @validator('actual_instance')
+    @field_validator('actual_instance')
+    @classmethod
     def actual_instance_must_validate_oneof(cls, v):
         instance = MessageTemplateTemplate.construct()
         error_messages = []

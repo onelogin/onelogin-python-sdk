@@ -16,7 +16,7 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_call, ValidationError
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr
@@ -57,7 +57,7 @@ class MultiFactorAuthenticationApi(object):
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @validate_arguments
+    @validate_call
     def create_device_verification(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, create_device_verification_request : Optional[CreateDeviceVerificationRequest] = None, **kwargs) -> CreateDeviceVerification201Response:  # noqa: E501
         """Create Device Verification  # noqa: E501
 
@@ -90,7 +90,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the create_device_verification_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_device_verification_with_http_info(user_id, content_type, create_device_verification_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_device_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, create_device_verification_request : Optional[CreateDeviceVerificationRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Device Verification  # noqa: E501
 
@@ -220,7 +220,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def create_factor_registration(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, create_factor_registration_request : Optional[CreateFactorRegistrationRequest] = None, **kwargs) -> CreateFactorRegistration201Response:  # noqa: E501
         """Create Factor Registration  # noqa: E501
 
@@ -253,7 +253,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the create_factor_registration_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.create_factor_registration_with_http_info(user_id, content_type, create_factor_registration_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def create_factor_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, create_factor_registration_request : Optional[CreateFactorRegistrationRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Create Factor Registration  # noqa: E501
 
@@ -383,7 +383,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def delete_enrolled_factor(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, **kwargs) -> None:  # noqa: E501
         """Delete Enrolled Factor  # noqa: E501
 
@@ -414,7 +414,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the delete_enrolled_factor_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.delete_enrolled_factor_with_http_info(user_id, device_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def delete_enrolled_factor_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], device_id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
         """Delete Enrolled Factor  # noqa: E501
 
@@ -524,7 +524,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def generate_otp(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, generate_otp_request : Optional[GenerateOTPRequest] = None, **kwargs) -> GenerateOTP201Response:  # noqa: E501
         """Generate MFA token  # noqa: E501
 
@@ -557,7 +557,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the generate_otp_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.generate_otp_with_http_info(user_id, content_type, generate_otp_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def generate_otp_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], content_type : Optional[StrictStr] = None, generate_otp_request : Optional[GenerateOTPRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Generate MFA token  # noqa: E501
 
@@ -688,7 +688,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_auth_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> GetAuthFactors200Response:  # noqa: E501
         """Get User Factors  # noqa: E501
 
@@ -717,7 +717,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the get_auth_factors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_auth_factors_with_http_info(user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_auth_factors_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Factors  # noqa: E501
 
@@ -828,7 +828,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_authentication_devices(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> List[GetAuthenticationDevices200ResponseInner]:  # noqa: E501
         """Get User Devices  # noqa: E501
 
@@ -857,7 +857,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the get_authentication_devices_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_authentication_devices_with_http_info(user_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_authentication_devices_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Devices  # noqa: E501
 
@@ -968,7 +968,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_user_registration(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], registration_id : Annotated[StrictStr, Field(..., description="The id of a registration")], **kwargs) -> object:  # noqa: E501
         """Get User Registration  # noqa: E501
 
@@ -999,7 +999,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the get_user_registration_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user_registration_with_http_info(user_id, registration_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_user_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], registration_id : Annotated[StrictStr, Field(..., description="The id of a registration")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Registration  # noqa: E501
 
@@ -1116,7 +1116,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def get_user_verification(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], **kwargs) -> GetUserVerification200Response:  # noqa: E501
         """Get User Verification  # noqa: E501
 
@@ -1147,7 +1147,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the get_user_verification_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.get_user_verification_with_http_info(user_id, verification_id, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def get_user_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get User Verification  # noqa: E501
 
@@ -1265,7 +1265,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def verify_user_registration(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], registration_id : Annotated[StrictStr, Field(..., description="The id of a registration")], content_type : Optional[StrictStr] = None, verify_user_registration_request : Optional[VerifyUserRegistrationRequest] = None, **kwargs) -> VerifyUserRegistration200Response:  # noqa: E501
         """Verify User Registration  # noqa: E501
 
@@ -1300,7 +1300,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the verify_user_registration_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.verify_user_registration_with_http_info(user_id, registration_id, content_type, verify_user_registration_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def verify_user_registration_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], registration_id : Annotated[StrictStr, Field(..., description="The id of a registration")], content_type : Optional[StrictStr] = None, verify_user_registration_request : Optional[VerifyUserRegistrationRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify User Registration  # noqa: E501
 
@@ -1436,7 +1436,7 @@ class MultiFactorAuthenticationApi(object):
             collection_formats=_collection_formats,
             _request_auth=_params.get('_request_auth'))
 
-    @validate_arguments
+    @validate_call
     def verify_user_verification(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], content_type : Optional[StrictStr] = None, verify_user_verification_request : Optional[VerifyUserVerificationRequest] = None, **kwargs) -> Error:  # noqa: E501
         """Verify User Verification  # noqa: E501
 
@@ -1471,7 +1471,7 @@ class MultiFactorAuthenticationApi(object):
             raise ValueError("Error! Please call the verify_user_verification_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
         return self.verify_user_verification_with_http_info(user_id, verification_id, content_type, verify_user_verification_request, **kwargs)  # noqa: E501
 
-    @validate_arguments
+    @validate_call
     def verify_user_verification_with_http_info(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], verification_id : Annotated[StrictStr, Field(..., description="The verification_id is returned on activation of the factor or you can get the device_id using the Activate Factor API call.")], content_type : Optional[StrictStr] = None, verify_user_verification_request : Optional[VerifyUserVerificationRequest] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Verify User Verification  # noqa: E501
 

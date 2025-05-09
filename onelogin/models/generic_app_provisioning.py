@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Optional, ClassVar, List
 from pydantic import BaseModel, StrictBool
 
 class GenericAppProvisioning(BaseModel):
@@ -26,12 +26,16 @@ class GenericAppProvisioning(BaseModel):
     Indicates if provisioning is enabled for this app.
     """
     enabled: Optional[StrictBool] = None
-    __properties = ["enabled"]
+    
+    # Define properties as a class variable
+    _properties: ClassVar[List[str]] = ["enabled"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -38,10 +38,12 @@ class GetRiskScoreRequest(BaseModel):
     fp: Optional[StrictStr] = Field(None, description="Set to the value of the __tdli_fp cookie.")
     __properties = ["ip", "user_agent", "user", "source", "session", "device", "fp"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

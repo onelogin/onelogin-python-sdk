@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
+from typing import Optional, Dict, Any, ClassVar, List
 from pydantic import BaseModel, Field, StrictBool, StrictStr
 
 class AppParameters(BaseModel):
@@ -30,12 +30,16 @@ class AppParameters(BaseModel):
     label: Optional[StrictStr] = Field(None, description="The can only be set when creating a new parameter. It can not be updated.")
     include_in_saml_assertion: Optional[StrictBool] = Field(None, description="When true, this parameter will be included in a SAML assertion payload.")
     additional_properties: Dict[str, Any] = {}
-    __properties = ["user_attribute_mappings", "user_attribute_macros", "label", "include_in_saml_assertion"]
+    
+    # Define properties as a class variable
+    _properties: ClassVar[List[str]] = ["user_attribute_mappings", "user_attribute_macros", "label", "include_in_saml_assertion"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -80,8 +84,9 @@ class AppParameters(BaseModel):
             "include_in_saml_assertion": obj.get("include_in_saml_assertion")
         })
         # store additional fields in additional_properties
+        standard_props = getattr(cls, "_properties", ["user_attribute_mappings", "user_attribute_macros", "label", "include_in_saml_assertion"])
         for _key in obj.keys():
-            if _key not in cls.__properties:
+            if _key not in standard_props:
                 _obj.additional_properties[_key] = obj.get(_key)
 
         return _obj

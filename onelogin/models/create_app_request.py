@@ -19,11 +19,11 @@ import pprint
 import re  # noqa: F401
 
 from typing import Any, List, Optional
-from pydantic import BaseModel, Field, StrictStr, ValidationError, validator
+from pydantic import BaseModel, Field, StrictStr, ValidationError, field_validator
 from onelogin.models.generic_app import GenericApp
 from onelogin.models.oidc_app import OidcApp
 from onelogin.models.saml_app import SamlApp
-from typing import Any, List
+from typing import Any, List, Literal
 from pydantic import StrictStr, Field
 
 CREATEAPPREQUEST_ONE_OF_SCHEMAS = ["GenericApp", "OidcApp", "SamlApp"]
@@ -39,10 +39,12 @@ class CreateAppRequest(BaseModel):
     # data type: GenericApp
     oneof_schema_3_validator: Optional[GenericApp] = None
     actual_instance: Any
-    one_of_schemas: List[str] = Field(CREATEAPPREQUEST_ONE_OF_SCHEMAS, const=True)
+    one_of_schemas: List[str] = Literal[CREATEAPPREQUEST_ONE_OF_SCHEMAS]
 
-    class Config:
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_assignment": True
+    }
 
     def __init__(self, *args, **kwargs):
         if args:
@@ -54,7 +56,8 @@ class CreateAppRequest(BaseModel):
         else:
             super().__init__(**kwargs)
 
-    @validator('actual_instance')
+    @field_validator('actual_instance')
+    @classmethod
     def actual_instance_must_validate_oneof(cls, v):
         instance = CreateAppRequest.construct()
         error_messages = []

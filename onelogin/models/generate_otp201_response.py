@@ -31,10 +31,12 @@ class GenerateOTP201Response(BaseModel):
     device_id: Optional[StrictStr] = Field(None, description="A unique identifier for the temp otp device that has been created for this token.")
     __properties = ["mfa_token", "reusable", "expires_at", "device_id"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

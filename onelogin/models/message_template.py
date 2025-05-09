@@ -19,7 +19,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictInt, StrictStr, constr, validator
+from pydantic import BaseModel, Field, StrictInt, StrictStr, constr, field_validator
 from onelogin.models.message_template_template import MessageTemplateTemplate
 
 class MessageTemplate(BaseModel):
@@ -36,24 +36,28 @@ class MessageTemplate(BaseModel):
     brand_id: Optional[StrictInt] = Field(None, description="brand id number")
     __properties = ["id", "account_id", "type", "locale", "template", "template_class", "updated_at", "brand_id"]
 
-    @validator('type')
+    @field_validator('type')
+    @classmethod
     def type_validate_enum(cls, value):
         """Validates the enum"""
         if value not in ('email_forgot_password', 'email_code_registration', 'email_code_login_verification', 'email_code_app_verification', 'email_code_pw_reset_verification', 'email_magiclink_registration', 'email_magiclink_login_verification', 'email_magiclink_app_verification', 'email_magiclink_pw_reset_verification', 'sms_registration', 'sms_login_verification', 'sms_app_verification', 'sms_pw_reset_verification'):
             raise ValueError("must be one of enum values ('email_forgot_password', 'email_code_registration', 'email_code_login_verification', 'email_code_app_verification', 'email_code_pw_reset_verification', 'email_magiclink_registration', 'email_magiclink_login_verification', 'email_magiclink_app_verification', 'email_magiclink_pw_reset_verification', 'sms_registration', 'sms_login_verification', 'sms_app_verification', 'sms_pw_reset_verification')")
         return value
 
-    @validator('locale')
+    @field_validator('locale')
+    @classmethod
     def locale_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if not re.match(r"^[a-z]{2}$", value):
             raise ValueError(r"must validate the regular expression /^[a-z]{2}$/")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

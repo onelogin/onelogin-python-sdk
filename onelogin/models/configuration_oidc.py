@@ -19,7 +19,7 @@ import json
 
 
 
-from pydantic import BaseModel, Field, StrictInt, StrictStr, validator
+from pydantic import BaseModel, Field, StrictInt, StrictStr, field_validator
 
 class ConfigurationOidc(BaseModel):
     """
@@ -33,24 +33,28 @@ class ConfigurationOidc(BaseModel):
     oidc_application_type: StrictInt = Field(..., description="- 0 : Web - 1 : Native / Mobile")
     __properties = ["login_url", "redirect_uri", "access_token_expiration_minutes", "refresh_token_expiration_minutes", "token_endpoint_auth_method", "oidc_application_type"]
 
-    @validator('token_endpoint_auth_method')
+    @field_validator('token_endpoint_auth_method')
+    @classmethod
     def token_endpoint_auth_method_validate_enum(cls, value):
         """Validates the enum"""
         if value not in (0, 1, 2):
             raise ValueError("must be one of enum values (0, 1, 2)")
         return value
 
-    @validator('oidc_application_type')
+    @field_validator('oidc_application_type')
+    @classmethod
     def oidc_application_type_validate_enum(cls, value):
         """Validates the enum"""
         if value not in (0, 1):
             raise ValueError("must be one of enum values (0, 1)")
         return value
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""

@@ -29,10 +29,12 @@ class Locale(BaseModel):
     is_default: Optional[StrictBool] = Field(None, description="indicator if language is default")
     __properties = ["language", "is_default"]
 
-    class Config:
-        """Pydantic configuration"""
-        allow_population_by_field_name = True
-        validate_assignment = True
+    """Pydantic configuration"""
+    model_config = {
+        "validate_by_name": True,
+        "validate_by_alias": True,
+        "validate_assignment": True
+    }
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
