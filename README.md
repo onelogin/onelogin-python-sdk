@@ -17,29 +17,17 @@ Python 3.7+
 
 ### pip install
 
-If the python package is hosted on a repository, you can install directly using:
+You can install directly using pip:
 
 ```sh
 pip install onelogin
 ```
 
-(you may need to run `pip` with root permission: `sudo pip install onelogin`)
-
-Then import the package:
-
-```python
-import onelogin
-```
-
-### Setuptools
-
-Install via [Setuptools](http://pypi.python.org/pypi/setuptools).
+For development and testing, install with test dependencies:
 
 ```sh
-python setup.py install --user
+pip install onelogin[test]
 ```
-
-(or `sudo python setup.py install` to install the package for all users)
 
 Then import the package:
 
@@ -49,7 +37,17 @@ import onelogin
 
 ### Tests
 
-Execute `pytest` to run the tests.
+First, install the package with test dependencies:
+
+```sh
+pip install -e .[test]
+```
+
+Then run the tests:
+
+```sh
+pytest
+```
 
 ## Getting Started
 

@@ -14,7 +14,7 @@
 """
 
 
-__version__ = "3.1.5"
+__version__ = "3.1.6"
 
 # import apis into sdk package
 from onelogin.api.api_auth_claims_api import APIAuthClaimsApi
