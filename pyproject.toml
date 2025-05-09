@@ -1,13 +1,13 @@
 [project]
 name = "onelogin"
 version = "3.1.6"
-description = "OneLogin API"
+description = "OneLogin API Python SDK"
 authors = [
-    {name = "OneLogin", email = "team@openapitools.org"}
+    {name = "OneLogin", email = "developers@onelogin.com"}
 ]
 license = {text = "NoLicense"}
 readme = "README.md"
-keywords = ["OpenAPI", "OpenAPI-Generator", "OneLogin API"]
+keywords = ["OneLogin", "SDK", "API"]
 requires-python = ">=3.7"
 dependencies = [
     "urllib3>=2.0.2",
