@@ -40,7 +40,7 @@ from onelogin.api.vigilance_ai_api import VigilanceAIApi
 from onelogin.api_response import ApiResponse
 from onelogin.api_client import ApiClient
 from onelogin.configuration import Configuration
-from onelogin.exceptions import OpenApiException
+from onelogin.exceptions import OneLoginException
 from onelogin.exceptions import ApiTypeError
 from onelogin.exceptions import ApiValueError
 from onelogin.exceptions import ApiKeyError
