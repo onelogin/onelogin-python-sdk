@@ -5,14 +5,10 @@ from pprint import pprint
 
 # Change host to your domain or it will default to https://your-api-subdomain.onelogin.com
 configuration = onelogin.Configuration(
-    host = "https://sumit-shadow.onelogin-shadow01.com",
-    username = "6c5576b0622759fcbbefe177e61be499879b4d0f5fb33a512c551f7e238c3da6",
-    password = "e4c318ac6c5c2691f544c104dd534356428e8d9c0a36ed7a14da782436b486f9"
+    host = "https://your-api-subdomain.onelogin.com",
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
 )
-
-# configuration = onelogin.Configuration(
-
-# )
 
 # Enter a context with an instance of the API client
 with onelogin.ApiClient(configuration) as api_client:
