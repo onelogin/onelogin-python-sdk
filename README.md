@@ -1,7 +1,6 @@
 # onelogin-python-sdk
 
 Python SDK for OneLogin API
-For more information, please visit [https://support.onelogin.com](https://support.onelogin.com)
 
 ## Support
 OneLogin by One Identity open source projects are supported through [OneLogin GitHub issues](https://github.com/onelogin/onelogin-python-sdk/issues). This includes all scripts, plugins, SDKs, modules, code snippets or other solutions. For assistance with any OneLogin by One Identity GitHub project, please raise a new Issue on the [OneLogin GitHub issues](https://github.com/onelogin/onelogin-python-sdk/issues) page. Requests for assistance made through official One Identity Support will be referred back to GitHub where those requests can benefit all users.
