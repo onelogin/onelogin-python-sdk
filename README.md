@@ -1,6 +1,8 @@
 # onelogin-python-sdk
 
-Python SDK for OneLogin API
+Official Python SDK for the OneLogin API, enabling you to programmatically manage users, roles, groups, and authentication in your OneLogin instance.
+
+For more information about the OneLogin API, visit the [OneLogin API Documentation](https://developers.onelogin.com/api-docs/2/getting-started/dev-overview).
 
 ## Support
 OneLogin by One Identity open source projects are supported through [OneLogin GitHub issues](https://github.com/onelogin/onelogin-python-sdk/issues). This includes all scripts, plugins, SDKs, modules, code snippets or other solutions. For assistance with any OneLogin by One Identity GitHub project, please raise a new Issue on the [OneLogin GitHub issues](https://github.com/onelogin/onelogin-python-sdk/issues) page. Requests for assistance made through official One Identity Support will be referred back to GitHub where those requests can benefit all users.
@@ -56,15 +58,17 @@ import onelogin
 from onelogin.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://your-api-subdomain.onelogin.com
-# See configuration.py for a list of all supported configuration parameters.
+# Set up configuration
+# Replace 'your-subdomain' with your actual OneLogin subdomain
 configuration = onelogin.Configuration(
-    host = "https://your-api-subdomain.onelogin.com"
+    host = "https://your-subdomain.onelogin.com"
 )
 
+# Set your API credentials
+# Use environment variables to avoid hardcoding credentials
 configuration = onelogin.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
+    username = os.environ["ONELOGIN_CLIENT_ID"],
+    password = os.environ["ONELOGIN_CLIENT_SECRET"]
 )
 
 # Enter a context with an instance of the API client
@@ -93,22 +97,20 @@ with onelogin.ApiClient(configuration) as api_client:
 
 ```
 
-## Documentation For Authorization
+## Authentication
 
-## OAuth2
+### OAuth2
 
-- **Type**: OAuth
-- **Flow**: application
-- **Authorization URL**: 
-- **Scopes**: 
- - **Authentication Only**: Gives the credential pair the ability to generate an access token that can perform POST calls only to authentication endpoints, providing least privileged access to authentication code. These endpoints include:   - Verify Factor (SAML Assertion)   - Generate SAML Assertion   - Verify Factor (Login)   - Create Session Login Token   - Log User Out
- - **Read Users**: Gives the credential pair the ability to generate an access token that can perform GET calls available for the User, Role, and Group API resources.
- - **Manage users**: Gives the credential pair the ability to generate an access token that can perform GET, POST, PUT, and DELETE calls available for the User, Role, and Group API resources, with the exception of setting passwords and assigning and removing roles
- - **Manage All**: Gives the credential pair the ability to generate an access token that can perform GET, POST, PUT, and DELETE calls for all available API resources, including the ability to set passwords and assign and remove roles.
- - **Read All**: Gives the credential pair the ability to generate an access token that can perform GET calls available for all API resources.
+OneLogin API uses OAuth2 for authorization. Your client credentials (Client ID and Client Secret) are used to request an access token, which is then used for subsequent API calls.
 
-- **Type**: HTTP basic authentication
+#### Available Scopes
 
-## basicAuth
+The OneLogin API supports the following scopes:
 
-- **Type**: HTTP basic authentication
+- **Authentication Only**: Access to authentication endpoints only (Verify Factor, Generate SAML Assertion, Create Session Login Token, Log User Out)
+- **Read Users**: Access to GET calls for User, Role, and Group API resources
+- **Manage Users**: Access to GET, POST, PUT, and DELETE calls for User, Role, and Group API resources (except password management and role assignment)
+- **Manage All**: Full access to all API resources, including password management and role assignment
+- **Read All**: Read-only access to all API resources
+
+You can set up your API credentials with appropriate scopes in the OneLogin portal under Security > API Credentials.
