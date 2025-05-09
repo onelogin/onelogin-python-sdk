@@ -20,6 +20,7 @@ with onelogin.ApiClient(configuration) as api_client:
     token_instance = onelogin.OAuth2Api(api_client)
     generate_token_request = {"grant_type":"client_credentials"} # GenerateTokenRequest | Request Body to Generate OAuth Token
     content_type="application/json"
+    
     try:
         # Generate and Save Access Token
         api_response = token_instance.generate_token(generate_token_request, content_type=content_type)
@@ -57,3 +58,100 @@ with onelogin.ApiClient(configuration) as api_client:
         pprint(api_response)
     except Exception as e:
         print("Exception when calling PrivilegesApi->list_privileges: %s\n" % e)
+
+
+    auth_servers = None
+    auth_server_api = onelogin.APIAuthorizationServerApi(api_client)
+
+    try:
+        # Create a dummy auth server for testing
+        auth_server = onelogin.AuthServer(
+                name="Test Auth Server",
+                description="This is a dummy auth server", 
+                configuration= {
+                     "resource_identifier": "http://myapi.com/contacts2", 
+                    "audiences": ["http://myapi.com/contacts2"]
+                }
+            )
+        # auth_server = onelogin.AuthServer(
+        auth_server_response = auth_server_api.create_auth_server(
+            auth_server=auth_server
+        )
+
+        pprint("The response of APIAuthorizationServerApi->create_auth_server:\n")
+        pprint(auth_server_response)
+    except Exception as e:
+        print("Exception when calling APIAuthorizationServerApi->create_auth_server: %s\n" % e)
+    
+    try:
+        # List auth servers
+        auth_servers_response = auth_server_api.list_auth_servers()
+        auth_servers = auth_servers_response
+        print("The response of APIAuthorizationServerApi->list_auth_servers:\n")    
+        pprint(auth_servers_response)
+    except Exception as e:
+        print("Exception when calling APIAuthorizationServerApi->list_auth_servers: %s\n" % e)
+
+    try:
+        # Update Auth Server
+        auth_server = onelogin.AuthServer(
+            id=auth_servers[0].id,
+            name="Test Auth Server v3",
+            description="This is a dummy auth server v3", 
+        )
+        
+        auth_server_response = auth_server_api.update_auth_server(api_auth_id=str(auth_servers[0].id), auth_server=auth_server)
+        print("The response of APIAuthorizationServerApi->update_auth_server:\n")
+        pprint(auth_server_response)
+    except Exception as e:
+        print("Exception when calling APIAuthorizationServerApi->update_auth_server: %s\n" % e)
+
+    try:
+        # Delete Auth Server
+        auth_server_response = auth_server_api.delete_auth_server(api_auth_id=str(auth_servers[-1].id))
+        print("The response of APIAuthorizationServerApi->delete_auth_server:\n")
+        pprint(auth_server_response)
+    except Exception as e:
+        print("Exception when calling APIAuthorizationServerApi->delete_auth_server: %s\n" % e)
+
+
+    auth_claims = None
+    auth_claims_api = onelogin.APIAuthClaimsApi(api_client)
+
+    try:
+        # Create a new claim
+        claim = onelogin.AuthClaim(
+            name="Dummy Claim v2", 
+            user_attribute_mappings="firstname"
+        )
+
+        claim_response = auth_claims_api.create_auth_claim(api_auth_id=str(auth_servers[0].id), auth_claim=claim)
+        print("The response of APIAuthClaimsApi->create_auth_claim:\n")
+        pprint(claim_response)
+    except Exception as e:
+        print("Exception when calling APIAuthClaimsApi->create_auth_claim: %s\n" % e)
+
+    try:
+        #List Auth Claim by ID
+        auth_claims_response = auth_claims_api.get_authclaims(api_auth_id=str(auth_servers[0].id))
+        auth_claims = auth_claims_response
+        print("The response of APIAuthClaimsApi->get_authclaims:\n")
+        pprint(auth_claims_response)
+    except Exception as e:
+        print("Exception when calling APIAuthClaimsApi->get_authclaims: %s\n" % e)
+
+    try:
+        # Update claim
+        auth_claims_response = auth_claims_api.update_claim(api_auth_id=str(auth_servers[0].id), claim_id=auth_claims[1].id, auth_claim=onelogin.AuthClaim(name="Test Claim v1"))
+        print("The response of APIAuthClaimsApi->update_claim:\n")
+        pprint(auth_claims_response)
+    except Exception as e:
+        print("Exception when calling APIAuthClaimsApi->update_claim: %s\n" % e)
+
+    try:
+        # Delete Claim
+        auth_claims_response = auth_claims_api.delete_auth_claim(api_auth_id=str(auth_servers[0].id), claim_id=auth_claims[1].id)
+        print("The response of APIAuthClaimsApi->delete_claim:\n")
+        pprint(auth_claims_response)
+    except Exception as e:
+        print("Exception when calling APIAuthClaimsApi->delete_claim: %s\n" % e)
