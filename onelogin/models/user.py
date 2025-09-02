@@ -37,7 +37,7 @@ class User(BaseModel):
     directory_id: Optional[StrictInt] = Field(None, description="The ID of the OneLogin Directory of the user.")
     trusted_idp_id: Optional[StrictInt] = Field(None, description="The ID of the OneLogin Trusted IDP of the user.")
     manager_ad_id: Optional[StrictStr] = Field(None, description="The ID of the user's manager in Active Directory.")
-    manager_user_id: Optional[StrictStr] = Field(None, description="The OneLogin User ID for the user's manager.")
+    manager_user_id: Optional[StrictInt] = Field(None, description="The OneLogin User ID for the user's manager.")
     samaccountname: Optional[StrictStr] = Field(None, description="The user's Active Directory username.")
     member_of: Optional[StrictStr] = Field(None, description="The user's directory membership.")
     userprincipalname: Optional[StrictStr] = Field(None, description="The principle name of the user.")
