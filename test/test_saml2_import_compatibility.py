@@ -5,7 +5,8 @@ Test import behavior for SAML2 compatibility module
 """
 
 import pytest
-from onelogin.saml2.auth import ImportError
+import os
+import site
 
 
 class TestSaml2ImportCompatibility:
@@ -20,10 +21,21 @@ class TestSaml2ImportCompatibility:
         
         # Verify the error message contains helpful guidance
         error_message = str(exc_info.value)
-        assert "OneLogin_Saml2_Auth is not available in this package" in error_message
+        assert "OneLogin_Saml2_Auth is not available" in error_message
         assert "python3-saml" in error_message
-        assert "pip install python3-saml" in error_message
-        assert "https://github.com/onelogin/python3-saml" in error_message
+        
+        # The specific message depends on whether python3-saml is detected
+        python3_saml_installed = self._check_python3_saml_installed()
+        
+        if python3_saml_installed:
+            # Should show namespace conflict message
+            assert "namespace conflict" in error_message
+            assert "both 'onelogin'" in error_message
+            assert "pip uninstall onelogin" in error_message
+        else:
+            # Should show installation instruction message
+            assert "pip install python3-saml" in error_message
+            assert "https://github.com/onelogin/python3-saml" in error_message
 
     def test_getattr_for_nonexistent_attribute_raises_attribute_error(self):
         """Test that accessing non-existent attributes raises AttributeError"""
@@ -53,3 +65,31 @@ class TestSaml2ImportCompatibility:
         import onelogin.saml2.auth
         assert hasattr(onelogin.saml2.auth, '__all__')
         assert onelogin.saml2.auth.__all__ == []
+
+    def test_python3_saml_detection_function(self):
+        """Test that the python3-saml detection function works correctly"""
+        
+        import onelogin.saml2.auth
+        result = onelogin.saml2.auth._check_python3_saml_installed()
+        # Should return a boolean
+        assert isinstance(result, bool)
+        
+        # Test by checking if the expected path exists manually
+        expected_exists = False
+        for site_dir in site.getsitepackages() + [site.getusersitepackages()]:
+            if site_dir and os.path.exists(site_dir):
+                potential_path = os.path.join(site_dir, 'onelogin', 'saml2', 'auth.py')
+                if os.path.exists(potential_path):
+                    expected_exists = True
+                    break
+        
+        assert result == expected_exists
+
+    def _check_python3_saml_installed(self):
+        """Helper method to check if python3-saml is installed"""
+        for site_dir in site.getsitepackages() + [site.getusersitepackages()]:
+            if site_dir and os.path.exists(site_dir):
+                potential_path = os.path.join(site_dir, 'onelogin', 'saml2', 'auth.py')
+                if os.path.exists(potential_path):
+                    return True
+        return False
