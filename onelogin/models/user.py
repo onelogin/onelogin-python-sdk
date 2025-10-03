@@ -13,7 +13,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field, StrictInt, StrictStr, conlist, field_validator
 
 class User(BaseModel):
@@ -56,7 +56,8 @@ class User(BaseModel):
     password_confirmation: Optional[StrictStr] = Field(None, description="Required if the password is being set.")
     password_algorithm: Optional[StrictStr] = Field(None, description="Use this when importing a password that's already hashed. Prepend the salt value to the cleartext password value before SHA-256-encoding it")
     salt: Optional[StrictStr] = Field(None, description="The salt value used with the password_algorithm.")
-    __properties = ["id", "username", "email", "firstname", "lastname", "title", "department", "company", "comment", "group_id", "role_ids", "phone", "state", "status", "directory_id", "trusted_idp_id", "manager_ad_id", "manager_user_id", "samaccountname", "member_of", "userprincipalname", "distinguished_name", "external_id", "activated_at", "last_login", "invitation_sent_at", "updated_at", "preferred_locale_code", "created_at", "invalid_login_attempts", "locked_until", "password_changed_at", "password", "password_confirmation", "password_algorithm", "salt"]
+    custom_attributes: Optional[Dict[str, Any]] = Field(None, description="Custom user attributes defined in your OneLogin account.")
+    __properties = ["id", "username", "email", "firstname", "lastname", "title", "department", "company", "comment", "group_id", "role_ids", "phone", "state", "status", "directory_id", "trusted_idp_id", "manager_ad_id", "manager_user_id", "samaccountname", "member_of", "userprincipalname", "distinguished_name", "external_id", "activated_at", "last_login", "invitation_sent_at", "updated_at", "preferred_locale_code", "created_at", "invalid_login_attempts", "locked_until", "password_changed_at", "password", "password_confirmation", "password_algorithm", "salt", "custom_attributes"]
 
     @field_validator('state')
     @classmethod
@@ -153,7 +154,8 @@ class User(BaseModel):
             "password": obj.get("password"),
             "password_confirmation": obj.get("password_confirmation"),
             "password_algorithm": obj.get("password_algorithm"),
-            "salt": obj.get("salt")
+            "salt": obj.get("salt"),
+            "custom_attributes": obj.get("custom_attributes")
         })
         return _obj
 
