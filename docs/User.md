@@ -40,6 +40,7 @@ Name | Type | Description | Notes
 **password_confirmation** | **str** | Required if the password is being set. | [optional] 
 **password_algorithm** | **str** | Use this when importing a password that&#39;s already hashed. Prepend the salt value to the cleartext password value before SHA-256-encoding it | [optional] 
 **salt** | **str** | The salt value used with the password_algorithm. | [optional] 
+**custom_attributes** | **Dict[str, Any]** | Custom user attributes defined in your OneLogin account. | [optional] 
 
 ## Example
 
