@@ -143,3 +143,21 @@ If you're having trouble connecting to the API, double-check:
 - Your OneLogin subdomain is correct in the host URL
 - Your API credentials have the correct scopes for the operations you're trying to perform
 - Your network can reach the OneLogin API endpoints
+
+## Release Process (Maintainers)
+
+To create a new release and publish to PyPI:
+
+1. Go to the [Releases page](../../releases) in GitHub
+2. Click **"Draft a new release"**
+3. Click **"Choose a tag"** and create a new tag following semantic versioning (e.g., `v3.2.3`)
+4. Set the release title and description (you can use "Generate release notes" for automatic changelog)
+5. Click **"Publish release"**
+
+The release workflow will automatically:
+- Extract the version from the tag (e.g., `v3.2.3` → `3.2.3`)
+- Update `version` in `pyproject.toml` and `__version__` in `onelogin/__init__.py`
+- Build the Python package (sdist and wheel)
+- Publish to PyPI using the configured `PYPI_API_TOKEN`
+
+**That's it!** The entire release process is automated from a single GitHub Release creation.
