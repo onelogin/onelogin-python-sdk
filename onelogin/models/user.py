@@ -84,7 +84,7 @@ class User(BaseModel):
     @field_validator('manager_user_id', mode='before')
     @classmethod
     def manager_user_id_to_string(cls, value):
-        """Converts manager_user_id to string if it's an integer"""
+        """Converts manager_user_id to string if it's an integer and returns None values unchanged"""
         if value is None:
             return value
         if isinstance(value, int):
