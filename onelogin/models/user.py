@@ -81,6 +81,16 @@ class User(BaseModel):
             raise ValueError("must be one of enum values (0, 1, 2, 3, 4, 5, 7, 8)")
         return value
 
+    @field_validator('manager_user_id', mode='before')
+    @classmethod
+    def manager_user_id_to_string(cls, value):
+        """Converts manager_user_id to string if it's an integer and returns None values unchanged"""
+        if value is None:
+            return value
+        if isinstance(value, int):
+            return str(value)
+        return value
+
     """Pydantic configuration"""
     model_config = {
         "validate_by_name": True,

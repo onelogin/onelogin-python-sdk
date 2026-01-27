@@ -47,6 +47,23 @@ class TestUserManagerUserIdFix(unittest.TestCase):
         self.assertEqual(user.manager_user_id, "252462756")
         self.assertIsInstance(user.manager_user_id, str)
 
+    def test_manager_user_id_with_integer_value(self):
+        """
+        Test that manager_user_id accepts integer values and converts them to string.
+        This test validates the fix where API sometimes returns manager_user_id as integer.
+        """
+        user_data = {
+            "id": 123,
+            "username": "testuser",
+            "email": "test@example.com",
+            "manager_user_id": 252462756  # Integer value as sometimes returned by API
+        }
+        
+        # This should work without validation errors and convert to string
+        user = User.from_dict(user_data)
+        self.assertEqual(user.manager_user_id, "252462756")
+        self.assertIsInstance(user.manager_user_id, str)
+
     def test_manager_user_id_with_none_value(self):
         """
         Test that manager_user_id accepts None values.
