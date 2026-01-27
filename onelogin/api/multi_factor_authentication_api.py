@@ -684,7 +684,7 @@ class MultiFactorAuthenticationApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_call
-    def get_auth_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> GetAuthFactors200Response:  # noqa: E501
+    def get_auth_factors(self, user_id : Annotated[StrictInt, Field(..., description="Set to the id of the user that you want to return.")], **kwargs) -> List[GetAuthFactors200Response]:  # noqa: E501
         """Get User Factors  # noqa: E501
 
         Get a user\\'s available authentication factors  # noqa: E501
@@ -705,7 +705,7 @@ class MultiFactorAuthenticationApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: GetAuthFactors200Response
+        :rtype: List[GetAuthFactors200Response]
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -747,7 +747,7 @@ class MultiFactorAuthenticationApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(GetAuthFactors200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(List[GetAuthFactors200Response], status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -802,7 +802,7 @@ class MultiFactorAuthenticationApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '200': "GetAuthFactors200Response",
+            '200': "List[GetAuthFactors200Response]",
             '401': "AltErr",
         }
 
