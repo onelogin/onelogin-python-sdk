@@ -9,7 +9,7 @@ OneLogin by One Identity open source projects are supported through [OneLogin Gi
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.9+
 - Dependencies:
   - Pydantic 2.11+ (latest version)
   - urllib3 2.0.2+
