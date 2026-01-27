@@ -78,7 +78,7 @@ class TestGetAuthFactorsFix(unittest.TestCase):
         Test that auth factor works with optional fields.
         """
         factor_data = {
-            "factor_id": 3098
+            "factor_id": 3098,
             # name and auth_factor_name are optional
         }
         
