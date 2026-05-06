@@ -19,4 +19,5 @@
 ### Other Changes
 
 - Replaced all uses of the deprecated Pydantic v2 `parse_obj` method with `model_validate`
-  across all model files.
+  and all uses of `self.dict()` with `self.model_dump()` across all model files, eliminating
+  all remaining deprecated Pydantic v2 API usage in the models package.
