@@ -103,8 +103,7 @@ class Mapping(BaseModel):
         try:
             return Mapping.model_validate(_data)
         except ValidationError:
-            required_fields = ("name", "enabled", "match", "position", "conditions", "actions")
-            if "id" in obj and any(_data.get(field) is None for field in required_fields):
+            if set(obj.keys()) == {"id"}:
                 # Create Mapping can return a partial payload (e.g., id only).
                 # Construct without validation so successful creates do not raise.
                 return Mapping.model_construct(**_data)
