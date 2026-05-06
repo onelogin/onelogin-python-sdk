@@ -56,7 +56,7 @@ class MessageTemplate(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -69,7 +69,7 @@ class MessageTemplate(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                             "id",
                             "account_id",
@@ -90,9 +90,9 @@ class MessageTemplate(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return MessageTemplate.parse_obj(obj)
+            return MessageTemplate.model_validate(obj)
 
-        _obj = MessageTemplate.parse_obj({
+        _obj = MessageTemplate.model_validate({
             "id": obj.get("id"),
             "account_id": obj.get("account_id"),
             "type": obj.get("type"),

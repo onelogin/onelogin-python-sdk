@@ -37,7 +37,7 @@ class CreateFactorRegistrationRequest(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -50,7 +50,7 @@ class CreateFactorRegistrationRequest(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -63,9 +63,9 @@ class CreateFactorRegistrationRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return CreateFactorRegistrationRequest.parse_obj(obj)
+            return CreateFactorRegistrationRequest.model_validate(obj)
 
-        _obj = CreateFactorRegistrationRequest.parse_obj({
+        _obj = CreateFactorRegistrationRequest.model_validate({
             "factor_id": obj.get("factor_id"),
             "display_name": obj.get("display_name"),
             "expires_in": obj.get("expires_in"),

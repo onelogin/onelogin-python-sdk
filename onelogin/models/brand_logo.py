@@ -36,7 +36,7 @@ class BrandLogo(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -49,7 +49,7 @@ class BrandLogo(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -65,9 +65,9 @@ class BrandLogo(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return BrandLogo.parse_obj(obj)
+            return BrandLogo.model_validate(obj)
 
-        _obj = BrandLogo.parse_obj({
+        _obj = BrandLogo.model_validate({
             "urls": BrandLogoUrls.from_dict(obj.get("urls")) if obj.get("urls") is not None else None,
             "file_size": obj.get("file_size"),
             "updated_at": obj.get("updated_at"),

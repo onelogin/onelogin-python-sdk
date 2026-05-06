@@ -34,7 +34,7 @@ class RateLimit(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -47,7 +47,7 @@ class RateLimit(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -60,9 +60,9 @@ class RateLimit(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RateLimit.parse_obj(obj)
+            return RateLimit.model_validate(obj)
 
-        _obj = RateLimit.parse_obj({
+        _obj = RateLimit.model_validate({
             "x_rate_limit_limit": obj.get("X-RateLimit-Limit"),
             "x_rate_limit_remaining": obj.get("X-RateLimit-Remaining"),
             "x_rate_limit_reset": obj.get("X-RateLimit-Reset")

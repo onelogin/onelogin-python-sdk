@@ -37,7 +37,7 @@ class SamlAppAllOf(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -50,7 +50,7 @@ class SamlAppAllOf(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -72,9 +72,9 @@ class SamlAppAllOf(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SamlAppAllOf.parse_obj(obj)
+            return SamlAppAllOf.model_validate(obj)
 
-        _obj = SamlAppAllOf.parse_obj({
+        _obj = SamlAppAllOf.model_validate({
             "configuration": ConfigurationSaml.from_dict(obj.get("configuration")) if obj.get("configuration") is not None else None,
             "sso": SsoSaml.from_dict(obj.get("sso")) if obj.get("sso") is not None else None,
             "parameters": SamlAppAllOfParameters.from_dict(obj.get("parameters")) if obj.get("parameters") is not None else None

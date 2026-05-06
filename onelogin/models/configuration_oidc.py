@@ -53,7 +53,7 @@ class ConfigurationOidc(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -66,7 +66,7 @@ class ConfigurationOidc(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -79,9 +79,9 @@ class ConfigurationOidc(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ConfigurationOidc.parse_obj(obj)
+            return ConfigurationOidc.model_validate(obj)
 
-        _obj = ConfigurationOidc.parse_obj({
+        _obj = ConfigurationOidc.model_validate({
             "login_url": obj.get("login_url"),
             "redirect_uri": obj.get("redirect_uri"),
             "access_token_expiration_minutes": obj.get("access_token_expiration_minutes"),

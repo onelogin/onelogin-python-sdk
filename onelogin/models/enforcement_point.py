@@ -59,7 +59,7 @@ class EnforcementPoint(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -72,7 +72,7 @@ class EnforcementPoint(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                             "token",
                           },
@@ -114,9 +114,9 @@ class EnforcementPoint(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return EnforcementPoint.parse_obj(obj)
+            return EnforcementPoint.model_validate(obj)
 
-        _obj = EnforcementPoint.parse_obj({
+        _obj = EnforcementPoint.model_validate({
             "require_sitewide_authentication": obj.get("require_sitewide_authentication"),
             "conditions": obj.get("conditions"),
             "session_expiry_fixed": ClockCounter.from_dict(obj.get("session_expiry_fixed")) if obj.get("session_expiry_fixed") is not None else None,

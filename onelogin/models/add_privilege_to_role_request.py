@@ -32,7 +32,7 @@ class AddPrivilegeToRoleRequest(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -45,7 +45,7 @@ class AddPrivilegeToRoleRequest(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -58,9 +58,9 @@ class AddPrivilegeToRoleRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AddPrivilegeToRoleRequest.parse_obj(obj)
+            return AddPrivilegeToRoleRequest.model_validate(obj)
 
-        _obj = AddPrivilegeToRoleRequest.parse_obj({
+        _obj = AddPrivilegeToRoleRequest.model_validate({
             "roles": obj.get("roles")
         })
         return _obj

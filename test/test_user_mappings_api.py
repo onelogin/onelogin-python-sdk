@@ -12,10 +12,13 @@
 """
 
 
+import json
 import unittest
+from unittest.mock import MagicMock, patch
 
 import onelogin
 from onelogin.api.user_mappings_api import UserMappingsApi  # noqa: E501
+from onelogin.models.mapping import Mapping
 from onelogin.rest import ApiException
 
 
@@ -104,6 +107,63 @@ class TestUserMappingsApi(unittest.TestCase):
         Update Mapping  # noqa: E501
         """
         pass
+
+    def _make_urllib3_response(self, status, body):
+        """Build a mock urllib3 response for HTTP-layer testing."""
+        mock_resp = MagicMock()
+        mock_resp.status = status
+        mock_resp.reason = 'OK'
+        mock_resp.data = json.dumps(body).encode('utf-8')
+        mock_resp.headers = {'Content-Type': 'application/json'}
+        return mock_resp
+
+    def test_create_mapping_deserializes_single_object(self):
+        """create_mapping must deserialize the API's single-object 201 response.
+
+        The API returns a single mapping dict — not a list. Before the fix, the
+        SDK declared List[Mapping] which caused the deserializer to iterate over
+        dict keys, passing the string 'id' to from_dict and raising a pydantic
+        ValidationError. Users were then confused into thinking 'id' was a
+        required field and provided it, causing the server to reject the request
+        with 'Field is not allowed'.
+        """
+        body = {
+            "id": 456,
+            "name": "Test Mapping",
+            "enabled": True,
+            "match": "all",
+            "position": 1,
+            "conditions": [{"source": "last_login", "operator": ">", "value": "90"}],
+            "actions": [{"action": "set_status", "value": ["1"]}],
+        }
+        mock_resp = self._make_urllib3_response(201, body)
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=mock_resp
+        ):
+            result = self.api.create_mapping()
+        self.assertIsInstance(result, Mapping)
+        self.assertEqual(result.id, 456)
+        self.assertEqual(result.name, "Test Mapping")
+
+    def test_create_mapping_response_type_is_not_list(self):
+        """create_mapping must return a single Mapping, not a list."""
+        body = {
+            "id": 1,
+            "name": "M",
+            "enabled": False,
+            "match": "any",
+            "position": 2,
+            "conditions": [{"source": "last_login", "operator": ">", "value": "0"}],
+            "actions": [{"action": "set_status", "value": ["2"]}],
+        }
+        mock_resp = self._make_urllib3_response(201, body)
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=mock_resp
+        ):
+            result = self.api.create_mapping()
+        self.assertNotIsInstance(result, list)
 
 
 if __name__ == '__main__':

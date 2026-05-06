@@ -37,7 +37,7 @@ class SsoSaml(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -50,7 +50,7 @@ class SsoSaml(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -66,9 +66,9 @@ class SsoSaml(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SsoSaml.parse_obj(obj)
+            return SsoSaml.model_validate(obj)
 
-        _obj = SsoSaml.parse_obj({
+        _obj = SsoSaml.model_validate({
             "metadata_url": obj.get("metadata_url"),
             "acs_url": obj.get("acs_url"),
             "sls_url": obj.get("sls_url"),

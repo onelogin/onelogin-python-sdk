@@ -36,7 +36,7 @@ class AuthServer(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -49,7 +49,7 @@ class AuthServer(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                             "id",
                           },
@@ -66,9 +66,9 @@ class AuthServer(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AuthServer.parse_obj(obj)
+            return AuthServer.model_validate(obj)
 
-        _obj = AuthServer.parse_obj({
+        _obj = AuthServer.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "description": obj.get("description"),

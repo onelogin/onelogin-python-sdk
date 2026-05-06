@@ -42,7 +42,7 @@ class GetRiskScoreRequest(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -55,7 +55,7 @@ class GetRiskScoreRequest(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -80,9 +80,9 @@ class GetRiskScoreRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRiskScoreRequest.parse_obj(obj)
+            return GetRiskScoreRequest.model_validate(obj)
 
-        _obj = GetRiskScoreRequest.parse_obj({
+        _obj = GetRiskScoreRequest.model_validate({
             "ip": obj.get("ip"),
             "user_agent": obj.get("user_agent"),
             "user": RiskUser.from_dict(obj.get("user")) if obj.get("user") is not None else None,

@@ -48,7 +48,7 @@ class Brand(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -61,7 +61,7 @@ class Brand(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -80,9 +80,9 @@ class Brand(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Brand.parse_obj(obj)
+            return Brand.model_validate(obj)
 
-        _obj = Brand.parse_obj({
+        _obj = Brand.model_validate({
             "id": obj.get("id"),
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else False,
             "custom_support_enabled": obj.get("custom_support_enabled"),

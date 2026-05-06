@@ -33,7 +33,7 @@ class GetEnrolledFactors200ResponseData(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -46,7 +46,7 @@ class GetEnrolledFactors200ResponseData(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -66,9 +66,9 @@ class GetEnrolledFactors200ResponseData(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetEnrolledFactors200ResponseData.parse_obj(obj)
+            return GetEnrolledFactors200ResponseData.model_validate(obj)
 
-        _obj = GetEnrolledFactors200ResponseData.parse_obj({
+        _obj = GetEnrolledFactors200ResponseData.model_validate({
             "otp_devices": [GetEnrolledFactors200ResponseDataOtpDevicesInner.from_dict(_item) for _item in obj.get("otp_devices")] if obj.get("otp_devices") is not None else None
         })
         return _obj

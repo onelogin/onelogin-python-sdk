@@ -34,7 +34,7 @@ class ActionObj(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -47,7 +47,7 @@ class ActionObj(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -60,9 +60,9 @@ class ActionObj(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ActionObj.parse_obj(obj)
+            return ActionObj.model_validate(obj)
 
-        _obj = ActionObj.parse_obj({
+        _obj = ActionObj.model_validate({
             "action": obj.get("action"),
             "value": obj.get("value")
         })

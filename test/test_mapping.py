@@ -17,6 +17,8 @@ import datetime
 
 import onelogin
 from onelogin.models.mapping import Mapping  # noqa: E501
+from onelogin.models.condition import Condition
+from onelogin.models.action_obj import ActionObj
 from onelogin.rest import ApiException
 
 class TestMapping(unittest.TestCase):
@@ -83,6 +85,52 @@ class TestMapping(unittest.TestCase):
         """Test Mapping"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
+
+    def _make_mapping_data(self, include_id=True):
+        data = {
+            "name": "Test Mapping",
+            "enabled": True,
+            "match": "all",
+            "position": 1,
+            "conditions": [{"source": "last_login", "operator": ">", "value": "90"}],
+            "actions": [{"action": "set_status", "value": ["1"]}],
+        }
+        if include_id:
+            data["id"] = 456
+        return data
+
+    def test_from_dict_with_id(self):
+        """Test that Mapping can be deserialized from a dict containing an id."""
+        result = Mapping.from_dict(self._make_mapping_data(include_id=True))
+        self.assertIsInstance(result, Mapping)
+        self.assertEqual(result.id, 456)
+        self.assertEqual(result.name, "Test Mapping")
+
+    def test_from_dict_without_id(self):
+        """Test that Mapping can be deserialized from a dict that omits id (create request)."""
+        result = Mapping.from_dict(self._make_mapping_data(include_id=False))
+        self.assertIsInstance(result, Mapping)
+        self.assertIsNone(result.id)
+        self.assertEqual(result.name, "Test Mapping")
+
+    def test_from_dict_none(self):
+        """Test that from_dict handles None gracefully."""
+        result = Mapping.from_dict(None)
+        self.assertIsNone(result)
+
+    def test_to_dict_excludes_none_id(self):
+        """Test that to_dict omits id when it is None, preventing 'Field not allowed' errors."""
+        m = Mapping(
+            name="Test Mapping",
+            enabled=True,
+            match="all",
+            position=1,
+            conditions=[Condition(source="last_login", operator=">", value="90")],
+            actions=[ActionObj(action="set_status", value=["1"])],
+        )
+        self.assertIsNone(m.id)
+        d = m.to_dict()
+        self.assertNotIn("id", d)
 
 if __name__ == '__main__':
     unittest.main()

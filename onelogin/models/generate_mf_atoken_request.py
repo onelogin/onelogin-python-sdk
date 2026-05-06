@@ -35,7 +35,7 @@ class GenerateMFAtokenRequest(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -48,7 +48,7 @@ class GenerateMFAtokenRequest(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -61,9 +61,9 @@ class GenerateMFAtokenRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenerateMFAtokenRequest.parse_obj(obj)
+            return GenerateMFAtokenRequest.model_validate(obj)
 
-        _obj = GenerateMFAtokenRequest.parse_obj({
+        _obj = GenerateMFAtokenRequest.model_validate({
             "expires_in": obj.get("expires_in"),
             "reusable": obj.get("reusable") if obj.get("reusable") is not None else False
         })

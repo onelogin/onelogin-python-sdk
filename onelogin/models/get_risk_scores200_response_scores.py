@@ -37,7 +37,7 @@ class GetRiskScores200ResponseScores(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -50,7 +50,7 @@ class GetRiskScores200ResponseScores(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -63,9 +63,9 @@ class GetRiskScores200ResponseScores(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRiskScores200ResponseScores.parse_obj(obj)
+            return GetRiskScores200ResponseScores.model_validate(obj)
 
-        _obj = GetRiskScores200ResponseScores.parse_obj({
+        _obj = GetRiskScores200ResponseScores.model_validate({
             "minimal": obj.get("minimal"),
             "low": obj.get("low"),
             "medium": obj.get("medium"),

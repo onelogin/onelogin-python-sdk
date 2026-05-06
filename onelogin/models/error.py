@@ -37,7 +37,7 @@ class Error(BaseModel):
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.dict(by_alias=True))
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
@@ -50,7 +50,7 @@ class Error(BaseModel):
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
-        _dict = self.dict(by_alias=True,
+        _dict = self.model_dump(by_alias=True,
                           exclude={
                           },
                           exclude_none=True)
@@ -63,9 +63,9 @@ class Error(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Error.parse_obj(obj)
+            return Error.model_validate(obj)
 
-        _obj = Error.parse_obj({
+        _obj = Error.model_validate({
             "error": obj.get("error"),
             "code": obj.get("code"),
             "type": obj.get("type"),
