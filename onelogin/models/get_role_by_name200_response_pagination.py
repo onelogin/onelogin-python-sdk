@@ -61,9 +61,9 @@ class GetRoleByName200ResponsePagination(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRoleByName200ResponsePagination.parse_obj(obj)
+            return GetRoleByName200ResponsePagination.model_validate(obj)
 
-        _obj = GetRoleByName200ResponsePagination.parse_obj({
+        _obj = GetRoleByName200ResponsePagination.model_validate({
             "after_cursor": obj.get("after_cursor"),
             "before_cursor": obj.get("before_cursor"),
             "next_link": obj.get("next_link"),

@@ -58,9 +58,9 @@ class AssignUsersToPrivilegeRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AssignUsersToPrivilegeRequest.parse_obj(obj)
+            return AssignUsersToPrivilegeRequest.model_validate(obj)
 
-        _obj = AssignUsersToPrivilegeRequest.parse_obj({
+        _obj = AssignUsersToPrivilegeRequest.model_validate({
             "users": obj.get("users")
         })
         return _obj

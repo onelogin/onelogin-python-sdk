@@ -58,9 +58,9 @@ class UpdateEnvironmentVariableRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return UpdateEnvironmentVariableRequest.parse_obj(obj)
+            return UpdateEnvironmentVariableRequest.model_validate(obj)
 
-        _obj = UpdateEnvironmentVariableRequest.parse_obj({
+        _obj = UpdateEnvironmentVariableRequest.model_validate({
             "value": obj.get("value")
         })
         return _obj

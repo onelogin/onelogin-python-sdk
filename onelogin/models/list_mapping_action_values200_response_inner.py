@@ -59,9 +59,9 @@ class ListMappingActionValues200ResponseInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ListMappingActionValues200ResponseInner.parse_obj(obj)
+            return ListMappingActionValues200ResponseInner.model_validate(obj)
 
-        _obj = ListMappingActionValues200ResponseInner.parse_obj({
+        _obj = ListMappingActionValues200ResponseInner.model_validate({
             "name": obj.get("name"),
             "value": obj.get("value")
         })

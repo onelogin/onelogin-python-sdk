@@ -63,9 +63,9 @@ class GetUserRoles200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetUserRoles200Response.parse_obj(obj)
+            return GetUserRoles200Response.model_validate(obj)
 
-        _obj = GetUserRoles200Response.parse_obj({
+        _obj = GetUserRoles200Response.model_validate({
             "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "data": obj.get("data")
         })

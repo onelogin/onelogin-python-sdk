@@ -62,9 +62,9 @@ class CreateDeviceVerificationRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return CreateDeviceVerificationRequest.parse_obj(obj)
+            return CreateDeviceVerificationRequest.model_validate(obj)
 
-        _obj = CreateDeviceVerificationRequest.parse_obj({
+        _obj = CreateDeviceVerificationRequest.model_validate({
             "device_id": obj.get("device_id"),
             "display_name": obj.get("display_name"),
             "expires_in": obj.get("expires_in"),

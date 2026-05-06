@@ -60,9 +60,9 @@ class UpdatePasswordInsecureRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return UpdatePasswordInsecureRequest.parse_obj(obj)
+            return UpdatePasswordInsecureRequest.model_validate(obj)
 
-        _obj = UpdatePasswordInsecureRequest.parse_obj({
+        _obj = UpdatePasswordInsecureRequest.model_validate({
             "password": obj.get("password"),
             "password_confirmation": obj.get("password_confirmation"),
             "validate_policy": obj.get("validate_policy") if obj.get("validate_policy") is not None else False

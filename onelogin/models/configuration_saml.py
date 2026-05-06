@@ -59,9 +59,9 @@ class ConfigurationSaml(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ConfigurationSaml.parse_obj(obj)
+            return ConfigurationSaml.model_validate(obj)
 
-        _obj = ConfigurationSaml.parse_obj({
+        _obj = ConfigurationSaml.model_validate({
             "signature_algorithm": obj.get("signature_algorithm"),
             "certificate_id": obj.get("certificate_id")
         })

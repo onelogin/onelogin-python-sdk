@@ -62,9 +62,9 @@ class SamlAssert(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SamlAssert.parse_obj(obj)
+            return SamlAssert.model_validate(obj)
 
-        _obj = SamlAssert.parse_obj({
+        _obj = SamlAssert.model_validate({
             "username_or_email": obj.get("username_or_email"),
             "password": obj.get("password"),
             "app_id": obj.get("app_id"),

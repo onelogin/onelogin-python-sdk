@@ -126,9 +126,9 @@ class User(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return User.parse_obj(obj)
+            return User.model_validate(obj)
 
-        _obj = User.parse_obj({
+        _obj = User.model_validate({
             "id": obj.get("id"),
             "username": obj.get("username"),
             "email": obj.get("email"),

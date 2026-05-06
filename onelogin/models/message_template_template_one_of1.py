@@ -58,9 +58,9 @@ class MessageTemplateTemplateOneOf1(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return MessageTemplateTemplateOneOf1.parse_obj(obj)
+            return MessageTemplateTemplateOneOf1.model_validate(obj)
 
-        _obj = MessageTemplateTemplateOneOf1.parse_obj({
+        _obj = MessageTemplateTemplateOneOf1.model_validate({
             "message": obj.get("message")
         })
         return _obj

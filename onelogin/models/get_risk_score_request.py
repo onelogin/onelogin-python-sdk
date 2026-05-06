@@ -80,9 +80,9 @@ class GetRiskScoreRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRiskScoreRequest.parse_obj(obj)
+            return GetRiskScoreRequest.model_validate(obj)
 
-        _obj = GetRiskScoreRequest.parse_obj({
+        _obj = GetRiskScoreRequest.model_validate({
             "ip": obj.get("ip"),
             "user_agent": obj.get("user_agent"),
             "user": RiskUser.from_dict(obj.get("user")) if obj.get("user") is not None else None,

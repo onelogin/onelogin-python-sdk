@@ -60,9 +60,9 @@ class GetRoleApps200ResponseInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRoleApps200ResponseInner.parse_obj(obj)
+            return GetRoleApps200ResponseInner.model_validate(obj)
 
-        _obj = GetRoleApps200ResponseInner.parse_obj({
+        _obj = GetRoleApps200ResponseInner.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "icon_url": obj.get("icon_url")

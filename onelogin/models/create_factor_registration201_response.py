@@ -63,9 +63,9 @@ class CreateFactorRegistration201Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return CreateFactorRegistration201Response.parse_obj(obj)
+            return CreateFactorRegistration201Response.model_validate(obj)
 
-        _obj = CreateFactorRegistration201Response.parse_obj({
+        _obj = CreateFactorRegistration201Response.model_validate({
             "device_id": obj.get("device_id"),
             "user_display_name": obj.get("user_display_name"),
             "type_display_name": obj.get("type_display_name"),

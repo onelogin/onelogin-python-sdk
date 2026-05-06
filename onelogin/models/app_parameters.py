@@ -70,9 +70,9 @@ class AppParameters(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AppParameters.parse_obj(obj)
+            return AppParameters.model_validate(obj)
 
-        _obj = AppParameters.parse_obj({
+        _obj = AppParameters.model_validate({
             "user_attribute_mappings": obj.get("user_attribute_mappings"),
             "user_attribute_macros": obj.get("user_attribute_macros"),
             "label": obj.get("label"),

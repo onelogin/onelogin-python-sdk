@@ -58,9 +58,9 @@ class AddPrivilegeToRoleRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AddPrivilegeToRoleRequest.parse_obj(obj)
+            return AddPrivilegeToRoleRequest.model_validate(obj)
 
-        _obj = AddPrivilegeToRoleRequest.parse_obj({
+        _obj = AddPrivilegeToRoleRequest.model_validate({
             "roles": obj.get("roles")
         })
         return _obj

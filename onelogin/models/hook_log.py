@@ -61,9 +61,9 @@ class HookLog(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return HookLog.parse_obj(obj)
+            return HookLog.model_validate(obj)
 
-        _obj = HookLog.parse_obj({
+        _obj = HookLog.model_validate({
             "request_id": obj.get("request_id"),
             "correlation_id": obj.get("correlation_id"),
             "created_at": obj.get("created_at"),

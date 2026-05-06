@@ -63,9 +63,9 @@ class Role(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Role.parse_obj(obj)
+            return Role.model_validate(obj)
 
-        _obj = Role.parse_obj({
+        _obj = Role.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "apps": obj.get("apps"),

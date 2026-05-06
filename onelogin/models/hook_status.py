@@ -59,9 +59,9 @@ class HookStatus(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return HookStatus.parse_obj(obj)
+            return HookStatus.model_validate(obj)
 
-        _obj = HookStatus.parse_obj({
+        _obj = HookStatus.model_validate({
             "name": obj.get("name"),
             "message": obj.get("message")
         })

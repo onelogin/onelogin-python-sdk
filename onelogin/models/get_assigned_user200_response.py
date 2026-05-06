@@ -83,9 +83,9 @@ class GetAssignedUser200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetAssignedUser200Response.parse_obj(obj)
+            return GetAssignedUser200Response.model_validate(obj)
 
-        _obj = GetAssignedUser200Response.parse_obj({
+        _obj = GetAssignedUser200Response.model_validate({
             "total": obj.get("total"),
             "users": obj.get("users"),
             "before_cursor": obj.get("beforeCursor"),

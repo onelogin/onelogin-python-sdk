@@ -66,9 +66,9 @@ class SsoSaml(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SsoSaml.parse_obj(obj)
+            return SsoSaml.model_validate(obj)
 
-        _obj = SsoSaml.parse_obj({
+        _obj = SsoSaml.model_validate({
             "metadata_url": obj.get("metadata_url"),
             "acs_url": obj.get("acs_url"),
             "sls_url": obj.get("sls_url"),

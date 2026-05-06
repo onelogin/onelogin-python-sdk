@@ -80,9 +80,9 @@ class EnforcementPointResourcesInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return EnforcementPointResourcesInner.parse_obj(obj)
+            return EnforcementPointResourcesInner.model_validate(obj)
 
-        _obj = EnforcementPointResourcesInner.parse_obj({
+        _obj = EnforcementPointResourcesInner.model_validate({
             "path": obj.get("path"),
             "is_path_regex": obj.get("is_path_regex"),
             "require_auth": obj.get("require_auth"),

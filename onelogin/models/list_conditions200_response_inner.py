@@ -59,9 +59,9 @@ class ListConditions200ResponseInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ListConditions200ResponseInner.parse_obj(obj)
+            return ListConditions200ResponseInner.model_validate(obj)
 
-        _obj = ListConditions200ResponseInner.parse_obj({
+        _obj = ListConditions200ResponseInner.model_validate({
             "name": obj.get("name"),
             "value": obj.get("value")
         })

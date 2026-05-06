@@ -58,9 +58,9 @@ class RemoveUserRoleRequestRoleIdArrayInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RemoveUserRoleRequestRoleIdArrayInner.parse_obj(obj)
+            return RemoveUserRoleRequestRoleIdArrayInner.model_validate(obj)
 
-        _obj = RemoveUserRoleRequestRoleIdArrayInner.parse_obj({
+        _obj = RemoveUserRoleRequestRoleIdArrayInner.model_validate({
             "role_id": obj.get("role_id")
         })
         return _obj

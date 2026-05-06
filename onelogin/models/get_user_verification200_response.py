@@ -60,9 +60,9 @@ class GetUserVerification200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetUserVerification200Response.parse_obj(obj)
+            return GetUserVerification200Response.model_validate(obj)
 
-        _obj = GetUserVerification200Response.parse_obj({
+        _obj = GetUserVerification200Response.model_validate({
             "id": obj.get("id"),
             "status": obj.get("status"),
             "device_id": obj.get("device_id")

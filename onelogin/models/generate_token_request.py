@@ -58,9 +58,9 @@ class GenerateTokenRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenerateTokenRequest.parse_obj(obj)
+            return GenerateTokenRequest.model_validate(obj)
 
-        _obj = GenerateTokenRequest.parse_obj({
+        _obj = GenerateTokenRequest.model_validate({
             "grant_type": obj.get("grant_type") if obj.get("grant_type") is not None else 'client_credentials'
         })
         return _obj

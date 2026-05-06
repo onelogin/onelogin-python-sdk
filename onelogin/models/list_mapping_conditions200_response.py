@@ -59,9 +59,9 @@ class ListMappingConditions200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ListMappingConditions200Response.parse_obj(obj)
+            return ListMappingConditions200Response.model_validate(obj)
 
-        _obj = ListMappingConditions200Response.parse_obj({
+        _obj = ListMappingConditions200Response.model_validate({
             "name": obj.get("name"),
             "value": obj.get("value")
         })

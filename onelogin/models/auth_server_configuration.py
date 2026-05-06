@@ -61,9 +61,9 @@ class AuthServerConfiguration(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AuthServerConfiguration.parse_obj(obj)
+            return AuthServerConfiguration.model_validate(obj)
 
-        _obj = AuthServerConfiguration.parse_obj({
+        _obj = AuthServerConfiguration.model_validate({
             "audiences": obj.get("audiences"),
             "refresh_token_expiration_minutes": obj.get("refresh_token_expiration_minutes"),
             "resource_identifier": obj.get("resource_identifier"),

@@ -61,9 +61,9 @@ class GenerateMFAtokenRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenerateMFAtokenRequest.parse_obj(obj)
+            return GenerateMFAtokenRequest.model_validate(obj)
 
-        _obj = GenerateMFAtokenRequest.parse_obj({
+        _obj = GenerateMFAtokenRequest.model_validate({
             "expires_in": obj.get("expires_in"),
             "reusable": obj.get("reusable") if obj.get("reusable") is not None else False
         })

@@ -60,9 +60,9 @@ class GenericAppProvisioning(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenericAppProvisioning.parse_obj(obj)
+            return GenericAppProvisioning.model_validate(obj)
 
-        _obj = GenericAppProvisioning.parse_obj({
+        _obj = GenericAppProvisioning.model_validate({
             "enabled": obj.get("enabled")
         })
         return _obj

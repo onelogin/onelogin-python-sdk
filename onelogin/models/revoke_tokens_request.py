@@ -59,9 +59,9 @@ class RevokeTokensRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RevokeTokensRequest.parse_obj(obj)
+            return RevokeTokensRequest.model_validate(obj)
 
-        _obj = RevokeTokensRequest.parse_obj({
+        _obj = RevokeTokensRequest.model_validate({
             "access_token": obj.get("access_token")
         })
         return _obj

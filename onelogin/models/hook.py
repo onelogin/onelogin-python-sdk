@@ -95,9 +95,9 @@ class Hook(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Hook.parse_obj(obj)
+            return Hook.model_validate(obj)
 
-        _obj = Hook.parse_obj({
+        _obj = Hook.model_validate({
             "id": obj.get("id"),
             "type": obj.get("type"),
             "disabled": obj.get("disabled") if obj.get("disabled") is not None else True,

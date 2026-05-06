@@ -61,9 +61,9 @@ class GetEvents200ResponsePagination(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetEvents200ResponsePagination.parse_obj(obj)
+            return GetEvents200ResponsePagination.model_validate(obj)
 
-        _obj = GetEvents200ResponsePagination.parse_obj({
+        _obj = GetEvents200ResponsePagination.model_validate({
             "before_cursor": obj.get("before_cursor"),
             "after_cursor": obj.get("after_cursor"),
             "previous_link": obj.get("previous_link"),

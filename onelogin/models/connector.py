@@ -63,9 +63,9 @@ class Connector(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Connector.parse_obj(obj)
+            return Connector.model_validate(obj)
 
-        _obj = Connector.parse_obj({
+        _obj = Connector.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "icon_url": obj.get("icon_url"),

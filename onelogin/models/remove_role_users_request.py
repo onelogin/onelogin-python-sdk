@@ -58,9 +58,9 @@ class RemoveRoleUsersRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RemoveRoleUsersRequest.parse_obj(obj)
+            return RemoveRoleUsersRequest.model_validate(obj)
 
-        _obj = RemoveRoleUsersRequest.parse_obj({
+        _obj = RemoveRoleUsersRequest.model_validate({
             "user_id": obj.get("user_id")
         })
         return _obj

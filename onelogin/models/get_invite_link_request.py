@@ -58,9 +58,9 @@ class GetInviteLinkRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetInviteLinkRequest.parse_obj(obj)
+            return GetInviteLinkRequest.model_validate(obj)
 
-        _obj = GetInviteLinkRequest.parse_obj({
+        _obj = GetInviteLinkRequest.model_validate({
             "email": obj.get("email")
         })
         return _obj

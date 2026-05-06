@@ -79,9 +79,9 @@ class ConfigurationOidc(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ConfigurationOidc.parse_obj(obj)
+            return ConfigurationOidc.model_validate(obj)
 
-        _obj = ConfigurationOidc.parse_obj({
+        _obj = ConfigurationOidc.model_validate({
             "login_url": obj.get("login_url"),
             "redirect_uri": obj.get("redirect_uri"),
             "access_token_expiration_minutes": obj.get("access_token_expiration_minutes"),

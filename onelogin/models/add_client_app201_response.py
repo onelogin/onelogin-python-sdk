@@ -59,9 +59,9 @@ class AddClientApp201Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AddClientApp201Response.parse_obj(obj)
+            return AddClientApp201Response.model_validate(obj)
 
-        _obj = AddClientApp201Response.parse_obj({
+        _obj = AddClientApp201Response.model_validate({
             "app_id": obj.get("app_id"),
             "api_auth_id": obj.get("api_auth_id")
         })

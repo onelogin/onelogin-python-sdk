@@ -60,9 +60,9 @@ class ActivateMfaFactorsRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ActivateMfaFactorsRequest.parse_obj(obj)
+            return ActivateMfaFactorsRequest.model_validate(obj)
 
-        _obj = ActivateMfaFactorsRequest.parse_obj({
+        _obj = ActivateMfaFactorsRequest.model_validate({
             "state_token_expires_in": obj.get("state_token_expires_in"),
             "numeric_sms_otp": obj.get("numeric_sms_otp"),
             "sms_message": obj.get("sms_message")

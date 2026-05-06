@@ -80,9 +80,9 @@ class Brand(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Brand.parse_obj(obj)
+            return Brand.model_validate(obj)
 
-        _obj = Brand.parse_obj({
+        _obj = Brand.model_validate({
             "id": obj.get("id"),
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else False,
             "custom_support_enabled": obj.get("custom_support_enabled"),

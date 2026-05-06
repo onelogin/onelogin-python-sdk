@@ -60,9 +60,9 @@ class ActionObj(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ActionObj.parse_obj(obj)
+            return ActionObj.model_validate(obj)
 
-        _obj = ActionObj.parse_obj({
+        _obj = ActionObj.model_validate({
             "action": obj.get("action"),
             "value": obj.get("value")
         })

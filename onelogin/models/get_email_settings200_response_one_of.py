@@ -58,9 +58,9 @@ class GetEmailSettings200ResponseOneOf(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetEmailSettings200ResponseOneOf.parse_obj(obj)
+            return GetEmailSettings200ResponseOneOf.model_validate(obj)
 
-        _obj = GetEmailSettings200ResponseOneOf.parse_obj({
+        _obj = GetEmailSettings200ResponseOneOf.model_validate({
             "mode": obj.get("mode")
         })
         return _obj

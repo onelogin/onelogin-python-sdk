@@ -66,9 +66,9 @@ class SetUserStateRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SetUserStateRequest.parse_obj(obj)
+            return SetUserStateRequest.model_validate(obj)
 
-        _obj = SetUserStateRequest.parse_obj({
+        _obj = SetUserStateRequest.model_validate({
             "state": obj.get("state")
         })
         return _obj

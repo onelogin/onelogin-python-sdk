@@ -59,9 +59,9 @@ class GetRoleById200ResponseDataInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRoleById200ResponseDataInner.parse_obj(obj)
+            return GetRoleById200ResponseDataInner.model_validate(obj)
 
-        _obj = GetRoleById200ResponseDataInner.parse_obj({
+        _obj = GetRoleById200ResponseDataInner.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name")
         })

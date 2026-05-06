@@ -60,9 +60,9 @@ class ListMessageTemplates200ResponseInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ListMessageTemplates200ResponseInner.parse_obj(obj)
+            return ListMessageTemplates200ResponseInner.model_validate(obj)
 
-        _obj = ListMessageTemplates200ResponseInner.parse_obj({
+        _obj = ListMessageTemplates200ResponseInner.model_validate({
             "id": obj.get("id"),
             "enabled": obj.get("enabled"),
             "name": obj.get("name")

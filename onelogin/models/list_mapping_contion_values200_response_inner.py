@@ -59,9 +59,9 @@ class ListMappingContionValues200ResponseInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ListMappingContionValues200ResponseInner.parse_obj(obj)
+            return ListMappingContionValues200ResponseInner.model_validate(obj)
 
-        _obj = ListMappingContionValues200ResponseInner.parse_obj({
+        _obj = ListMappingContionValues200ResponseInner.model_validate({
             "name": obj.get("name"),
             "value": obj.get("value")
         })

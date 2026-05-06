@@ -84,9 +84,9 @@ class ListPrivelegeRoles200Response(BaseModel):
             return None
 
         if type(obj) is not dict:
-            return ListPrivelegeRoles200Response.parse_obj(obj)
+            return ListPrivelegeRoles200Response.model_validate(obj)
 
-        _obj = ListPrivelegeRoles200Response.parse_obj({
+        _obj = ListPrivelegeRoles200Response.model_validate({
             "total": obj.get("total"),
             "roles": obj.get("roles"),
             "before_cursor": obj.get("beforeCursor"),

@@ -12,10 +12,13 @@
 """
 
 
+import json
 import unittest
+from unittest.mock import MagicMock, patch
 
 import onelogin
 from onelogin.api.roles_api import RolesApi  # noqa: E501
+from onelogin.models.create_role201_response_inner import CreateRole201ResponseInner
 from onelogin.rest import ApiException
 
 
@@ -132,6 +135,42 @@ class TestRolesApi(unittest.TestCase):
         Update Role  # noqa: E501
         """
         pass
+
+    def _make_urllib3_response(self, status, body):
+        """Build a mock urllib3 response for HTTP-layer testing."""
+        mock_resp = MagicMock()
+        mock_resp.status = status
+        mock_resp.reason = 'OK'
+        mock_resp.data = json.dumps(body).encode('utf-8')
+        mock_resp.headers = {'Content-Type': 'application/json'}
+        return mock_resp
+
+    def test_create_role_deserializes_single_object(self):
+        """create_role must deserialize the API's single-object 201 response.
+
+        The API returns {"id": 123} — not a list. Before the fix, the SDK
+        declared List[CreateRole201ResponseInner] which caused the deserializer
+        to iterate over dict keys, passing the string 'id' to from_dict and
+        raising a pydantic ValidationError.
+        """
+        mock_resp = self._make_urllib3_response(201, {"id": 123456})
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=mock_resp
+        ):
+            result = self.api.create_role()
+        self.assertIsInstance(result, CreateRole201ResponseInner)
+        self.assertEqual(result.id, 123456)
+
+    def test_create_role_response_type_is_not_list(self):
+        """create_role must return a single CreateRole201ResponseInner, not a list."""
+        mock_resp = self._make_urllib3_response(201, {"id": 7})
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=mock_resp
+        ):
+            result = self.api.create_role()
+        self.assertNotIsInstance(result, list)
 
 
 if __name__ == '__main__':

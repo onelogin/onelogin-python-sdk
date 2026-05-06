@@ -59,9 +59,9 @@ class VerifyMfaFactorRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return VerifyMfaFactorRequest.parse_obj(obj)
+            return VerifyMfaFactorRequest.model_validate(obj)
 
-        _obj = VerifyMfaFactorRequest.parse_obj({
+        _obj = VerifyMfaFactorRequest.model_validate({
             "state_token": obj.get("state_token"),
             "otp_token": obj.get("otp_token")
         })

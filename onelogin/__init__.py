@@ -9,7 +9,7 @@
 """
 
 
-__version__ = "3.2.2"
+__version__ = "3.2.3"
 
 # import apis into sdk package
 from onelogin.api.api_auth_claims_api import APIAuthClaimsApi

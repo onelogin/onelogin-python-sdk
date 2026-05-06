@@ -82,9 +82,9 @@ class TrackRiskEventRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return TrackRiskEventRequest.parse_obj(obj)
+            return TrackRiskEventRequest.model_validate(obj)
 
-        _obj = TrackRiskEventRequest.parse_obj({
+        _obj = TrackRiskEventRequest.model_validate({
             "verb": obj.get("verb"),
             "ip": obj.get("ip"),
             "user_agent": obj.get("user_agent"),

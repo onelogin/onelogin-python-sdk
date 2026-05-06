@@ -67,9 +67,9 @@ class OidcAppAllOf(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return OidcAppAllOf.parse_obj(obj)
+            return OidcAppAllOf.model_validate(obj)
 
-        _obj = OidcAppAllOf.parse_obj({
+        _obj = OidcAppAllOf.model_validate({
             "configuration": ConfigurationOidc.from_dict(obj.get("configuration")) if obj.get("configuration") is not None else None,
             "sso": SsoOidc.from_dict(obj.get("sso")) if obj.get("sso") is not None else None
         })

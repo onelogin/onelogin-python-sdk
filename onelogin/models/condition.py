@@ -60,9 +60,9 @@ class Condition(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Condition.parse_obj(obj)
+            return Condition.model_validate(obj)
 
-        _obj = Condition.parse_obj({
+        _obj = Condition.model_validate({
             "source": obj.get("source"),
             "operator": obj.get("operator"),
             "value": obj.get("value")

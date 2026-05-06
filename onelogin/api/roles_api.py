@@ -484,6 +484,8 @@ class RolesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
+            # The API returns a single object {"id": ...}, not a list.
+            # Some documentation examples show a list, but the actual response is bare.
             '201': "CreateRole201ResponseInner",
             '401': "AltErr",
         }

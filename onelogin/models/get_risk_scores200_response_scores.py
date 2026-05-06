@@ -63,9 +63,9 @@ class GetRiskScores200ResponseScores(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRiskScores200ResponseScores.parse_obj(obj)
+            return GetRiskScores200ResponseScores.model_validate(obj)
 
-        _obj = GetRiskScores200ResponseScores.parse_obj({
+        _obj = GetRiskScores200ResponseScores.model_validate({
             "minimal": obj.get("minimal"),
             "low": obj.get("low"),
             "medium": obj.get("medium"),

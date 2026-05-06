@@ -58,9 +58,9 @@ class UpdateRiskRuleRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return UpdateRiskRuleRequest.parse_obj(obj)
+            return UpdateRiskRuleRequest.model_validate(obj)
 
-        _obj = UpdateRiskRuleRequest.parse_obj({
+        _obj = UpdateRiskRuleRequest.model_validate({
             "id": obj.get("id")
         })
         return _obj

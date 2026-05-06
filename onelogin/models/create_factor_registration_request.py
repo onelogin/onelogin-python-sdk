@@ -63,9 +63,9 @@ class CreateFactorRegistrationRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return CreateFactorRegistrationRequest.parse_obj(obj)
+            return CreateFactorRegistrationRequest.model_validate(obj)
 
-        _obj = CreateFactorRegistrationRequest.parse_obj({
+        _obj = CreateFactorRegistrationRequest.model_validate({
             "factor_id": obj.get("factor_id"),
             "display_name": obj.get("display_name"),
             "expires_in": obj.get("expires_in"),

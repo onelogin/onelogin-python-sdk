@@ -63,9 +63,9 @@ class HookEnvvar(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return HookEnvvar.parse_obj(obj)
+            return HookEnvvar.model_validate(obj)
 
-        _obj = HookEnvvar.parse_obj({
+        _obj = HookEnvvar.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "created_at": obj.get("created_at"),

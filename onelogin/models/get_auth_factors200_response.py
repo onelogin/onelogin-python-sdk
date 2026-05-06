@@ -60,9 +60,9 @@ class GetAuthFactors200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetAuthFactors200Response.parse_obj(obj)
+            return GetAuthFactors200Response.model_validate(obj)
 
-        _obj = GetAuthFactors200Response.parse_obj({
+        _obj = GetAuthFactors200Response.model_validate({
             "factor_id": obj.get("factor_id"),
             "name": obj.get("name"),
             "auth_factor_name": obj.get("auth_factor_name")

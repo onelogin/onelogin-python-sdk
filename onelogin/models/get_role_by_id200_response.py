@@ -71,9 +71,9 @@ class GetRoleById200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRoleById200Response.parse_obj(obj)
+            return GetRoleById200Response.model_validate(obj)
 
-        _obj = GetRoleById200Response.parse_obj({
+        _obj = GetRoleById200Response.model_validate({
             "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "data": [GetRoleById200ResponseDataInner.from_dict(_item) for _item in obj.get("data")] if obj.get("data") is not None else None
         })

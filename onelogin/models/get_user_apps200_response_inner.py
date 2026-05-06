@@ -87,9 +87,9 @@ class GetUserApps200ResponseInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetUserApps200ResponseInner.parse_obj(obj)
+            return GetUserApps200ResponseInner.model_validate(obj)
 
-        _obj = GetUserApps200ResponseInner.parse_obj({
+        _obj = GetUserApps200ResponseInner.model_validate({
             "id": obj.get("id"),
             "icon_url": obj.get("icon_url"),
             "extension": obj.get("extension"),

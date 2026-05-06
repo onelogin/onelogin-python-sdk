@@ -97,9 +97,9 @@ class GenericApp(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenericApp.parse_obj(obj)
+            return GenericApp.model_validate(obj)
 
-        _obj = GenericApp.parse_obj({
+        _obj = GenericApp.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "visible": obj.get("visible"),

@@ -70,9 +70,9 @@ class PrivilegePrivilegeStatementInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return PrivilegePrivilegeStatementInner.parse_obj(obj)
+            return PrivilegePrivilegeStatementInner.model_validate(obj)
 
-        _obj = PrivilegePrivilegeStatementInner.parse_obj({
+        _obj = PrivilegePrivilegeStatementInner.model_validate({
             "effect": obj.get("Effect"),
             "action": obj.get("Action"),
             "scope": obj.get("Scope")

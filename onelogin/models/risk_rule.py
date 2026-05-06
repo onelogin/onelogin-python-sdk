@@ -90,9 +90,9 @@ class RiskRule(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RiskRule.parse_obj(obj)
+            return RiskRule.model_validate(obj)
 
-        _obj = RiskRule.parse_obj({
+        _obj = RiskRule.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "description": obj.get("description"),

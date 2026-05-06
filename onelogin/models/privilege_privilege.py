@@ -67,9 +67,9 @@ class PrivilegePrivilege(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return PrivilegePrivilege.parse_obj(obj)
+            return PrivilegePrivilege.model_validate(obj)
 
-        _obj = PrivilegePrivilege.parse_obj({
+        _obj = PrivilegePrivilege.model_validate({
             "version": obj.get("Version"),
             "statement": [PrivilegePrivilegeStatementInner.from_dict(_item) for _item in obj.get("Statement")] if obj.get("Statement") is not None else None
         })

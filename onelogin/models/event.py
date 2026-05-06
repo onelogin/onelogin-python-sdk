@@ -115,9 +115,9 @@ class Event(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Event.parse_obj(obj)
+            return Event.model_validate(obj)
 
-        _obj = Event.parse_obj({
+        _obj = Event.model_validate({
             "account_id": obj.get("account_id"),
             "actor_system": obj.get("actor_system"),
             "actor_user_id": obj.get("actor_user_id"),

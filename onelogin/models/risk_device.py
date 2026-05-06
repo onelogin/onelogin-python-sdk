@@ -58,9 +58,9 @@ class RiskDevice(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RiskDevice.parse_obj(obj)
+            return RiskDevice.model_validate(obj)
 
-        _obj = RiskDevice.parse_obj({
+        _obj = RiskDevice.model_validate({
             "id": obj.get("id")
         })
         return _obj

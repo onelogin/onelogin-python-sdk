@@ -60,9 +60,9 @@ class GenerateOTPRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenerateOTPRequest.parse_obj(obj)
+            return GenerateOTPRequest.model_validate(obj)
 
-        _obj = GenerateOTPRequest.parse_obj({
+        _obj = GenerateOTPRequest.model_validate({
             "expires_in": obj.get("expires_in"),
             "reusable": obj.get("reusable") if obj.get("reusable") is not None else False
         })

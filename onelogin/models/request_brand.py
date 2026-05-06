@@ -72,9 +72,9 @@ class RequestBrand(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RequestBrand.parse_obj(obj)
+            return RequestBrand.model_validate(obj)
 
-        _obj = RequestBrand.parse_obj({
+        _obj = RequestBrand.model_validate({
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else False,
             "name": obj.get("name"),
             "custom_support_enabled": obj.get("custom_support_enabled"),

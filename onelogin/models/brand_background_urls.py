@@ -60,9 +60,9 @@ class BrandBackgroundUrls(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return BrandBackgroundUrls.parse_obj(obj)
+            return BrandBackgroundUrls.model_validate(obj)
 
-        _obj = BrandBackgroundUrls.parse_obj({
+        _obj = BrandBackgroundUrls.model_validate({
             "original": obj.get("original"),
             "login": obj.get("login"),
             "branding": obj.get("branding")

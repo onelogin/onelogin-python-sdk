@@ -58,9 +58,9 @@ class AuthId(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AuthId.parse_obj(obj)
+            return AuthId.model_validate(obj)
 
-        _obj = AuthId.parse_obj({
+        _obj = AuthId.model_validate({
             "id": obj.get("id")
         })
         return _obj

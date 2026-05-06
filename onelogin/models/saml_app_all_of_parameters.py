@@ -62,9 +62,9 @@ class SamlAppAllOfParameters(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SamlAppAllOfParameters.parse_obj(obj)
+            return SamlAppAllOfParameters.model_validate(obj)
 
-        _obj = SamlAppAllOfParameters.parse_obj({
+        _obj = SamlAppAllOfParameters.model_validate({
             "saml_username": SamlAppAllOfParametersSamlUsername.from_dict(obj.get("saml_username")) if obj.get("saml_username") is not None else None
         })
         return _obj

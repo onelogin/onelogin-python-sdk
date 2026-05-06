@@ -62,9 +62,9 @@ class GetAuthenticationDevices200ResponseInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetAuthenticationDevices200ResponseInner.parse_obj(obj)
+            return GetAuthenticationDevices200ResponseInner.model_validate(obj)
 
-        _obj = GetAuthenticationDevices200ResponseInner.parse_obj({
+        _obj = GetAuthenticationDevices200ResponseInner.model_validate({
             "device_id": obj.get("device_id"),
             "user_display_name": obj.get("user_display_name"),
             "type_display_name": obj.get("type_display_name"),

@@ -62,9 +62,9 @@ class SamlFactor(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SamlFactor.parse_obj(obj)
+            return SamlFactor.model_validate(obj)
 
-        _obj = SamlFactor.parse_obj({
+        _obj = SamlFactor.model_validate({
             "app_id": obj.get("app_id"),
             "device_id": obj.get("device_id"),
             "state_token": obj.get("state_token"),

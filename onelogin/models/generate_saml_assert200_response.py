@@ -63,9 +63,9 @@ class GenerateSamlAssert200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenerateSamlAssert200Response.parse_obj(obj)
+            return GenerateSamlAssert200Response.model_validate(obj)
 
-        _obj = GenerateSamlAssert200Response.parse_obj({
+        _obj = GenerateSamlAssert200Response.model_validate({
             "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "data": obj.get("data")
         })

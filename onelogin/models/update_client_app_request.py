@@ -58,9 +58,9 @@ class UpdateClientAppRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return UpdateClientAppRequest.parse_obj(obj)
+            return UpdateClientAppRequest.model_validate(obj)
 
-        _obj = UpdateClientAppRequest.parse_obj({
+        _obj = UpdateClientAppRequest.model_validate({
             "scopes": obj.get("scopes")
         })
         return _obj

@@ -179,6 +179,8 @@ class UserMappingsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
+            # The API returns a single Mapping object, not a list.
+            # Some documentation examples show a list, but the actual response is bare.
             '201': "Mapping",
             '401': "Error",
             '422': "Error",

@@ -60,9 +60,9 @@ class AltErr(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AltErr.parse_obj(obj)
+            return AltErr.model_validate(obj)
 
-        _obj = AltErr.parse_obj({
+        _obj = AltErr.model_validate({
             "status_code": obj.get("statusCode"),
             "name": obj.get("name"),
             "message": obj.get("message")

@@ -60,9 +60,9 @@ class AuthClaim(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AuthClaim.parse_obj(obj)
+            return AuthClaim.model_validate(obj)
 
-        _obj = AuthClaim.parse_obj({
+        _obj = AuthClaim.model_validate({
             "name": obj.get("name"),
             "user_attribute_mappings": obj.get("user_attribute_mappings"),
             "user_attribute_macros": obj.get("user_attribute_macros")

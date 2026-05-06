@@ -59,9 +59,9 @@ class UpdatePrivilege200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return UpdatePrivilege200Response.parse_obj(obj)
+            return UpdatePrivilege200Response.model_validate(obj)
 
-        _obj = UpdatePrivilege200Response.parse_obj({
+        _obj = UpdatePrivilege200Response.model_validate({
             "id": obj.get("id")
         })
         return _obj

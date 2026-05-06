@@ -59,9 +59,9 @@ class RuleAction(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RuleAction.parse_obj(obj)
+            return RuleAction.model_validate(obj)
 
-        _obj = RuleAction.parse_obj({
+        _obj = RuleAction.model_validate({
             "name": obj.get("name"),
             "value": obj.get("value")
         })

@@ -91,9 +91,9 @@ class AppRule(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AppRule.parse_obj(obj)
+            return AppRule.model_validate(obj)
 
-        _obj = AppRule.parse_obj({
+        _obj = AppRule.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "match": obj.get("match"),

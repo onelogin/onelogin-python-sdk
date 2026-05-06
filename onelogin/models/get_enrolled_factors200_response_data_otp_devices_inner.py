@@ -66,9 +66,9 @@ class GetEnrolledFactors200ResponseDataOtpDevicesInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetEnrolledFactors200ResponseDataOtpDevicesInner.parse_obj(obj)
+            return GetEnrolledFactors200ResponseDataOtpDevicesInner.model_validate(obj)
 
-        _obj = GetEnrolledFactors200ResponseDataOtpDevicesInner.parse_obj({
+        _obj = GetEnrolledFactors200ResponseDataOtpDevicesInner.model_validate({
             "active": obj.get("active"),
             "default": obj.get("default"),
             "state_token": obj.get("state_token"),

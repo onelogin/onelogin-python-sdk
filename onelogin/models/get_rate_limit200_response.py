@@ -68,9 +68,9 @@ class GetRateLimit200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRateLimit200Response.parse_obj(obj)
+            return GetRateLimit200Response.model_validate(obj)
 
-        _obj = GetRateLimit200Response.parse_obj({
+        _obj = GetRateLimit200Response.model_validate({
             "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "data": RateLimit.from_dict(obj.get("data")) if obj.get("data") is not None else None
         })

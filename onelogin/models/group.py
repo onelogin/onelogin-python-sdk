@@ -60,9 +60,9 @@ class Group(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Group.parse_obj(obj)
+            return Group.model_validate(obj)
 
-        _obj = Group.parse_obj({
+        _obj = Group.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "reference": obj.get("reference")

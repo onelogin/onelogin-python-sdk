@@ -59,9 +59,9 @@ class RuleCondition(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RuleCondition.parse_obj(obj)
+            return RuleCondition.model_validate(obj)
 
-        _obj = RuleCondition.parse_obj({
+        _obj = RuleCondition.model_validate({
             "name": obj.get("name"),
             "value": obj.get("value")
         })

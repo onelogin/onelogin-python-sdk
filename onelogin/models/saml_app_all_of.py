@@ -72,9 +72,9 @@ class SamlAppAllOf(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SamlAppAllOf.parse_obj(obj)
+            return SamlAppAllOf.model_validate(obj)
 
-        _obj = SamlAppAllOf.parse_obj({
+        _obj = SamlAppAllOf.model_validate({
             "configuration": ConfigurationSaml.from_dict(obj.get("configuration")) if obj.get("configuration") is not None else None,
             "sso": SsoSaml.from_dict(obj.get("sso")) if obj.get("sso") is not None else None,
             "parameters": SamlAppAllOfParameters.from_dict(obj.get("parameters")) if obj.get("parameters") is not None else None

@@ -65,9 +65,9 @@ class BrandLogo(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return BrandLogo.parse_obj(obj)
+            return BrandLogo.model_validate(obj)
 
-        _obj = BrandLogo.parse_obj({
+        _obj = BrandLogo.model_validate({
             "urls": BrandLogoUrls.from_dict(obj.get("urls")) if obj.get("urls") is not None else None,
             "file_size": obj.get("file_size"),
             "updated_at": obj.get("updated_at"),

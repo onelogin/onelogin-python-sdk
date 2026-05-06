@@ -59,9 +59,9 @@ class Source(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Source.parse_obj(obj)
+            return Source.model_validate(obj)
 
-        _obj = Source.parse_obj({
+        _obj = Source.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name")
         })

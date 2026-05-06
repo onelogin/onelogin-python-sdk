@@ -58,9 +58,9 @@ class UpdateRole200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return UpdateRole200Response.parse_obj(obj)
+            return UpdateRole200Response.model_validate(obj)
 
-        _obj = UpdateRole200Response.parse_obj({
+        _obj = UpdateRole200Response.model_validate({
             "id": obj.get("id")
         })
         return _obj

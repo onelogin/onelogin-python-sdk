@@ -61,9 +61,9 @@ class GenerateOTP201Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenerateOTP201Response.parse_obj(obj)
+            return GenerateOTP201Response.model_validate(obj)
 
-        _obj = GenerateOTP201Response.parse_obj({
+        _obj = GenerateOTP201Response.model_validate({
             "mfa_token": obj.get("mfa_token"),
             "reusable": obj.get("reusable") if obj.get("reusable") is not None else False,
             "expires_at": obj.get("expires_at"),

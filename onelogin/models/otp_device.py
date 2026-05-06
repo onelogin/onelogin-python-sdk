@@ -62,9 +62,9 @@ class OtpDevice(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return OtpDevice.parse_obj(obj)
+            return OtpDevice.model_validate(obj)
 
-        _obj = OtpDevice.parse_obj({
+        _obj = OtpDevice.model_validate({
             "factor_id": obj.get("factor_id"),
             "display_name": obj.get("display_name"),
             "number": obj.get("number"),

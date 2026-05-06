@@ -50,5 +50,16 @@ class TestCreateRole201ResponseInner(unittest.TestCase):
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
+    def test_from_dict_with_id(self):
+        """Test that CreateRole201ResponseInner can be deserialized from a dict containing an id."""
+        result = CreateRole201ResponseInner.from_dict({"id": 123456})
+        self.assertIsInstance(result, CreateRole201ResponseInner)
+        self.assertEqual(result.id, 123456)
+
+    def test_from_dict_none(self):
+        """Test that from_dict handles None gracefully."""
+        result = CreateRole201ResponseInner.from_dict(None)
+        self.assertIsNone(result)
+
 if __name__ == '__main__':
     unittest.main()

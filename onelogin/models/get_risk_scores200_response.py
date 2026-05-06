@@ -63,9 +63,9 @@ class GetRiskScores200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRiskScores200Response.parse_obj(obj)
+            return GetRiskScores200Response.model_validate(obj)
 
-        _obj = GetRiskScores200Response.parse_obj({
+        _obj = GetRiskScores200Response.model_validate({
             "scores": GetRiskScores200ResponseScores.from_dict(obj.get("scores")) if obj.get("scores") is not None else None,
             "total": obj.get("total")
         })

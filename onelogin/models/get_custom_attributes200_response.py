@@ -63,9 +63,9 @@ class GetCustomAttributes200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetCustomAttributes200Response.parse_obj(obj)
+            return GetCustomAttributes200Response.model_validate(obj)
 
-        _obj = GetCustomAttributes200Response.parse_obj({
+        _obj = GetCustomAttributes200Response.model_validate({
             "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "data": obj.get("data")
         })

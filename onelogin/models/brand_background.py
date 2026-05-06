@@ -65,9 +65,9 @@ class BrandBackground(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return BrandBackground.parse_obj(obj)
+            return BrandBackground.model_validate(obj)
 
-        _obj = BrandBackground.parse_obj({
+        _obj = BrandBackground.model_validate({
             "urls": BrandBackgroundUrls.from_dict(obj.get("urls")) if obj.get("urls") is not None else None,
             "file_size": obj.get("file_size"),
             "updated_at": obj.get("updated_at"),

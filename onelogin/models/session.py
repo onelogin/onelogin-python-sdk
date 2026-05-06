@@ -58,9 +58,9 @@ class Session(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Session.parse_obj(obj)
+            return Session.model_validate(obj)
 
-        _obj = Session.parse_obj({
+        _obj = Session.model_validate({
             "id": obj.get("id")
         })
         return _obj

@@ -61,9 +61,9 @@ class RiskUser(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RiskUser.parse_obj(obj)
+            return RiskUser.model_validate(obj)
 
-        _obj = RiskUser.parse_obj({
+        _obj = RiskUser.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "authenticated": obj.get("authenticated") if obj.get("authenticated") is not None else False

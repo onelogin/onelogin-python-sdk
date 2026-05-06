@@ -61,9 +61,9 @@ class Scope(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Scope.parse_obj(obj)
+            return Scope.model_validate(obj)
 
-        _obj = Scope.parse_obj({
+        _obj = Scope.model_validate({
             "id": obj.get("id"),
             "value": obj.get("value"),
             "description": obj.get("description")

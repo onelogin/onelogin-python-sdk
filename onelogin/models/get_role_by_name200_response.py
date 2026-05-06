@@ -76,9 +76,9 @@ class GetRoleByName200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetRoleByName200Response.parse_obj(obj)
+            return GetRoleByName200Response.model_validate(obj)
 
-        _obj = GetRoleByName200Response.parse_obj({
+        _obj = GetRoleByName200Response.model_validate({
             "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "pagination": GetRoleByName200ResponsePagination.from_dict(obj.get("pagination")) if obj.get("pagination") is not None else None,
             "data": [GetRoleByName200ResponseDataInner.from_dict(_item) for _item in obj.get("data")] if obj.get("data") is not None else None

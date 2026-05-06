@@ -60,9 +60,9 @@ class GetEventTypes200ResponseDataInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetEventTypes200ResponseDataInner.parse_obj(obj)
+            return GetEventTypes200ResponseDataInner.model_validate(obj)
 
-        _obj = GetEventTypes200ResponseDataInner.parse_obj({
+        _obj = GetEventTypes200ResponseDataInner.model_validate({
             "name": obj.get("name"),
             "description": obj.get("description"),
             "id": obj.get("id")

@@ -83,9 +83,9 @@ class ListPrivilegeRoles200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ListPrivilegeRoles200Response.parse_obj(obj)
+            return ListPrivilegeRoles200Response.model_validate(obj)
 
-        _obj = ListPrivilegeRoles200Response.parse_obj({
+        _obj = ListPrivilegeRoles200Response.model_validate({
             "total": obj.get("total"),
             "roles": obj.get("roles"),
             "before_cursor": obj.get("beforeCursor"),

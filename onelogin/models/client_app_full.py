@@ -69,9 +69,9 @@ class ClientAppFull(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ClientAppFull.parse_obj(obj)
+            return ClientAppFull.model_validate(obj)
 
-        _obj = ClientAppFull.parse_obj({
+        _obj = ClientAppFull.model_validate({
             "scopes": [Scope.from_dict(_item) for _item in obj.get("scopes")] if obj.get("scopes") is not None else None,
             "app_id": obj.get("app_id"),
             "name": obj.get("name"),

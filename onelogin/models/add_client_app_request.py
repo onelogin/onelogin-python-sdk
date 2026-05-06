@@ -59,9 +59,9 @@ class AddClientAppRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AddClientAppRequest.parse_obj(obj)
+            return AddClientAppRequest.model_validate(obj)
 
-        _obj = AddClientAppRequest.parse_obj({
+        _obj = AddClientAppRequest.model_validate({
             "app_id": obj.get("app_id"),
             "scopes": obj.get("scopes")
         })

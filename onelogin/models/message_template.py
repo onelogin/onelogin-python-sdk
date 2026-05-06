@@ -90,9 +90,9 @@ class MessageTemplate(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return MessageTemplate.parse_obj(obj)
+            return MessageTemplate.model_validate(obj)
 
-        _obj = MessageTemplate.parse_obj({
+        _obj = MessageTemplate.model_validate({
             "id": obj.get("id"),
             "account_id": obj.get("account_id"),
             "type": obj.get("type"),

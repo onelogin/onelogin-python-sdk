@@ -63,9 +63,9 @@ class Error(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Error.parse_obj(obj)
+            return Error.model_validate(obj)
 
-        _obj = Error.parse_obj({
+        _obj = Error.model_validate({
             "error": obj.get("error"),
             "code": obj.get("code"),
             "type": obj.get("type"),

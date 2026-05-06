@@ -61,9 +61,9 @@ class VerFactorSaml200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return VerFactorSaml200Response.parse_obj(obj)
+            return VerFactorSaml200Response.model_validate(obj)
 
-        _obj = VerFactorSaml200Response.parse_obj({
+        _obj = VerFactorSaml200Response.model_validate({
             "data": obj.get("data"),
             "message": obj.get("message")
         })

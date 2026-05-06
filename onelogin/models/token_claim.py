@@ -66,9 +66,9 @@ class TokenClaim(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return TokenClaim.parse_obj(obj)
+            return TokenClaim.model_validate(obj)
 
-        _obj = TokenClaim.parse_obj({
+        _obj = TokenClaim.model_validate({
             "id": obj.get("id"),
             "label": obj.get("label"),
             "user_attribute_mappings": obj.get("user_attribute_mappings"),

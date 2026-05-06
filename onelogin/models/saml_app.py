@@ -98,9 +98,9 @@ class SamlApp(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SamlApp.parse_obj(obj)
+            return SamlApp.model_validate(obj)
 
-        _obj = SamlApp.parse_obj({
+        _obj = SamlApp.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "visible": obj.get("visible"),

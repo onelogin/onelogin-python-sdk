@@ -59,9 +59,9 @@ class CreatePrivilege200Response(BaseModel):
             return None
 
         if type(obj) is not dict:
-            return CreatePrivilege200Response.parse_obj(obj)
+            return CreatePrivilege200Response.model_validate(obj)
 
-        _obj = CreatePrivilege200Response.parse_obj({
+        _obj = CreatePrivilege200Response.model_validate({
             "id": obj.get("id")
         })
         return _obj

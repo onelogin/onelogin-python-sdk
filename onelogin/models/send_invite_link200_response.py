@@ -62,9 +62,9 @@ class SendInviteLink200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SendInviteLink200Response.parse_obj(obj)
+            return SendInviteLink200Response.model_validate(obj)
 
-        _obj = SendInviteLink200Response.parse_obj({
+        _obj = SendInviteLink200Response.model_validate({
             "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None
         })
         return _obj

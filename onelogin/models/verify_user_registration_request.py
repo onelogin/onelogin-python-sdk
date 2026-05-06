@@ -58,9 +58,9 @@ class VerifyUserRegistrationRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return VerifyUserRegistrationRequest.parse_obj(obj)
+            return VerifyUserRegistrationRequest.model_validate(obj)
 
-        _obj = VerifyUserRegistrationRequest.parse_obj({
+        _obj = VerifyUserRegistrationRequest.model_validate({
             "otp": obj.get("otp")
         })
         return _obj

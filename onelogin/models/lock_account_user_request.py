@@ -58,9 +58,9 @@ class LockAccountUserRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return LockAccountUserRequest.parse_obj(obj)
+            return LockAccountUserRequest.model_validate(obj)
 
-        _obj = LockAccountUserRequest.parse_obj({
+        _obj = LockAccountUserRequest.model_validate({
             "locked_until": obj.get("locked_until")
         })
         return _obj

@@ -71,9 +71,9 @@ class GetGroups200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetGroups200Response.parse_obj(obj)
+            return GetGroups200Response.model_validate(obj)
 
-        _obj = GetGroups200Response.parse_obj({
+        _obj = GetGroups200Response.model_validate({
             "status": Error.from_dict(obj.get("status")) if obj.get("status") is not None else None,
             "data": [Group.from_dict(_item) for _item in obj.get("data")] if obj.get("data") is not None else None
         })

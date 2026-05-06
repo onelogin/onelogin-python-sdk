@@ -60,9 +60,9 @@ class HookOptions(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return HookOptions.parse_obj(obj)
+            return HookOptions.model_validate(obj)
 
-        _obj = HookOptions.parse_obj({
+        _obj = HookOptions.model_validate({
             "risk_enabled": obj.get("risk_enabled"),
             "location_enabled": obj.get("location_enabled"),
             "mfa_device_info_enabled": obj.get("mfa_device_info_enabled")

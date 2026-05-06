@@ -64,9 +64,9 @@ class EmailConfig(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return EmailConfig.parse_obj(obj)
+            return EmailConfig.model_validate(obj)
 
-        _obj = EmailConfig.parse_obj({
+        _obj = EmailConfig.model_validate({
             "address": obj.get("address"),
             "use_tls": obj.get("use_tls") if obj.get("use_tls") is not None else True,
             "var_from": obj.get("from"),

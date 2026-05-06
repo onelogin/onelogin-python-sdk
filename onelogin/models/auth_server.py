@@ -66,9 +66,9 @@ class AuthServer(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AuthServer.parse_obj(obj)
+            return AuthServer.model_validate(obj)
 
-        _obj = AuthServer.parse_obj({
+        _obj = AuthServer.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "description": obj.get("description"),

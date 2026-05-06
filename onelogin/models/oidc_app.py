@@ -98,9 +98,9 @@ class OidcApp(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return OidcApp.parse_obj(obj)
+            return OidcApp.model_validate(obj)
 
-        _obj = OidcApp.parse_obj({
+        _obj = OidcApp.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "visible": obj.get("visible"),

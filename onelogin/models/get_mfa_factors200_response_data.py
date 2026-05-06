@@ -66,9 +66,9 @@ class GetMFAFactors200ResponseData(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GetMFAFactors200ResponseData.parse_obj(obj)
+            return GetMFAFactors200ResponseData.model_validate(obj)
 
-        _obj = GetMFAFactors200ResponseData.parse_obj({
+        _obj = GetMFAFactors200ResponseData.model_validate({
             "auth_factors": [GetMFAFactors200ResponseDataAuthFactorsInner.from_dict(_item) for _item in obj.get("auth_factors")] if obj.get("auth_factors") is not None else None
         })
         return _obj

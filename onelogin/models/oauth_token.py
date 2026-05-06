@@ -64,9 +64,9 @@ class OauthToken(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return OauthToken.parse_obj(obj)
+            return OauthToken.model_validate(obj)
 
-        _obj = OauthToken.parse_obj({
+        _obj = OauthToken.model_validate({
             "access_token": obj.get("access_token"),
             "created_at": obj.get("created_at"),
             "expires_in": obj.get("expires_in"),

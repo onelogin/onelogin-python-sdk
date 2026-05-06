@@ -59,9 +59,9 @@ class Device(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Device.parse_obj(obj)
+            return Device.model_validate(obj)
 
-        _obj = Device.parse_obj({
+        _obj = Device.model_validate({
             "device_id": obj.get("device_id"),
             "device_type": obj.get("device_type")
         })

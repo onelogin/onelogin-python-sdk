@@ -60,9 +60,9 @@ class RateLimit(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return RateLimit.parse_obj(obj)
+            return RateLimit.model_validate(obj)
 
-        _obj = RateLimit.parse_obj({
+        _obj = RateLimit.model_validate({
             "x_rate_limit_limit": obj.get("X-RateLimit-Limit"),
             "x_rate_limit_remaining": obj.get("X-RateLimit-Remaining"),
             "x_rate_limit_reset": obj.get("X-RateLimit-Reset")

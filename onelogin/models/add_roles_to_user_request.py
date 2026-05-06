@@ -58,9 +58,9 @@ class AddRolesToUserRequest(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AddRolesToUserRequest.parse_obj(obj)
+            return AddRolesToUserRequest.model_validate(obj)
 
-        _obj = AddRolesToUserRequest.parse_obj({
+        _obj = AddRolesToUserRequest.model_validate({
             "role_id_array": obj.get("role_id_array")
         })
         return _obj

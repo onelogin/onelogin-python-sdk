@@ -58,9 +58,9 @@ class SamlAppAllOfParametersSamlUsername(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SamlAppAllOfParametersSamlUsername.parse_obj(obj)
+            return SamlAppAllOfParametersSamlUsername.model_validate(obj)
 
-        _obj = SamlAppAllOfParametersSamlUsername.parse_obj({
+        _obj = SamlAppAllOfParametersSamlUsername.model_validate({
             "user_attribute_mappings": obj.get("user_attribute_mappings")
         })
         return _obj

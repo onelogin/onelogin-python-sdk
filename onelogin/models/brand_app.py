@@ -66,9 +66,9 @@ class BrandApp(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return BrandApp.parse_obj(obj)
+            return BrandApp.model_validate(obj)
 
-        _obj = BrandApp.parse_obj({
+        _obj = BrandApp.model_validate({
             "id": obj.get("id"),
             "updated_at": obj.get("updated_at"),
             "name": obj.get("name"),

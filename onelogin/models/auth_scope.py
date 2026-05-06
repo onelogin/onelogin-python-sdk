@@ -61,9 +61,9 @@ class AuthScope(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return AuthScope.parse_obj(obj)
+            return AuthScope.model_validate(obj)
 
-        _obj = AuthScope.parse_obj({
+        _obj = AuthScope.model_validate({
             "id": obj.get("id"),
             "value": obj.get("value"),
             "description": obj.get("description")

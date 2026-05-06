@@ -62,9 +62,9 @@ class GenerateMFAtoken200Response(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return GenerateMFAtoken200Response.parse_obj(obj)
+            return GenerateMFAtoken200Response.model_validate(obj)
 
-        _obj = GenerateMFAtoken200Response.parse_obj({
+        _obj = GenerateMFAtoken200Response.model_validate({
             "mfa_token": obj.get("mfa_token"),
             "resuable": obj.get("resuable"),
             "expires_at": obj.get("expires_at")

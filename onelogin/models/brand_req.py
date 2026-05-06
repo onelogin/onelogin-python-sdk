@@ -60,9 +60,9 @@ class BrandReq(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return BrandReq.parse_obj(obj)
+            return BrandReq.model_validate(obj)
 
-        _obj = BrandReq.parse_obj({
+        _obj = BrandReq.model_validate({
             "id": obj.get("id"),
             "enabled": obj.get("enabled"),
             "name": obj.get("name")

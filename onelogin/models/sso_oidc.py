@@ -58,9 +58,9 @@ class SsoOidc(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SsoOidc.parse_obj(obj)
+            return SsoOidc.model_validate(obj)
 
-        _obj = SsoOidc.parse_obj({
+        _obj = SsoOidc.model_validate({
             "client_id": obj.get("client_id")
         })
         return _obj

@@ -60,9 +60,9 @@ class SsoSamlCertificate(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return SsoSamlCertificate.parse_obj(obj)
+            return SsoSamlCertificate.model_validate(obj)
 
-        _obj = SsoSamlCertificate.parse_obj({
+        _obj = SsoSamlCertificate.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "value": obj.get("value")

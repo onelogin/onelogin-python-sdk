@@ -59,9 +59,9 @@ class Locale(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Locale.parse_obj(obj)
+            return Locale.model_validate(obj)
 
-        _obj = Locale.parse_obj({
+        _obj = Locale.model_validate({
             "language": obj.get("language"),
             "is_default": obj.get("is_default")
         })

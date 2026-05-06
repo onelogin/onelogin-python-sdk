@@ -61,9 +61,9 @@ class ClockCounter(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return ClockCounter.parse_obj(obj)
+            return ClockCounter.model_validate(obj)
 
-        _obj = ClockCounter.parse_obj({
+        _obj = ClockCounter.model_validate({
             "value": obj.get("value"),
             "unit": obj.get("unit")
         })
