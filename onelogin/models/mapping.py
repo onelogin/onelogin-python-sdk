@@ -88,9 +88,9 @@ class Mapping(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return Mapping.parse_obj(obj)
+            return Mapping.model_validate(obj)
 
-        _obj = Mapping.parse_obj({
+        _obj = Mapping.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
             "enabled": obj.get("enabled"),

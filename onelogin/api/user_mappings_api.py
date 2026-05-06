@@ -46,7 +46,7 @@ class UserMappingsApi(object):
         self.api_client = api_client
 
     @validate_call
-    def create_mapping(self, content_type : Optional[StrictStr] = None, mapping : Optional[Mapping] = None, **kwargs) -> List[Mapping]:  # noqa: E501
+    def create_mapping(self, content_type : Optional[StrictStr] = None, mapping : Optional[Mapping] = None, **kwargs) -> Mapping:  # noqa: E501
         """Create Mapping  # noqa: E501
 
         Create Mapping  # noqa: E501
@@ -69,7 +69,7 @@ class UserMappingsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[Mapping]
+        :rtype: Mapping
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -113,7 +113,7 @@ class UserMappingsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[Mapping], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Mapping, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -179,7 +179,7 @@ class UserMappingsApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '201': "List[Mapping]",
+            '201': "Mapping",
             '401': "Error",
             '422': "Error",
         }

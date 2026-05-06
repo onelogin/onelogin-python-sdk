@@ -58,9 +58,9 @@ class CreateRole201ResponseInner(BaseModel):
             return None
 
         if not isinstance(obj, dict):
-            return CreateRole201ResponseInner.parse_obj(obj)
+            return CreateRole201ResponseInner.model_validate(obj)
 
-        _obj = CreateRole201ResponseInner.parse_obj({
+        _obj = CreateRole201ResponseInner.model_validate({
             "id": obj.get("id")
         })
         return _obj

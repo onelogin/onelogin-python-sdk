@@ -359,7 +359,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_call
-    def create_role(self, role : Optional[Role] = None, **kwargs) -> List[CreateRole201ResponseInner]:  # noqa: E501
+    def create_role(self, role : Optional[Role] = None, **kwargs) -> CreateRole201ResponseInner:  # noqa: E501
         """Create Role  # noqa: E501
 
         Create Role  # noqa: E501
@@ -380,7 +380,7 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: List[CreateRole201ResponseInner]
+        :rtype: CreateRole201ResponseInner
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -422,7 +422,7 @@ class RolesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(List[CreateRole201ResponseInner], status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(CreateRole201ResponseInner, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -484,7 +484,7 @@ class RolesApi(object):
         _auth_settings = ['OAuth2']  # noqa: E501
 
         _response_types_map = {
-            '201': "List[CreateRole201ResponseInner]",
+            '201': "CreateRole201ResponseInner",
             '401': "AltErr",
         }
 
