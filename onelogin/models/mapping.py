@@ -14,7 +14,7 @@ import json
 
 
 from typing import List, Optional
-from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conlist, field_validator
+from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, ValidationError, conlist, field_validator
 from onelogin.models.action_obj import ActionObj
 from onelogin.models.condition import Condition
 
@@ -90,7 +90,7 @@ class Mapping(BaseModel):
         if not isinstance(obj, dict):
             return Mapping.model_validate(obj)
 
-        _obj = Mapping.model_validate({
+        _data = {
             "id": obj.get("id"),
             "name": obj.get("name"),
             "enabled": obj.get("enabled"),
@@ -98,6 +98,14 @@ class Mapping(BaseModel):
             "position": obj.get("position"),
             "conditions": [Condition.from_dict(_item) for _item in obj.get("conditions")] if obj.get("conditions") is not None else None,
             "actions": [ActionObj.from_dict(_item) for _item in obj.get("actions")] if obj.get("actions") is not None else None
-        })
-        return _obj
+        }
 
+        try:
+            return Mapping.model_validate(_data)
+        except ValidationError:
+            required_fields = ("name", "enabled", "match", "position", "conditions", "actions")
+            if "id" in obj and any(_data.get(field) is None for field in required_fields):
+                # Create Mapping can return a partial payload (e.g., id only).
+                # Construct without validation so successful creates do not raise.
+                return Mapping.model_construct(**_data)
+            raise

@@ -165,6 +165,18 @@ class TestUserMappingsApi(unittest.TestCase):
             result = self.api.create_mapping()
         self.assertNotIsInstance(result, list)
 
+    def test_create_mapping_allows_id_only_create_response(self):
+        """create_mapping should not fail when API returns only mapping id."""
+        mock_resp = self._make_urllib3_response(201, {"id": 999})
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=mock_resp
+        ):
+            result = self.api.create_mapping()
+        self.assertIsInstance(result, Mapping)
+        self.assertEqual(result.id, 999)
+        self.assertIsNone(result.name)
+
 
 if __name__ == '__main__':
     unittest.main()
