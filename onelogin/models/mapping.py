@@ -100,11 +100,12 @@ class Mapping(BaseModel):
             "actions": [ActionObj.from_dict(_item) for _item in obj.get("actions")] if obj.get("actions") is not None else None
         }
 
+        # Create Mapping can return a partial payload (e.g., {"id": ...}).
+        # Validate strictly, but fall back to model_construct for the narrow
+        # id-only case so successful creates do not raise.
         try:
             return Mapping.model_validate(_data)
         except ValidationError:
-            if set(obj.keys()) == {"id"}:
-                # Create Mapping can return a partial payload (e.g., id only).
-                # Construct without validation so successful creates do not raise.
+            if set(obj.keys()) == {"id"} and obj.get("id") is not None:
                 return Mapping.model_construct(**_data)
             raise

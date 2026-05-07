@@ -125,6 +125,24 @@ class TestMapping(unittest.TestCase):
         self.assertIsNone(result.conditions)
         self.assertIsNone(result.actions)
 
+    def test_from_dict_partial_non_id_only_still_raises(self):
+        """Fallback must not mask genuinely malformed payloads."""
+        from pydantic import ValidationError
+        with self.assertRaises(ValidationError):
+            Mapping.from_dict({"id": 1, "name": "Partial"})
+
+    def test_from_dict_empty_dict_still_raises(self):
+        """Empty payloads should not be treated as id-only."""
+        from pydantic import ValidationError
+        with self.assertRaises(ValidationError):
+            Mapping.from_dict({})
+
+    def test_from_dict_id_null_still_raises(self):
+        """`{\"id\": null}` is an obviously broken response and must raise."""
+        from pydantic import ValidationError
+        with self.assertRaises(ValidationError):
+            Mapping.from_dict({"id": None})
+
     def test_from_dict_none(self):
         """Test that from_dict handles None gracefully."""
         result = Mapping.from_dict(None)

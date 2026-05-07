@@ -15,6 +15,9 @@
   confusion: the `'id'` string in the error message was misread as a required field, causing
   users to include `id` in the request body, which the server rejected with
   `"Field is not allowed"`. The return type is now correctly `Mapping`.
+  Also added an id-only response fallback in generated `onelogin/models/mapping.py` for
+  create responses; this is a hand-edit in generated code and must be preserved/re-applied
+  on future OpenAPI regenerations unless moved into generator/spec output.
 
 ### Other Changes
 
