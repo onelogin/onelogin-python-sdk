@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.2.7 (2026-05-07)
+
+### Bug Fixes
+
+- **`create_mapping`** (`POST /api/2/mappings`): Successful creates were raising
+  `pydantic.ValidationError` because the API returns a partial payload (`{"id": ...}`)
+  while `Mapping` requires `name`, `enabled`, `match`, `position`, `conditions`, and
+  `actions`. `Mapping.from_dict` now keeps strict validation as the default but falls
+  back to `model_construct` for the narrow id-only case, so successful creates return
+  a `Mapping` with `id` populated instead of raising. All other malformed/partial
+  payloads (including `{"id": null}`) still raise the original `ValidationError`.
+
+  Note: this fix is a hand-edit in generated `onelogin/models/mapping.py` and must be
+  preserved/re-applied on future OpenAPI regenerations unless moved into the
+  generator/spec output. Callers that need the full mapping should follow up with
+  `get_mapping(result.id)`.
+
 ## 3.2.6 (2026-05-06)
 
 ### Bug Fixes
@@ -15,9 +32,6 @@
   confusion: the `'id'` string in the error message was misread as a required field, causing
   users to include `id` in the request body, which the server rejected with
   `"Field is not allowed"`. The return type is now correctly `Mapping`.
-  Also added an id-only response fallback in generated `onelogin/models/mapping.py` for
-  create responses; this is a hand-edit in generated code and must be preserved/re-applied
-  on future OpenAPI regenerations unless moved into generator/spec output.
 
 ### Other Changes
 
