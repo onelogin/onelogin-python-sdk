@@ -50,6 +50,9 @@ class UserMappingsApi(object):
         """Create Mapping  # noqa: E501
 
         Create Mapping  # noqa: E501
+        Note: The API can return a partial Mapping (for example, only `id`) on
+        create responses. In that case, call `get_mapping(id)` to fetch the full
+        mapping payload before using required mapping fields.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
