@@ -13,7 +13,6 @@ import re  # noqa: F401
 import json
 
 
-from typing import List
 from pydantic import BaseModel, Field, StrictInt, conlist
 
 class AddRolesToUserRequest(BaseModel):

@@ -25,6 +25,9 @@ test = [
     "flake8>=4.0.0",
     "tox>=3.9.0",
 ]
+lint = [
+    "ruff>=0.6.0",
+]
 
 [project.urls]
 Repository = "https://github.com/onelogin/onelogin-python-sdk"
@@ -47,3 +50,37 @@ max-line-length = 99
 
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
+
+[tool.ruff]
+line-length = 120
+# Only lint the package itself for now. test/ will be added once the stub-file
+# cleanup (PR #129) lands — most current test/ ruff hits live in those stubs.
+include = ["onelogin/**/*.py"]
+
+[tool.ruff.lint]
+# Pyflakes (F) + pycodestyle errors (E) is the safe starter set.
+select = ["E", "F"]
+# Generator-era api/ files have method signatures up to ~2,800 chars on a
+# single line. Line-length lint isn't worth fighting on legacy code; the
+# real value here is F-rules (unused imports, undefined names) and E7xx
+# (real code smells).
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Re-exports — `# flake8: noqa` already covers F401 here, but be explicit.
+"onelogin/__init__.py" = ["F401"]
+"onelogin/models/__init__.py" = ["F401"]
+"onelogin/api/__init__.py" = ["F401"]
+# Generator-leftover dead assignments in `oneOf` validators. Cosmetic only;
+# safe to clean up in a follow-up sweep.
+"onelogin/models/create_app200_response.py" = ["F841"]
+"onelogin/models/create_app_request.py" = ["F841"]
+"onelogin/models/create_role201_response_inner.py" = ["F841"]
+"onelogin/models/get_email_settings200_response.py" = ["F841"]
+"onelogin/models/list_mappings_actions200_response_inner.py" = ["F841"]
+"onelogin/models/message_template_template.py" = ["F841"]
+# `query_params = {}` after an early-return-style branch in the rest client.
+"onelogin/rest.py" = ["F841"]
+# `type(x) == str` in two places — works, but should use `isinstance`.
+# Low-level deserializer, follow-up.
+"onelogin/api_client.py" = ["E721"]

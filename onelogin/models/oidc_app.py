@@ -13,7 +13,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional
+from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conlist
 from onelogin.models.app_parameters import AppParameters
 from onelogin.models.auth_method import AuthMethod

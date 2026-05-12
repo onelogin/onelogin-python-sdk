@@ -8,18 +8,16 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import json
 import pprint
 import re  # noqa: F401
 
 from typing import Any, List, Optional
-from pydantic import BaseModel, Field, StrictStr, ValidationError, field_validator
+from pydantic import BaseModel, ValidationError, field_validator
 from onelogin.models.generic_app import GenericApp
 from onelogin.models.oidc_app import OidcApp
 from onelogin.models.saml_app import SamlApp
-from typing import Any, List, Literal
-from pydantic import StrictStr, Field
+from typing import Literal
 
 CREATEAPPREQUEST_ONE_OF_SCHEMAS = ["GenericApp", "OidcApp", "SamlApp"]
 
