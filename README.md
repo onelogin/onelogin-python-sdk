@@ -1,4 +1,6 @@
 # onelogin-python-sdk
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fonelogin%2Fonelogin-python-sdk.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fonelogin%2Fonelogin-python-sdk?ref=badge_shield)
+
 
 Official Python SDK for the OneLogin API, enabling you to programmatically manage users, roles, groups, and authentication in your OneLogin instance.
 
@@ -161,3 +163,7 @@ The release workflow will automatically:
 - Publish to PyPI using the configured `PYPI_API_TOKEN`
 
 **That's it!** The entire release process is automated from a single GitHub Release creation.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fonelogin%2Fonelogin-python-sdk.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fonelogin%2Fonelogin-python-sdk?ref=badge_large)
