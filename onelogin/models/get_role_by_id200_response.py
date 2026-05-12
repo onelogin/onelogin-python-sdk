@@ -13,7 +13,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional
+from typing import Optional
 from pydantic import BaseModel, conlist
 from onelogin.models.error import Error
 from onelogin.models.get_role_by_id200_response_data_inner import GetRoleById200ResponseDataInner

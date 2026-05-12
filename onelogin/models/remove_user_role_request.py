@@ -13,7 +13,6 @@ import re  # noqa: F401
 import json
 
 
-from typing import List
 from pydantic import BaseModel, conlist
 from onelogin.models.remove_user_role_request_role_id_array_inner import RemoveUserRoleRequestRoleIdArrayInner
 

@@ -13,7 +13,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 from pydantic import BaseModel, conlist
 from onelogin.models.error import Error
 

@@ -8,17 +8,15 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
 import json
 import pprint
 import re  # noqa: F401
 
 from typing import Any, List, Optional
-from pydantic import BaseModel, Field, StrictStr, ValidationError, field_validator
+from pydantic import BaseModel, ValidationError, field_validator
 from onelogin.models.email_config import EmailConfig
 from onelogin.models.get_email_settings200_response_one_of import GetEmailSettings200ResponseOneOf
-from typing import Any, List, Literal
-from pydantic import StrictStr, Field
+from typing import Literal
 
 GETEMAILSETTINGS200RESPONSE_ONE_OF_SCHEMAS = ["EmailConfig", "GetEmailSettings200ResponseOneOf"]
 

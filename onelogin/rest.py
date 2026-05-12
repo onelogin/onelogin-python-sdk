@@ -13,7 +13,6 @@ import logging
 import re
 import ssl
 
-from urllib.parse import urlencode, quote_plus
 import urllib3
 
 from onelogin.exceptions import ApiException, UnauthorizedException, ForbiddenException, NotFoundException, ServiceException, ApiValueError

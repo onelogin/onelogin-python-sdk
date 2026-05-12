@@ -13,7 +13,7 @@ import re  # noqa: F401
 import json
 
 
-from typing import List, Optional
+from typing import Optional
 from pydantic import BaseModel, conlist
 from onelogin.models.get_mfa_factors200_response_data_auth_factors_inner import GetMFAFactors200ResponseDataAuthFactorsInner
 
