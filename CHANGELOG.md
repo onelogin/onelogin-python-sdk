@@ -1,5 +1,36 @@
 # Changelog
 
+## 4.0.0 (2026-05-12)
+
+### Breaking Changes
+
+This release removes six orphan model classes that the original OpenAPI Generator
+produced but no SDK API method ever deserialized into, accepted as input, or composed
+into a live model. They have been re-exported from `onelogin/__init__.py` historically,
+so any user importing them directly (e.g. `from onelogin import Verb`) will need to
+update or pin to a `3.x` release.
+
+The audit that surfaced these is documented in the broader maintainability sweep that
+accompanied PRs #127-#131; this is the final cleanup before the public surface stops
+advertising types that no endpoint exercises.
+
+**Removed classes**:
+
+- `CreatePrivilege200Response` — the live `create_privilege` endpoint returns
+  `Privilege` directly; this model was never bound to that endpoint.
+- `ListPrivelegeRoles200Response` — misspelled twin of the live
+  `ListPrivilegeRoles200Response` (note "Privilege" vs "Privelege"); generator
+  artifact.
+- `Locale` — never referenced by any endpoint or composed by any other model.
+- `OidcAppAllOf` — OpenAPI Generator `allOf` inheritance artifact; the
+  user-facing `OidcApp` class is still present and live (via
+  `CreateAppRequest`'s `oneOf` variants).
+- `SamlAppAllOf` — same as above for `SamlApp`.
+- `Verb` — generated event-type enum; no endpoint emitted or consumed it.
+
+**Workaround** for anyone importing these directly: pin to `onelogin~=3.2` until
+you can audit your call sites.
+
 ## 3.2.9 (2026-05-12)
 
 ### Bug Fixes
