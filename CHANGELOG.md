@@ -13,9 +13,6 @@
   positions are omitted from update request bodies, preventing the API's 422
   "Position cannot be set while the mapping is not enabled" error.
 
-  Note: this fix is a hand-edit in generated `onelogin/models/mapping.py` and must be
-  preserved/re-applied on future OpenAPI regenerations.
-
 ## 3.2.7 (2026-05-07)
 
 ### Bug Fixes
@@ -27,11 +24,7 @@
   back to `model_construct` for the narrow id-only case, so successful creates return
   a `Mapping` with `id` populated instead of raising. All other malformed/partial
   payloads (including `{"id": null}`) still raise the original `ValidationError`.
-
-  Note: this fix is a hand-edit in generated `onelogin/models/mapping.py` and must be
-  preserved/re-applied on future OpenAPI regenerations unless moved into the
-  generator/spec output. Callers that need the full mapping should follow up with
-  `get_mapping(result.id)`.
+  Callers that need the full mapping should follow up with `get_mapping(result.id)`.
 
 ## 3.2.6 (2026-05-06)
 
