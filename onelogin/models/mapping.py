@@ -26,7 +26,7 @@ class Mapping(BaseModel):
     name: StrictStr = Field(..., description="The name of the mapping.")
     enabled: StrictBool = Field(..., description="Indicates if the mapping is enabled or not.")
     match: StrictStr = Field(..., description="Indicates how conditions should be matched.")
-    position: StrictInt = Field(..., description="Indicates the order of the mapping. When `null` this will default to last position.")
+    position: Optional[StrictInt] = Field(None, description="Indicates the order of the mapping. When `null` this will default to last position.")
     conditions: conlist(Condition) = Field(..., description="An array of conditions that the user must meet in order for the mapping to be applied.")
     actions: conlist(ActionObj) = Field(..., description="An array of actions that will be applied to the users that are matched by the conditions.")
     __properties = ["id", "name", "enabled", "match", "position", "conditions", "actions"]

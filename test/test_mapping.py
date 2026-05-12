@@ -148,6 +148,36 @@ class TestMapping(unittest.TestCase):
         result = Mapping.from_dict(None)
         self.assertIsNone(result)
 
+    def test_from_dict_with_null_position(self):
+        """Disabled mappings return null for position; Mapping must accept None."""
+        data = self._make_mapping_data(include_id=True)
+        data["position"] = None
+        result = Mapping.from_dict(data)
+        self.assertIsInstance(result, Mapping)
+        self.assertIsNone(result.position)
+
+    def test_from_dict_without_position(self):
+        """position should be optional; omitting it from the dict is valid."""
+        data = self._make_mapping_data(include_id=True)
+        del data["position"]
+        result = Mapping.from_dict(data)
+        self.assertIsInstance(result, Mapping)
+        self.assertIsNone(result.position)
+
+    def test_to_dict_excludes_none_position(self):
+        """to_dict must omit position when it is None so update requests don't send it."""
+        m = Mapping(
+            name="Disabled Mapping",
+            enabled=False,
+            match="all",
+            position=None,
+            conditions=[Condition(source="last_login", operator=">", value="90")],
+            actions=[ActionObj(action="set_status", value=["2"])],
+        )
+        self.assertIsNone(m.position)
+        d = m.to_dict()
+        self.assertNotIn("position", d)
+
     def test_to_dict_excludes_none_id(self):
         """Test that to_dict omits id when it is None, preventing 'Field not allowed' errors."""
         m = Mapping(
