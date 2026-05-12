@@ -69,3 +69,6 @@ target/
 .DS_Store
 
 **/.claude/settings.local.json
+
+# Stale self-clones that occasionally appear in the repo root
+/onelogin-python-sdk/
