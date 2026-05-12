@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.2.8 (2026-05-12)
+
+### Bug Fixes
+
+- **`update_mapping`** (`PUT /api/2/mappings/{mapping_id}`): Updating a mapping to set
+  `status` to `disabled` (i.e. `enabled: false`) failed with a pydantic `ValidationError`
+  because the API returns `null` for `position` on disabled mappings, but `position` was
+  typed as the required non-nullable `StrictInt`. `position` is now
+  `Optional[StrictInt]` (defaulting to `None`), so disabled-mapping responses
+  deserialize correctly. The existing `exclude_none=True` in `to_dict` ensures `null`
+  positions are omitted from update request bodies, preventing the API's 422
+  "Position cannot be set while the mapping is not enabled" error.
+
+  Note: this fix is a hand-edit in generated `onelogin/models/mapping.py` and must be
+  preserved/re-applied on future OpenAPI regenerations.
+
 ## 3.2.7 (2026-05-07)
 
 ### Bug Fixes
