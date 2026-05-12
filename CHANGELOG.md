@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.2.9 (2026-05-12)
+
+### Bug Fixes
+
+- **`get_authorization_server`** (`GET /api/2/api_authorizations/{id}`): Auth servers
+  are implemented as Apps rows with `auth_type=9`. The underlying `apps.description`
+  column is nullable in core-api, so the endpoint returns `"description": null` for
+  any auth server created without a description. The SDK had typed `AuthServer.description`
+  as required `StrictStr`, causing pydantic `ValidationError` on those responses.
+  `description` is now `Optional[StrictStr]` (defaulting to `None`), so null/absent
+  descriptions deserialize correctly. The existing `exclude_none=True` in `to_dict`
+  drops it from request bodies when unset.
+
 ## 3.2.8 (2026-05-12)
 
 ### Bug Fixes

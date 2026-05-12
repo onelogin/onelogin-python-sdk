@@ -23,7 +23,7 @@ class AuthServer(BaseModel):
     """
     id: Optional[StrictInt] = Field(None, description="Auth server unique ID in Onelogin")
     name: StrictStr = Field(..., description="Name of the API.")
-    description: StrictStr = Field(..., description="Description of what the API does.")
+    description: Optional[StrictStr] = Field(None, description="Description of what the API does.")
     configuration: AuthServerConfiguration = ...
     __properties = ["id", "name", "description", "configuration"]
 
