@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.0.1 (2026-07-02)
+
+### Bug Fixes
+
+- **`remove_role_users` / `remove_role_admins`** (`DELETE /api/2/roles/{role_id}/users`
+  and `.../admins`): both methods were broken since the SDK was generated — they
+  serialized the body as `{"user_id": [...]}`, but the API parses these endpoints with
+  a strict array parser and rejects the object form with
+  400 `"Expected array in request"` (issue #134). The sibling `add_role_users` had the
+  correct raw-array body all along; the OpenAPI spec transcribed the wrong shape for
+  the DELETEs. Both methods now send a raw JSON array (e.g. `[123, 456]`) and accept a
+  plain `List[int]`, matching `add_role_users`. Passing a `RemoveRoleUsersRequest` is
+  still accepted for backward compatibility and is unwrapped to the raw array before
+  sending; the class is now documented as deprecated.
+
 ## 4.0.0 (2026-05-12)
 
 ### Breaking Changes

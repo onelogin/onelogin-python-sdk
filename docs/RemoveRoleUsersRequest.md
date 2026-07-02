@@ -1,5 +1,9 @@
 # RemoveRoleUsersRequest
 
+**Deprecated.** The remove-role-users and remove-role-admins endpoints expect a raw JSON
+array of user ids (e.g. `[123, 456]`), not an object. Pass a plain `List[int]` to
+`remove_role_users` / `remove_role_admins` instead. Instances of this class are still
+accepted and are unwrapped to the raw array before sending.
 
 ## Properties
 Name | Type | Description | Notes

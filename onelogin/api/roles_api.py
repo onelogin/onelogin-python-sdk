@@ -14,7 +14,7 @@ from typing_extensions import Annotated
 
 from pydantic import Field, StrictBool, StrictInt, StrictStr, conlist
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from onelogin.models.create_role201_response_inner import CreateRole201ResponseInner
 from onelogin.models.get_role_apps200_response_inner import GetRoleApps200ResponseInner
@@ -1785,7 +1785,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_call
-    def remove_role_admins(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> None:  # noqa: E501
+    def remove_role_admins(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : Union[conlist(StrictInt), RemoveRoleUsersRequest], **kwargs) -> None:  # noqa: E501
         """Remove Role Admins  # noqa: E501
 
         Remove Role Admins  # noqa: E501
@@ -1797,8 +1797,8 @@ class RolesApi(object):
 
         :param role_id: Set to the id of the role you want to return. (required)
         :type role_id: str
-        :param remove_role_users_request: (required)
-        :type remove_role_users_request: RemoveRoleUsersRequest
+        :param remove_role_users_request: List of user ids to remove, e.g. [123, 456]. Passing a RemoveRoleUsersRequest is deprecated. (required)
+        :type remove_role_users_request: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request. If one
@@ -1816,7 +1816,7 @@ class RolesApi(object):
         return self.remove_role_admins_with_http_info(role_id, remove_role_users_request, **kwargs)  # noqa: E501
 
     @validate_call
-    def remove_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def remove_role_admins_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : Union[conlist(StrictInt), RemoveRoleUsersRequest], **kwargs) -> ApiResponse:  # noqa: E501
         """Remove Role Admins  # noqa: E501
 
         Remove Role Admins  # noqa: E501
@@ -1828,8 +1828,8 @@ class RolesApi(object):
 
         :param role_id: Set to the id of the role you want to return. (required)
         :type role_id: str
-        :param remove_role_users_request: (required)
-        :type remove_role_users_request: RemoveRoleUsersRequest
+        :param remove_role_users_request: List of user ids to remove, e.g. [123, 456]. Passing a RemoveRoleUsersRequest is deprecated. (required)
+        :type remove_role_users_request: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
@@ -1899,9 +1899,13 @@ class RolesApi(object):
         _form_params = []
         _files = {}
         # process the body parameter
+        # The API expects a raw JSON array of user ids; unwrap the deprecated
+        # RemoveRoleUsersRequest form so both call styles serialize correctly.
         _body_params = None
         if _params['remove_role_users_request'] is not None:
             _body_params = _params['remove_role_users_request']
+            if isinstance(_body_params, RemoveRoleUsersRequest):
+                _body_params = _body_params.user_id or []
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
@@ -1937,7 +1941,7 @@ class RolesApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_call
-    def remove_role_users(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> None:  # noqa: E501
+    def remove_role_users(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : Union[conlist(StrictInt), RemoveRoleUsersRequest], **kwargs) -> None:  # noqa: E501
         """Remove Role Users  # noqa: E501
 
         Remove Role Users  # noqa: E501
@@ -1949,8 +1953,8 @@ class RolesApi(object):
 
         :param role_id: Set to the id of the role you want to return. (required)
         :type role_id: str
-        :param remove_role_users_request: (required)
-        :type remove_role_users_request: RemoveRoleUsersRequest
+        :param remove_role_users_request: List of user ids to remove, e.g. [123, 456]. Passing a RemoveRoleUsersRequest is deprecated. (required)
+        :type remove_role_users_request: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request. If one
@@ -1968,7 +1972,7 @@ class RolesApi(object):
         return self.remove_role_users_with_http_info(role_id, remove_role_users_request, **kwargs)  # noqa: E501
 
     @validate_call
-    def remove_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : RemoveRoleUsersRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def remove_role_users_with_http_info(self, role_id : Annotated[StrictStr, Field(..., description="Set to the id of the role you want to return.")], remove_role_users_request : Union[conlist(StrictInt), RemoveRoleUsersRequest], **kwargs) -> ApiResponse:  # noqa: E501
         """Remove Role Users  # noqa: E501
 
         Remove Role Users  # noqa: E501
@@ -1980,8 +1984,8 @@ class RolesApi(object):
 
         :param role_id: Set to the id of the role you want to return. (required)
         :type role_id: str
-        :param remove_role_users_request: (required)
-        :type remove_role_users_request: RemoveRoleUsersRequest
+        :param remove_role_users_request: List of user ids to remove, e.g. [123, 456]. Passing a RemoveRoleUsersRequest is deprecated. (required)
+        :type remove_role_users_request: List[int]
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
@@ -2051,9 +2055,13 @@ class RolesApi(object):
         _form_params = []
         _files = {}
         # process the body parameter
+        # The API expects a raw JSON array of user ids; unwrap the deprecated
+        # RemoveRoleUsersRequest form so both call styles serialize correctly.
         _body_params = None
         if _params['remove_role_users_request'] is not None:
             _body_params = _params['remove_role_users_request']
+            if isinstance(_body_params, RemoveRoleUsersRequest):
+                _body_params = _body_params.user_id or []
 
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
