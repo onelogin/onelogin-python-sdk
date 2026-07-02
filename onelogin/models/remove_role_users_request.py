@@ -19,6 +19,11 @@ from pydantic import BaseModel, StrictInt, conlist
 class RemoveRoleUsersRequest(BaseModel):
     """
     RemoveRoleUsersRequest
+
+    Deprecated: the remove_role_users / remove_role_admins endpoints expect a raw
+    JSON array of user ids, not an object. Pass a plain list (e.g. [123, 456]) to
+    those methods instead. This class is kept for backward compatibility; the
+    RolesApi methods unwrap it to the raw array before sending.
     """
     user_id: Optional[conlist(StrictInt)] = None
     __properties = ["user_id"]

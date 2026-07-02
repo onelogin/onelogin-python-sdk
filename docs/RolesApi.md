@@ -889,7 +889,7 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
     role_id = 'role_id_example' # str | Set to the id of the role you want to return.
-    remove_role_users_request = onelogin.RemoveRoleUsersRequest() # RemoveRoleUsersRequest | 
+    remove_role_users_request = [123, 456] # List[int] | user ids to remove
 
     try:
         # Remove Role Admins
@@ -903,7 +903,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **role_id** | **str**| Set to the id of the role you want to return. | 
- **remove_role_users_request** | [**RemoveRoleUsersRequest**](RemoveRoleUsersRequest.md)|  | 
+ **remove_role_users_request** | **List[int]**| user ids to remove, e.g. `[123, 456]` — the API expects a raw JSON array. Passing a [RemoveRoleUsersRequest](RemoveRoleUsersRequest.md) is deprecated but still accepted. | 
 
 ### Return type
 
@@ -961,7 +961,7 @@ with onelogin.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = onelogin.RolesApi(api_client)
     role_id = 'role_id_example' # str | Set to the id of the role you want to return.
-    remove_role_users_request = onelogin.RemoveRoleUsersRequest() # RemoveRoleUsersRequest | 
+    remove_role_users_request = [123, 456] # List[int] | user ids to remove
 
     try:
         # Remove Role Users
@@ -975,7 +975,7 @@ with onelogin.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **role_id** | **str**| Set to the id of the role you want to return. | 
- **remove_role_users_request** | [**RemoveRoleUsersRequest**](RemoveRoleUsersRequest.md)|  | 
+ **remove_role_users_request** | **List[int]**| user ids to remove, e.g. `[123, 456]` — the API expects a raw JSON array. Passing a [RemoveRoleUsersRequest](RemoveRoleUsersRequest.md) is deprecated but still accepted. | 
 
 ### Return type
 

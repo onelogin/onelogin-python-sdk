@@ -160,6 +160,51 @@ class TestRolesApi(unittest.TestCase):
             result = self.api.create_role()
         self.assertNotIsInstance(result, list)
 
+    def _make_empty_204_response(self):
+        mock_resp = MagicMock()
+        mock_resp.status = 204
+        mock_resp.reason = 'No Content'
+        mock_resp.data = b''
+        mock_resp.headers = {}
+        return mock_resp
+
+    def _sent_body(self, mock_request):
+        """Return the JSON-decoded body the SDK actually sent."""
+        return json.loads(mock_request.call_args.kwargs['body'])
+
+    def test_remove_role_users_sends_raw_array(self):
+        """remove_role_users must send a raw JSON array of user ids.
+
+        The API rejects the object form with 400 'Expected array in request'
+        (GitHub issue #134): DELETE /api/2/roles/{role_id}/users parses its
+        body with a strict array parser.
+        """
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=self._make_empty_204_response()
+        ) as mock_request:
+            self.api.remove_role_users('789', [123, 456])
+        self.assertEqual(self._sent_body(mock_request), [123, 456])
+
+    def test_remove_role_users_unwraps_legacy_request_model(self):
+        """The deprecated RemoveRoleUsersRequest form must still serialize to a raw array."""
+        legacy = onelogin.RemoveRoleUsersRequest(user_id=[123, 456])
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=self._make_empty_204_response()
+        ) as mock_request:
+            self.api.remove_role_users('789', legacy)
+        self.assertEqual(self._sent_body(mock_request), [123, 456])
+
+    def test_remove_role_admins_sends_raw_array(self):
+        """remove_role_admins shares the same raw-array body requirement."""
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=self._make_empty_204_response()
+        ) as mock_request:
+            self.api.remove_role_admins('789', [42])
+        self.assertEqual(self._sent_body(mock_request), [42])
+
 
 if __name__ == '__main__':
     unittest.main()
