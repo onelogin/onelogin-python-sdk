@@ -205,6 +205,20 @@ class TestRolesApi(unittest.TestCase):
             self.api.remove_role_admins('789', [42])
         self.assertEqual(self._sent_body(mock_request), [42])
 
+    def test_remove_role_admins_unwraps_legacy_request_model(self):
+        """The deprecated RemoveRoleUsersRequest form must also unwrap for admins.
+
+        The unwrap logic is duplicated per method, not shared, so admins needs
+        its own regression coverage.
+        """
+        legacy = onelogin.RemoveRoleUsersRequest(user_id=[42, 43])
+        with patch.object(
+            self.api.api_client.rest_client.pool_manager, 'request',
+            return_value=self._make_empty_204_response()
+        ) as mock_request:
+            self.api.remove_role_admins('789', legacy)
+        self.assertEqual(self._sent_body(mock_request), [42, 43])
+
 
 if __name__ == '__main__':
     unittest.main()
